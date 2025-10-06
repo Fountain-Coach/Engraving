@@ -361,6 +361,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 612
+  status: ratified
   depends_on:
   - RULE.Lyrics.vertical_alignment_with_baselines
   inputs:
@@ -1644,6 +1645,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 612
+  status: ratified
   depends_on:
   - RULE.Lyrics.vertical_alignment_with_baselines
   inputs:

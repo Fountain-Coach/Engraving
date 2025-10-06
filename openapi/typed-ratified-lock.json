@@ -79,6 +79,11 @@
     "request": "7b0c0876eaf260ffdcfc2d726f0f9d85aac0c2d418fbf89225cf532e48b92872",
     "response": "8ddb72d815503f62ab3eddce28fd58d4cc5b6008f46713218c0b2c712c693fb7"
   },
+  "RULE.Lyrics.hyphen_melisma_spacing_interaction": {
+    "path": "/apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction",
+    "request": "e8a67ca9fe8dd3334410a2cd3714fa4499002ea61b53d473c8af0fed4e9c5263",
+    "response": "a4c072a76ab5259fa9d6b8208406a05ed97184f3aeb0fe2956e2dec030b28e85"
+  },
   "RULE.RestCollision.resolve_overlaps": {
     "path": "/apply/collision/RestCollision-resolve_overlaps",
     "request": "452cdcafb0b43e04cbb1cfce5eecf16c573a7c06c47dade8e50ce927b97f9e9e",
@@ -93,6 +98,11 @@
     "path": "/apply/spacing/NoteSpacing-spacing_policy",
     "request": "7cdd3a833cc6a0cfea8e09b045626fb6165035583f3832356f0ac214515ffea4",
     "response": "a5860551c09a73456c3d992813878754bb4bf85a22c488591a699b17844fb913"
+  },
+  "RULE.Lyrics.extender_spacing_policy": {
+    "path": "/apply/verticalstack/Lyrics-extender_spacing_policy",
+    "request": "0d3773b699ac78c0a84d47ce9710c6ebaaaace0f39b20396cb6dc3a32204ff56",
+    "response": "3225a3653306ad8a7881a71c8ed0b4c28a236823caf715b67a30af88b5f82e63"
   },
   "RULE.PercentRepeat.layout_policy": {
     "path": "/apply/verticalstack/PercentRepeat-layout_policy",

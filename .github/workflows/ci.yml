@@ -44,5 +44,7 @@ jobs:
           PY
       - name: Typed spec lint (determinism)
         run: python scripts/lint_typed_openapi.py
+      - name: Rule tests gate (ratified rules)
+        run: python scripts/check_rule_tests.py
       - name: Property parity gate (grob properties)
         run: python scripts/check_property_parity.py

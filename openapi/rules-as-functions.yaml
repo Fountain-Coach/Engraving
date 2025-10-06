@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:53:54.878300
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:56:52.451266
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -482,6 +482,7 @@ paths:
             - path: /lyricOffsets/count
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs:
         - lyricsText.bbox
   /apply/spacing/NoteSpacing-spacing_policy:
@@ -2179,6 +2180,7 @@ paths:
             - path: /minLineLengthSP
               op: '>='
               value: 1.0
+        status: ratified
   /apply/verticalstack/HorizontalBracket-placement_policy:
     post:
       operationId: RULE.HorizontalBracket.placement_policy

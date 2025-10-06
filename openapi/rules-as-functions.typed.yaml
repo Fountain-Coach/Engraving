@@ -3507,9 +3507,9 @@ paths:
             - path: /lyricOffsets/count
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs:
         - lyricsText.bbox
-        status: provisional
   /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
     post:
       operationId: RULE.Lyrics.baseline_adjustment_with_variance
@@ -4077,7 +4077,7 @@ paths:
             - path: /minLineLengthSP
               op: '>='
               value: 1.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/MetronomeMark-placement_policy:
     post:
       operationId: RULE.MetronomeMark.placement_policy
