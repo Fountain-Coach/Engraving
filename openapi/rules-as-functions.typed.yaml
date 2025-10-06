@@ -1,9 +1,10 @@
 openapi: 3.1.0
 info:
-  title: Engraving Rules (Functions) — Typed
-  version: "0.2.0"
-  description: |
-    Typed variant for first-class code generation in Swift 6 (and others).
+  title: "Engraving Rules (Functions) \u2014 Typed"
+  version: 0.2.0
+  description: 'Typed variant for first-class code generation in Swift 6 (and others).
+
+    '
 servers: []
 components:
   schemas:
@@ -13,55 +14,130 @@ components:
     BBox:
       type: object
       properties:
-        x: { type: number }
-        y: { type: number }
-        w: { type: number }
-        h: { type: number }
-      required: [x, y, w, h]
+        x:
+          type: number
+        y:
+          type: number
+        w:
+          type: number
+        h:
+          type: number
+      required:
+      - x
+      - y
+      - w
+      - h
     SpacingDurationBaseInput:
       type: object
       properties:
-        durations: { type: array, items: { type: string, enum: [w, h, q, e, s, t, x] } }
-        stems: { type: array, items: { type: string, enum: [up, down] } }
-        preItems: { type: array, items: { type: string, enum: [accidental, none] } }
-        postItems: { type: array, items: { type: string, enum: [stacc, accent, none] } }
-        noteheadWidths: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
-        minColumnGap: { $ref: "#/components/schemas/StaffSpace" }
-        accidentalPadding: { $ref: "#/components/schemas/StaffSpace" }
-      required: [durations, noteheadWidths]
+        durations:
+          type: array
+          items:
+            type: string
+            enum:
+            - w
+            - h
+            - q
+            - e
+            - s
+            - t
+            - x
+        stems:
+          type: array
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        preItems:
+          type: array
+          items:
+            type: string
+            enum:
+            - accidental
+            - none
+        postItems:
+          type: array
+          items:
+            type: string
+            enum:
+            - stacc
+            - accent
+            - none
+        noteheadWidths:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        minColumnGap:
+          $ref: '#/components/schemas/StaffSpace'
+        accidentalPadding:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - durations
+      - noteheadWidths
     SpacingDurationBaseOutput:
       type: object
       properties:
-        columnPositions: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
-        columnMinWidths: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
-        gaps: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
-        leadIn: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
-      required: [columnPositions]
+        columnPositions:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        columnMinWidths:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        gaps:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        leadIn:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - columnPositions
     BeamingKneeInput:
       type: object
       properties:
-        verticalGapSP: { $ref: "#/components/schemas/StaffSpace" }
-        beamThicknessSP: { $ref: "#/components/schemas/StaffSpace" }
-      required: [verticalGapSP, beamThicknessSP]
+        verticalGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - verticalGapSP
+      - beamThicknessSP
     BeamingKneeOutput:
       type: object
       properties:
-        kneed: { type: boolean }
-        thresholdUsedSP: { $ref: "#/components/schemas/StaffSpace" }
-      required: [kneed]
+        kneed:
+          type: boolean
+        thresholdUsedSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - kneed
     AccidentalLeadInInput:
       type: object
       properties:
-        accidentalBBox: { $ref: "#/components/schemas/BBox" }
-        columnLeft: { type: number }
-        noteheadWidthSP: { $ref: "#/components/schemas/StaffSpace" }
-        paddingSP: { $ref: "#/components/schemas/StaffSpace" }
-      required: [accidentalBBox, columnLeft, noteheadWidthSP, paddingSP]
+        accidentalBBox:
+          $ref: '#/components/schemas/BBox'
+        columnLeft:
+          type: number
+        noteheadWidthSP:
+          $ref: '#/components/schemas/StaffSpace'
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - accidentalBBox
+      - columnLeft
+      - noteheadWidthSP
+      - paddingSP
     AccidentalLeadInOutput:
       type: object
       properties:
-        columnMinWidthSP: { $ref: "#/components/schemas/StaffSpace" }
-      required: [columnMinWidthSP]
+        columnMinWidthSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - columnMinWidthSP
     SlurInput:
       type: object
       properties:
@@ -70,18 +146,145 @@ components:
           items:
             type: object
             properties:
-              controlPoints: { type: array, items: { type: number } }
-              curvature: { type: number }
-              collisions: { type: integer }
-            required: [controlPoints]
-      required: [candidates]
+              controlPoints:
+                type: array
+                items:
+                  type: number
+              curvature:
+                type: number
+              collisions:
+                type: integer
+            required:
+            - controlPoints
+      required:
+      - candidates
     SlurOutput:
       type: object
       properties:
-        chosenIndex: { type: integer }
-        minClearanceSP: { $ref: "#/components/schemas/StaffSpace" }
-        score: { type: number }
-      required: [chosenIndex]
+        chosenIndex:
+          type: integer
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+        score:
+          type: number
+      required:
+      - chosenIndex
+    RuleInput:
+      type: object
+      additionalProperties: false
+      properties: {}
+    RuleOutput:
+      type: object
+      additionalProperties: false
+      properties: {}
+    BeamSegment:
+      type: object
+      properties:
+        x1: { type: number }
+        y1: { type: number }
+        x2: { type: number }
+        y2: { type: number }
+      required: [x1, y1, x2, y2]
+    BeamGeometryInput:
+      type: object
+      properties:
+        notePositionsSP: { type: array, items: { $ref: '#/components/schemas/StaffSpace' } }
+        stemDirections: { type: array, items: { type: string, enum: [up, down] } }
+        beamThicknessSP: { $ref: '#/components/schemas/StaffSpace' }
+      required: [notePositionsSP, stemDirections, beamThicknessSP]
+    BeamGeometryOutput:
+      type: object
+      properties:
+        slopeSPPerSpace: { type: number }
+        segments: { type: array, items: { $ref: '#/components/schemas/BeamSegment' } }
+      required: [slopeSPPerSpace, segments]
+    RestSplitInput:
+      type: object
+      properties:
+        sequence: { type: array, items: { type: string, enum: [note, rest] } }
+      required: [sequence]
+    RestSplitOutput:
+      type: object
+      properties:
+        groups: { type: array, items: { type: array, items: { type: integer } } }
+        beamBreaks: { type: array, items: { type: integer } }
+      required: [groups]
+    Pitch:
+      type: object
+      properties:
+        step: { type: string, enum: [C, D, E, F, G, A, B] }
+        alter: { type: integer }
+        octave: { type: integer }
+      required: [step, alter, octave]
+    AccidentalCautionaryInput:
+      type: object
+      properties:
+        previousSpelling: { $ref: '#/components/schemas/Pitch' }
+        currentSpelling: { $ref: '#/components/schemas/Pitch' }
+      required: [previousSpelling, currentSpelling]
+    AccidentalCautionaryOutput:
+      type: object
+      properties:
+        showCautionary: { type: boolean }
+        parenthesized: { type: boolean }
+      required: [showCautionary]
+    AccidentalMicrotonalInput:
+      type: object
+      properties:
+        pitchAlterCents: { type: number }
+        baseSpacingSP: { $ref: '#/components/schemas/StaffSpace' }
+      required: [pitchAlterCents]
+    AccidentalMicrotonalOutput:
+      type: object
+      properties:
+        chosenGlyph: { type: string }
+        paddingSP: { $ref: '#/components/schemas/StaffSpace' }
+      required: [chosenGlyph]
+    CourtesyKeyInput:
+      type: object
+      properties:
+        upcomingKey: { type: object, properties: { fifths: { type: integer } }, required: [fifths] }
+        atSystemEnd: { type: boolean }
+      required: [upcomingKey, atSystemEnd]
+    CourtesyKeyOutput:
+      type: object
+      properties:
+        showCourtesy: { type: boolean }
+      required: [showCourtesy]
+    CourtesyTimeInput:
+      type: object
+      properties:
+        upcomingTimeSig: { type: object, properties: { beatsPerBar: { type: integer }, beatUnit: { type: integer } }, required: [beatsPerBar, beatUnit] }
+        atSystemEnd: { type: boolean }
+      required: [upcomingTimeSig, atSystemEnd]
+    CourtesyTimeOutput:
+      type: object
+      properties:
+        showCourtesy: { type: boolean }
+      required: [showCourtesy]
+    TieCurvatureInput:
+      type: object
+      properties:
+        start: { $ref: '#/components/schemas/BBox' }
+        end: { $ref: '#/components/schemas/BBox' }
+        nearbyGrobs: { type: array, items: { $ref: '#/components/schemas/BBox' } }
+      required: [start, end]
+    TieCurvatureOutput:
+      type: object
+      properties:
+        minClearanceSP: { $ref: '#/components/schemas/StaffSpace' }
+      required: [minClearanceSP]
+    LyricsAlignInput:
+      type: object
+      properties:
+        lyricBBox: { $ref: '#/components/schemas/BBox' }
+        staffBaseline: { $ref: '#/components/schemas/StaffSpace' }
+      required: [lyricBBox, staffBaseline]
+    LyricsAlignOutput:
+      type: object
+      properties:
+        yOffsetSP: { $ref: '#/components/schemas/StaffSpace' }
+      required: [yOffsetSP]
 paths:
   /apply/spacing/duration-base-with-optical-corrections:
     post:
@@ -92,21 +295,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SpacingDurationBaseInput"
+              $ref: '#/components/schemas/SpacingDurationBaseInput'
       responses:
-        "200":
+        '200':
           description: Column positions and min widths
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SpacingDurationBaseOutput"
+                $ref: '#/components/schemas/SpacingDurationBaseOutput'
       x-rule:
         agent: SpacingAgent
         intent: spacing
         priority: 100
       x-smufl:
-        - noteheadBlack.advance
-        - noteheadWhole.advance
+      - noteheadBlack.advance
+      - noteheadWhole.advance
   /apply/beaming/auto-knee-threshold:
     post:
       operationId: RULE.Beaming.auto_knee_threshold
@@ -116,20 +319,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/BeamingKneeInput"
+              $ref: '#/components/schemas/BeamingKneeInput'
       responses:
-        "200":
+        '200':
           description: Kneed decision and threshold used
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BeamingKneeOutput"
+                $ref: '#/components/schemas/BeamingKneeOutput'
       x-rule:
         agent: BeamingAgent
         intent: placement
         priority: 200
       x-smufl:
-        - beam.thickness
+      - beam.thickness
   /apply/accidental/leading-padding-and-column-inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation
@@ -139,22 +342,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AccidentalLeadInInput"
+              $ref: '#/components/schemas/AccidentalLeadInInput'
       responses:
-        "200":
+        '200':
           description: Updated column minimum width
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AccidentalLeadInOutput"
+                $ref: '#/components/schemas/AccidentalLeadInOutput'
       x-rule:
         agent: AccidentalAgent
         intent: spacing
         priority: 400
       x-smufl:
-        - accidentalSharp.bbox
-        - accidentalFlat.bbox
-        - accidentalNatural.bbox
+      - accidentalSharp.bbox
+      - accidentalFlat.bbox
+      - accidentalNatural.bbox
   /apply/slur/curvature-choice-with-collision-penalty:
     post:
       operationId: RULE.Slur.curvature_choice_with_collision_penalty
@@ -164,18 +367,613 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SlurInput"
+              $ref: '#/components/schemas/SlurInput'
       responses:
-        "200":
+        '200':
           description: Chosen control points and score
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SlurOutput"
+                $ref: '#/components/schemas/SlurOutput'
       x-rule:
         agent: TieSlurAgent
         intent: placement
         priority: 300
       x-smufl:
-        - noteheadBlack.bbox
-        - accidentalSharp.bbox
+      - noteheadBlack.bbox
+      - accidentalSharp.bbox
+  /apply/spacing/Spacing-duration_base_with_optical_corrections:
+    post:
+      operationId: RULE.Spacing.duration_base_with_optical_corrections
+      summary: Duration-proportional spacing with optical adjustments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/spacing/Spacing-keep_inside_system_constraints:
+    post:
+      operationId: RULE.Spacing.keep_inside_system_constraints
+      summary: Keep-inside-line/system packing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/beaming/Beaming-auto_knee_threshold:
+    post:
+      operationId: RULE.Beaming.auto_knee_threshold
+      summary: Insert kneed beam on excessive vertical gap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/beaming/Beaming-compound_meter_grouping:
+    post:
+      operationId: RULE.Beaming.compound_meter_grouping
+      summary: Group beams by dotted-beat in compound meters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/beaming/Beaming-geometry_slope_and_segments:
+    post:
+      operationId: RULE.Beaming.geometry_slope_and_segments
+      summary: Beam slope and segment geometry selection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamGeometryInput'
+      responses:
+        '200':
+          description: Beam slope and segments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamGeometryOutput'
+  /apply/beaming/Beaming-rests_split_groups:
+    post:
+      operationId: RULE.Beaming.rests_split_groups
+      summary: Split beamed groups at rests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestSplitInput'
+      responses:
+        '200':
+          description: Groups split at rests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestSplitOutput'
+  /apply/beaming/Beaming-subdivision_preference:
+    post:
+      operationId: RULE.Beaming.subdivision_preference
+      summary: Subdivide beams according to meter grouping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/beaming/Beaming-suppress_flags_when_beamed:
+    post:
+      operationId: RULE.Beaming.suppress_flags_when_beamed
+      summary: Suppress individual flags on notes within beamed groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
+    post:
+      operationId: RULE.Slur.curvature_choice_with_collision_penalty
+      summary: Slur curvature selected by minimal collision/penalty
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/collision/Collision-priority_lattice:
+    post:
+      operationId: RULE.Collision.priority_lattice
+      summary: Collision resolution priority ordering
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/accidental/Accidental-leading_padding_and_column_inflation:
+    post:
+      operationId: RULE.Accidental.leading_padding_and_column_inflation
+      summary: Accidental lead-in spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/accidental/Accidental-cautionary_parenthesized_policy:
+    post:
+      operationId: RULE.Accidental.cautionary_parenthesized_policy
+      summary: "Cautionary (courtesy) accidentals \u2014 parenthesized policy"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccidentalCautionaryInput'
+      responses:
+        '200':
+          description: Cautionary accidentals policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentalCautionaryOutput'
+  /apply/accidental/Accidental-microtonal_glyph_selection_and_spacing:
+    post:
+      operationId: RULE.Accidental.microtonal_glyph_selection_and_spacing
+      summary: Microtonal accidental glyph selection and spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccidentalMicrotonalInput'
+      responses:
+        '200':
+          description: Microtonal glyph and spacing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentalMicrotonalOutput'
+  /apply/tieslur/Tie-curvature_selection_with_clearance:
+    post:
+      operationId: RULE.Tie.curvature_selection_with_clearance
+      summary: Tie curvature selected with clearance from noteheads
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TieCurvatureInput'
+      responses:
+        '200':
+          description: Tie curvature clearance report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TieCurvatureOutput'
+  /apply/accidental/Clef-mid_system_placement:
+    post:
+      operationId: RULE.Clef.mid_system_placement
+      summary: Mid-system clef placement and spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/accidental/KeySignature-courtesy_at_line_breaks:
+    post:
+      operationId: RULE.KeySignature.courtesy_at_line_breaks
+      summary: Courtesy key signature at system breaks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourtesyKeyInput'
+      responses:
+        '200':
+          description: Courtesy key decision
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourtesyKeyOutput'
+  /apply/accidental/TimeSignature-courtesy_at_line_breaks:
+    post:
+      operationId: RULE.TimeSignature.courtesy_at_line_breaks
+      summary: Courtesy time signature at system breaks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourtesyTimeInput'
+      responses:
+        '200':
+          description: Courtesy time decision
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourtesyTimeOutput'
+  /apply/verticalstack/Lyrics-vertical_alignment_with_baselines:
+    post:
+      operationId: RULE.Lyrics.vertical_alignment_with_baselines
+      summary: Lyrics vertical alignment relative to staff baselines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsAlignInput'
+      responses:
+        '200':
+          description: Lyrics offset result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsAlignOutput'
+  /apply/collision/Ornaments-placement_above_below_with_collision:
+    post:
+      operationId: RULE.Ornaments.placement_above_below_with_collision
+      summary: Ornaments placement above/below with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/PartStaff-braces_brackets_layout:
+    post:
+      operationId: RULE.PartStaff.braces_brackets_layout
+      summary: Braces and brackets placement for part/staff groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/spacing/MultiVoice-stem_directions_up_down:
+    post:
+      operationId: RULE.MultiVoice.stem_directions_up_down
+      summary: Stem directions in multi-voice contexts (up/down)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/pagination/MultiMeasureRests-layout_policy:
+    post:
+      operationId: RULE.MultiMeasureRests.layout_policy
+      summary: Multi-measure rests layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/beaming/Tuplet-beaming_and_bracket_placement:
+    post:
+      operationId: RULE.Tuplet.beaming_and_bracket_placement
+      summary: Tuplet beaming and bracket placement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/spacing/Grace-clusters_width_policy:
+    post:
+      operationId: RULE.Grace.clusters_width_policy
+      summary: Grace clusters width and spacing policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/beaming/CrossStaff-beaming_policy:
+    post:
+      operationId: RULE.CrossStaff.beaming_policy
+      summary: Cross-staff beaming policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/Ottava-placement_policy:
+    post:
+      operationId: RULE.Ottava.placement_policy
+      summary: Ottava line placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/pagination/RepeatVolta-layout_policy:
+    post:
+      operationId: RULE.RepeatVolta.layout_policy
+      summary: Repeat/Volta bracket layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/RehearsalMarks-placement_policy:
+    post:
+      operationId: RULE.RehearsalMarks.placement_policy
+      summary: Rehearsal mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/TempoMarks-placement_policy:
+    post:
+      operationId: RULE.TempoMarks.placement_policy
+      summary: Tempo mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/accidental/Accidental-key_signature_positions_by_clef:
+    post:
+      operationId: RULE.Accidental.key_signature_positions_by_clef
+      summary: Key signature accidental staff positions by clef and mode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/ledger/Ledger-shorten_near_accidental:
+    post:
+      operationId: RULE.Ledger.shorten_near_accidental
+      summary: Ledger line shortening when accidental adjacent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/Vertical-min_dist_padding_and_stretch:
+    post:
+      operationId: RULE.Vertical.min_dist_padding_and_stretch
+      summary: Staff and object vertical paddings within system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
+    post:
+      operationId: RULE.Dynamics.align_with_noteheads_and_stems
+      summary: Align dynamics to local musical anchors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
+    post:
+      operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
+      summary: System breaking to avoid overfull/underfull pages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
+    post:
+      operationId: RULE.OpticalSize.stroke_and_spacing_scalars
+      summary: Adjust line weights and spacing with staff size
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
