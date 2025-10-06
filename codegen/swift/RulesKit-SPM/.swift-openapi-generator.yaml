@@ -1,5 +1,2 @@
-targets:
-  RulesKit:
-    input:
-      - path: Sources/RulesKit/openapi/rules-as-functions.yaml
-        accessModifier: public
+generation:
+  accessModifier: public
