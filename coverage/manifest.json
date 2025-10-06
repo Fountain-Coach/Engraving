@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "agents": {
+    "SpacingAgent": {
+      "declaredRules": [
+        "RULE.Spacing.duration_base_with_optical_corrections",
+        "RULE.Spacing.keep_inside_system_constraints"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Spacing.duration_base_with_optical_corrections",
+        "RULE.Spacing.keep_inside_system_constraints"
+      ]
+    },
+    "BeamingAgent": {
+      "declaredRules": [
+        "RULE.Beaming.auto_knee_threshold",
+        "RULE.Beaming.subdivision_preference"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Beaming.auto_knee_threshold"
+      ]
+    },
+    "TieSlurAgent": {
+      "declaredRules": [
+        "RULE.Slur.curvature_choice_with_collision_penalty"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Slur.curvature_choice_with_collision_penalty"
+      ]
+    },
+    "CollisionAgent": {
+      "declaredRules": [
+        "RULE.Collision.priority_lattice"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Collision.priority_lattice"
+      ]
+    },
+    "AccidentalAgent": {
+      "declaredRules": [
+        "RULE.Accidental.leading_padding_and_column_inflation"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Accidental.leading_padding_and_column_inflation"
+      ]
+    },
+    "LedgerAgent": {
+      "declaredRules": [
+        "RULE.Ledger.shorten_near_accidental"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Ledger.shorten_near_accidental"
+      ]
+    },
+    "VerticalStackAgent": {
+      "declaredRules": [
+        "RULE.Vertical.min_dist_padding_and_stretch"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Vertical.min_dist_padding_and_stretch"
+      ]
+    },
+    "DynamicsTextAgent": {
+      "declaredRules": [
+        "RULE.Dynamics.align_with_noteheads_and_stems"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Dynamics.align_with_noteheads_and_stems"
+      ]
+    },
+    "PaginationAgent": {
+      "declaredRules": [
+        "RULE.Pagination.castoff_fill_vs_overfull_penalties"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.Pagination.castoff_fill_vs_overfull_penalties"
+      ]
+    },
+    "OpticalSizingAgent": {
+      "declaredRules": [
+        "RULE.OpticalSize.stroke_and_spacing_scalars"
+      ],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": [
+        "RULE.OpticalSize.stroke_and_spacing_scalars"
+      ]
+    },
+    "FontMetricsAgent": {
+      "declaredRules": [],
+      "openapiOperations": [],
+      "traceComplete": [],
+      "testsPresent": []
+    }
+  }
+}

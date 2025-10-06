@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EngravingRule",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "agent",
+    "intent",
+    "priority",
+    "depends_on",
+    "inputs",
+    "parameters",
+    "procedure",
+    "exceptions",
+    "outputs",
+    "side_effects",
+    "test_plan",
+    "trace"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "agent": {
+      "type": "string"
+    },
+    "intent": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "integer"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "procedure": {
+      "type": "string"
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "side_effects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_plan": {
+      "type": "object",
+      "required": [
+        "cases"
+      ],
+      "properties": {
+        "cases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestCase"
+          }
+        },
+        "tolerances": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "fixtures": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "cmd": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "trace": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "smufl_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "Expectation": {
+      "type": "object",
+      "required": [
+        "path",
+        "op",
+        "value"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string",
+          "enum": [
+            "==",
+            ">=",
+            "<=",
+            "approx"
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "tolerance": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "TestCase": {
+      "type": "object",
+      "required": [
+        "name",
+        "expectations"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expectations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Expectation"
+          }
+        }
+      }
+    }
+  }
+}

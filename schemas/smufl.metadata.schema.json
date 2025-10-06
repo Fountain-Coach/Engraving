@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SMuFLGlyphMetadata",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "codepoint": {
+      "type": "string"
+    },
+    "advance": {
+      "type": "number"
+    },
+    "bbox": {
+      "$ref": "./bbox.schema.json"
+    },
+    "anchors": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "codepoint"
+  ]
+}

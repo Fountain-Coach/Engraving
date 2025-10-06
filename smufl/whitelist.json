@@ -1,0 +1,28 @@
+{
+  "glyphs": [
+    "gClef",
+    "fClef",
+    "cClef",
+    "noteheadWhole",
+    "noteheadHalf",
+    "noteheadBlack",
+    "accidentalSharp",
+    "accidentalFlat",
+    "accidentalNatural",
+    "dynamicPiano",
+    "dynamicForte",
+    "beam",
+    "staffLine",
+    "ledgerLine",
+    "lyricsText"
+  ],
+  "fields": [
+    "bbox",
+    "advance",
+    "anchors.stemUp",
+    "anchors.stemDown",
+    "baseline",
+    "stroke",
+    "thickness"
+  ]
+}

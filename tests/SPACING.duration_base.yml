@@ -1,0 +1,7 @@
+rule: RULE.Spacing.duration_base_with_optical_corrections
+fixtures: { font: Bravura, staffSize: "20pt", paper: A4 }
+cases:
+  - name: opposing_stems
+    expectations: [ { path: "/gaps/1", op: ">=", value: 0.7, tolerance: 0.1 } ]
+  - name: sharp_lead_in
+    expectations: [ { path: "/leadIn/2", op: ">=", value: 0.25, tolerance: 0.05 } ]

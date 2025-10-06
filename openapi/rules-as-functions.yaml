@@ -1,0 +1,515 @@
+openapi: 3.1.0
+info:
+  title: Engraving Rules (Functions)
+  version: 0.1.1
+  description: Generated with SMuFL mappings
+servers: []
+paths:
+  /apply/spacing/duration_base_with_optical_corrections:
+    post:
+      operationId: RULE.Spacing.duration_base_with_optical_corrections
+      summary: Duration-proportional spacing with optical adjustments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 100
+        depends_on: []
+        parameters:
+          min_column_gap: 0.5 sp
+          accidental_leading_padding: 0.25 sp
+          articulation_padding: 0.2 sp
+          optical_stem_adj_weight: '0.4'
+        exceptions:
+        - grace_clusters_scale_widths
+        trace:
+        - docs/horizontal-spacing
+        - internals/SpacingSpanner
+        test_plan:
+          cases:
+          - name: Opposing stems add optical gap
+            expectations:
+            - path: /gaps/1
+              op: '>='
+              value: 0.7
+              tolerance: 0.1
+          - name: Sharp causes lead-in
+            expectations:
+            - path: /leadIn/2
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+          fixtures:
+            font: Bravura
+            staffSize: 20pt
+            paper: A4
+      x-smufl:
+      - noteheadBlack.advance
+      - noteheadWhole.advance
+  /apply/spacing/keep_inside_system_constraints:
+    post:
+      operationId: RULE.Spacing.keep_inside_system_constraints
+      summary: Keep-inside-line/system packing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 110
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          line_fill_penalty: '1.0'
+          overfull_penalty: '10.0'
+        exceptions: []
+        trace:
+        - docs/line-breaking
+        test_plan:
+          cases:
+          - name: Near break threshold
+            expectations:
+            - path: /overfull
+              op: ==
+              value: 0.0
+      x-smufl:
+      - noteheadBlack.advance
+      - noteheadWhole.advance
+  /apply/beaming/auto_knee_threshold:
+    post:
+      operationId: RULE.Beaming.auto_knee_threshold
+      summary: Insert kneed beam on excessive vertical gap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 200
+        depends_on: []
+        parameters:
+          knee_gap_threshold: 5.5 sp + beam_thickness
+        exceptions:
+        - forced_beaming_overrides
+        trace:
+        - docs/beaming/auto-knee
+        - internals/beam-interface
+        test_plan:
+          cases:
+          - name: Large leap triggers knee
+            expectations:
+            - path: /kneed
+              op: ==
+              value: 1.0
+      x-smufl:
+      - beam.thickness
+  /apply/beaming/subdivision_preference:
+    post:
+      operationId: RULE.Beaming.subdivision_preference
+      summary: Subdivide beams according to meter grouping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 210
+        depends_on: []
+        parameters:
+          4/4: 2+2 eighths
+          7/8: 2+2+3 | 3+2+2
+        exceptions: []
+        trace:
+        - docs/beaming/subdivision
+        test_plan:
+          cases:
+          - name: 4/4 standard grouping
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 2.0
+      x-smufl:
+      - beam.thickness
+  /apply/tieslur/curvature_choice_with_collision_penalty:
+    post:
+      operationId: RULE.Slur.curvature_choice_with_collision_penalty
+      summary: Slur curvature selected by minimal collision/penalty
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 300
+        depends_on: []
+        parameters:
+          collision_penalty: '1.0'
+          excess_curvature_penalty: '0.4'
+          endpoint_clearance: 0.25 sp
+        exceptions:
+        - cross_system_phrase_looser
+        trace:
+        - docs/slurs
+        - internals/slur-grob
+        test_plan:
+          cases:
+          - name: Accidental under slur
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+      x-smufl: []
+  /apply/collision/priority_lattice:
+    post:
+      operationId: RULE.Collision.priority_lattice
+      summary: Collision resolution priority ordering
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 350
+        depends_on: []
+        parameters:
+          priority: stem > notehead > accidental > dynamic > lyric
+        exceptions:
+        - forced_positions
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Dynamic vs. lyric
+            expectations:
+            - path: /offsets/dynamic/y
+              op: '>='
+              value: 0.2
+              tolerance: 0.05
+      x-smufl:
+      - noteheadBlack.bbox
+      - dynamicForte.bbox
+      - lyricsText.bbox
+  /apply/accidental/leading_padding_and_column_inflation:
+    post:
+      operationId: RULE.Accidental.leading_padding_and_column_inflation
+      summary: Accidental lead-in spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: spacing
+        priority: 400
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          accidental_padding: 0.25 sp
+          cluster_stack_gap: 0.2 sp
+        exceptions: []
+        trace:
+        - docs/accidentals
+        - internals/spacing
+        test_plan:
+          cases:
+          - name: Single sharp
+            expectations:
+            - path: /columnMinWidthSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+      x-smufl:
+      - accidentalSharp.bbox
+      - accidentalFlat.bbox
+      - accidentalNatural.bbox
+  /apply/ledger/shorten_near_accidental:
+    post:
+      operationId: RULE.Ledger.shorten_near_accidental
+      summary: Ledger line shortening when accidental adjacent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: LedgerAgent
+        intent: shape
+        priority: 500
+        depends_on: []
+        parameters:
+          shorten_by: 0.4 sp
+        exceptions: []
+        trace:
+        - docs/ledger
+        - engraving-details/ledger-shortening
+        test_plan:
+          cases:
+          - name: High note with sharp
+            expectations:
+            - path: /adjustedLengthSP
+              op: ==
+              value: -0.4
+              tolerance: 0.0
+      x-smufl:
+      - ledgerLine.bbox
+      - accidentalSharp.bbox
+  /apply/verticalstack/min_dist_padding_and_stretch:
+    post:
+      operationId: RULE.Vertical.min_dist_padding_and_stretch
+      summary: Staff and object vertical paddings within system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 600
+        depends_on: []
+        parameters:
+          min_staff_gap: 1.5 sp
+          min_text_above_staff: 0.7 sp
+          stretch_weight: '1.0'
+        exceptions: []
+        trace:
+        - docs/vertical-spacing
+        - internals/VerticalAxisGroup
+        test_plan:
+          cases:
+          - name: Lyrics+dynamics two staves
+            expectations:
+            - path: /minStaffGap
+              op: '>='
+              value: 1.5
+              tolerance: 0.05
+      x-smufl:
+      - staffLine.thickness
+  /apply/dynamicstext/align_with_noteheads_and_stems:
+    post:
+      operationId: RULE.Dynamics.align_with_noteheads_and_stems
+      summary: Align dynamics to local musical anchors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 700
+        depends_on: []
+        parameters:
+          y_offset_preference: below
+          x_anchor_bias: columnCenter
+        exceptions: []
+        trace:
+        - docs/dynamics-alignment
+        test_plan:
+          cases:
+          - name: mp under beamed group
+            expectations:
+            - path: /dynamicPosition/y
+              op: <=
+              value: 0.0
+      x-smufl:
+      - dynamicPiano.baseline
+      - dynamicForte.baseline
+  /apply/pagination/castoff_fill_vs_overfull_penalties:
+    post:
+      operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
+      summary: System breaking to avoid overfull/underfull pages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: PaginationAgent
+        intent: pagination
+        priority: 800
+        depends_on:
+        - RULE.Spacing.keep_inside_system_constraints
+        parameters:
+          overfull_penalty: '10'
+          underfull_penalty: '2'
+          widow_orphan_penalty: '3'
+        exceptions: []
+        trace:
+        - docs/pagination
+        test_plan:
+          cases:
+          - name: Two-page balance
+            expectations:
+            - path: /overfull
+              op: ==
+              value: 0.0
+      x-smufl: []
+  /apply/opticalsizing/stroke_and_spacing_scalars:
+    post:
+      operationId: RULE.OpticalSize.stroke_and_spacing_scalars
+      summary: Adjust line weights and spacing with staff size
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: OpticalSizingAgent
+        intent: optical
+        priority: 900
+        depends_on: []
+        parameters:
+          stroke_scalar: f(size)
+          spacing_scalar: f(size)
+        exceptions: []
+        trace:
+        - docs/optical-sizing
+        test_plan:
+          cases:
+          - name: 15pt vs 20pt vs 26pt
+            expectations:
+            - path: /strokeScalar
+              op: approx
+              value: 1.0
+              tolerance: 0.3
+      x-smufl:
+      - staffLine.thickness
+      - noteheadBlack.stroke

@@ -1,0 +1,411 @@
+rules:
+- id: RULE.Spacing.duration_base_with_optical_corrections
+  title: Duration-proportional spacing with optical adjustments
+  agent: SpacingAgent
+  intent: spacing
+  priority: 100
+  depends_on: []
+  inputs:
+  - durations
+  - stems
+  - preItems
+  - postItems
+  - noteheadWidths
+  parameters:
+    min_column_gap: 0.5 sp
+    accidental_leading_padding: 0.25 sp
+    articulation_padding: 0.2 sp
+    optical_stem_adj_weight: '0.4'
+  procedure: 'Compute base widths from durations; inflate by pre/post items; add penalties
+    for opposing stems; increase gaps until below threshold; enforce min_column_gap.
+
+    '
+  exceptions:
+  - grace_clusters_scale_widths
+  outputs:
+  - columnPositions
+  - columnMinWidths
+  - gaps
+  - leadIn
+  side_effects:
+  - SpacingSpanner.constraints
+  test_plan:
+    cases:
+    - name: Opposing stems add optical gap
+      expectations:
+      - path: /gaps/1
+        op: '>='
+        value: 0.7
+        tolerance: 0.1
+    - name: Sharp causes lead-in
+      expectations:
+      - path: /leadIn/2
+        op: '>='
+        value: 0.25
+        tolerance: 0.05
+    fixtures:
+      font: Bravura
+      staffSize: 20pt
+      paper: A4
+  trace:
+  - docs/horizontal-spacing
+  - internals/SpacingSpanner
+  smufl_inputs:
+  - noteheadBlack.advance
+  - noteheadWhole.advance
+- id: RULE.Spacing.keep_inside_system_constraints
+  title: Keep-inside-line/system packing
+  agent: SpacingAgent
+  intent: spacing
+  priority: 110
+  depends_on:
+  - RULE.Spacing.duration_base_with_optical_corrections
+  inputs:
+  - lineWidth
+  - columns
+  parameters:
+    line_fill_penalty: '1.0'
+    overfull_penalty: '10.0'
+  procedure: Pack columns to fit width minimizing penalties; prohibit overflow; prefer
+    fewer loose ends.
+  exceptions: []
+  outputs:
+  - systemBreaks
+  - columnPositions
+  - overfull
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Near break threshold
+      expectations:
+      - path: /overfull
+        op: ==
+        value: 0.0
+  trace:
+  - docs/line-breaking
+  smufl_inputs:
+  - noteheadBlack.advance
+  - noteheadWhole.advance
+- id: RULE.Beaming.auto_knee_threshold
+  title: Insert kneed beam on excessive vertical gap
+  agent: BeamingAgent
+  intent: placement
+  priority: 200
+  depends_on: []
+  inputs:
+  - verticalGapSP
+  - beamThicknessSP
+  parameters:
+    knee_gap_threshold: 5.5 sp + beam_thickness
+  procedure: If vertical gap >= threshold, split beam and recompute segment angles.
+  exceptions:
+  - forced_beaming_overrides
+  outputs:
+  - beamSegments
+  - kneed
+  - thresholdUsedSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Large leap triggers knee
+      expectations:
+      - path: /kneed
+        op: ==
+        value: 1.0
+  trace:
+  - docs/beaming/auto-knee
+  - internals/beam-interface
+  smufl_inputs:
+  - beam.thickness
+- id: RULE.Beaming.subdivision_preference
+  title: Subdivide beams according to meter grouping
+  agent: BeamingAgent
+  intent: placement
+  priority: 210
+  depends_on: []
+  inputs:
+  - timeSignature
+  - noteValues
+  parameters:
+    4/4: 2+2 eighths
+    7/8: 2+2+3 | 3+2+2
+  procedure: Prefer breaks at sub-beat boundaries unless overridden.
+  exceptions: []
+  outputs:
+  - beamBreaks
+  side_effects: []
+  test_plan:
+    cases:
+    - name: 4/4 standard grouping
+      expectations:
+      - path: /beamBreaks/count
+        op: ==
+        value: 2.0
+  trace:
+  - docs/beaming/subdivision
+  smufl_inputs:
+  - beam.thickness
+- id: RULE.Slur.curvature_choice_with_collision_penalty
+  title: Slur curvature selected by minimal collision/penalty
+  agent: TieSlurAgent
+  intent: placement
+  priority: 300
+  depends_on: []
+  inputs:
+  - candidateCurves
+  - nearbyGrobs
+  parameters:
+    collision_penalty: '1.0'
+    excess_curvature_penalty: '0.4'
+    endpoint_clearance: 0.25 sp
+  procedure: Score candidates; penalize collisions and excess curvature; pick minimal
+    score with endpoint clearance.
+  exceptions:
+  - cross_system_phrase_looser
+  outputs:
+  - chosenCurveIndex
+  - minClearanceSP
+  - score
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Accidental under slur
+      expectations:
+      - path: /minClearanceSP
+        op: '>='
+        value: 0.25
+        tolerance: 0.05
+  trace:
+  - docs/slurs
+  - internals/slur-grob
+  smufl_inputs: []
+- id: RULE.Collision.priority_lattice
+  title: Collision resolution priority ordering
+  agent: CollisionAgent
+  intent: collision
+  priority: 350
+  depends_on: []
+  inputs:
+  - grobTypes
+  - proximities
+  parameters:
+    priority: stem > notehead > accidental > dynamic > lyric
+  procedure: Move lower-priority objects first, minimal delta to resolve overlaps;
+    preserve anchors.
+  exceptions:
+  - forced_positions
+  outputs:
+  - offsetsPerGrob
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Dynamic vs. lyric
+      expectations:
+      - path: /offsets/dynamic/y
+        op: '>='
+        value: 0.2
+        tolerance: 0.05
+  trace:
+  - docs/collisions
+  - internals/collision-resolution
+  smufl_inputs:
+  - noteheadBlack.bbox
+  - dynamicForte.bbox
+  - lyricsText.bbox
+- id: RULE.Accidental.leading_padding_and_column_inflation
+  title: Accidental lead-in spacing
+  agent: AccidentalAgent
+  intent: spacing
+  priority: 400
+  depends_on:
+  - RULE.Spacing.duration_base_with_optical_corrections
+  inputs:
+  - accidentalBBox
+  - columnLeft
+  - noteheadWidthSP
+  - paddingSP
+  parameters:
+    accidental_padding: 0.25 sp
+    cluster_stack_gap: 0.2 sp
+  procedure: Extend left column boundary by bbox + padding; enforce stack gap for
+    chords.
+  exceptions: []
+  outputs:
+  - columnMinWidthSP
+  side_effects:
+  - SpacingSpanner.constraints
+  test_plan:
+    cases:
+    - name: Single sharp
+      expectations:
+      - path: /columnMinWidthSP
+        op: '>='
+        value: 0.25
+        tolerance: 0.05
+  trace:
+  - docs/accidentals
+  - internals/spacing
+  smufl_inputs:
+  - accidentalSharp.bbox
+  - accidentalFlat.bbox
+  - accidentalNatural.bbox
+- id: RULE.Ledger.shorten_near_accidental
+  title: Ledger line shortening when accidental adjacent
+  agent: LedgerAgent
+  intent: shape
+  priority: 500
+  depends_on: []
+  inputs:
+  - standardLengthSP
+  - accidentalProximitySP
+  - shortenBySP
+  parameters:
+    shorten_by: 0.4 sp
+  procedure: If accidental overlap margin breached, shorten ledger on that side by
+    parameter.
+  exceptions: []
+  outputs:
+  - adjustedLengthSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: High note with sharp
+      expectations:
+      - path: /adjustedLengthSP
+        op: ==
+        value: -0.4
+        tolerance: 0.0
+  trace:
+  - docs/ledger
+  - engraving-details/ledger-shortening
+  smufl_inputs:
+  - ledgerLine.bbox
+  - accidentalSharp.bbox
+- id: RULE.Vertical.min_dist_padding_and_stretch
+  title: Staff and object vertical paddings within system
+  agent: VerticalStackAgent
+  intent: layout
+  priority: 600
+  depends_on: []
+  inputs:
+  - VAG
+  - objectBBoxes
+  - minDistances
+  parameters:
+    min_staff_gap: 1.5 sp
+    min_text_above_staff: 0.7 sp
+    stretch_weight: '1.0'
+  procedure: Enforce minimums; distribute remaining vertical space; resolve collisions
+    by pushing lower-priority groups.
+  exceptions: []
+  outputs:
+  - staffPositions
+  - objectOffsets
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Lyrics+dynamics two staves
+      expectations:
+      - path: /minStaffGap
+        op: '>='
+        value: 1.5
+        tolerance: 0.05
+  trace:
+  - docs/vertical-spacing
+  - internals/VerticalAxisGroup
+  smufl_inputs:
+  - staffLine.thickness
+- id: RULE.Dynamics.align_with_noteheads_and_stems
+  title: Align dynamics to local musical anchors
+  agent: DynamicsTextAgent
+  intent: placement
+  priority: 700
+  depends_on: []
+  inputs:
+  - noteColumns
+  - dynamicBBox
+  - baseline
+  parameters:
+    y_offset_preference: below
+    x_anchor_bias: columnCenter
+  procedure: Snap dynamic to nearest note column; bias below staff; apply kerning
+    with hairpins/lyrics.
+  exceptions: []
+  outputs:
+  - dynamicPosition
+  side_effects: []
+  test_plan:
+    cases:
+    - name: mp under beamed group
+      expectations:
+      - path: /dynamicPosition/y
+        op: <=
+        value: 0.0
+  trace:
+  - docs/dynamics-alignment
+  smufl_inputs:
+  - dynamicPiano.baseline
+  - dynamicForte.baseline
+- id: RULE.Pagination.castoff_fill_vs_overfull_penalties
+  title: System breaking to avoid overfull/underfull pages
+  agent: PaginationAgent
+  intent: pagination
+  priority: 800
+  depends_on:
+  - RULE.Spacing.keep_inside_system_constraints
+  inputs:
+  - systemWidths
+  - breakOpportunities
+  - pageSize
+  parameters:
+    overfull_penalty: '10'
+    underfull_penalty: '2'
+    widow_orphan_penalty: '3'
+  procedure: Choose breaks minimizing total penalties; no overfull; prefer balanced
+    pages.
+  exceptions: []
+  outputs:
+  - systemBreaks
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Two-page balance
+      expectations:
+      - path: /overfull
+        op: ==
+        value: 0.0
+  trace:
+  - docs/pagination
+  smufl_inputs: []
+- id: RULE.OpticalSize.stroke_and_spacing_scalars
+  title: Adjust line weights and spacing with staff size
+  agent: OpticalSizingAgent
+  intent: optical
+  priority: 900
+  depends_on: []
+  inputs:
+  - staffSizePT
+  - baseLineThickness
+  - fontMetrics
+  parameters:
+    stroke_scalar: f(size)
+    spacing_scalar: f(size)
+  procedure: Compute scalars; apply to stems, staff lines, slurs, spacing thresholds.
+  exceptions: []
+  outputs:
+  - strokeScalar
+  - spacingScalar
+  side_effects: []
+  test_plan:
+    cases:
+    - name: 15pt vs 20pt vs 26pt
+      expectations:
+      - path: /strokeScalar
+        op: approx
+        value: 1.0
+        tolerance: 0.3
+  trace:
+  - docs/optical-sizing
+  smufl_inputs:
+  - staffLine.thickness
+  - noteheadBlack.stroke

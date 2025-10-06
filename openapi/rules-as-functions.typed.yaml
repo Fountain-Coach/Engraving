@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Engraving Rules (Functions) — Typed
+  version: "0.2.0"
+  description: |
+    Typed variant for first-class code generation in Swift 6 (and others).
+servers: []
+components:
+  schemas:
+    StaffSpace:
+      type: number
+      description: Distance in staff spaces (sp)
+    BBox:
+      type: object
+      properties:
+        x: { type: number }
+        y: { type: number }
+        w: { type: number }
+        h: { type: number }
+      required: [x, y, w, h]
+    SpacingDurationBaseInput:
+      type: object
+      properties:
+        durations: { type: array, items: { type: string, enum: [w, h, q, e, s, t, x] } }
+        stems: { type: array, items: { type: string, enum: [up, down] } }
+        preItems: { type: array, items: { type: string, enum: [accidental, none] } }
+        postItems: { type: array, items: { type: string, enum: [stacc, accent, none] } }
+        noteheadWidths: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
+        minColumnGap: { $ref: "#/components/schemas/StaffSpace" }
+        accidentalPadding: { $ref: "#/components/schemas/StaffSpace" }
+      required: [durations, noteheadWidths]
+    SpacingDurationBaseOutput:
+      type: object
+      properties:
+        columnPositions: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
+        columnMinWidths: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
+        gaps: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
+        leadIn: { type: array, items: { $ref: "#/components/schemas/StaffSpace" } }
+      required: [columnPositions]
+    BeamingKneeInput:
+      type: object
+      properties:
+        verticalGapSP: { $ref: "#/components/schemas/StaffSpace" }
+        beamThicknessSP: { $ref: "#/components/schemas/StaffSpace" }
+      required: [verticalGapSP, beamThicknessSP]
+    BeamingKneeOutput:
+      type: object
+      properties:
+        kneed: { type: boolean }
+        thresholdUsedSP: { $ref: "#/components/schemas/StaffSpace" }
+      required: [kneed]
+    AccidentalLeadInInput:
+      type: object
+      properties:
+        accidentalBBox: { $ref: "#/components/schemas/BBox" }
+        columnLeft: { type: number }
+        noteheadWidthSP: { $ref: "#/components/schemas/StaffSpace" }
+        paddingSP: { $ref: "#/components/schemas/StaffSpace" }
+      required: [accidentalBBox, columnLeft, noteheadWidthSP, paddingSP]
+    AccidentalLeadInOutput:
+      type: object
+      properties:
+        columnMinWidthSP: { $ref: "#/components/schemas/StaffSpace" }
+      required: [columnMinWidthSP]
+    SlurInput:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            type: object
+            properties:
+              controlPoints: { type: array, items: { type: number } }
+              curvature: { type: number }
+              collisions: { type: integer }
+            required: [controlPoints]
+      required: [candidates]
+    SlurOutput:
+      type: object
+      properties:
+        chosenIndex: { type: integer }
+        minClearanceSP: { $ref: "#/components/schemas/StaffSpace" }
+        score: { type: number }
+      required: [chosenIndex]
+paths:
+  /apply/spacing/duration-base-with-optical-corrections:
+    post:
+      operationId: RULE.Spacing.duration_base_with_optical_corrections
+      summary: Duration-proportional spacing with optical adjustments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpacingDurationBaseInput"
+      responses:
+        "200":
+          description: Column positions and min widths
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpacingDurationBaseOutput"
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 100
+      x-smufl:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
+  /apply/beaming/auto-knee-threshold:
+    post:
+      operationId: RULE.Beaming.auto_knee_threshold
+      summary: Insert kneed beam on excessive vertical gap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BeamingKneeInput"
+      responses:
+        "200":
+          description: Kneed decision and threshold used
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BeamingKneeOutput"
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 200
+      x-smufl:
+        - beam.thickness
+  /apply/accidental/leading-padding-and-column-inflation:
+    post:
+      operationId: RULE.Accidental.leading_padding_and_column_inflation
+      summary: Accidental lead-in spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccidentalLeadInInput"
+      responses:
+        "200":
+          description: Updated column minimum width
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccidentalLeadInOutput"
+      x-rule:
+        agent: AccidentalAgent
+        intent: spacing
+        priority: 400
+      x-smufl:
+        - accidentalSharp.bbox
+        - accidentalFlat.bbox
+        - accidentalNatural.bbox
+  /apply/slur/curvature-choice-with-collision-penalty:
+    post:
+      operationId: RULE.Slur.curvature_choice_with_collision_penalty
+      summary: Slur curvature selected by minimal collision/penalty
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SlurInput"
+      responses:
+        "200":
+          description: Chosen control points and score
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SlurOutput"
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 300
+      x-smufl:
+        - noteheadBlack.bbox
+        - accidentalSharp.bbox

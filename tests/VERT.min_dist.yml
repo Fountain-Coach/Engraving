@@ -1,0 +1,4 @@
+rule: RULE.Vertical.min_dist_padding_and_stretch
+cases:
+  - name: two_staves_lyrics_dynamics
+    expectations: [ { path: "/minStaffGap", op: ">=", value: 1.5, tolerance: 0.05 } ]

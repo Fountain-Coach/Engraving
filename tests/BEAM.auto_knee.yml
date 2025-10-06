@@ -1,0 +1,4 @@
+rule: RULE.Beaming.auto_knee_threshold
+cases:
+  - name: large_leap
+    expectations: [ { path: "/kneed", op: "==", value: 1.0 } ]
