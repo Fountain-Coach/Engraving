@@ -216,13 +216,13 @@ map:
   Engraver.Grob_pq_engraver:
   - RULE.GrobPq.policy
   Engraver.Horizontal_bracket_engraver:
-  - RULE.HorizontalBracket.policy
+  - RULE.HorizontalBracket.placement_policy
   Engraver.Hyphen_engraver:
   - RULE.Lyrics.hyphen_melisma_spacing_interaction
   Engraver.Instrument_name_engraver:
   - RULE.InstrumentName.alignment_policy
   Engraver.Instrument_switch_engraver:
-  - RULE.InstrumentSwitch.policy
+  - RULE.InstrumentSwitch.placement_policy
   Engraver.Jump_engraver:
   - RULE.Jump.policy
   Engraver.Keep_alive_together_engraver:
@@ -233,7 +233,7 @@ map:
   Engraver.Ledger_line_engraver:
   - RULE.LedgerLine.policy
   Engraver.Ligature_bracket_engraver:
-  - RULE.LigatureBracket.policy
+  - RULE.LigatureBracket.placement_policy
   Engraver.Lyric_engraver:
   - RULE.Lyric.policy
   Engraver.Melody_engraver:
@@ -245,7 +245,7 @@ map:
   Engraver.New_fingering_engraver:
   - RULE.NewFingering.policy
   Engraver.Non_musical_script_column_engraver:
-  - RULE.NonMusicalScriptColumn.policy
+  - RULE.NonMusicalScriptColumn.layout_policy
   Engraver.Note_head_line_engraver:
   - RULE.NoteHeadLine.policy
   Engraver.Note_heads_engraver:
@@ -255,7 +255,7 @@ map:
   Engraver.Ottava_spanner_engraver:
   - RULE.OttavaSpanner.policy
   Engraver.Output_property_engraver:
-  - RULE.OutputProperty.policy
+  - RULE.OutputProperty.override_inheritance_policy
   Engraver.Page_turn_engraver:
   - RULE.PageTurn.break_preferences
   Engraver.Parenthesis_engraver:
@@ -271,7 +271,7 @@ map:
   Engraver.Pitch_squash_engraver:
   - RULE.PitchSquash.policy
   Engraver.Pitched_trill_engraver:
-  - RULE.PitchedTrill.policy
+  - RULE.PitchedTrill.placement_policy
   Engraver.Pure_from_neighbor_engraver:
   - RULE.PureFromNeighbor.policy
   Engraver.Repeat_acknowledge_engraver:
@@ -283,11 +283,11 @@ map:
   Engraver.Rhythmic_column_engraver:
   - RULE.RhythmicColumn.policy
   Engraver.Script_column_engraver:
-  - RULE.ScriptColumn.policy
+  - RULE.ScriptColumn.layout_policy
   Engraver.Script_engraver:
   - RULE.Script.policy
   Engraver.Script_row_engraver:
-  - RULE.ScriptRow.policy
+  - RULE.ScriptRow.layout_policy
   Engraver.Separating_line_group_engraver:
   - RULE.SeparatingLineGroup.policy
   Engraver.Slash_repeat_engraver:
@@ -295,7 +295,7 @@ map:
   Engraver.Spacing_engraver:
   - RULE.Spacing.policy
   Engraver.Span_arpeggio_engraver:
-  - RULE.SpanArpeggio.policy
+  - RULE.SpanArpeggio.placement_policy
   Engraver.Span_bar_engraver:
   - RULE.SpanBar.policy
   Engraver.Span_bar_stub_engraver:

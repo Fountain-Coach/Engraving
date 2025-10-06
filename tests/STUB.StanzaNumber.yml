@@ -1,5 +1,5 @@
-rule: RULE.StanzaNumber.policy
+rule: RULE.StanzaNumber.placement_policy
 cases:
-  - name: stub_present
+  - name: non_negative_offset
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/xOffsetSP", op: ">=", value: 0 }

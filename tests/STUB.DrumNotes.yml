@@ -1,5 +1,5 @@
-rule: RULE.DrumNotes.policy
+rule: RULE.DrumNotes.stem_side_and_notehead_policy
 cases:
-  - name: stub_present
+  - name: output_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/stemDirections/count", op: ">=", value: 0 }

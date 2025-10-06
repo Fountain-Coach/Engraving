@@ -1,5 +1,5 @@
-rule: RULE.TabStaffSymbol.policy
+rule: RULE.TabStaffSymbol.string_tuning_layout
 cases:
-  - name: stub_present
+  - name: positions_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/stringYPositions/count", op: ">=", value: 0 }

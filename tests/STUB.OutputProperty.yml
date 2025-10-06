@@ -1,5 +1,5 @@
-rule: RULE.OutputProperty.policy
+rule: RULE.OutputProperty.override_inheritance_policy
 cases:
-  - name: stub_present
+  - name: effective_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/effectiveProperties", op: "!=", value: 0 }

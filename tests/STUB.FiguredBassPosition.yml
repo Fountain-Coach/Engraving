@@ -1,5 +1,5 @@
-rule: RULE.FiguredBassPosition.policy
+rule: RULE.FiguredBass.position_stack_policy
 cases:
-  - name: stub_present
+  - name: distance_non_negative
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/yOffsetSP", op: ">=", value: 0 }

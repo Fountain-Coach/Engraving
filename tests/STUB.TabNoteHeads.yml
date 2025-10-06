@@ -1,5 +1,5 @@
-rule: RULE.TabNoteHeads.policy
+rule: RULE.Tab.notehead_string_fret_policy
 cases:
-  - name: stub_present
+  - name: outputs_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/stemDirections/count", op: ">=", value: 0 }

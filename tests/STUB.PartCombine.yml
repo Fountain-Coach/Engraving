@@ -1,5 +1,5 @@
-rule: RULE.PartCombine.policy
+rule: RULE.PartCombine.stem_direction_policy
 cases:
-  - name: stub_present
+  - name: outputs_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/stemDirections/count", op: ">=", value: 0 }

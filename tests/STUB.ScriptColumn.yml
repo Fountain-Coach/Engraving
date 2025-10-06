@@ -1,5 +1,5 @@
-rule: RULE.ScriptColumn.policy
+rule: RULE.ScriptColumn.layout_policy
 cases:
-  - name: stub_present
+  - name: offsets_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/yOffsetsSP/count", op: ">=", value: 0 }

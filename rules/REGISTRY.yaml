@@ -2570,31 +2570,31 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.HorizontalBracket.policy
-  title: HorizontalBracket policy (stub)
-  agent: CollisionAgent
+- id: RULE.HorizontalBracket.placement_policy
+  title: Horizontal bracket placement policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 645
   depends_on: []
   inputs:
-  - context
+  - bracketBBox
+  - systemTop
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_distance_sp: 0.8
+  procedure: Place horizontal bracket above the system with minimum distance and avoid collisions with existing marks.
   exceptions: []
   outputs:
-  - adjustments
+  - yOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: non_negative_offset
       expectations:
-      - path: /adjustments/count
+      - path: /yOffsetSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/brackets/horizontal
 - id: RULE.Hyphen.policy
   title: Hyphen policy (stub)
   agent: VerticalStackAgent
@@ -4337,3 +4337,207 @@ rules:
         value: 0.0
   trace:
   - docs/text
+
+- id: RULE.InstrumentSwitch.placement_policy
+  title: Instrument change text placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 336
+  depends_on: []
+  inputs:
+  - changeTextBBox
+  - staffBaseline
+  parameters:
+    min_distance_sp: 0.6
+  procedure: Place instrument change text near staff with minimum distance and avoid collisions with dynamics/rehearsal marks.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: non_negative_offset
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/instrument-changes
+
+- id: RULE.LigatureBracket.placement_policy
+  title: Ligature bracket placement policy
+  agent: CollisionAgent
+  intent: placement
+  priority: 361
+  depends_on: []
+  inputs:
+  - ligatureNotes
+  - staffBaseline
+  parameters:
+    min_distance_sp: 0.6
+  procedure: Place medieval ligature brackets to avoid collisions with noteheads and stems.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offset_present
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/notation/ligature-brackets
+
+- id: RULE.NonMusicalScriptColumn.layout_policy
+  title: Non-musical script column layout policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 337
+  depends_on: []
+  inputs:
+  - textBBoxes
+  parameters:
+    min_gap_sp: 0.5
+  procedure: Stack non-musical text/scripts in a column with minimum gap; align to system margin.
+  exceptions: []
+  outputs:
+  - yOffsetsSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offsets_present
+      expectations:
+      - path: /yOffsetsSP/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/text/columns
+
+- id: RULE.OutputProperty.override_inheritance_policy
+  title: Output property override and inheritance policy
+  agent: VerticalStackAgent
+  intent: layout
+  priority: 130
+  depends_on: []
+  inputs:
+  - overrides
+  parameters:
+    allow_inherit: true
+  procedure: Determine effective property values based on local overrides and inherited defaults.
+  exceptions: []
+  outputs:
+  - effectiveProperties
+  side_effects: []
+  test_plan:
+    cases:
+    - name: effective_present
+      expectations:
+      - path: /effectiveProperties
+        op: '!='
+        value: 0.0
+  trace:
+  - docs/overrides
+
+- id: RULE.PitchedTrill.placement_policy
+  title: Pitched trill placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 646
+  depends_on: []
+  inputs:
+  - trillTextBBox
+  - systemTop
+  parameters:
+    min_distance_sp: 0.8
+  procedure: Place pitched trill text and auxiliary pitch indication above staff with minimum distance.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: non_negative_offset
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/ornaments/pitched-trill
+
+- id: RULE.ScriptColumn.layout_policy
+  title: Script column layout policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 338
+  depends_on: []
+  inputs:
+  - scriptBBoxes
+  parameters:
+    min_gap_sp: 0.4
+  procedure: Stack articulations/scripts vertically with minimum gaps; align to note column.
+  exceptions: []
+  outputs:
+  - yOffsetsSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offsets_present
+      expectations:
+      - path: /yOffsetsSP/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/ornaments/scripts
+
+- id: RULE.ScriptRow.layout_policy
+  title: Script row layout policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 339
+  depends_on: []
+  inputs:
+  - scriptBBoxes
+  parameters:
+    min_gap_sp: 0.4
+  procedure: Arrange scripts in a row with minimum horizontal gaps, avoiding staff collisions.
+  exceptions: []
+  outputs:
+  - xOffsetsSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offsets_present
+      expectations:
+      - path: /xOffsetsSP/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/ornaments/scripts
+
+- id: RULE.SpanArpeggio.placement_policy
+  title: Span arpeggio placement policy
+  agent: CollisionAgent
+  intent: placement
+  priority: 365
+  depends_on: []
+  inputs:
+  - chordBBox
+  - nearbyGrobs
+  parameters:
+    prefer_centered: true
+  procedure: Place span arpeggio across chord; offset to avoid collisions with text/lyrics.
+  exceptions: []
+  outputs:
+  - position
+  side_effects: []
+  test_plan:
+    cases:
+    - name: position_present
+      expectations:
+      - path: /position/y
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/arpeggios/span

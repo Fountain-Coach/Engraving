@@ -1,5 +1,5 @@
-rule: RULE.StanzaNumberAlign.policy
+rule: RULE.StanzaNumber.align_with_lyrics_policy
 cases:
-  - name: stub_present
+  - name: offsets_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/xOffsetSP", op: ">=", value: 0 }

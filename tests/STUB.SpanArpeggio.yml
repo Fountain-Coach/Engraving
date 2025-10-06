@@ -1,5 +1,5 @@
-rule: RULE.SpanArpeggio.policy
+rule: RULE.SpanArpeggio.placement_policy
 cases:
-  - name: stub_present
+  - name: position_present
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/position/y", op: ">=", value: 0 }
