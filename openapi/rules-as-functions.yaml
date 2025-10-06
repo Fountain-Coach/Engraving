@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
-  version: 0.1.1
-  description: Generated with SMuFL mappings
+  version: 0.1.0
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T05:20:25.771184
 servers: []
 paths:
   /apply/spacing/duration_base_with_optical_corrections:
@@ -57,9 +57,6 @@ paths:
             font: Bravura
             staffSize: 20pt
             paper: A4
-      x-smufl:
-      - noteheadBlack.advance
-      - noteheadWhole.advance
   /apply/spacing/keep_inside_system_constraints:
     post:
       operationId: RULE.Spacing.keep_inside_system_constraints
@@ -98,9 +95,6 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
-      x-smufl:
-      - noteheadBlack.advance
-      - noteheadWhole.advance
   /apply/beaming/auto_knee_threshold:
     post:
       operationId: RULE.Beaming.auto_knee_threshold
@@ -139,8 +133,52 @@ paths:
             - path: /kneed
               op: ==
               value: 1.0
-      x-smufl:
-      - beam.thickness
+  /apply/beaming/compound_meter_grouping:
+    post:
+      operationId: RULE.Beaming.compound_meter_grouping
+      summary: Group beams by dotted-beat in compound meters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 215
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          6/8: 3+3 eighths
+          9/8: 3+3+3 eighths
+          12/8: 3+3+3+3 eighths
+        exceptions:
+        - forced_beaming_overrides
+        - rests_split_groups
+        trace:
+        - docs/beaming/compound
+        test_plan:
+          cases:
+          - name: 6/8 two dotted beats
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 1.0
+          - name: 9/8 three dotted beats
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 2.0
   /apply/beaming/subdivision_preference:
     post:
       operationId: RULE.Beaming.subdivision_preference
@@ -178,8 +216,47 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
-      x-smufl:
-      - beam.thickness
+  /apply/beaming/suppress_flags_when_beamed:
+    post:
+      operationId: RULE.Beaming.suppress_flags_when_beamed
+      summary: Suppress individual flags on notes within beamed groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: rendering
+        priority: 220
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters: {}
+        exceptions: []
+        trace:
+        - docs/beaming/flags
+        test_plan:
+          cases:
+          - name: beamed_group
+            expectations:
+            - path: /drawFlags
+              op: ==
+              value: 0.0
+          - name: single_unbeamed_note
+            expectations:
+            - path: /drawFlags
+              op: ==
+              value: 1.0
   /apply/tieslur/curvature_choice_with_collision_penalty:
     post:
       operationId: RULE.Slur.curvature_choice_with_collision_penalty
@@ -221,7 +298,6 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-      x-smufl: []
   /apply/collision/priority_lattice:
     post:
       operationId: RULE.Collision.priority_lattice
@@ -261,10 +337,6 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
-      x-smufl:
-      - noteheadBlack.bbox
-      - dynamicForte.bbox
-      - lyricsText.bbox
   /apply/accidental/leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation
@@ -305,10 +377,79 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-      x-smufl:
-      - accidentalSharp.bbox
-      - accidentalFlat.bbox
-      - accidentalNatural.bbox
+  /apply/accidental/key_signature_positions_by_clef:
+    post:
+      operationId: RULE.Accidental.key_signature_positions_by_clef
+      summary: Key signature accidental staff positions by clef and mode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: placement
+        priority: 405
+        depends_on: []
+        parameters:
+          treble.sharps:
+          - 8
+          - 5
+          - 9
+          - 6
+          - 3
+          - 7
+          - 4
+          treble.flats:
+          - 4
+          - 7
+          - 3
+          - 6
+          - 2
+          - 5
+          - 1
+          bass.sharps:
+          - 3
+          - 6
+          - 2
+          - 5
+          - 1
+          - 4
+          - 0
+          bass.flats:
+          - 6
+          - 3
+          - 7
+          - 4
+          - 1
+          - 5
+          - 2
+        exceptions: []
+        trace:
+        - docs/key-signatures
+        test_plan:
+          cases:
+          - name: treble_three_sharps
+            expectations:
+            - path: /positions/0
+              op: ==
+              value: 8.0
+            - path: /positions/1
+              op: ==
+              value: 5.0
+            - path: /positions/2
+              op: ==
+              value: 9.0
   /apply/ledger/shorten_near_accidental:
     post:
       operationId: RULE.Ledger.shorten_near_accidental
@@ -347,9 +488,6 @@ paths:
               op: ==
               value: -0.4
               tolerance: 0.0
-      x-smufl:
-      - ledgerLine.bbox
-      - accidentalSharp.bbox
   /apply/verticalstack/min_dist_padding_and_stretch:
     post:
       operationId: RULE.Vertical.min_dist_padding_and_stretch
@@ -390,8 +528,6 @@ paths:
               op: '>='
               value: 1.5
               tolerance: 0.05
-      x-smufl:
-      - staffLine.thickness
   /apply/dynamicstext/align_with_noteheads_and_stems:
     post:
       operationId: RULE.Dynamics.align_with_noteheads_and_stems
@@ -429,9 +565,6 @@ paths:
             - path: /dynamicPosition/y
               op: <=
               value: 0.0
-      x-smufl:
-      - dynamicPiano.baseline
-      - dynamicForte.baseline
   /apply/pagination/castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
@@ -471,7 +604,6 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
-      x-smufl: []
   /apply/opticalsizing/stroke_and_spacing_scalars:
     post:
       operationId: RULE.OpticalSize.stroke_and_spacing_scalars
@@ -510,6 +642,3 @@ paths:
               op: approx
               value: 1.0
               tolerance: 0.3
-      x-smufl:
-      - staffLine.thickness
-      - noteheadBlack.stroke

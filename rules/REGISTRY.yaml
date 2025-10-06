@@ -185,7 +185,8 @@ rules:
   - docs/beaming/subdivision
   smufl_inputs:
   - beam.thickness
-\n- id: RULE.Beaming.suppress_flags_when_beamed
+
+- id: RULE.Beaming.suppress_flags_when_beamed
   title: Suppress individual flags on notes within beamed groups
   agent: BeamingAgent
   intent: rendering
@@ -320,7 +321,8 @@ rules:
   - accidentalSharp.bbox
   - accidentalFlat.bbox
   - accidentalNatural.bbox
-\n- id: RULE.Accidental.key_signature_positions_by_clef
+
+- id: RULE.Accidental.key_signature_positions_by_clef
   title: Key signature accidental staff positions by clef and mode
   agent: AccidentalAgent
   intent: placement
