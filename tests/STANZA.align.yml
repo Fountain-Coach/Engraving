@@ -1,0 +1,5 @@
+rule: RULE.StanzaNumber.align_with_lyrics_policy
+cases:
+  - name: x_offset_present
+    expectations: [ { path: "/xOffsetSP", op: ">=", value: 0.0 } ]
+

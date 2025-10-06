@@ -1,0 +1,5 @@
+rule: RULE.TabStaffSymbol.string_tuning_layout
+cases:
+  - name: line_positions_present
+    expectations: [ { path: "/linePositionsSP/count", op: ">=", value: 1.0 } ]
+

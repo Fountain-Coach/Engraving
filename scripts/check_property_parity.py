@@ -43,7 +43,12 @@ def main():
         'X_offset','Y_offset','stencil','style','control_points','beam_thickness','beam_segments',
         'baseline','left_bound_info','right_bound_info','line_break_system_details','alteration',
         'KeySignature','TimeSignature','Clef','color','direction',
-        'X_extent','Y_extent','bar_extent','baseline_skip','axes','align_dir','transparent','breakable','padding','thickness','beam_width','beaming'
+        'X_extent','Y_extent','bar_extent','baseline_skip','axes','align_dir','transparent','breakable','padding','thickness','beam_width','beaming',
+        # Newly tightened classes
+        'avoid_slur','beamed_stem_shorten','beamlet_default_length','beamlet_max_length_proportion','french_beaming',
+        'flag_count','flag_style','note_flag_style',
+        'outside_staff_horizontal_padding','outside_staff_padding','outside_staff_priority','skyline_horizontal_padding','skyline_vertical_padding',
+        'slur_padding','padding_pairs','bound_padding','bound_prefatory_paddings','broken_bound_padding'
     }
     for prop in sorted(all_props):
         targets = exact_entries.get(prop)
