@@ -1,5 +1,6 @@
 rule: RULE.Barline.style_and_break_policy
 cases:
-  - name: thickness_non_negative
+  - name: thickness_and_padding
     expectations:
       - { path: "/thickness", op: ">=", value: 0 }
+      - { path: "/paddingSP", op: ">=", value: 0 }
