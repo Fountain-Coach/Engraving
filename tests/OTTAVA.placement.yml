@@ -1,0 +1,4 @@
+rule: RULE.Ottava.placement_policy
+cases:
+  - name: offset_minimum
+    expectations: [ { path: "/yOffsetSP", op: ">=", value: 0.8 } ]

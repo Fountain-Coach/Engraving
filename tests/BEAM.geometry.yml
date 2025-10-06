@@ -1,0 +1,4 @@
+rule: RULE.Beaming.geometry_slope_and_segments
+cases:
+  - name: shallow_preference
+    expectations: [ { path: "/slopeSPPerSpace", op: "<=", value: 0.5 } ]

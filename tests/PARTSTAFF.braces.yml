@@ -1,0 +1,4 @@
+rule: RULE.PartStaff.braces_brackets_layout
+cases:
+  - name: margin_applied
+    expectations: [ { path: "/braceOffsets/margin", op: ">=", value: 0.5 } ]

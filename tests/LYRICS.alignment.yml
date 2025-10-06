@@ -1,0 +1,4 @@
+rule: RULE.Lyrics.vertical_alignment_with_baselines
+cases:
+  - name: minimum_distance
+    expectations: [ { path: "/yOffsetSP", op: ">=", value: 0.7 } ]

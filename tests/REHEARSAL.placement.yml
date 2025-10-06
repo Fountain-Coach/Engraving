@@ -1,0 +1,4 @@
+rule: RULE.RehearsalMarks.placement_policy
+cases:
+  - name: top_margin
+    expectations: [ { path: "/yOffsetSP", op: ">=", value: 1.0 } ]

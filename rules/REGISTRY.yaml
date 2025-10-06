@@ -157,6 +157,70 @@ rules:
   smufl_inputs:
   - beam.thickness
   - noteheadBlack.bbox
+
+- id: RULE.Beaming.geometry_slope_and_segments
+  title: Beam slope and segment geometry selection
+  agent: BeamingAgent
+  intent: placement
+  priority: 220
+  depends_on:
+  - RULE.Beaming.subdivision_preference
+  inputs:
+  - notePositionsSP
+  - stemDirections
+  - beamThicknessSP
+  parameters:
+    max_slope_sp_per_space: 0.5
+    prefer_shallow_beams_weight: '0.6'
+  procedure: Fit a line through stem tips; clamp slope by max; round to visually
+    pleasing angles; output segment endpoints.
+  exceptions:
+  - forced_beam_slope
+  outputs:
+  - slopeSPPerSpace
+  - segments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: shallow_preference
+      expectations:
+      - path: /slopeSPPerSpace
+        op: <=
+        value: 0.5
+  trace:
+  - docs/beaming/slope
+  smufl_inputs:
+  - beam.thickness
+
+- id: RULE.Beaming.rests_split_groups
+  title: Split beamed groups at rests
+  agent: BeamingAgent
+  intent: placement
+  priority: 221
+  depends_on:
+  - RULE.Beaming.subdivision_preference
+  inputs:
+  - sequence
+  parameters:
+    split_on_rests: true
+  procedure: Terminate a beamed group when a rest occurs; start a new group after
+    the rest.
+  exceptions: []
+  outputs:
+  - groups
+  - beamBreaks
+  side_effects: []
+  test_plan:
+    cases:
+    - name: rest_splits_group
+      expectations:
+      - path: /beamBreaks/count
+        op: '>='
+        value: 1.0
+  trace:
+  - docs/beaming/rests
+  smufl_inputs:
+  - beam.thickness
 - id: RULE.Beaming.subdivision_preference
   title: Subdivide beams according to meter grouping
   agent: BeamingAgent
@@ -321,6 +385,518 @@ rules:
   - accidentalSharp.bbox
   - accidentalFlat.bbox
   - accidentalNatural.bbox
+
+- id: RULE.Accidental.cautionary_parenthesized_policy
+  title: Cautionary (courtesy) accidentals — parenthesized policy
+  agent: AccidentalAgent
+  intent: notation
+  priority: 410
+  depends_on: []
+  inputs:
+  - previousBarPitchContext
+  - currentPitch
+  parameters:
+    show_cautionary_when_spelling_changes: true
+    parenthesis_padding_sp: 0.3
+  procedure: If pitch spelling differs from previous bar’s local context, emit cautionary
+    accidental with parentheses and apply padding.
+  exceptions:
+  - explicit_editor_override
+  outputs:
+  - showCautionary
+  - parenthesized
+  side_effects: []
+  test_plan:
+    cases:
+    - name: spelling_changes
+      expectations:
+      - path: /showCautionary
+        op: ==
+        value: 1.0
+  trace:
+  - docs/accidentals/cautionary
+  smufl_inputs:
+  - accidentalSharp.bbox
+
+- id: RULE.Accidental.microtonal_glyph_selection_and_spacing
+  title: Microtonal accidental glyph selection and spacing
+  agent: AccidentalAgent
+  intent: notation
+  priority: 415
+  depends_on: []
+  inputs:
+  - pitchAlterCents
+  - baseSpacingSP
+  parameters:
+    min_padding_sp: 0.25
+  procedure: Select nearest supported glyph for the requested cent alteration; enforce
+    minimum padding.
+  exceptions:
+  - unsupported_glyph_fallback
+  outputs:
+  - chosenGlyph
+  - paddingSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: enforce_min_padding
+      expectations:
+      - path: /paddingSP
+        op: '>='
+        value: 0.25
+  trace:
+  - docs/accidentals/microtonal
+  smufl_inputs:
+  - accidentalSharp.bbox
+
+- id: RULE.Tie.curvature_selection_with_clearance
+  title: Tie curvature selected with clearance from noteheads
+  agent: TieSlurAgent
+  intent: placement
+  priority: 305
+  depends_on: []
+  inputs:
+  - endpoints
+  - nearbyGrobs
+  parameters:
+    min_clearance_sp: 0.2
+  procedure: Choose tie curvature that maintains at least min_clearance from noteheads
+    and accidentals.
+  exceptions: []
+  outputs:
+  - minClearanceSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: clearance_respected
+      expectations:
+      - path: /minClearanceSP
+        op: '>='
+        value: 0.2
+  trace:
+  - docs/ties
+  smufl_inputs:
+  - noteheadBlack.bbox
+
+- id: RULE.Clef.mid_system_placement
+  title: Mid-system clef placement and spacing
+  agent: AccidentalAgent
+  intent: placement
+  priority: 320
+  depends_on: []
+  inputs:
+  - clefType
+  - staffSizePT
+  parameters:
+    left_padding_sp: 0.5
+  procedure: Place clef glyph anchored to staff origin; apply left padding.
+  exceptions: []
+  outputs:
+  - xOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: padding_applied
+      expectations:
+      - path: /xOffsetSP
+        op: '>='
+        value: 0.5
+  trace:
+  - docs/clefs
+  smufl_inputs:
+  - gClef.bbox
+  - fClef.bbox
+
+- id: RULE.KeySignature.courtesy_at_line_breaks
+  title: Courtesy key signature at system breaks
+  agent: AccidentalAgent
+  intent: engraving
+  priority: 330
+  depends_on: []
+  inputs:
+  - lineBreaks
+  - upcomingKey
+  parameters:
+    show_courtesy: true
+  procedure: If key changes at next system, show courtesy signature at end of current
+    system when enabled.
+  exceptions: []
+  outputs:
+  - showCourtesy
+  side_effects: []
+  test_plan:
+    cases:
+    - name: courtesy_enabled
+      expectations:
+      - path: /showCourtesy
+        op: ==
+        value: 1.0
+  trace:
+  - docs/key-signatures/courtesy
+  smufl_inputs:
+  - accidentalSharp.bbox
+
+- id: RULE.TimeSignature.courtesy_at_line_breaks
+  title: Courtesy time signature at system breaks
+  agent: AccidentalAgent
+  intent: engraving
+  priority: 331
+  depends_on: []
+  inputs:
+  - lineBreaks
+  - upcomingTimeSig
+  parameters:
+    show_courtesy: true
+  procedure: If time signature changes at next system, show courtesy time signature
+    at end of current system when enabled.
+  exceptions: []
+  outputs:
+  - showCourtesy
+  side_effects: []
+  test_plan:
+    cases:
+    - name: courtesy_enabled
+      expectations:
+      - path: /showCourtesy
+        op: ==
+        value: 1.0
+  trace:
+  - docs/time-signatures/courtesy
+  smufl_inputs: []
+
+- id: RULE.Lyrics.vertical_alignment_with_baselines
+  title: Lyrics vertical alignment relative to staff baselines
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 610
+  depends_on: []
+  inputs:
+  - lyricBBox
+  - staffBaseline
+  parameters:
+    min_distance_sp: 0.7
+  procedure: Align lyrics baseline under staff with minimum distance; adjust to avoid
+    collisions.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: minimum_distance
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.7
+  trace:
+  - docs/lyrics
+  smufl_inputs:
+  - lyricsText.bbox
+
+- id: RULE.Ornaments.placement_above_below_with_collision
+  title: Ornaments placement above/below with collision avoidance
+  agent: CollisionAgent
+  intent: placement
+  priority: 360
+  depends_on: []
+  inputs:
+  - ornamentBBox
+  - nearbyGrobs
+  parameters:
+    prefer_above: true
+  procedure: Prefer above-staff placement; if collision detected, move below or offset
+    vertically.
+  exceptions: []
+  outputs:
+  - position
+  side_effects: []
+  test_plan:
+    cases:
+    - name: collision_moves
+      expectations:
+      - path: /position/y
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/ornaments
+  smufl_inputs: []
+
+- id: RULE.PartStaff.braces_brackets_layout
+  title: Braces and brackets placement for part/staff groups
+  agent: VerticalStackAgent
+  intent: layout
+  priority: 620
+  depends_on: []
+  inputs:
+  - staves
+  - grouping
+  parameters:
+    brace_margin_sp: 0.5
+  procedure: Place braces/brackets spanning grouped staves with margin.
+  exceptions: []
+  outputs:
+  - braceOffsets
+  side_effects: []
+  test_plan:
+    cases:
+    - name: margin_applied
+      expectations:
+      - path: /braceOffsets/margin
+        op: '>='
+        value: 0.5
+  trace:
+  - docs/braces-brackets
+  smufl_inputs: []
+
+- id: RULE.MultiVoice.stem_directions_up_down
+  title: Stem directions in multi-voice contexts (up/down)
+  agent: SpacingAgent
+  intent: notation
+  priority: 130
+  depends_on: []
+  inputs:
+  - voices
+  - notePositions
+  parameters:
+    default_voice0_up: true
+  procedure: Assign stem directions (voice 0 up, voice 1 down); adjust for extremes.
+  exceptions: []
+  outputs:
+  - stemDirections
+  side_effects: []
+  test_plan:
+    cases:
+    - name: default_directions
+      expectations:
+      - path: /stemDirections/0
+        op: ==
+        value: 1.0
+  trace:
+  - docs/multi-voice
+  smufl_inputs:
+  - noteheadBlack.bbox
+
+- id: RULE.MultiMeasureRests.layout_policy
+  title: Multi-measure rests layout policy
+  agent: PaginationAgent
+  intent: layout
+  priority: 810
+  depends_on: []
+  inputs:
+  - measureCount
+  parameters:
+    min_width_sp: 2.0
+  procedure: Set multi-measure rest glyph width based on count; enforce minimum width.
+  exceptions: []
+  outputs:
+  - widthSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: width_minimum
+      expectations:
+      - path: /widthSP
+        op: '>='
+        value: 2.0
+  trace:
+  - docs/multi-measure-rests
+  smufl_inputs:
+  - staffLine.thickness
+
+- id: RULE.Tuplet.beaming_and_bracket_placement
+  title: Tuplet beaming and bracket placement
+  agent: BeamingAgent
+  intent: notation
+  priority: 222
+  depends_on:
+  - RULE.Beaming.subdivision_preference
+  inputs:
+  - tupletRatio
+  - noteValues
+  parameters:
+    show_bracket_outside_beam: true
+  procedure: Determine beaming within tuplet; place bracket and number outside beam
+    when present.
+  exceptions: []
+  outputs:
+  - bracketPosition
+  side_effects: []
+  test_plan:
+    cases:
+    - name: bracket_visible
+      expectations:
+      - path: /bracketPosition/y
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/tuplets
+  smufl_inputs:
+  - beam.thickness
+
+- id: RULE.Grace.clusters_width_policy
+  title: Grace clusters width and spacing policy
+  agent: SpacingAgent
+  intent: spacing
+  priority: 140
+  depends_on: []
+  inputs:
+  - graceNotes
+  parameters:
+    scale_width_factor: 0.7
+  procedure: Scale nominal spacing widths for grace clusters by factor; enforce minimums.
+  exceptions: []
+  outputs:
+  - widthScale
+  side_effects: []
+  test_plan:
+    cases:
+    - name: scaled_width
+      expectations:
+      - path: /widthScale
+        op: ==
+        value: 0.7
+  trace:
+  - docs/grace-notes
+  smufl_inputs:
+  - noteheadBlack.advance
+
+- id: RULE.CrossStaff.beaming_policy
+  title: Cross-staff beaming policy
+  agent: BeamingAgent
+  intent: placement
+  priority: 223
+  depends_on: []
+  inputs:
+  - staffAssignments
+  - notePositions
+  parameters:
+    prefer_primary_staff: true
+  procedure: When notes are split across staves, place beam on primary staff with
+    angled stems unless overridden.
+  exceptions: []
+  outputs:
+  - beamStaff
+  side_effects: []
+  test_plan:
+    cases:
+    - name: primary_staff
+      expectations:
+      - path: /beamStaff
+        op: ==
+        value: 1.0
+  trace:
+  - docs/cross-staff
+  smufl_inputs:
+  - beam.thickness
+
+- id: RULE.Ottava.placement_policy
+  title: Ottava line placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 630
+  depends_on: []
+  inputs:
+  - ottavaType
+  - staffBaseline
+  parameters:
+    min_distance_sp: 0.8
+  procedure: Place ottava line above/below staff depending on type with minimum distance.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offset_minimum
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.8
+  trace:
+  - docs/ottava
+  smufl_inputs: []
+
+- id: RULE.RepeatVolta.layout_policy
+  title: Repeat/Volta bracket layout policy
+  agent: PaginationAgent
+  intent: layout
+  priority: 820
+  depends_on: []
+  inputs:
+  - bars
+  - voltaNumbers
+  parameters:
+    min_height_sp: 1.0
+  procedure: Place volta brackets spanning bar range with minimum height and room for
+    numbers.
+  exceptions: []
+  outputs:
+  - heightSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: minimum_height
+      expectations:
+      - path: /heightSP
+        op: '>='
+        value: 1.0
+  trace:
+  - docs/repeats
+  smufl_inputs: []
+
+- id: RULE.RehearsalMarks.placement_policy
+  title: Rehearsal mark placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 640
+  depends_on: []
+  inputs:
+  - markBBox
+  - systemTop
+  parameters:
+    top_margin_sp: 1.0
+  procedure: Place rehearsal marks above system with top margin.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: top_margin
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 1.0
+  trace:
+  - docs/rehearsal-marks
+  smufl_inputs: []
+
+- id: RULE.TempoMarks.placement_policy
+  title: Tempo mark placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 641
+  depends_on: []
+  inputs:
+  - tempoTextBBox
+  - systemTop
+  parameters:
+    top_margin_sp: 0.8
+  procedure: Place tempo text above system with margin and avoid collisions.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: top_margin
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.8
+  trace:
+  - docs/tempo
+  smufl_inputs: []
 
 - id: RULE.Accidental.key_signature_positions_by_clef
   title: Key signature accidental staff positions by clef and mode

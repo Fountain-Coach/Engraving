@@ -1,0 +1,4 @@
+rule: RULE.Tuplet.beaming_and_bracket_placement
+cases:
+  - name: bracket_visible
+    expectations: [ { path: "/bracketPosition/y", op: ">=", value: 0.0 } ]

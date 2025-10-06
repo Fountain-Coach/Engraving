@@ -25,7 +25,8 @@ def main():
     for r in rules:
         rid = r["id"]
         agent = r["agent"]
-        slug = rid.split(".",2)[-1].replace(".","-")
+        # Use full rule id sans leading namespace to avoid path collisions
+        slug = rid.split(".",1)[1].replace(".","-")
         path = f"/apply/{agent.replace('Agent','').lower()}/{slug}"
         # generic input/output schemas; implementors can refine further per rule
         req_schema = {"type":"object","additionalProperties":True}

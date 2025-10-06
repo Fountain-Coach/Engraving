@@ -1,0 +1,4 @@
+rule: RULE.Beaming.rests_split_groups
+cases:
+  - name: rest_splits_group
+    expectations: [ { path: "/beamBreaks/count", op: ">=", value: 1.0 } ]

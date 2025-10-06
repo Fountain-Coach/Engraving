@@ -1,0 +1,4 @@
+rule: RULE.MultiVoice.stem_directions_up_down
+cases:
+  - name: default_directions
+    expectations: [ { path: "/stemDirections/0", op: "==", value: 1.0 } ]

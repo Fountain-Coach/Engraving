@@ -1,0 +1,4 @@
+rule: RULE.MultiMeasureRests.layout_policy
+cases:
+  - name: width_minimum
+    expectations: [ { path: "/widthSP", op: ">=", value: 2.0 } ]

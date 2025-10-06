@@ -1,0 +1,90 @@
+map:
+  # Spacing
+  Spacing.duration_base:
+    - RULE.Spacing.duration_base_with_optical_corrections
+  Spacing.keep_inside_system:
+    - RULE.Spacing.keep_inside_system_constraints
+
+  # Beaming
+  Beaming.subdivision:
+    - RULE.Beaming.subdivision_preference
+  Beaming.compound:
+    - RULE.Beaming.compound_meter_grouping
+  Beaming.auto_knee:
+    - RULE.Beaming.auto_knee_threshold
+  Beaming.flags_suppression:
+    - RULE.Beaming.suppress_flags_when_beamed
+  Beaming.geometry:
+    - RULE.Beaming.geometry_slope_and_segments
+  Beaming.rest_split:
+    - RULE.Beaming.rests_split_groups
+
+  # Accidentals / Key
+  Accidental.leading_padding:
+    - RULE.Accidental.leading_padding_and_column_inflation
+  Accidental.key_signature_positions:
+    - RULE.Accidental.key_signature_positions_by_clef
+  Accidental.cautionary:
+    - RULE.Accidental.cautionary_parenthesized_policy
+  Accidental.microtonal:
+    - RULE.Accidental.microtonal_glyph_selection_and_spacing
+
+  # Ledger
+  Ledger.shorten_near_accidental:
+    - RULE.Ledger.shorten_near_accidental
+
+  # Collision / Vertical
+  Collision.priority_lattice:
+    - RULE.Collision.priority_lattice
+  Vertical.min_dist_padding_and_stretch:
+    - RULE.Vertical.min_dist_padding_and_stretch
+
+  # Dynamics / Text
+  Dynamics.align_with_noteheads:
+    - RULE.Dynamics.align_with_noteheads_and_stems
+  Lyrics.alignment:
+    - RULE.Lyrics.vertical_alignment_with_baselines
+  Ornaments.placement:
+    - RULE.Ornaments.placement_above_below_with_collision
+
+  # Pagination / Layout
+  Pagination.castoff_penalties:
+    - RULE.Pagination.castoff_fill_vs_overfull_penalties
+  PartStaff.braces_brackets:
+    - RULE.PartStaff.braces_brackets_layout
+  MultiVoiceStaff.stems_directions:
+    - RULE.MultiVoice.stem_directions_up_down
+  MultiMeasureRests.layout:
+    - RULE.MultiMeasureRests.layout_policy
+
+  # Ties / Slurs
+  Slur.curvature_choice:
+    - RULE.Slur.curvature_choice_with_collision_penalty
+  Tie.curvature:
+    - RULE.Tie.curvature_selection_with_clearance
+
+  # Time/Key/Clef display rules
+  Clef.placement:
+    - RULE.Clef.mid_system_placement
+  KeySignature.courtesy:
+    - RULE.KeySignature.courtesy_at_line_breaks
+  TimeSignature.courtesy:
+    - RULE.TimeSignature.courtesy_at_line_breaks
+
+  # Rhythm details
+  Tuplet.beaming:
+    - RULE.Tuplet.beaming_and_bracket_placement
+  Grace.clusters:
+    - RULE.Grace.clusters_width_policy
+  CrossStaff.beaming:
+    - RULE.CrossStaff.beaming_policy
+
+  # Other markings
+  Ottava.placement:
+    - RULE.Ottava.placement_policy
+  RepeatVolta.layout:
+    - RULE.RepeatVolta.layout_policy
+  RehearsalMarks.placement:
+    - RULE.RehearsalMarks.placement_policy
+  TempoMarks.placement:
+    - RULE.TempoMarks.placement_policy

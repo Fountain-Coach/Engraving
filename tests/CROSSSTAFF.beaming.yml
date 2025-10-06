@@ -1,0 +1,4 @@
+rule: RULE.CrossStaff.beaming_policy
+cases:
+  - name: primary_staff
+    expectations: [ { path: "/beamStaff", op: "==", value: 1.0 } ]

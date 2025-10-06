@@ -1,0 +1,4 @@
+rule: RULE.RepeatVolta.layout_policy
+cases:
+  - name: minimum_height
+    expectations: [ { path: "/heightSP", op: ">=", value: 1.0 } ]

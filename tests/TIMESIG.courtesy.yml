@@ -1,0 +1,4 @@
+rule: RULE.TimeSignature.courtesy_at_line_breaks
+cases:
+  - name: courtesy_enabled
+    expectations: [ { path: "/showCourtesy", op: "==", value: 1.0 } ]

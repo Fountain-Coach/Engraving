@@ -1,0 +1,4 @@
+rule: RULE.Clef.mid_system_placement
+cases:
+  - name: padding_applied
+    expectations: [ { path: "/xOffsetSP", op: ">=", value: 0.5 } ]

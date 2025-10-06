@@ -1,0 +1,4 @@
+rule: RULE.Accidental.microtonal_glyph_selection_and_spacing
+cases:
+  - name: enforce_min_padding
+    expectations: [ { path: "/paddingSP", op: ">=", value: 0.25 } ]

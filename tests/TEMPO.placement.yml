@@ -1,0 +1,4 @@
+rule: RULE.TempoMarks.placement_policy
+cases:
+  - name: top_margin
+    expectations: [ { path: "/yOffsetSP", op: ">=", value: 0.8 } ]

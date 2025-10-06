@@ -1,0 +1,4 @@
+rule: RULE.Ornaments.placement_above_below_with_collision
+cases:
+  - name: collision_moves
+    expectations: [ { path: "/position/y", op: ">=", value: 0.0 } ]

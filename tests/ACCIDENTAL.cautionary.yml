@@ -1,0 +1,4 @@
+rule: RULE.Accidental.cautionary_parenthesized_policy
+cases:
+  - name: spelling_changes
+    expectations: [ { path: "/showCautionary", op: "==", value: 1.0 } ]

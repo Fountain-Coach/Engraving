@@ -2,10 +2,10 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T05:20:25.771184
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T05:51:09.729960
 servers: []
 paths:
-  /apply/spacing/duration_base_with_optical_corrections:
+  /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
       operationId: RULE.Spacing.duration_base_with_optical_corrections
       summary: Duration-proportional spacing with optical adjustments
@@ -57,7 +57,7 @@ paths:
             font: Bravura
             staffSize: 20pt
             paper: A4
-  /apply/spacing/keep_inside_system_constraints:
+  /apply/spacing/Spacing-keep_inside_system_constraints:
     post:
       operationId: RULE.Spacing.keep_inside_system_constraints
       summary: Keep-inside-line/system packing
@@ -95,7 +95,7 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
-  /apply/beaming/auto_knee_threshold:
+  /apply/beaming/Beaming-auto_knee_threshold:
     post:
       operationId: RULE.Beaming.auto_knee_threshold
       summary: Insert kneed beam on excessive vertical gap
@@ -133,7 +133,7 @@ paths:
             - path: /kneed
               op: ==
               value: 1.0
-  /apply/beaming/compound_meter_grouping:
+  /apply/beaming/Beaming-compound_meter_grouping:
     post:
       operationId: RULE.Beaming.compound_meter_grouping
       summary: Group beams by dotted-beat in compound meters
@@ -179,7 +179,83 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
-  /apply/beaming/subdivision_preference:
+  /apply/beaming/Beaming-geometry_slope_and_segments:
+    post:
+      operationId: RULE.Beaming.geometry_slope_and_segments
+      summary: Beam slope and segment geometry selection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 220
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          max_slope_sp_per_space: 0.5
+          prefer_shallow_beams_weight: '0.6'
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/slope
+        test_plan:
+          cases:
+          - name: shallow_preference
+            expectations:
+            - path: /slopeSPPerSpace
+              op: <=
+              value: 0.5
+  /apply/beaming/Beaming-rests_split_groups:
+    post:
+      operationId: RULE.Beaming.rests_split_groups
+      summary: Split beamed groups at rests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 221
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          split_on_rests: true
+        exceptions: []
+        trace:
+        - docs/beaming/rests
+        test_plan:
+          cases:
+          - name: rest_splits_group
+            expectations:
+            - path: /beamBreaks/count
+              op: '>='
+              value: 1.0
+  /apply/beaming/Beaming-subdivision_preference:
     post:
       operationId: RULE.Beaming.subdivision_preference
       summary: Subdivide beams according to meter grouping
@@ -216,7 +292,7 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
-  /apply/beaming/suppress_flags_when_beamed:
+  /apply/beaming/Beaming-suppress_flags_when_beamed:
     post:
       operationId: RULE.Beaming.suppress_flags_when_beamed
       summary: Suppress individual flags on notes within beamed groups
@@ -257,7 +333,7 @@ paths:
             - path: /drawFlags
               op: ==
               value: 1.0
-  /apply/tieslur/curvature_choice_with_collision_penalty:
+  /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
     post:
       operationId: RULE.Slur.curvature_choice_with_collision_penalty
       summary: Slur curvature selected by minimal collision/penalty
@@ -298,7 +374,7 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-  /apply/collision/priority_lattice:
+  /apply/collision/Collision-priority_lattice:
     post:
       operationId: RULE.Collision.priority_lattice
       summary: Collision resolution priority ordering
@@ -337,7 +413,7 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
-  /apply/accidental/leading_padding_and_column_inflation:
+  /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation
       summary: Accidental lead-in spacing
@@ -377,7 +453,659 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-  /apply/accidental/key_signature_positions_by_clef:
+  /apply/accidental/Accidental-cautionary_parenthesized_policy:
+    post:
+      operationId: RULE.Accidental.cautionary_parenthesized_policy
+      summary: "Cautionary (courtesy) accidentals \u2014 parenthesized policy"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: notation
+        priority: 410
+        depends_on: []
+        parameters:
+          show_cautionary_when_spelling_changes: true
+          parenthesis_padding_sp: 0.3
+        exceptions:
+        - explicit_editor_override
+        trace:
+        - docs/accidentals/cautionary
+        test_plan:
+          cases:
+          - name: spelling_changes
+            expectations:
+            - path: /showCautionary
+              op: ==
+              value: 1.0
+  /apply/accidental/Accidental-microtonal_glyph_selection_and_spacing:
+    post:
+      operationId: RULE.Accidental.microtonal_glyph_selection_and_spacing
+      summary: Microtonal accidental glyph selection and spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: notation
+        priority: 415
+        depends_on: []
+        parameters:
+          min_padding_sp: 0.25
+        exceptions:
+        - unsupported_glyph_fallback
+        trace:
+        - docs/accidentals/microtonal
+        test_plan:
+          cases:
+          - name: enforce_min_padding
+            expectations:
+            - path: /paddingSP
+              op: '>='
+              value: 0.25
+  /apply/tieslur/Tie-curvature_selection_with_clearance:
+    post:
+      operationId: RULE.Tie.curvature_selection_with_clearance
+      summary: Tie curvature selected with clearance from noteheads
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 305
+        depends_on: []
+        parameters:
+          min_clearance_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/ties
+        test_plan:
+          cases:
+          - name: clearance_respected
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.2
+  /apply/accidental/Clef-mid_system_placement:
+    post:
+      operationId: RULE.Clef.mid_system_placement
+      summary: Mid-system clef placement and spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: placement
+        priority: 320
+        depends_on: []
+        parameters:
+          left_padding_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/clefs
+        test_plan:
+          cases:
+          - name: padding_applied
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.5
+  /apply/accidental/KeySignature-courtesy_at_line_breaks:
+    post:
+      operationId: RULE.KeySignature.courtesy_at_line_breaks
+      summary: Courtesy key signature at system breaks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: engraving
+        priority: 330
+        depends_on: []
+        parameters:
+          show_courtesy: true
+        exceptions: []
+        trace:
+        - docs/key-signatures/courtesy
+        test_plan:
+          cases:
+          - name: courtesy_enabled
+            expectations:
+            - path: /showCourtesy
+              op: ==
+              value: 1.0
+  /apply/accidental/TimeSignature-courtesy_at_line_breaks:
+    post:
+      operationId: RULE.TimeSignature.courtesy_at_line_breaks
+      summary: Courtesy time signature at system breaks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: AccidentalAgent
+        intent: engraving
+        priority: 331
+        depends_on: []
+        parameters:
+          show_courtesy: true
+        exceptions: []
+        trace:
+        - docs/time-signatures/courtesy
+        test_plan:
+          cases:
+          - name: courtesy_enabled
+            expectations:
+            - path: /showCourtesy
+              op: ==
+              value: 1.0
+  /apply/verticalstack/Lyrics-vertical_alignment_with_baselines:
+    post:
+      operationId: RULE.Lyrics.vertical_alignment_with_baselines
+      summary: Lyrics vertical alignment relative to staff baselines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 610
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.7
+        exceptions: []
+        trace:
+        - docs/lyrics
+        test_plan:
+          cases:
+          - name: minimum_distance
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.7
+  /apply/collision/Ornaments-placement_above_below_with_collision:
+    post:
+      operationId: RULE.Ornaments.placement_above_below_with_collision
+      summary: Ornaments placement above/below with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 360
+        depends_on: []
+        parameters:
+          prefer_above: true
+        exceptions: []
+        trace:
+        - docs/ornaments
+        test_plan:
+          cases:
+          - name: collision_moves
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/PartStaff-braces_brackets_layout:
+    post:
+      operationId: RULE.PartStaff.braces_brackets_layout
+      summary: Braces and brackets placement for part/staff groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 620
+        depends_on: []
+        parameters:
+          brace_margin_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/braces-brackets
+        test_plan:
+          cases:
+          - name: margin_applied
+            expectations:
+            - path: /braceOffsets/margin
+              op: '>='
+              value: 0.5
+  /apply/spacing/MultiVoice-stem_directions_up_down:
+    post:
+      operationId: RULE.MultiVoice.stem_directions_up_down
+      summary: Stem directions in multi-voice contexts (up/down)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: SpacingAgent
+        intent: notation
+        priority: 130
+        depends_on: []
+        parameters:
+          default_voice0_up: true
+        exceptions: []
+        trace:
+        - docs/multi-voice
+        test_plan:
+          cases:
+          - name: default_directions
+            expectations:
+            - path: /stemDirections/0
+              op: ==
+              value: 1.0
+  /apply/pagination/MultiMeasureRests-layout_policy:
+    post:
+      operationId: RULE.MultiMeasureRests.layout_policy
+      summary: Multi-measure rests layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 810
+        depends_on: []
+        parameters:
+          min_width_sp: 2.0
+        exceptions: []
+        trace:
+        - docs/multi-measure-rests
+        test_plan:
+          cases:
+          - name: width_minimum
+            expectations:
+            - path: /widthSP
+              op: '>='
+              value: 2.0
+  /apply/beaming/Tuplet-beaming_and_bracket_placement:
+    post:
+      operationId: RULE.Tuplet.beaming_and_bracket_placement
+      summary: Tuplet beaming and bracket placement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: notation
+        priority: 222
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          show_bracket_outside_beam: true
+        exceptions: []
+        trace:
+        - docs/tuplets
+        test_plan:
+          cases:
+          - name: bracket_visible
+            expectations:
+            - path: /bracketPosition/y
+              op: '>='
+              value: 0.0
+  /apply/spacing/Grace-clusters_width_policy:
+    post:
+      operationId: RULE.Grace.clusters_width_policy
+      summary: Grace clusters width and spacing policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 140
+        depends_on: []
+        parameters:
+          scale_width_factor: 0.7
+        exceptions: []
+        trace:
+        - docs/grace-notes
+        test_plan:
+          cases:
+          - name: scaled_width
+            expectations:
+            - path: /widthScale
+              op: ==
+              value: 0.7
+  /apply/beaming/CrossStaff-beaming_policy:
+    post:
+      operationId: RULE.CrossStaff.beaming_policy
+      summary: Cross-staff beaming policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 223
+        depends_on: []
+        parameters:
+          prefer_primary_staff: true
+        exceptions: []
+        trace:
+        - docs/cross-staff
+        test_plan:
+          cases:
+          - name: primary_staff
+            expectations:
+            - path: /beamStaff
+              op: ==
+              value: 1.0
+  /apply/verticalstack/Ottava-placement_policy:
+    post:
+      operationId: RULE.Ottava.placement_policy
+      summary: Ottava line placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 630
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/ottava
+        test_plan:
+          cases:
+          - name: offset_minimum
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+  /apply/pagination/RepeatVolta-layout_policy:
+    post:
+      operationId: RULE.RepeatVolta.layout_policy
+      summary: Repeat/Volta bracket layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 820
+        depends_on: []
+        parameters:
+          min_height_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/repeats
+        test_plan:
+          cases:
+          - name: minimum_height
+            expectations:
+            - path: /heightSP
+              op: '>='
+              value: 1.0
+  /apply/verticalstack/RehearsalMarks-placement_policy:
+    post:
+      operationId: RULE.RehearsalMarks.placement_policy
+      summary: Rehearsal mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 640
+        depends_on: []
+        parameters:
+          top_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/rehearsal-marks
+        test_plan:
+          cases:
+          - name: top_margin
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 1.0
+  /apply/verticalstack/TempoMarks-placement_policy:
+    post:
+      operationId: RULE.TempoMarks.placement_policy
+      summary: Tempo mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 641
+        depends_on: []
+        parameters:
+          top_margin_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/tempo
+        test_plan:
+          cases:
+          - name: top_margin
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+  /apply/accidental/Accidental-key_signature_positions_by_clef:
     post:
       operationId: RULE.Accidental.key_signature_positions_by_clef
       summary: Key signature accidental staff positions by clef and mode
@@ -450,7 +1178,7 @@ paths:
             - path: /positions/2
               op: ==
               value: 9.0
-  /apply/ledger/shorten_near_accidental:
+  /apply/ledger/Ledger-shorten_near_accidental:
     post:
       operationId: RULE.Ledger.shorten_near_accidental
       summary: Ledger line shortening when accidental adjacent
@@ -488,7 +1216,7 @@ paths:
               op: ==
               value: -0.4
               tolerance: 0.0
-  /apply/verticalstack/min_dist_padding_and_stretch:
+  /apply/verticalstack/Vertical-min_dist_padding_and_stretch:
     post:
       operationId: RULE.Vertical.min_dist_padding_and_stretch
       summary: Staff and object vertical paddings within system
@@ -528,7 +1256,7 @@ paths:
               op: '>='
               value: 1.5
               tolerance: 0.05
-  /apply/dynamicstext/align_with_noteheads_and_stems:
+  /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
     post:
       operationId: RULE.Dynamics.align_with_noteheads_and_stems
       summary: Align dynamics to local musical anchors
@@ -565,7 +1293,7 @@ paths:
             - path: /dynamicPosition/y
               op: <=
               value: 0.0
-  /apply/pagination/castoff_fill_vs_overfull_penalties:
+  /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
       summary: System breaking to avoid overfull/underfull pages
@@ -604,7 +1332,7 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
-  /apply/opticalsizing/stroke_and_spacing_scalars:
+  /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
     post:
       operationId: RULE.OpticalSize.stroke_and_spacing_scalars
       summary: Adjust line weights and spacing with staff size
