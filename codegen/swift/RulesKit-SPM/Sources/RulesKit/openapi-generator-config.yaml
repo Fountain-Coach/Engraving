@@ -1,0 +1,3 @@
+input:
+  - path: openapi/rules-as-functions.yaml
+    accessModifier: public
