@@ -1,2 +1,4 @@
-generation:
-  accessModifier: public
+accessModifier: public
+generate:
+  types: true
+  client: true
