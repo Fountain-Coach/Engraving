@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:10:46.729094
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:18:23.969278
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -363,6 +363,87 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+  /apply/beaming/Beaming-slope_with_clearance:
+    post:
+      operationId: RULE.Beaming.slope_with_clearance
+      summary: Adjust beam slope to maintain obstacle clearance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 221
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          min_clearance_sp: 0.25
+          slope_penalty_weight: '0.5'
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/slope
+        - internals/beam-interface
+        test_plan:
+          cases:
+          - name: maintain_clearance
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+  /apply/spacing/NoteSpacing-optical_stem_weight_scalars:
+    post:
+      operationId: RULE.NoteSpacing.optical_stem_weight_scalars
+      summary: Compute optical stem-weight scalars per column
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 121
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          up_weight: '0.4'
+          down_weight: '0.4'
+          strong_beat_bonus: '0.1'
+        exceptions: []
+        trace:
+        - docs/spacing/optical
+        - internals/SpacingSpanner
+        test_plan:
+          cases:
+          - name: weights_present
+            expectations:
+            - path: /weights/count
+              op: '>='
+              value: 1.0
   /apply/collision/Arpeggio-placement_policy:
     post:
       operationId: RULE.Arpeggio.placement_policy

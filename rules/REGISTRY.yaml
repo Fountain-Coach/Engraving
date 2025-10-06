@@ -300,6 +300,77 @@ rules:
   trace:
   - docs/duration-lines
   smufl_inputs: []
+
+- id: RULE.Beaming.slope_with_clearance
+  title: Adjust beam slope to maintain obstacle clearance
+  agent: BeamingAgent
+  intent: placement
+  priority: 221
+  depends_on:
+  - RULE.Beaming.geometry_slope_and_segments
+  inputs:
+  - notePositionsSP
+  - stemDirections
+  - beamThicknessSP
+  - nearbyGrobs
+  parameters:
+    min_clearance_sp: 0.25
+    slope_penalty_weight: '0.5'
+  procedure: Evaluate candidate slopes near the geometric optimum; penalize steeper
+    slopes and choose the minimal penalty that satisfies min_clearance from obstacles.
+  exceptions:
+  - forced_beam_slope
+  outputs:
+  - slopeSPPerSpaceAdjusted
+  - minClearanceSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: maintain_clearance
+      expectations:
+      - path: /minClearanceSP
+        op: '>='
+        value: 0.25
+        tolerance: 0.05
+  trace:
+  - docs/beaming/slope
+  - internals/beam-interface
+  smufl_inputs:
+  - beam.thickness
+  - noteheadBlack.bbox
+
+- id: RULE.NoteSpacing.optical_stem_weight_scalars
+  title: Compute optical stem-weight scalars per column
+  agent: SpacingAgent
+  intent: spacing
+  priority: 121
+  depends_on:
+  - RULE.Spacing.duration_base_with_optical_corrections
+  inputs:
+  - stemDirections
+  - beatStrengths
+  parameters:
+    up_weight: '0.4'
+    down_weight: '0.4'
+    strong_beat_bonus: '0.1'
+  procedure: For each column, compute a scalar based on stem direction and beat strength;
+    used by spacing_policy to inflate minimum gaps optically.
+  exceptions: []
+  outputs:
+  - weights
+  side_effects: []
+  test_plan:
+    cases:
+    - name: weights_present
+      expectations:
+      - path: /weights/count
+        op: '>='
+        value: 1.0
+  trace:
+  - docs/spacing/optical
+  - internals/SpacingSpanner
+  smufl_inputs:
+  - noteheadBlack.advance
 - id: RULE.Arpeggio.placement_policy
   title: Arpeggio placement policy (avoid collisions)
   agent: CollisionAgent

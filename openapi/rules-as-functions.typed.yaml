@@ -888,6 +888,62 @@ components:
             type: number
       required:
       - positions
+    BeamingSlopeClearanceInput:
+      type: object
+      properties:
+        notePositionsSP:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        stemDirections:
+          type: array
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+        nearbyGrobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - notePositionsSP
+      - stemDirections
+      - beamThicknessSP
+    BeamingSlopeClearanceOutput:
+      type: object
+      properties:
+        slopeSPPerSpaceAdjusted:
+          type: number
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - slopeSPPerSpaceAdjusted
+    NoteSpacingOpticalWeightsInput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        beatStrengths:
+          type: array
+          items:
+            type: number
+    NoteSpacingOpticalWeightsOutput:
+      type: object
+      properties:
+        weights:
+          type: array
+          items:
+            type: number
+      required:
+      - weights
     BeamCollisionInput:
       type: object
       properties:
@@ -1626,6 +1682,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DynamicsAlignOutput'
+  /apply/beaming/Beaming-slope_with_clearance:
+    post:
+      operationId: RULE.Beaming.slope_with_clearance
+      summary: Adjust beam slope to maintain obstacle clearance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamingSlopeClearanceInput'
+      responses:
+        '200':
+          description: Adjusted beam slope with clearance info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamingSlopeClearanceOutput'
+  /apply/spacing/NoteSpacing-optical_stem_weight_scalars:
+    post:
+      operationId: RULE.NoteSpacing.optical_stem_weight_scalars
+      summary: Compute optical stem-weight scalars per column
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteSpacingOpticalWeightsInput'
+      responses:
+        '200':
+          description: Optical stem weight scalars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteSpacingOpticalWeightsOutput'
   /apply/collision/BeamCollision-resolve_overlaps:
     post:
       operationId: RULE.BeamCollision.resolve_overlaps

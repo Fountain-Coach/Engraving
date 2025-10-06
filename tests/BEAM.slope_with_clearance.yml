@@ -1,0 +1,6 @@
+rule: RULE.Beaming.slope_with_clearance
+cases:
+  - name: maintain_clearance
+    expectations:
+      - { path: "/minClearanceSP", op: ">=", value: 0.25 }
+

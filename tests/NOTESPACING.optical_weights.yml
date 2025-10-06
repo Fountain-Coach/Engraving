@@ -1,0 +1,6 @@
+rule: RULE.NoteSpacing.optical_stem_weight_scalars
+cases:
+  - name: weights_present
+    expectations:
+      - { path: "/weights/count", op: ">=", value: 1 }
+
