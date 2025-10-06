@@ -1,0 +1,6 @@
+rule: RULE.Lyrics.hyphen_melisma_spacing_interaction
+cases:
+  - name: hyphen_gap_minimum
+    expectations:
+      - { path: "/lyricOffsets/count", op: ">=", value: 1 }
+

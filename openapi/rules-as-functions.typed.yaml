@@ -963,6 +963,102 @@ components:
           $ref: '#/components/schemas/StaffSpace'
       required:
       - yOffsetSP
+    BeamingCrossVoiceSlopeInput:
+      type: object
+      properties:
+        voiceNotePositionsSP:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/StaffSpace'
+        voiceStemDirections:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+              enum:
+              - up
+              - down
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - voiceNotePositionsSP
+      - voiceStemDirections
+      - beamThicknessSP
+    BeamingCrossVoiceSlopeOutput:
+      type: object
+      properties:
+        slopeSPPerSpaceAdjusted:
+          type: number
+        balanceScore:
+          type: number
+      required:
+      - slopeSPPerSpaceAdjusted
+    DynamicsStackKerningInput:
+      type: object
+      properties:
+        dynamicBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        hairpinBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        atSystemBreak:
+          type: boolean
+      required:
+      - dynamicBBoxes
+    DynamicsStackKerningOutput:
+      type: object
+      properties:
+        dynamicPositions:
+          type: array
+          items:
+            type: object
+            properties:
+              x:
+                $ref: '#/components/schemas/StaffSpace'
+              y:
+                $ref: '#/components/schemas/StaffSpace'
+            required:
+            - x
+            - y
+      required:
+      - dynamicPositions
+    LyricsHyphenMelismaInput:
+      type: object
+      properties:
+        syllableBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        hyphenBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        melismaLineBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - syllableBBoxes
+      - staffBaseline
+    LyricsHyphenMelismaOutput:
+      type: object
+      properties:
+        lyricOffsets:
+          type: array
+          items:
+            type: number
+        baselineYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricOffsets
     BeamCollisionInput:
       type: object
       properties:
@@ -1735,6 +1831,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NoteSpacingOpticalWeightsOutput'
+  /apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance:
+    post:
+      operationId: RULE.Beaming.cross_voice_mixed_stem_slope_balance
+      summary: Beaming slope balance across voices with mixed stems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamingCrossVoiceSlopeInput'
+      responses:
+        '200':
+          description: Balanced beam slope and score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamingCrossVoiceSlopeOutput'
+  /apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks:
+    post:
+      operationId: RULE.Dynamics.stacked_kerning_with_system_breaks
+      summary: Stacked dynamics kerning with system break awareness
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicsStackKerningInput'
+      responses:
+        '200':
+          description: Kerning-adjusted dynamic positions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicsStackKerningOutput'
+  /apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction:
+    post:
+      operationId: RULE.Lyrics.hyphen_melisma_spacing_interaction
+      summary: Lyrics hyphen and melisma spacing interaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsHyphenMelismaInput'
+      responses:
+        '200':
+          description: Lyric offsets and baseline adjustment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsHyphenMelismaOutput'
   /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
     post:
       operationId: RULE.Lyrics.baseline_adjustment_with_variance

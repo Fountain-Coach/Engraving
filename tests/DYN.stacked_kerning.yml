@@ -1,0 +1,6 @@
+rule: RULE.Dynamics.stacked_kerning_with_system_breaks
+cases:
+  - name: stacked_gap_respected
+    expectations:
+      - { path: "/dynamicPositions/count", op: ">=", value: 1 }
+

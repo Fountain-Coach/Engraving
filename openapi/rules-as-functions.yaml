@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:21:29.915891
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:22:37.169222
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -330,6 +330,121 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
+  /apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance:
+    post:
+      operationId: RULE.Beaming.cross_voice_mixed_stem_slope_balance
+      summary: Beaming slope balance across voices with mixed stems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 222
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          balance_weight: '0.6'
+          min_clearance_sp: 0.25
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/cross-voice
+        test_plan:
+          cases:
+          - name: balanced_slope
+            expectations:
+            - path: /slopeSPPerSpaceAdjusted
+              op: <=
+              value: 0.5
+  /apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks:
+    post:
+      operationId: RULE.Dynamics.stacked_kerning_with_system_breaks
+      summary: Stacked dynamics kerning with system break awareness
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 706
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          stacked_min_gap_sp: 0.25
+          break_margin_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/dynamics/stacking
+        test_plan:
+          cases:
+          - name: stacked_gap_respected
+            expectations:
+            - path: /dynamicPositions/count
+              op: '>='
+              value: 1.0
+  /apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction:
+    post:
+      operationId: RULE.Lyrics.hyphen_melisma_spacing_interaction
+      summary: Lyrics hyphen and melisma spacing interaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 612
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          hyphen_min_gap_sp: 0.3
+          melisma_baseline_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/lyrics/hyphens
+        test_plan:
+          cases:
+          - name: hyphen_gap_minimum
+            expectations:
+            - path: /lyricOffsets/count
+              op: '>='
+              value: 1.0
   /apply/spacing/NoteSpacing-spacing_policy:
     post:
       operationId: RULE.NoteSpacing.spacing_policy

@@ -278,6 +278,104 @@ rules:
   - docs/lyrics/baseline
   smufl_inputs:
   - lyricsText.bbox
+
+- id: RULE.Beaming.cross_voice_mixed_stem_slope_balance
+  title: Beaming slope balance across voices with mixed stems
+  agent: BeamingAgent
+  intent: placement
+  priority: 222
+  depends_on:
+  - RULE.Beaming.geometry_slope_and_segments
+  inputs:
+  - voiceNotePositionsSP
+  - voiceStemDirections
+  - beamThicknessSP
+  parameters:
+    balance_weight: '0.6'
+    min_clearance_sp: 0.25
+  procedure: Choose a beam slope minimizing the difference of beamlet lengths across voices while maintaining minimum clearance to nearby symbols.
+  exceptions:
+  - forced_beam_slope
+  outputs:
+  - slopeSPPerSpaceAdjusted
+  - balanceScore
+  side_effects: []
+  test_plan:
+    cases:
+    - name: balanced_slope
+      expectations:
+      - path: /slopeSPPerSpaceAdjusted
+        op: '<='
+        value: 0.5
+  trace:
+  - docs/beaming/cross-voice
+  smufl_inputs:
+  - beam.thickness
+  - noteheadBlack.bbox
+
+- id: RULE.Dynamics.stacked_kerning_with_system_breaks
+  title: Stacked dynamics kerning with system break awareness
+  agent: DynamicsTextAgent
+  intent: placement
+  priority: 706
+  depends_on:
+  - RULE.Dynamics.align_with_noteheads_and_stems
+  inputs:
+  - dynamicBBoxes
+  - hairpinBBoxes
+  - atSystemBreak
+  parameters:
+    stacked_min_gap_sp: 0.25
+    break_margin_sp: 0.3
+  procedure: Kerning for multiple dynamic marks on the same beat; enforce stacked_min_gap and increase margins near system breaks.
+  exceptions: []
+  outputs:
+  - dynamicPositions
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stacked_gap_respected
+      expectations:
+      - path: /dynamicPositions/count
+        op: ">="
+        value: 1.0
+  trace:
+  - docs/dynamics/stacking
+  smufl_inputs:
+  - dynamicForte.baseline
+
+- id: RULE.Lyrics.hyphen_melisma_spacing_interaction
+  title: Lyrics hyphen and melisma spacing interaction
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 612
+  depends_on:
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  inputs:
+  - syllableBBoxes
+  - hyphenBBoxes
+  - melismaLineBBoxes
+  - staffBaseline
+  parameters:
+    hyphen_min_gap_sp: 0.3
+    melisma_baseline_bias_sp: 0.1
+  procedure: Ensure hyphen gaps meet minimums and adjust baseline slightly under melismas to avoid collisions with stems/beams.
+  exceptions: []
+  outputs:
+  - lyricOffsets
+  - baselineYOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: hyphen_gap_minimum
+      expectations:
+      - path: /lyricOffsets/count
+        op: ">="
+        value: 1.0
+  trace:
+  - docs/lyrics/hyphens
+  smufl_inputs:
+  - lyricsText.bbox
 - id: RULE.NoteSpacing.spacing_policy
   title: Note spacing policy (column gaps and alignment)
   agent: SpacingAgent
