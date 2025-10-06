@@ -1,5 +1,6 @@
 rule: RULE.DynamicAlign.kerning_with_hairpins
 cases:
   - name: kerning_applied
-    expectations: [ { path: "/dynamicPosition/x", op: ">=", value: 0 } ]
-
+    expectations:
+      - { path: "/dynamicPosition/x", op: ">=", value: 0.2 }
+      - { path: "/dynamicPosition/y", op: ">=", value: 0.0 }

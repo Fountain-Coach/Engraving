@@ -944,6 +944,25 @@ components:
             type: number
       required:
       - weights
+    LyricsBaselineVarianceInput:
+      type: object
+      properties:
+        lyricBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+        varianceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricBBox
+      - staffBaseline
+    LyricsBaselineVarianceOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
     BeamCollisionInput:
       type: object
       properties:
@@ -1716,6 +1735,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NoteSpacingOpticalWeightsOutput'
+  /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
+    post:
+      operationId: RULE.Lyrics.baseline_adjustment_with_variance
+      summary: Lyrics baseline adjustment with variance tolerance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsBaselineVarianceInput'
+      responses:
+        '200':
+          description: Adjusted lyrics baseline offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsBaselineVarianceOutput'
   /apply/collision/BeamCollision-resolve_overlaps:
     post:
       operationId: RULE.BeamCollision.resolve_overlaps

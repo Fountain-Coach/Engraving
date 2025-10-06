@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:18:23.969278
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:21:29.915891
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -280,6 +280,8 @@ paths:
         - RULE.Dynamics.align_with_noteheads_and_stems
         parameters:
           min_kerning_sp: 0.2
+          hairpin_clearance_sp: 0.3
+          lyrics_baseline_variance_sp: 0.15
         exceptions: []
         trace:
         - docs/dynamics/kerning
@@ -288,6 +290,44 @@ paths:
           - name: kerning_applied
             expectations:
             - path: /dynamicPosition/x
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
+    post:
+      operationId: RULE.Lyrics.baseline_adjustment_with_variance
+      summary: Lyrics baseline adjustment with variance tolerance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 611
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          max_variance_sp: 0.2
+          prefer_stable_baseline: true
+        exceptions: []
+        trace:
+        - docs/lyrics/baseline
+        test_plan:
+          cases:
+          - name: within_variance_cap
+            expectations:
+            - path: /yOffsetSP
               op: '>='
               value: 0.0
   /apply/spacing/NoteSpacing-spacing_policy:

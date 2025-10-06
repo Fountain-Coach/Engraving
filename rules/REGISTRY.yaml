@@ -229,6 +229,8 @@ rules:
   - lyricBBox
   parameters:
     min_kerning_sp: 0.2
+    hairpin_clearance_sp: 0.3
+    lyrics_baseline_variance_sp: 0.15
   procedure: Adjust dynamic text x/y to avoid overlaps with hairpins and lyrics while preserving baseline preference.
   exceptions: []
   outputs:
@@ -245,6 +247,37 @@ rules:
   - docs/dynamics/kerning
   smufl_inputs:
   - dynamicForte.baseline
+
+- id: RULE.Lyrics.baseline_adjustment_with_variance
+  title: Lyrics baseline adjustment with variance tolerance
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 611
+  depends_on:
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  inputs:
+  - lyricBBox
+  - staffBaseline
+  - varianceSP
+  parameters:
+    max_variance_sp: 0.2
+    prefer_stable_baseline: true
+  procedure: Adjust lyrics baseline by up to varianceSP (capped by max_variance_sp) to accommodate descenders and maintain visual consistency across a system.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: within_variance_cap
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/lyrics/baseline
+  smufl_inputs:
+  - lyricsText.bbox
 - id: RULE.NoteSpacing.spacing_policy
   title: Note spacing policy (column gaps and alignment)
   agent: SpacingAgent

@@ -1,0 +1,6 @@
+rule: RULE.Lyrics.baseline_adjustment_with_variance
+cases:
+  - name: within_variance_cap
+    expectations:
+      - { path: "/yOffsetSP", op: ">=", value: 0.0 }
+
