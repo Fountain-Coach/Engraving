@@ -20,6 +20,8 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python scripts/build_openapi.py
 python scripts/check_coverage.py
+python scripts/validate_smufl_inputs.py
+python scripts/check_parity.py
 ```
 
 > Regenerated on 2025-10-06T04:37:59.386060 UTC.
@@ -44,4 +46,5 @@ python scripts/validate_smufl_inputs.py
 python scripts/build_openapi.py      # refresh untyped spec + coverage
 python scripts/check_coverage.py     # parity + tests present
 python scripts/validate_smufl_inputs.py  # SMuFL mapping whitelist
+python scripts/check_parity.py       # ALL rules mapped (Lily components → rules)
 ```
