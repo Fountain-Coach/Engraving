@@ -1,5 +1,5 @@
-rule: RULE.BarNumber.policy
+rule: RULE.BarNumber.placement_policy
 cases:
-  - name: stub_present
+  - name: distance_respected
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/yOffsetSP", op: ">=", value: 0 }

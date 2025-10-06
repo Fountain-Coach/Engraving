@@ -68,7 +68,8 @@ map:
   TempoMarks.placement:
   - RULE.TempoMarks.placement_policy
   Engraver.Note_spacing_engraver:
-  - RULE.NoteSpacing.policy
+  - RULE.NoteSpacing.spacing_policy
+  - RULE.NoteSpacing.optical_stem_weight_scalars
   Engraver.Duration_line_engraver:
   - RULE.DurationLine.placement_policy
   Grob.Accidental:
@@ -145,11 +146,11 @@ map:
   Engraver.Balloon_engraver:
   - RULE.Balloon.policy
   Engraver.Bar_engraver:
-  - RULE.Bar.policy
+  - RULE.Barline.style_and_break_policy
   Engraver.Bar_number_engraver:
-  - RULE.BarNumber.policy
+  - RULE.BarNumber.placement_policy
   Engraver.Beam_collision_engraver:
-  - RULE.BeamCollision.policy
+  - RULE.BeamCollision.resolve_overlaps
   Engraver.Break_align_engraver:
   - RULE.BreakAlign.policy
   Engraver.Caesura_engraver:
@@ -157,7 +158,7 @@ map:
   Engraver.Chord_tremolo_engraver:
   - RULE.ChordTremolo.policy
   Engraver.Clef_engraver:
-  - RULE.Clef.policy
+  - RULE.Clef.mid_system_placement
   Engraver.Cluster_spanner_engraver:
   - RULE.ClusterSpanner.policy
   Engraver.Collision_engraver:
@@ -187,7 +188,7 @@ map:
   Engraver.Episema_engraver:
   - RULE.Episema.policy
   Engraver.Extender_engraver:
-  - RULE.Extender.policy
+  - RULE.Lyrics.extender_spacing_policy
   Engraver.Figured_bass_position_engraver:
   - RULE.FiguredBassPosition.policy
   Engraver.Fingering_column_engraver:
@@ -207,7 +208,7 @@ map:
   Engraver.Grace_engraver:
   - RULE.Grace.policy
   Engraver.Grace_spacing_engraver:
-  - RULE.GraceSpacing.policy
+  - RULE.Grace.clusters_width_policy
   Engraver.Grid_line_span_engraver:
   - RULE.GridLineSpan.policy
   Engraver.Grid_point_engraver:
@@ -217,7 +218,7 @@ map:
   Engraver.Horizontal_bracket_engraver:
   - RULE.HorizontalBracket.policy
   Engraver.Hyphen_engraver:
-  - RULE.Hyphen.policy
+  - RULE.Lyrics.hyphen_melisma_spacing_interaction
   Engraver.Instrument_name_engraver:
   - RULE.InstrumentName.policy
   Engraver.Instrument_switch_engraver:
@@ -227,7 +228,8 @@ map:
   Engraver.Keep_alive_together_engraver:
   - RULE.KeepAliveTogether.policy
   Engraver.Key_engraver:
-  - RULE.Key.policy
+  - RULE.Accidental.key_signature_positions_by_clef
+  - RULE.KeySignature.courtesy_at_line_breaks
   Engraver.Ledger_line_engraver:
   - RULE.LedgerLine.policy
   Engraver.Ligature_bracket_engraver:
@@ -237,7 +239,7 @@ map:
   Engraver.Melody_engraver:
   - RULE.Melody.policy
   Engraver.Metronome_mark_engraver:
-  - RULE.MetronomeMark.policy
+  - RULE.MetronomeMark.placement_policy
   Engraver.Multi_measure_rest_engraver:
   - RULE.MultiMeasureRest.policy
   Engraver.New_fingering_engraver:
@@ -275,7 +277,7 @@ map:
   Engraver.Repeat_acknowledge_engraver:
   - RULE.RepeatAcknowledge.policy
   Engraver.Rest_collision_engraver:
-  - RULE.RestCollision.policy
+  - RULE.RestCollision.resolve_overlaps
   Engraver.Rest_engraver:
   - RULE.Rest.policy
   Engraver.Rhythmic_column_engraver:

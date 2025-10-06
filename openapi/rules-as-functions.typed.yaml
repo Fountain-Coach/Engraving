@@ -888,6 +888,39 @@ components:
             type: number
       required:
       - positions
+    BarlineStyleInput:
+      type: object
+      properties:
+        atSystemBreak:
+          type: boolean
+        style:
+          type: string
+          enum:
+          - single
+          - double
+          - final
+          - heavy
+        repeat:
+          type: string
+          enum:
+          - none
+          - start
+          - end
+          - both
+      required:
+      - style
+    BarlineStyleOutput:
+      type: object
+      properties:
+        glyph:
+          type: string
+        thickness:
+          type: number
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - glyph
+      - thickness
     BeamingSlopeClearanceInput:
       type: object
       properties:
@@ -944,6 +977,41 @@ components:
             type: number
       required:
       - weights
+    BarNumberInput:
+      type: object
+      properties:
+        staffTop:
+          type: number
+        topMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - staffTop
+    BarNumberOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    MetronomeMarkInput:
+      type: object
+      properties:
+        tempoTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - tempoTextBBox
+      - systemTop
+    MetronomeMarkOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
     LyricsBaselineVarianceInput:
       type: object
       properties:
@@ -1059,6 +1127,29 @@ components:
           $ref: '#/components/schemas/StaffSpace'
       required:
       - lyricOffsets
+    LyricsExtenderInput:
+      type: object
+      properties:
+        syllableBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        extenderLineBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - syllableBBoxes
+      - staffBaseline
+    LyricsExtenderOutput:
+      type: object
+      properties:
+        minLineLengthSP:
+          $ref: '#/components/schemas/StaffSpace'
+        baselineYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - minLineLengthSP
     BeamCollisionInput:
       type: object
       properties:
@@ -1803,6 +1894,74 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DynamicsAlignOutput'
+  /apply/barline/Barline-style_and_break_policy:
+    post:
+      operationId: RULE.Barline.style_and_break_policy
+      summary: Barline style and system-break policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BarlineStyleInput'
+      responses:
+        '200':
+          description: Barline selection and padding
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarlineStyleOutput'
+  /apply/barnumber/BarNumber-placement_policy:
+    post:
+      operationId: RULE.BarNumber.placement_policy
+      summary: Bar number placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BarNumberInput'
+      responses:
+        '200':
+          description: Bar number offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarNumberOutput'
+  /apply/tempo/MetronomeMark-placement_policy:
+    post:
+      operationId: RULE.MetronomeMark.placement_policy
+      summary: Metronome mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetronomeMarkInput'
+      responses:
+        '200':
+          description: Metronome mark offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetronomeMarkOutput'
+  /apply/lyrics/Lyrics-extender_spacing_policy:
+    post:
+      operationId: RULE.Lyrics.extender_spacing_policy
+      summary: Lyrics extender spacing policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsExtenderInput'
+      responses:
+        '200':
+          description: Extender spacing outputs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsExtenderOutput'
   /apply/beaming/Beaming-slope_with_clearance:
     post:
       operationId: RULE.Beaming.slope_with_clearance
@@ -3770,6 +3929,74 @@ paths:
     post:
       operationId: RULE.VerticalAlign.policy
       summary: VerticalAlign policy (stub)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/Barline-style_and_break_policy:
+    post:
+      operationId: RULE.Barline.style_and_break_policy
+      summary: Barline style and system-break policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/BarNumber-placement_policy:
+    post:
+      operationId: RULE.BarNumber.placement_policy
+      summary: Bar number placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/Lyrics-extender_spacing_policy:
+    post:
+      operationId: RULE.Lyrics.extender_spacing_policy
+      summary: Lyrics extender spacing policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/MetronomeMark-placement_policy:
+    post:
+      operationId: RULE.MetronomeMark.placement_policy
+      summary: Metronome mark placement policy
       requestBody:
         required: true
         content:

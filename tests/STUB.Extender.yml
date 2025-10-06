@@ -1,5 +1,5 @@
-rule: RULE.Extender.policy
+rule: RULE.Lyrics.extender_spacing_policy
 cases:
-  - name: stub_present
+  - name: line_length_minimum
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/minLineLengthSP", op: ">=", value: 1.0 }

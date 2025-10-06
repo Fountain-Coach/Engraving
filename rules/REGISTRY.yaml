@@ -1681,56 +1681,66 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.Bar.policy
-  title: Bar policy (stub)
-  agent: CollisionAgent
+- id: RULE.Barline.style_and_break_policy
+  title: Barline style and system-break policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
-  depends_on: []
+  priority: 332
+  depends_on:
+  - RULE.Pagination.castoff_fill_vs_overfull_penalties
   inputs:
-  - context
+  - atSystemBreak
+  - style
+  - repeat
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    default_thickness_sp: 0.2
+    break_margin_sp: 0.5
+  procedure: Choose barline glyph and thickness based on style and repeat context; increase
+    padding at system breaks per break_margin_sp.
   exceptions: []
   outputs:
-  - adjustments
+  - glyph
+  - thickness
+  - paddingSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: thickness_non_negative
       expectations:
-      - path: /adjustments/count
+      - path: /thickness
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
-- id: RULE.BarNumber.policy
-  title: BarNumber policy (stub)
-  agent: CollisionAgent
+  - docs/barlines
+  smufl_inputs:
+  - barlineSingle.bbox
+  - barlineDouble.bbox
+  - barlineFinal.bbox
+- id: RULE.BarNumber.placement_policy
+  title: Bar number placement policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 333
   depends_on: []
   inputs:
-  - context
+  - staffTop
+  - topMarginSP
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_distance_sp: 0.8
+  procedure: Place bar numbers above staff with at least min distance and within provided top margin.
   exceptions: []
   outputs:
-  - adjustments
+  - yOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: distance_respected
       expectations:
-      - path: /adjustments/count
+      - path: /yOffsetSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/bar-numbers
 - id: RULE.BeamCollision.policy
   title: BeamCollision policy (stub)
   agent: BeamingAgent
@@ -2206,31 +2216,35 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.Extender.policy
-  title: Extender policy (stub)
+- id: RULE.Lyrics.extender_spacing_policy
+  title: Lyrics extender spacing policy
   agent: VerticalStackAgent
   intent: placement
-  priority: 500
-  depends_on: []
+  priority: 612
+  depends_on:
+  - RULE.Lyrics.vertical_alignment_with_baselines
   inputs:
-  - context
+  - syllableBBoxes
+  - extenderLineBBox
+  - staffBaseline
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_line_length_sp: 1.0
+    baseline_bias_sp: 0.1
+  procedure: Ensure extender line meets minimum length and adjust baseline slightly to avoid collisions.
   exceptions: []
   outputs:
-  - adjustments
+  - minLineLengthSP
+  - baselineYOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: line_length_minimum
       expectations:
-      - path: /adjustments/count
+      - path: /minLineLengthSP
         op: '>='
-        value: 0.0
+        value: 1.0
   trace:
-  - _vendor/lilypond
+  - docs/lyrics/extenders
 - id: RULE.FiguredBassPosition.policy
   title: FiguredBassPosition policy (stub)
   agent: CollisionAgent
@@ -2831,31 +2845,32 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.MetronomeMark.policy
-  title: MetronomeMark policy (stub)
-  agent: CollisionAgent
+- id: RULE.MetronomeMark.placement_policy
+  title: Metronome mark placement policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 334
   depends_on: []
   inputs:
-  - context
+  - tempoTextBBox
+  - systemTop
+  - topMarginSP
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_distance_sp: 0.9
+  procedure: Place tempo marks above system with at least min distance; respect top margin.
   exceptions: []
   outputs:
-  - adjustments
+  - yOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: metronome_above_system
       expectations:
-      - path: /adjustments/count
+      - path: /yOffsetSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/tempo
 - id: RULE.MultiMeasureRest.policy
   title: MultiMeasureRest policy (stub)
   agent: CollisionAgent

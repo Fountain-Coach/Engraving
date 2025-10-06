@@ -20,7 +20,10 @@
     "hairpinDecrescendo",
     "staffLine",
     "ledgerLine",
-    "lyricsText"
+    "lyricsText",
+    "barlineSingle",
+    "barlineDouble",
+    "barlineFinal"
   ],
   "fields": [
     "bbox",

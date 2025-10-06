@@ -1,5 +1,5 @@
-rule: RULE.MetronomeMark.policy
+rule: RULE.MetronomeMark.placement_policy
 cases:
-  - name: stub_present
+  - name: metronome_above_system
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/yOffsetSP", op: ">=", value: 0 }

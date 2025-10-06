@@ -1,5 +1,5 @@
-rule: RULE.Bar.policy
+rule: RULE.Barline.style_and_break_policy
 cases:
-  - name: stub_present
+  - name: thickness_non_negative
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/thickness", op: ">=", value: 0 }
