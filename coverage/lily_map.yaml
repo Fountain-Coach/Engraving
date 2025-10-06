@@ -182,9 +182,10 @@ map:
   Engraver.Drum_notes_engraver:
   - RULE.DrumNotes.stem_side_and_notehead_policy
   Engraver.Dynamic_align_engraver:
-  - RULE.DynamicAlign.policy
+  - RULE.Dynamics.align_with_noteheads_and_stems
+  - RULE.DynamicAlign.kerning_with_hairpins
   Engraver.Dynamic_engraver:
-  - RULE.Dynamic.policy
+  - RULE.Dynamics.align_with_noteheads_and_stems
   Engraver.Episema_engraver:
   - RULE.Episema.policy
   Engraver.Extender_engraver:
@@ -192,9 +193,9 @@ map:
   Engraver.Figured_bass_position_engraver:
   - RULE.FiguredBass.position_stack_policy
   Engraver.Fingering_column_engraver:
-  - RULE.FingeringColumn.policy
+  - RULE.Fingering.placement_policy
   Engraver.Fingering_engraver:
-  - RULE.Fingering.policy
+  - RULE.Fingering.placement_policy
   Engraver.Font_size_engraver:
   - RULE.FontSize.policy
   Engraver.Footnote_engraver:
@@ -206,7 +207,7 @@ map:
   Engraver.Glissando_engraver:
   - RULE.Glissando.policy
   Engraver.Grace_engraver:
-  - RULE.Grace.policy
+  - RULE.Grace.clusters_width_policy
   Engraver.Grace_spacing_engraver:
   - RULE.Grace.clusters_width_policy
   Engraver.Grid_line_span_engraver:
@@ -231,11 +232,13 @@ map:
   - RULE.Accidental.key_signature_positions_by_clef
   - RULE.KeySignature.courtesy_at_line_breaks
   Engraver.Ledger_line_engraver:
-  - RULE.LedgerLine.policy
+  - RULE.Ledger.shorten_near_accidental
   Engraver.Ligature_bracket_engraver:
   - RULE.LigatureBracket.placement_policy
   Engraver.Lyric_engraver:
-  - RULE.Lyric.policy
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  - RULE.Lyrics.hyphen_melisma_spacing_interaction
+  - RULE.Lyrics.extender_spacing_policy
   Engraver.Melody_engraver:
   - RULE.Melody.policy
   Engraver.Metronome_mark_engraver:
@@ -293,7 +296,10 @@ map:
   Engraver.Slash_repeat_engraver:
   - RULE.SlashRepeat.layout_policy
   Engraver.Spacing_engraver:
-  - RULE.Spacing.policy
+  - RULE.Spacing.duration_base_with_optical_corrections
+  - RULE.Spacing.keep_inside_system_constraints
+  - RULE.NoteSpacing.spacing_policy
+  - RULE.NoteSpacing.optical_stem_weight_scalars
   Engraver.Span_arpeggio_engraver:
   - RULE.SpanArpeggio.placement_policy
   Engraver.Span_bar_engraver:
@@ -305,7 +311,7 @@ map:
   Engraver.Staff_collecting_engraver:
   - RULE.StaffCollecting.policy
   Engraver.Staff_symbol_engraver:
-  - RULE.StaffSymbol.policy
+  - RULE.Vertical.min_dist_padding_and_stretch
   Engraver.Stanza_number_align_engraver:
   - RULE.StanzaNumber.align_with_lyrics_policy
   Engraver.Stanza_number_engraver:
