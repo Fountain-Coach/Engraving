@@ -683,6 +683,7 @@ rules:
   agent: BeamingAgent
   intent: placement
   priority: 210
+  status: ratified
   depends_on: []
   inputs:
   - timeSignature
@@ -742,6 +743,7 @@ rules:
   agent: TieSlurAgent
   intent: placement
   priority: 300
+  status: ratified
   depends_on: []
   inputs:
   - candidateCurves
@@ -849,6 +851,7 @@ rules:
   agent: AccidentalAgent
   intent: notation
   priority: 410
+  status: ratified
   depends_on: []
   inputs:
   - previousBarPitchContext
@@ -880,6 +883,7 @@ rules:
   agent: AccidentalAgent
   intent: notation
   priority: 415
+  status: ratified
   depends_on: []
   inputs:
   - pitchAlterCents
@@ -910,6 +914,7 @@ rules:
   agent: TieSlurAgent
   intent: placement
   priority: 305
+  status: ratified
   depends_on: []
   inputs:
   - endpoints

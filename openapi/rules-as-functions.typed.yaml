@@ -1857,6 +1857,124 @@ components:
             type: number
       required:
       - linePositionsSP
+    OpticalSizeInput:
+      type: object
+      properties:
+        staffSizePT:
+          type: number
+        fontFamily:
+          type: string
+      required:
+      - staffSizePT
+    OpticalSizeOutput:
+      type: object
+      properties:
+        strokeScalar:
+          type: number
+        spacingScalar:
+          type: number
+      required:
+      - strokeScalar
+      - spacingScalar
+    DrumNotesPolicyInput:
+      type: object
+      properties:
+        noteheadBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - noteheadBBoxes
+    DrumNotesPolicyOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+      required:
+      - stemDirections
+    FiguredBassPositionInput:
+      type: object
+      properties:
+        figures:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        systemTop:
+          type: number
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - figures
+    FiguredBassPositionOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    InstrumentNameAlignmentInput:
+      allOf:
+      - $ref: '#/components/schemas/InstrumentNamePolicyInput'
+    InstrumentNameAlignmentOutput:
+      allOf:
+      - $ref: '#/components/schemas/InstrumentNamePolicyOutput'
+    PageTurnBreakInput:
+      type: object
+      properties:
+        breakCandidates:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 0
+        preferRestsWeight:
+          type: number
+      required:
+      - breakCandidates
+    PageTurnBreakOutput:
+      type: object
+      properties:
+        chosenBreak:
+          type: integer
+          minimum: 0
+      required:
+      - chosenBreak
+    PartCombineStemInput:
+      type: object
+      properties:
+        notePairs:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              isUnison:
+                type: boolean
+            required:
+            - isUnison
+      required:
+      - notePairs
+    PartCombineStemOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+      required:
+      - stemDirections
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
@@ -2152,9 +2270,9 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
-        status: provisional
   /apply/beaming/Beaming-suppress_flags_when_beamed:
     post:
       operationId: RULE.Beaming.suppress_flags_when_beamed
@@ -2236,9 +2354,9 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
+        status: ratified
         smufl_inputs:
         - noteheadBlack.bbox
-        status: provisional
   /apply/collision/Collision-priority_lattice:
     post:
       operationId: RULE.Collision.priority_lattice
@@ -2360,9 +2478,9 @@ paths:
             - path: /showCautionary
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - accidentalSharp.bbox
-        status: provisional
   /apply/accidental/Accidental-microtonal_glyph_selection_and_spacing:
     post:
       operationId: RULE.Accidental.microtonal_glyph_selection_and_spacing
@@ -2398,9 +2516,9 @@ paths:
             - path: /paddingSP
               op: '>='
               value: 0.25
+        status: ratified
         smufl_inputs:
         - accidentalSharp.bbox
-        status: provisional
   /apply/tieslur/Tie-curvature_selection_with_clearance:
     post:
       operationId: RULE.Tie.curvature_selection_with_clearance
@@ -2435,9 +2553,9 @@ paths:
             - path: /minClearanceSP
               op: '>='
               value: 0.2
+        status: ratified
         smufl_inputs:
         - noteheadBlack.bbox
-        status: provisional
   /apply/accidental/Clef-mid_system_placement:
     post:
       operationId: RULE.Clef.mid_system_placement
@@ -3598,14 +3716,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/OpticalSizeInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/OpticalSizeOutput'
       x-rule:
         agent: OpticalSizingAgent
         intent: optical
@@ -4284,14 +4402,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/DrumNotesPolicyInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/DrumNotesPolicyOutput'
       x-rule:
         agent: CollisionAgent
         intent: placement
@@ -4319,14 +4437,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/FiguredBassPositionInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/FiguredBassPositionOutput'
       x-rule:
         agent: VerticalStackAgent
         intent: placement
@@ -4354,14 +4472,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/InstrumentNameAlignmentInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/InstrumentNameAlignmentOutput'
       x-rule:
         agent: VerticalStackAgent
         intent: placement
@@ -4389,14 +4507,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/PageTurnBreakInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/PageTurnBreakOutput'
       x-rule:
         agent: PaginationAgent
         intent: layout
@@ -4425,14 +4543,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/PartCombineStemInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/PartCombineStemOutput'
       x-rule:
         agent: CollisionAgent
         intent: placement
