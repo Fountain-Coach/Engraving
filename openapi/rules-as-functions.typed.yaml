@@ -650,6 +650,48 @@ components:
               type: number
       required:
       - position
+    FingeringPlacementInput:
+      type: object
+      properties:
+        fingeringBBox:
+          $ref: '#/components/schemas/BBox'
+        noteheadBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - fingeringBBox
+      - noteheadBBoxes
+    FingeringPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
+    PedalPlacementInput:
+      type: object
+      properties:
+        pedalTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - pedalTextBBox
+      - systemBaseline
+    PedalPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
     BracesLayoutInput:
       type: object
       properties:
