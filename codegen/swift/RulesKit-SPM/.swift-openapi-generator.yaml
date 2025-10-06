@@ -1,4 +1,4 @@
 accessModifier: public
 generate:
-  types: true
-  client: true
+  - types
+  - client
