@@ -529,6 +529,9 @@ rules:
   agent: CollisionAgent
   intent: placement
   priority: 365
+  migration:
+    id: R-arp-001
+    note: "Introduce typed ArpeggioPlacementInput/Output schemas to replace StrictEmpty; no semantic change, typed API only."
   depends_on: []
   inputs:
   - chordBBox

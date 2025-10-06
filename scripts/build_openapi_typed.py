@@ -217,6 +217,27 @@ def ensure_components(doc):
         'required': ['yOffsetSP']
     })
 
+    # Arpeggio placement (collision-aware)
+    put('ArpeggioPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'chordBBox': { '$ref': '#/components/schemas/BBox' },
+            'nearbyGrobs': { 'type': 'array', 'minItems': 0, 'items': { '$ref': '#/components/schemas/BBox' } },
+        },
+        'required': ['chordBBox']
+    })
+    put('ArpeggioPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'position': {
+                'type': 'object',
+                'properties': { 'x': { 'type': 'number' }, 'y': { 'type': 'number' } },
+                'required': ['y']
+            }
+        },
+        'required': ['position']
+    })
+
     put('StanzaNumberAlignInput', {
         'type': 'object',
         'properties': {

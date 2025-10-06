@@ -221,8 +221,8 @@
   },
   "RULE.Arpeggio.placement_policy": {
     "path": "/apply/collision/Arpeggio-placement_policy",
-    "request": "bf85186f4376070865bdd59046f2ead13f8a566c1afbb08161d0b4d6e56d868f",
-    "response": "aba58f22a1facae518ae8e7ab31c56fbae53fd42cad1f58c0aa9a5878a7bb361"
+    "request": "afc66d0b8476a5f30e65ae34adb44a25276b1ee530bfc9ebf67c772315b2ff10",
+    "response": "ef2a256a43a49fd5eedd0cd3388a193948c4346f0b52163229ad0e705c3464dc"
   },
   "RULE.Fingering.placement_policy": {
     "path": "/apply/collision/Fingering-placement_policy",
