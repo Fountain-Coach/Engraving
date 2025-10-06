@@ -152,11 +152,13 @@ components:
       properties:
         candidates:
           type: array
+          minItems: 1
           items:
             type: object
             properties:
               controlPoints:
                 type: array
+                minItems: 1
                 items:
                   type: number
               curvature:
@@ -245,6 +247,7 @@ components:
       properties:
         sequence:
           type: array
+          minItems: 1
           items:
             type: string
             enum:
@@ -257,12 +260,15 @@ components:
       properties:
         groups:
           type: array
+          minItems: 1
           items:
             type: array
+            minItems: 1
             items:
               type: integer
         beamBreaks:
           type: array
+          minItems: 0
           items:
             type: integer
       required:
@@ -381,6 +387,7 @@ components:
           $ref: '#/components/schemas/BBox'
         nearbyGrobs:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -417,6 +424,7 @@ components:
           type: number
         columns:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -427,10 +435,12 @@ components:
       properties:
         systemBreaks:
           type: array
+          minItems: 0
           items:
             type: integer
         columnPositions:
           type: array
+          minItems: 1
           items:
             type: number
         overfull:
@@ -452,6 +462,7 @@ components:
           - beatUnit
         noteValues:
           type: array
+          minItems: 1
           items:
             type: string
       required:
@@ -461,12 +472,15 @@ components:
       properties:
         beamBreaks:
           type: array
+          minItems: 0
           items:
             type: integer
         groups:
           type: array
+          minItems: 1
           items:
             type: array
+            minItems: 1
             items:
               type: integer
       required:
@@ -476,10 +490,12 @@ components:
       properties:
         grobTypes:
           type: array
+          minItems: 1
           items:
             type: string
         proximities:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -517,10 +533,12 @@ components:
       properties:
         objectBBoxes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
         minDistances:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -530,10 +548,12 @@ components:
       properties:
         staffPositions:
           type: array
+          minItems: 1
           items:
             type: number
         objectOffsets:
           type: array
+          minItems: 1
           items:
             type: number
     DynamicsAlignInput:
@@ -541,6 +561,7 @@ components:
       properties:
         noteColumns:
           type: array
+          minItems: 1
           items:
             type: number
         dynamicBBox:
@@ -566,10 +587,12 @@ components:
       properties:
         systemWidths:
           type: array
+          minItems: 1
           items:
             type: number
         breakOpportunities:
           type: array
+          minItems: 0
           items:
             type: integer
         pageSize:
@@ -581,6 +604,7 @@ components:
       properties:
         systemBreaks:
           type: array
+          minItems: 0
           items:
             type: integer
         overfull:
@@ -611,6 +635,7 @@ components:
           $ref: '#/components/schemas/BBox'
         nearbyGrobs:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -630,10 +655,12 @@ components:
       properties:
         staves:
           type: array
+          minItems: 1
           items:
             type: integer
         grouping:
           type: array
+          minItems: 1
           items:
             type: string
         braceMarginSP:
@@ -654,10 +681,12 @@ components:
       properties:
         voices:
           type: array
+          minItems: 1
           items:
             type: integer
         notePositions:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -667,6 +696,7 @@ components:
       properties:
         stemDirections:
           type: array
+          minItems: 1
           items:
             type: integer
       required:
@@ -692,6 +722,7 @@ components:
           type: string
         noteValues:
           type: array
+          minItems: 1
           items:
             type: string
       required:
@@ -709,6 +740,7 @@ components:
       properties:
         graceNotes:
           type: array
+          minItems: 1
           items:
             type: string
       required:
@@ -725,10 +757,12 @@ components:
       properties:
         staffAssignments:
           type: array
+          minItems: 1
           items:
             type: integer
         notePositions:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -762,10 +796,12 @@ components:
       properties:
         bars:
           type: array
+          minItems: 1
           items:
             type: integer
         voltaNumbers:
           type: array
+          minItems: 1
           items:
             type: integer
         minHeightSP:
@@ -830,6 +866,7 @@ components:
           - beatUnit
         noteValues:
           type: array
+          minItems: 1
           items:
             type: string
       required:
@@ -839,6 +876,7 @@ components:
       properties:
         beamBreaks:
           type: array
+          minItems: 0
           items:
             type: integer
       required:
@@ -899,6 +937,7 @@ components:
       properties:
         positions:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -942,10 +981,12 @@ components:
       properties:
         notePositionsSP:
           type: array
+          minItems: 2
           items:
             $ref: '#/components/schemas/StaffSpace'
         stemDirections:
           type: array
+          minItems: 2
           items:
             type: string
             enum:
@@ -955,6 +996,7 @@ components:
           $ref: '#/components/schemas/StaffSpace'
         nearbyGrobs:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -975,6 +1017,7 @@ components:
       properties:
         stemDirections:
           type: array
+          minItems: 1
           items:
             type: string
             enum:
@@ -982,6 +1025,7 @@ components:
             - down
         beatStrengths:
           type: array
+          minItems: 1
           items:
             type: number
     NoteSpacingOpticalWeightsOutput:
@@ -989,6 +1033,7 @@ components:
       properties:
         weights:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -1052,14 +1097,18 @@ components:
       properties:
         voiceNotePositionsSP:
           type: array
+          minItems: 1
           items:
             type: array
+            minItems: 2
             items:
               $ref: '#/components/schemas/StaffSpace'
         voiceStemDirections:
           type: array
+          minItems: 1
           items:
             type: array
+            minItems: 2
             items:
               type: string
               enum:
@@ -1090,6 +1139,7 @@ components:
             $ref: '#/components/schemas/BBox'
         hairpinBBoxes:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
         atSystemBreak:
@@ -1101,6 +1151,7 @@ components:
       properties:
         dynamicPositions:
           type: array
+          minItems: 1
           items:
             type: object
             properties:
@@ -1123,10 +1174,12 @@ components:
             $ref: '#/components/schemas/BBox'
         hyphenBBoxes:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
         melismaLineBBoxes:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
         staffBaseline:
@@ -1139,6 +1192,7 @@ components:
       properties:
         lyricOffsets:
           type: array
+          minItems: 1
           items:
             type: number
         baselineYOffsetSP:
@@ -1191,6 +1245,7 @@ components:
       properties:
         ligatureNotes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
         staffBaseline:
@@ -1209,6 +1264,7 @@ components:
       properties:
         textBBoxes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -1218,6 +1274,7 @@ components:
       properties:
         yOffsetsSP:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/StaffSpace'
       required:
@@ -1260,6 +1317,7 @@ components:
       properties:
         scriptBBoxes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -1269,6 +1327,7 @@ components:
       properties:
         yOffsetsSP:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/StaffSpace'
       required:
@@ -1278,6 +1337,7 @@ components:
       properties:
         scriptBBoxes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -1287,6 +1347,7 @@ components:
       properties:
         xOffsetsSP:
           type: array
+          minItems: 1
           items:
             type: number
       required:
@@ -1298,6 +1359,7 @@ components:
           $ref: '#/components/schemas/BBox'
         nearbyGrobs:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -1338,6 +1400,7 @@ components:
           $ref: '#/components/schemas/BBox'
         targets:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
     TextPlacementOutput:
@@ -1359,10 +1422,12 @@ components:
       properties:
         beamSegments:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BeamSegment'
         nearbyGrobs:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -1373,6 +1438,7 @@ components:
       properties:
         offsets:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/StaffSpace'
       required:
@@ -1382,10 +1448,12 @@ components:
       properties:
         restBBoxes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
         noteColumnBBoxes:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BBox'
       required:
@@ -1396,6 +1464,7 @@ components:
       properties:
         restOffsets:
           type: array
+          minItems: 0
           items:
             type: object
             properties:
