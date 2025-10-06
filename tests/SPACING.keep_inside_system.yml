@@ -1,0 +1,4 @@
+rule: RULE.Spacing.keep_inside_system_constraints
+cases:
+  - name: near_break_threshold
+    expectations: [ { path: "/overfull", op: "==", value: 0.0 } ]

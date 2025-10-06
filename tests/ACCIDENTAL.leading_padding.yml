@@ -1,0 +1,4 @@
+rule: RULE.Accidental.leading_padding_and_column_inflation
+cases:
+  - name: single_sharp
+    expectations: [ { path: "/columnMinWidthSP", op: ">=", value: 0.25, tolerance: 0.05 } ]

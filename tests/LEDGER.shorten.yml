@@ -1,0 +1,4 @@
+rule: RULE.Ledger.shorten_near_accidental
+cases:
+  - name: sharp_adjacent
+    expectations: [ { path: "/adjustedLengthSP", op: "==", value: -0.4, tolerance: 0.0 } ]

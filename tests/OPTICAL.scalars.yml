@@ -1,0 +1,4 @@
+rule: RULE.OpticalSize.stroke_and_spacing_scalars
+cases:
+  - name: nominal_size
+    expectations: [ { path: "/strokeScalar", op: "approx", value: 1.0, tolerance: 0.3 } ]

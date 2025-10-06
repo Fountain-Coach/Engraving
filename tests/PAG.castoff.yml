@@ -1,0 +1,4 @@
+rule: RULE.Pagination.castoff_fill_vs_overfull_penalties
+cases:
+  - name: balanced_pages
+    expectations: [ { path: "/overfull", op: "==", value: 0.0 } ]

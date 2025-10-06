@@ -1,0 +1,4 @@
+rule: RULE.Dynamics.align_with_noteheads_and_stems
+cases:
+  - name: mp_under_beam
+    expectations: [ { path: "/dynamicPosition/y", op: "<=", value: 0.0 } ]
