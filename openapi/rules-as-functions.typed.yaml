@@ -180,111 +180,714 @@ components:
     BeamSegment:
       type: object
       properties:
-        x1: { type: number }
-        y1: { type: number }
-        x2: { type: number }
-        y2: { type: number }
-      required: [x1, y1, x2, y2]
+        x1:
+          type: number
+        y1:
+          type: number
+        x2:
+          type: number
+        y2:
+          type: number
+      required:
+      - x1
+      - y1
+      - x2
+      - y2
     BeamGeometryInput:
       type: object
       properties:
-        notePositionsSP: { type: array, items: { $ref: '#/components/schemas/StaffSpace' } }
-        stemDirections: { type: array, items: { type: string, enum: [up, down] } }
-        beamThicknessSP: { $ref: '#/components/schemas/StaffSpace' }
-      required: [notePositionsSP, stemDirections, beamThicknessSP]
+        notePositionsSP:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        stemDirections:
+          type: array
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - notePositionsSP
+      - stemDirections
+      - beamThicknessSP
     BeamGeometryOutput:
       type: object
       properties:
-        slopeSPPerSpace: { type: number }
-        segments: { type: array, items: { $ref: '#/components/schemas/BeamSegment' } }
-      required: [slopeSPPerSpace, segments]
+        slopeSPPerSpace:
+          type: number
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/BeamSegment'
+      required:
+      - slopeSPPerSpace
+      - segments
     RestSplitInput:
       type: object
       properties:
-        sequence: { type: array, items: { type: string, enum: [note, rest] } }
-      required: [sequence]
+        sequence:
+          type: array
+          items:
+            type: string
+            enum:
+            - note
+            - rest
+      required:
+      - sequence
     RestSplitOutput:
       type: object
       properties:
-        groups: { type: array, items: { type: array, items: { type: integer } } }
-        beamBreaks: { type: array, items: { type: integer } }
-      required: [groups]
+        groups:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+        beamBreaks:
+          type: array
+          items:
+            type: integer
+      required:
+      - groups
     Pitch:
       type: object
       properties:
-        step: { type: string, enum: [C, D, E, F, G, A, B] }
-        alter: { type: integer }
-        octave: { type: integer }
-      required: [step, alter, octave]
+        step:
+          type: string
+          enum:
+          - C
+          - D
+          - E
+          - F
+          - G
+          - A
+          - B
+        alter:
+          type: integer
+        octave:
+          type: integer
+      required:
+      - step
+      - alter
+      - octave
     AccidentalCautionaryInput:
       type: object
       properties:
-        previousSpelling: { $ref: '#/components/schemas/Pitch' }
-        currentSpelling: { $ref: '#/components/schemas/Pitch' }
-      required: [previousSpelling, currentSpelling]
+        previousSpelling:
+          $ref: '#/components/schemas/Pitch'
+        currentSpelling:
+          $ref: '#/components/schemas/Pitch'
+      required:
+      - previousSpelling
+      - currentSpelling
     AccidentalCautionaryOutput:
       type: object
       properties:
-        showCautionary: { type: boolean }
-        parenthesized: { type: boolean }
-      required: [showCautionary]
+        showCautionary:
+          type: boolean
+        parenthesized:
+          type: boolean
+      required:
+      - showCautionary
     AccidentalMicrotonalInput:
       type: object
       properties:
-        pitchAlterCents: { type: number }
-        baseSpacingSP: { $ref: '#/components/schemas/StaffSpace' }
-      required: [pitchAlterCents]
+        pitchAlterCents:
+          type: number
+        baseSpacingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - pitchAlterCents
     AccidentalMicrotonalOutput:
       type: object
       properties:
-        chosenGlyph: { type: string }
-        paddingSP: { $ref: '#/components/schemas/StaffSpace' }
-      required: [chosenGlyph]
+        chosenGlyph:
+          type: string
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - chosenGlyph
     CourtesyKeyInput:
       type: object
       properties:
-        upcomingKey: { type: object, properties: { fifths: { type: integer } }, required: [fifths] }
-        atSystemEnd: { type: boolean }
-      required: [upcomingKey, atSystemEnd]
+        upcomingKey:
+          type: object
+          properties:
+            fifths:
+              type: integer
+          required:
+          - fifths
+        atSystemEnd:
+          type: boolean
+      required:
+      - upcomingKey
+      - atSystemEnd
     CourtesyKeyOutput:
       type: object
       properties:
-        showCourtesy: { type: boolean }
-      required: [showCourtesy]
+        showCourtesy:
+          type: boolean
+      required:
+      - showCourtesy
     CourtesyTimeInput:
       type: object
       properties:
-        upcomingTimeSig: { type: object, properties: { beatsPerBar: { type: integer }, beatUnit: { type: integer } }, required: [beatsPerBar, beatUnit] }
-        atSystemEnd: { type: boolean }
-      required: [upcomingTimeSig, atSystemEnd]
+        upcomingTimeSig:
+          type: object
+          properties:
+            beatsPerBar:
+              type: integer
+            beatUnit:
+              type: integer
+          required:
+          - beatsPerBar
+          - beatUnit
+        atSystemEnd:
+          type: boolean
+      required:
+      - upcomingTimeSig
+      - atSystemEnd
     CourtesyTimeOutput:
       type: object
       properties:
-        showCourtesy: { type: boolean }
-      required: [showCourtesy]
+        showCourtesy:
+          type: boolean
+      required:
+      - showCourtesy
     TieCurvatureInput:
       type: object
       properties:
-        start: { $ref: '#/components/schemas/BBox' }
-        end: { $ref: '#/components/schemas/BBox' }
-        nearbyGrobs: { type: array, items: { $ref: '#/components/schemas/BBox' } }
-      required: [start, end]
+        start:
+          $ref: '#/components/schemas/BBox'
+        end:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - start
+      - end
     TieCurvatureOutput:
       type: object
       properties:
-        minClearanceSP: { $ref: '#/components/schemas/StaffSpace' }
-      required: [minClearanceSP]
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - minClearanceSP
     LyricsAlignInput:
       type: object
       properties:
-        lyricBBox: { $ref: '#/components/schemas/BBox' }
-        staffBaseline: { $ref: '#/components/schemas/StaffSpace' }
-      required: [lyricBBox, staffBaseline]
+        lyricBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricBBox
+      - staffBaseline
     LyricsAlignOutput:
       type: object
       properties:
-        yOffsetSP: { $ref: '#/components/schemas/StaffSpace' }
-      required: [yOffsetSP]
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    KeepInsideInput:
+      type: object
+      properties:
+        lineWidth:
+          type: number
+        columns:
+          type: array
+          items:
+            type: number
+      required:
+      - lineWidth
+      - columns
+    KeepInsideOutput:
+      type: object
+      properties:
+        systemBreaks:
+          type: array
+          items:
+            type: integer
+        columnPositions:
+          type: array
+          items:
+            type: number
+        overfull:
+          type: number
+      required:
+      - columnPositions
+    CompoundBeamingInput:
+      type: object
+      properties:
+        timeSignature:
+          type: object
+          properties:
+            beatsPerBar:
+              type: integer
+            beatUnit:
+              type: integer
+          required:
+          - beatsPerBar
+          - beatUnit
+        noteValues:
+          type: array
+          items:
+            type: string
+      required:
+      - timeSignature
+    CompoundBeamingOutput:
+      type: object
+      properties:
+        beamBreaks:
+          type: array
+          items:
+            type: integer
+        groups:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+      required:
+      - beamBreaks
+    CollisionLatticeInput:
+      type: object
+      properties:
+        grobTypes:
+          type: array
+          items:
+            type: string
+        proximities:
+          type: array
+          items:
+            type: number
+      required:
+      - grobTypes
+    CollisionLatticeOutput:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+    LedgerShortenInput:
+      type: object
+      properties:
+        standardLengthSP:
+          type: number
+        accidentalProximitySP:
+          type: number
+        shortenBySP:
+          type: number
+      required:
+      - standardLengthSP
+      - accidentalProximitySP
+    LedgerShortenOutput:
+      type: object
+      properties:
+        adjustedLengthSP:
+          type: number
+      required:
+      - adjustedLengthSP
+    VerticalStackInput:
+      type: object
+      properties:
+        objectBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        minDistances:
+          type: array
+          items:
+            type: number
+      required:
+      - objectBBoxes
+    VerticalStackOutput:
+      type: object
+      properties:
+        staffPositions:
+          type: array
+          items:
+            type: number
+        objectOffsets:
+          type: array
+          items:
+            type: number
+    DynamicsAlignInput:
+      type: object
+      properties:
+        noteColumns:
+          type: array
+          items:
+            type: number
+        dynamicBBox:
+          $ref: '#/components/schemas/BBox'
+        baseline:
+          type: number
+      required:
+      - dynamicBBox
+    DynamicsAlignOutput:
+      type: object
+      properties:
+        dynamicPosition:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+      required:
+      - dynamicPosition
+    CastoffInput:
+      type: object
+      properties:
+        systemWidths:
+          type: array
+          items:
+            type: number
+        breakOpportunities:
+          type: array
+          items:
+            type: integer
+        pageSize:
+          type: string
+      required:
+      - systemWidths
+    CastoffOutput:
+      type: object
+      properties:
+        systemBreaks:
+          type: array
+          items:
+            type: integer
+        overfull:
+          type: number
+    OpticalInput:
+      type: object
+      properties:
+        staffSizePT:
+          type: number
+        baseLineThickness:
+          type: number
+      required:
+      - staffSizePT
+    OpticalOutput:
+      type: object
+      properties:
+        strokeScalar:
+          type: number
+        spacingScalar:
+          type: number
+      required:
+      - strokeScalar
+      - spacingScalar
+    OrnamentPlacementInput:
+      type: object
+      properties:
+        ornamentBBox:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - ornamentBBox
+    OrnamentPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            y:
+              type: number
+      required:
+      - position
+    BracesLayoutInput:
+      type: object
+      properties:
+        staves:
+          type: array
+          items:
+            type: integer
+        grouping:
+          type: array
+          items:
+            type: string
+        braceMarginSP:
+          type: number
+      required:
+      - staves
+    BracesLayoutOutput:
+      type: object
+      properties:
+        braceOffsets:
+          type: object
+          additionalProperties:
+            type: number
+      required:
+      - braceOffsets
+    MultiVoiceStemsInput:
+      type: object
+      properties:
+        voices:
+          type: array
+          items:
+            type: integer
+        notePositions:
+          type: array
+          items:
+            type: number
+      required:
+      - voices
+    MultiVoiceStemsOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          items:
+            type: integer
+      required:
+      - stemDirections
+    MMRestLayoutInput:
+      type: object
+      properties:
+        measureCount:
+          type: integer
+      required:
+      - measureCount
+    MMRestLayoutOutput:
+      type: object
+      properties:
+        widthSP:
+          type: number
+      required:
+      - widthSP
+    TupletBeamingInput:
+      type: object
+      properties:
+        tupletRatio:
+          type: string
+        noteValues:
+          type: array
+          items:
+            type: string
+      required:
+      - tupletRatio
+    TupletBeamingOutput:
+      type: object
+      properties:
+        bracketPosition:
+          type: object
+          properties:
+            y:
+              type: number
+    GraceWidthInput:
+      type: object
+      properties:
+        graceNotes:
+          type: array
+          items:
+            type: string
+      required:
+      - graceNotes
+    GraceWidthOutput:
+      type: object
+      properties:
+        widthScale:
+          type: number
+      required:
+      - widthScale
+    CrossStaffBeamingInput:
+      type: object
+      properties:
+        staffAssignments:
+          type: array
+          items:
+            type: integer
+        notePositions:
+          type: array
+          items:
+            type: number
+      required:
+      - staffAssignments
+    CrossStaffBeamingOutput:
+      type: object
+      properties:
+        beamStaff:
+          type: integer
+      required:
+      - beamStaff
+    OttavaPlacementInput:
+      type: object
+      properties:
+        ottavaType:
+          type: string
+        staffBaseline:
+          type: number
+      required:
+      - ottavaType
+      - staffBaseline
+    OttavaPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          type: number
+      required:
+      - yOffsetSP
+    VoltaLayoutInput:
+      type: object
+      properties:
+        bars:
+          type: array
+          items:
+            type: integer
+        voltaNumbers:
+          type: array
+          items:
+            type: integer
+        minHeightSP:
+          type: number
+      required:
+      - bars
+    VoltaLayoutOutput:
+      type: object
+      properties:
+        heightSP:
+          type: number
+      required:
+      - heightSP
+    RehearsalPlacementInput:
+      type: object
+      properties:
+        markBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          type: number
+      required:
+      - markBBox
+    RehearsalPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          type: number
+      required:
+      - yOffsetSP
+    TempoPlacementInput:
+      type: object
+      properties:
+        tempoTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          type: number
+      required:
+      - tempoTextBBox
+    TempoPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          type: number
+      required:
+      - yOffsetSP
+    BeamingSubdivisionInput:
+      type: object
+      properties:
+        timeSignature:
+          type: object
+          properties:
+            beatsPerBar:
+              type: integer
+            beatUnit:
+              type: integer
+          required:
+          - beatsPerBar
+          - beatUnit
+        noteValues:
+          type: array
+          items:
+            type: string
+      required:
+      - timeSignature
+    BeamingSubdivisionOutput:
+      type: object
+      properties:
+        beamBreaks:
+          type: array
+          items:
+            type: integer
+      required:
+      - beamBreaks
+    FlagSuppressionInput:
+      type: object
+      properties:
+        isBeamedGroup:
+          type: boolean
+      required:
+      - isBeamedGroup
+    FlagSuppressionOutput:
+      type: object
+      properties:
+        drawFlags:
+          type: boolean
+      required:
+      - drawFlags
+    ClefPlacementInput:
+      type: object
+      properties:
+        clefType:
+          type: string
+          enum:
+          - treble
+          - bass
+          - alto
+          - tenor
+        staffSizePT:
+          type: number
+        leftPaddingSP:
+          type: number
+      required:
+      - clefType
+      - staffSizePT
+    ClefPlacementOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          type: number
+      required:
+      - xOffsetSP
+    KeySigPositionsInput:
+      type: object
+      properties:
+        clef:
+          type: string
+          enum:
+          - treble
+          - bass
+        fifths:
+          type: integer
+      required:
+      - clef
+      - fifths
+    KeySigPositionsOutput:
+      type: object
+      properties:
+        positions:
+          type: array
+          items:
+            type: number
+      required:
+      - positions
 paths:
   /apply/spacing/duration-base-with-optical-corrections:
     post:
@@ -298,7 +901,7 @@ paths:
               $ref: '#/components/schemas/SpacingDurationBaseInput'
       responses:
         '200':
-          description: Column positions and min widths
+          description: Duration spacing
           content:
             application/json:
               schema:
@@ -322,7 +925,7 @@ paths:
               $ref: '#/components/schemas/BeamingKneeInput'
       responses:
         '200':
-          description: Kneed decision and threshold used
+          description: Kneed beam decision
           content:
             application/json:
               schema:
@@ -345,7 +948,7 @@ paths:
               $ref: '#/components/schemas/AccidentalLeadInInput'
       responses:
         '200':
-          description: Updated column minimum width
+          description: Accidental lead-in
           content:
             application/json:
               schema:
@@ -370,7 +973,7 @@ paths:
               $ref: '#/components/schemas/SlurInput'
       responses:
         '200':
-          description: Chosen control points and score
+          description: Slur selection
           content:
             application/json:
               schema:
@@ -391,14 +994,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/SpacingDurationBaseInput'
       responses:
         '200':
-          description: OK
+          description: Duration spacing
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/SpacingDurationBaseOutput'
   /apply/spacing/Spacing-keep_inside_system_constraints:
     post:
       operationId: RULE.Spacing.keep_inside_system_constraints
@@ -408,14 +1011,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/KeepInsideInput'
       responses:
         '200':
-          description: OK
+          description: Keep-inside result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/KeepInsideOutput'
   /apply/beaming/Beaming-auto_knee_threshold:
     post:
       operationId: RULE.Beaming.auto_knee_threshold
@@ -425,14 +1028,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/BeamingKneeInput'
       responses:
         '200':
-          description: OK
+          description: Kneed beam decision
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/BeamingKneeOutput'
   /apply/beaming/Beaming-compound_meter_grouping:
     post:
       operationId: RULE.Beaming.compound_meter_grouping
@@ -442,14 +1045,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/CompoundBeamingInput'
       responses:
         '200':
-          description: OK
+          description: Compound beaming result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/CompoundBeamingOutput'
   /apply/beaming/Beaming-geometry_slope_and_segments:
     post:
       operationId: RULE.Beaming.geometry_slope_and_segments
@@ -493,14 +1096,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/BeamingSubdivisionInput'
       responses:
         '200':
-          description: OK
+          description: Subdivision beaming
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/BeamingSubdivisionOutput'
   /apply/beaming/Beaming-suppress_flags_when_beamed:
     post:
       operationId: RULE.Beaming.suppress_flags_when_beamed
@@ -510,14 +1113,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/FlagSuppressionInput'
       responses:
         '200':
-          description: OK
+          description: Flag suppression
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/FlagSuppressionOutput'
   /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
     post:
       operationId: RULE.Slur.curvature_choice_with_collision_penalty
@@ -527,14 +1130,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/SlurInput'
       responses:
         '200':
-          description: OK
+          description: Slur selection
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/SlurOutput'
   /apply/collision/Collision-priority_lattice:
     post:
       operationId: RULE.Collision.priority_lattice
@@ -544,14 +1147,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/CollisionLatticeInput'
       responses:
         '200':
-          description: OK
+          description: Collision offsets
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/CollisionLatticeOutput'
   /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation
@@ -561,14 +1164,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/AccidentalLeadInInput'
       responses:
         '200':
-          description: OK
+          description: Accidental lead-in
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/AccidentalLeadInOutput'
   /apply/accidental/Accidental-cautionary_parenthesized_policy:
     post:
       operationId: RULE.Accidental.cautionary_parenthesized_policy
@@ -629,14 +1232,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/ClefPlacementInput'
       responses:
         '200':
-          description: OK
+          description: Clef placement
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/ClefPlacementOutput'
   /apply/accidental/KeySignature-courtesy_at_line_breaks:
     post:
       operationId: RULE.KeySignature.courtesy_at_line_breaks
@@ -697,14 +1300,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/OrnamentPlacementInput'
       responses:
         '200':
-          description: OK
+          description: Ornament placement result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/OrnamentPlacementOutput'
   /apply/verticalstack/PartStaff-braces_brackets_layout:
     post:
       operationId: RULE.PartStaff.braces_brackets_layout
@@ -714,14 +1317,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/BracesLayoutInput'
       responses:
         '200':
-          description: OK
+          description: Braces/brackets layout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/BracesLayoutOutput'
   /apply/spacing/MultiVoice-stem_directions_up_down:
     post:
       operationId: RULE.MultiVoice.stem_directions_up_down
@@ -731,14 +1334,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/MultiVoiceStemsInput'
       responses:
         '200':
-          description: OK
+          description: Stem directions
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/MultiVoiceStemsOutput'
   /apply/pagination/MultiMeasureRests-layout_policy:
     post:
       operationId: RULE.MultiMeasureRests.layout_policy
@@ -748,14 +1351,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/MMRestLayoutInput'
       responses:
         '200':
-          description: OK
+          description: MM rest layout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/MMRestLayoutOutput'
   /apply/beaming/Tuplet-beaming_and_bracket_placement:
     post:
       operationId: RULE.Tuplet.beaming_and_bracket_placement
@@ -765,14 +1368,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/TupletBeamingInput'
       responses:
         '200':
-          description: OK
+          description: Tuplet beaming/bracket
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/TupletBeamingOutput'
   /apply/spacing/Grace-clusters_width_policy:
     post:
       operationId: RULE.Grace.clusters_width_policy
@@ -782,14 +1385,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/GraceWidthInput'
       responses:
         '200':
-          description: OK
+          description: Grace width policy
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/GraceWidthOutput'
   /apply/beaming/CrossStaff-beaming_policy:
     post:
       operationId: RULE.CrossStaff.beaming_policy
@@ -799,14 +1402,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/CrossStaffBeamingInput'
       responses:
         '200':
-          description: OK
+          description: Cross-staff beaming
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/CrossStaffBeamingOutput'
   /apply/verticalstack/Ottava-placement_policy:
     post:
       operationId: RULE.Ottava.placement_policy
@@ -816,14 +1419,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/OttavaPlacementInput'
       responses:
         '200':
-          description: OK
+          description: Ottava placement
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/OttavaPlacementOutput'
   /apply/pagination/RepeatVolta-layout_policy:
     post:
       operationId: RULE.RepeatVolta.layout_policy
@@ -833,14 +1436,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/VoltaLayoutInput'
       responses:
         '200':
-          description: OK
+          description: Volta layout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/VoltaLayoutOutput'
   /apply/verticalstack/RehearsalMarks-placement_policy:
     post:
       operationId: RULE.RehearsalMarks.placement_policy
@@ -850,14 +1453,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/RehearsalPlacementInput'
       responses:
         '200':
-          description: OK
+          description: Rehearsal placement
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/RehearsalPlacementOutput'
   /apply/verticalstack/TempoMarks-placement_policy:
     post:
       operationId: RULE.TempoMarks.placement_policy
@@ -867,14 +1470,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/TempoPlacementInput'
       responses:
         '200':
-          description: OK
+          description: Tempo placement
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/TempoPlacementOutput'
   /apply/accidental/Accidental-key_signature_positions_by_clef:
     post:
       operationId: RULE.Accidental.key_signature_positions_by_clef
@@ -884,14 +1487,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/KeySigPositionsInput'
       responses:
         '200':
-          description: OK
+          description: Key signature positions
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/KeySigPositionsOutput'
   /apply/ledger/Ledger-shorten_near_accidental:
     post:
       operationId: RULE.Ledger.shorten_near_accidental
@@ -901,14 +1504,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/LedgerShortenInput'
       responses:
         '200':
-          description: OK
+          description: Ledger shorten result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/LedgerShortenOutput'
   /apply/verticalstack/Vertical-min_dist_padding_and_stretch:
     post:
       operationId: RULE.Vertical.min_dist_padding_and_stretch
@@ -918,14 +1521,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/VerticalStackInput'
       responses:
         '200':
-          description: OK
+          description: Vertical layout result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/VerticalStackOutput'
   /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
     post:
       operationId: RULE.Dynamics.align_with_noteheads_and_stems
@@ -935,14 +1538,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/DynamicsAlignInput'
       responses:
         '200':
-          description: OK
+          description: Dynamics alignment
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/DynamicsAlignOutput'
   /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
@@ -952,14 +1555,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/CastoffInput'
       responses:
         '200':
-          description: OK
+          description: Castoff result
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/CastoffOutput'
   /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
     post:
       operationId: RULE.OpticalSize.stroke_and_spacing_scalars
@@ -969,11 +1572,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/OpticalInput'
       responses:
         '200':
-          description: OK
+          description: Optical sizing scalars
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/OpticalOutput'
