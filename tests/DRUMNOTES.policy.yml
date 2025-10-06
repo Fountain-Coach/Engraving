@@ -1,0 +1,5 @@
+rule: RULE.DrumNotes.stem_side_and_notehead_policy
+cases:
+  - name: stem_directions_present
+    expectations: [ { path: "/stemDirections/count", op: ">=", value: 1.0 } ]
+

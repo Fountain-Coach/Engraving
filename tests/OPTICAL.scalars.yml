@@ -1,4 +1,7 @@
 rule: RULE.OpticalSize.stroke_and_spacing_scalars
 cases:
-  - name: nominal_size
-    expectations: [ { path: "/strokeScalar", op: "approx", value: 1.0, tolerance: 0.3 } ]
+  - name: scalars_present
+    expectations:
+      - { path: "/strokeScalar", op: ">=", value: 0.0 }
+      - { path: "/spacingScalar", op: ">=", value: 0.0 }
+

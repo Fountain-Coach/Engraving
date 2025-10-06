@@ -284,6 +284,107 @@ def ensure_components(doc):
         'required': ['linePositionsSP']
     })
 
+    # Optical sizing — replace StrictEmpty
+    put('OpticalSizeInput', {
+        'type': 'object',
+        'properties': {
+            'staffSizePT': { 'type': 'number' },
+            'fontFamily': { 'type': 'string' },
+        },
+        'required': ['staffSizePT']
+    })
+    put('OpticalSizeOutput', {
+        'type': 'object',
+        'properties': {
+            'strokeScalar': { 'type': 'number' },
+            'spacingScalar': { 'type': 'number' },
+        },
+        'required': ['strokeScalar','spacingScalar']
+    })
+
+    # Drum notes policy
+    put('DrumNotesPolicyInput', {
+        'type': 'object',
+        'properties': {
+            'noteheadBBoxes': { 'type': 'array', 'minItems': 1, 'items': { '$ref': '#/components/schemas/BBox' } },
+        },
+        'required': ['noteheadBBoxes']
+    })
+    put('DrumNotesPolicyOutput', {
+        'type': 'object',
+        'properties': {
+            'stemDirections': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'string', 'enum': ['up','down'] } },
+        },
+        'required': ['stemDirections']
+    })
+
+    # Figured bass position/stack
+    put('FiguredBassPositionInput', {
+        'type': 'object',
+        'properties': {
+            'figures': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'string' } },
+            'systemTop': { 'type': 'number' },
+            'minDistanceSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['figures']
+    })
+    put('FiguredBassPositionOutput', {
+        'type': 'object',
+        'properties': {
+            'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['yOffsetSP']
+    })
+
+    # Instrument name alignment (reuse policy schema)
+    put('InstrumentNameAlignmentInput', {
+        'allOf': [ { '$ref': '#/components/schemas/InstrumentNamePolicyInput' } ]
+    })
+    put('InstrumentNameAlignmentOutput', {
+        'allOf': [ { '$ref': '#/components/schemas/InstrumentNamePolicyOutput' } ]
+    })
+
+    # Page turn break prefs
+    put('PageTurnBreakInput', {
+        'type': 'object',
+        'properties': {
+            'breakCandidates': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'integer', 'minimum': 0 } },
+            'preferRestsWeight': { 'type': 'number' },
+        },
+        'required': ['breakCandidates']
+    })
+    put('PageTurnBreakOutput', {
+        'type': 'object',
+        'properties': {
+            'chosenBreak': { 'type': 'integer', 'minimum': 0 },
+        },
+        'required': ['chosenBreak']
+    })
+
+    # Part combine stem direction policy
+    put('PartCombineStemInput', {
+        'type': 'object',
+        'properties': {
+            'notePairs': {
+                'type': 'array', 'minItems': 1, 'items': {
+                    'type': 'object',
+                    'properties': {
+                        'isUnison': { 'type': 'boolean' }
+                    },
+                    'required': ['isUnison']
+                }
+            }
+        },
+        'required': ['notePairs']
+    })
+    put('PartCombineStemOutput', {
+        'type': 'object',
+        'properties': {
+            'stemDirections': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'string', 'enum': ['up','down'] } },
+        },
+        'required': ['stemDirections']
+    })
+
 def main():
     untyped = yaml.safe_load(UNTYPED.read_text())
     typed = yaml.safe_load(TYPED.read_text())
@@ -317,7 +418,7 @@ def main():
         'RULE.PartStaff.braces_brackets_layout': ('BracesLayoutInput','BracesLayoutOutput'),
         'RULE.MultiVoice.stem_directions_up_down': ('MultiVoiceStemsInput','MultiVoiceStemsOutput'),
         'RULE.Pagination.castoff_fill_vs_overfull_penalties': ('CastoffInput','CastoffOutput'),
-        'RULE.OpticalSize.stroke_and_spacing_scalars': ('StrictEmpty','StrictEmpty'),
+        'RULE.OpticalSize.stroke_and_spacing_scalars': ('OpticalSizeInput','OpticalSizeOutput'),
         'RULE.Arpeggio.placement_policy': ('ArpeggioPlacementInput','ArpeggioPlacementOutput'),
         'RULE.Fingering.placement_policy': ('FingeringPlacementInput','FingeringPlacementOutput'),
         'RULE.Pedal.line_and_text_policy': ('PedalPlacementInput','PedalPlacementOutput'),
@@ -358,6 +459,11 @@ def main():
         'RULE.StanzaNumber.placement_policy': ('StanzaNumberPlacementInput','StanzaNumberPlacementOutput'),
         'RULE.Tab.notehead_string_fret_policy': ('TabNoteheadStringFretInput','TabNoteheadStringFretOutput'),
         'RULE.TabStaffSymbol.string_tuning_layout': ('TabStaffStringTuningLayoutInput','TabStaffStringTuningLayoutOutput'),
+        'RULE.DrumNotes.stem_side_and_notehead_policy': ('DrumNotesPolicyInput','DrumNotesPolicyOutput'),
+        'RULE.FiguredBass.position_stack_policy': ('FiguredBassPositionInput','FiguredBassPositionOutput'),
+        'RULE.InstrumentName.alignment_policy': ('InstrumentNameAlignmentInput','InstrumentNameAlignmentOutput'),
+        'RULE.PageTurn.break_preferences': ('PageTurnBreakInput','PageTurnBreakOutput'),
+        'RULE.PartCombine.stem_direction_policy': ('PartCombineStemInput','PartCombineStemOutput'),
     }
 
     for path, op in upaths.items():
