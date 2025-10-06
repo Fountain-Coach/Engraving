@@ -1150,6 +1150,191 @@ components:
           $ref: '#/components/schemas/StaffSpace'
       required:
       - minLineLengthSP
+    InstrumentSwitchInput:
+      type: object
+      properties:
+        changeTextBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - changeTextBBox
+      - staffBaseline
+    InstrumentSwitchOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    LigatureBracketInput:
+      type: object
+      properties:
+        ligatureNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - ligatureNotes
+    LigatureBracketOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    NonMusicalScriptColumnInput:
+      type: object
+      properties:
+        textBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - textBBoxes
+    NonMusicalScriptColumnOutput:
+      type: object
+      properties:
+        yOffsetsSP:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetsSP
+    OutputPropertyOverrideInput:
+      type: object
+      properties:
+        overrides:
+          type: object
+          additionalProperties: true
+      required:
+      - overrides
+    OutputPropertyOverrideOutput:
+      type: object
+      properties:
+        effectiveProperties:
+          type: object
+          additionalProperties: true
+      required:
+      - effectiveProperties
+    PitchedTrillInput:
+      type: object
+      properties:
+        trillTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+      required:
+      - trillTextBBox
+      - systemTop
+    PitchedTrillOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    ScriptColumnInput:
+      type: object
+      properties:
+        scriptBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - scriptBBoxes
+    ScriptColumnOutput:
+      type: object
+      properties:
+        yOffsetsSP:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetsSP
+    ScriptRowInput:
+      type: object
+      properties:
+        scriptBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - scriptBBoxes
+    ScriptRowOutput:
+      type: object
+      properties:
+        xOffsetsSP:
+          type: array
+          items:
+            type: number
+      required:
+      - xOffsetsSP
+    SpanArpeggioInput:
+      type: object
+      properties:
+        chordBBox:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - chordBBox
+    SpanArpeggioOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
+    HorizontalBracketInput:
+      type: object
+      properties:
+        bracketBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+      required:
+      - bracketBBox
+      - systemTop
+    HorizontalBracketOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    TextPlacementInput:
+      type: object
+      properties:
+        textBBox:
+          $ref: '#/components/schemas/BBox'
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+    TextPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
     BeamCollisionInput:
       type: object
       properties:
@@ -1962,6 +2147,176 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LyricsExtenderOutput'
+  /apply/instrument/InstrumentSwitch-placement_policy:
+    post:
+      operationId: RULE.InstrumentSwitch.placement_policy
+      summary: Instrument change text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstrumentSwitchInput'
+      responses:
+        '200':
+          description: Instrument change offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentSwitchOutput'
+  /apply/ligature/LigatureBracket-placement_policy:
+    post:
+      operationId: RULE.LigatureBracket.placement_policy
+      summary: Ligature bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LigatureBracketInput'
+      responses:
+        '200':
+          description: Ligature bracket offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LigatureBracketOutput'
+  /apply/scripts/NonMusicalScriptColumn-layout_policy:
+    post:
+      operationId: RULE.NonMusicalScriptColumn.layout_policy
+      summary: Non-musical script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NonMusicalScriptColumnInput'
+      responses:
+        '200':
+          description: Script column y offsets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NonMusicalScriptColumnOutput'
+  /apply/output/OutputProperty-override_inheritance_policy:
+    post:
+      operationId: RULE.OutputProperty.override_inheritance_policy
+      summary: Output property override and inheritance policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputPropertyOverrideInput'
+      responses:
+        '200':
+          description: Effective properties
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputPropertyOverrideOutput'
+  /apply/ornaments/PitchedTrill-placement_policy:
+    post:
+      operationId: RULE.PitchedTrill.placement_policy
+      summary: Pitched trill placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PitchedTrillInput'
+      responses:
+        '200':
+          description: Trill offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PitchedTrillOutput'
+  /apply/scripts/ScriptColumn-layout_policy:
+    post:
+      operationId: RULE.ScriptColumn.layout_policy
+      summary: Script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScriptColumnInput'
+      responses:
+        '200':
+          description: Script column y offsets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScriptColumnOutput'
+  /apply/scripts/ScriptRow-layout_policy:
+    post:
+      operationId: RULE.ScriptRow.layout_policy
+      summary: Script row layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScriptRowInput'
+      responses:
+        '200':
+          description: Script row x offsets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScriptRowOutput'
+  /apply/arpeggio/SpanArpeggio-placement_policy:
+    post:
+      operationId: RULE.SpanArpeggio.placement_policy
+      summary: Span arpeggio placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpanArpeggioInput'
+      responses:
+        '200':
+          description: Span arpeggio position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpanArpeggioOutput'
+  /apply/brackets/HorizontalBracket-placement_policy:
+    post:
+      operationId: RULE.HorizontalBracket.placement_policy
+      summary: Horizontal bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HorizontalBracketInput'
+      responses:
+        '200':
+          description: Horizontal bracket offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HorizontalBracketOutput'
+  /apply/text/Text-placement_policy:
+    post:
+      operationId: RULE.Text.placement_policy
+      summary: General text placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextPlacementInput'
+      responses:
+        '200':
+          description: Text placement position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextPlacementOutput'
   /apply/repeat/PercentRepeat-layout_policy:
     post:
       operationId: RULE.PercentRepeat.layout_policy
@@ -4283,6 +4638,363 @@ paths:
     post:
       operationId: RULE.TimeSignature.placement_policy
       summary: Time signature placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/InstrumentName-policy:
+    post:
+      operationId: RULE.InstrumentName.policy
+      summary: Instrument name alignment policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/CueClef-placement_policy:
+    post:
+      operationId: RULE.CueClef.placement_policy
+      summary: Cue clef placement and size policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/collision/DrumNotes-stem_side_and_notehead_policy:
+    post:
+      operationId: RULE.DrumNotes.stem_side_and_notehead_policy
+      summary: Drum notes stem side and notehead policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/FiguredBass-position_stack_policy:
+    post:
+      operationId: RULE.FiguredBass.position_stack_policy
+      summary: Figured bass position and stack policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/InstrumentName-alignment_policy:
+    post:
+      operationId: RULE.InstrumentName.alignment_policy
+      summary: Instrument name alignment policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/pagination/PageTurn-break_preferences:
+    post:
+      operationId: RULE.PageTurn.break_preferences
+      summary: Page turn break preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/collision/PartCombine-stem_direction_policy:
+    post:
+      operationId: RULE.PartCombine.stem_direction_policy
+      summary: Part-combine stem direction policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/StanzaNumber-align_with_lyrics_policy:
+    post:
+      operationId: RULE.StanzaNumber.align_with_lyrics_policy
+      summary: Stanza number alignment with lyric baselines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/StanzaNumber-placement_policy:
+    post:
+      operationId: RULE.StanzaNumber.placement_policy
+      summary: Stanza number placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/collision/Tab-notehead_string_fret_policy:
+    post:
+      operationId: RULE.Tab.notehead_string_fret_policy
+      summary: Tab noteheads show string/fret policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/TabStaffSymbol-string_tuning_layout:
+    post:
+      operationId: RULE.TabStaffSymbol.string_tuning_layout
+      summary: Tab staff string tuning and line layout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/Text-placement_policy:
+    post:
+      operationId: RULE.Text.placement_policy
+      summary: General text placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/HorizontalBracket-placement_policy:
+    post:
+      operationId: RULE.HorizontalBracket.placement_policy
+      summary: Horizontal bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/InstrumentSwitch-placement_policy:
+    post:
+      operationId: RULE.InstrumentSwitch.placement_policy
+      summary: Instrument change text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/collision/LigatureBracket-placement_policy:
+    post:
+      operationId: RULE.LigatureBracket.placement_policy
+      summary: Ligature bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/NonMusicalScriptColumn-layout_policy:
+    post:
+      operationId: RULE.NonMusicalScriptColumn.layout_policy
+      summary: Non-musical script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/OutputProperty-override_inheritance_policy:
+    post:
+      operationId: RULE.OutputProperty.override_inheritance_policy
+      summary: Output property override and inheritance policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/PitchedTrill-placement_policy:
+    post:
+      operationId: RULE.PitchedTrill.placement_policy
+      summary: Pitched trill placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/ScriptColumn-layout_policy:
+    post:
+      operationId: RULE.ScriptColumn.layout_policy
+      summary: Script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/ScriptRow-layout_policy:
+    post:
+      operationId: RULE.ScriptRow.layout_policy
+      summary: Script row layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/collision/SpanArpeggio-placement_policy:
+    post:
+      operationId: RULE.SpanArpeggio.placement_policy
+      summary: Span arpeggio placement policy
       requestBody:
         required: true
         content:
