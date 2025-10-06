@@ -140,13 +140,13 @@ map:
   - RULE.Accidental.cautionary_parenthesized_policy
   - RULE.Accidental.microtonal_glyph_selection_and_spacing
   Engraver.Ambitus_engraver:
-  - RULE.Ambitus.policy
+  - RULE.Vertical.min_dist_padding_and_stretch
   Engraver.Arpeggio_engraver:
   - RULE.Arpeggio.placement_policy
   Engraver.Axis_group_engraver:
   - RULE.Vertical.min_dist_padding_and_stretch
   Engraver.Balloon_engraver:
-  - RULE.Balloon.policy
+  - RULE.Text.placement_policy
   Engraver.Bar_engraver:
   - RULE.Barline.style_and_break_policy
   Engraver.Bar_number_engraver:
@@ -189,7 +189,7 @@ map:
   Engraver.Dynamic_engraver:
   - RULE.Dynamics.align_with_noteheads_and_stems
   Engraver.Episema_engraver:
-  - RULE.Episema.policy
+  - RULE.Ornaments.placement_above_below_with_collision
   Engraver.Extender_engraver:
   - RULE.Lyrics.extender_spacing_policy
   Engraver.Figured_bass_position_engraver:
@@ -203,7 +203,7 @@ map:
   Engraver.Footnote_engraver:
   - RULE.Text.placement_policy
   Engraver.Forbid_line_break_engraver:
-  - RULE.ForbidLineBreak.policy
+  - RULE.Pagination.castoff_fill_vs_overfull_penalties
   Engraver.Fretboard_engraver:
   - RULE.Text.placement_policy
   Engraver.Glissando_engraver:
@@ -242,7 +242,7 @@ map:
   - RULE.Lyrics.hyphen_melisma_spacing_interaction
   - RULE.Lyrics.extender_spacing_policy
   Engraver.Melody_engraver:
-  - RULE.Melody.policy
+  - RULE.Vertical.min_dist_padding_and_stretch
   Engraver.Metronome_mark_engraver:
   - RULE.MetronomeMark.placement_policy
   Engraver.Multi_measure_rest_engraver:
@@ -252,11 +252,12 @@ map:
   Engraver.Non_musical_script_column_engraver:
   - RULE.NonMusicalScriptColumn.layout_policy
   Engraver.Note_head_line_engraver:
-  - RULE.NoteHeadLine.policy
+  - RULE.Spacing.duration_base_with_optical_corrections
   Engraver.Note_heads_engraver:
-  - RULE.NoteHeads.policy
+  - RULE.Spacing.duration_base_with_optical_corrections
+  - RULE.Collision.priority_lattice
   Engraver.Note_name_engraver:
-  - RULE.NoteName.policy
+  - RULE.Text.placement_policy
   Engraver.Ottava_spanner_engraver:
   - RULE.Ottava.placement_policy
   Engraver.Output_property_engraver:
@@ -274,19 +275,20 @@ map:
   Engraver.Piano_pedal_engraver:
   - RULE.Pedal.line_and_text_policy
   Engraver.Pitch_squash_engraver:
-  - RULE.PitchSquash.policy
+  - RULE.OutputProperty.override_inheritance_policy
   Engraver.Pitched_trill_engraver:
   - RULE.PitchedTrill.placement_policy
   Engraver.Pure_from_neighbor_engraver:
-  - RULE.PureFromNeighbor.policy
+  - RULE.OutputProperty.override_inheritance_policy
   Engraver.Repeat_acknowledge_engraver:
-  - RULE.RepeatAcknowledge.policy
+  - RULE.RepeatVolta.layout_policy
   Engraver.Rest_collision_engraver:
   - RULE.RestCollision.resolve_overlaps
   Engraver.Rest_engraver:
   - RULE.Spacing.duration_base_with_optical_corrections
   Engraver.Rhythmic_column_engraver:
-  - RULE.RhythmicColumn.policy
+  - RULE.Spacing.duration_base_with_optical_corrections
+  - RULE.NoteSpacing.spacing_policy
   Engraver.Script_column_engraver:
   - RULE.ScriptColumn.layout_policy
   Engraver.Script_engraver:
@@ -309,7 +311,7 @@ map:
   Engraver.Span_bar_stub_engraver:
   - RULE.Barline.style_and_break_policy
   Engraver.Spanner_break_forbid_engraver:
-  - RULE.SpannerBreakForbid.policy
+  - RULE.Pagination.castoff_fill_vs_overfull_penalties
   Engraver.Staff_collecting_engraver:
   - RULE.Vertical.min_dist_padding_and_stretch
   Engraver.Staff_symbol_engraver:
