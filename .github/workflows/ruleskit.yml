@@ -17,6 +17,8 @@ jobs:
       - name: Build RulesKit (codegen via plugin)
         working-directory: codegen/swift/RulesKit-SPM
         run: |
+          # Sync latest typed spec from repo root into the package before build
+          cp ../../../openapi/rules-as-functions.typed.yaml Sources/RulesKit/openapi/rules-as-functions.yaml
           # Ensure the generator sees a full OpenAPI document at openapi.yaml
           cp Sources/RulesKit/openapi/rules-as-functions.yaml Sources/RulesKit/openapi.yaml
           swift --version
