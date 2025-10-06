@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:49:17.848914
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:53:54.878300
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1365,6 +1365,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.7
+        status: ratified
         smufl_inputs:
         - lyricsText.bbox
   /apply/collision/Ornaments-placement_above_below_with_collision:
@@ -2358,6 +2359,7 @@ paths:
             - path: /spanMeasures
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/SlashRepeat-layout_policy:
     post:
       operationId: RULE.SlashRepeat.layout_policy
@@ -2394,6 +2396,7 @@ paths:
             - path: /xPositions/count
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/SystemStartDelimiter-layout_policy:
     post:
       operationId: RULE.SystemStartDelimiter.layout_policy
@@ -2430,6 +2433,7 @@ paths:
             - path: /gapsSP/count
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/TextSpanner-placement_policy:
     post:
       operationId: RULE.TextSpanner.placement_policy

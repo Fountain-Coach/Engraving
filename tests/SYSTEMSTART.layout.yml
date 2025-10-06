@@ -2,4 +2,6 @@ rule: RULE.SystemStartDelimiter.layout_policy
 cases:
   - name: gaps_present
     expectations: [ { path: "/gapsSP/count", op: ">=", value: 0.0 } ]
-
+  - name: at_least_one_gap
+    expectations:
+      - { path: "/gapsSP/count", op: ">=", value: 1.0 }

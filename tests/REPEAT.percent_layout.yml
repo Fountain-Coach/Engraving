@@ -1,0 +1,6 @@
+rule: RULE.PercentRepeat.layout_policy
+cases:
+  - name: span_measures_present
+    expectations:
+      - { path: "/spanMeasures", op: ">=", value: 0.0 }
+

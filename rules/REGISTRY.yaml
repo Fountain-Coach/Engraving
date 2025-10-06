@@ -1033,6 +1033,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 610
+  status: ratified
   depends_on: []
   inputs:
   - lyricBBox
@@ -1778,6 +1779,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 520
+  status: ratified
   depends_on: []
   inputs:
   - measureSpan
@@ -1803,6 +1805,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 521
+  status: ratified
   depends_on: []
   inputs:
   - beatUnit
@@ -1829,6 +1832,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 340
+  status: ratified
   depends_on: []
   inputs:
   - staves

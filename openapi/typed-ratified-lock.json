@@ -49,6 +49,11 @@
     "request": "f9cebe475f897ccc660388f91a68c4cf34fa573a6e17119331efac8d3dd0538e",
     "response": "ae5d0c19e3a8f5baacdd74042f09a676e744b79af92ee727579540e9547f78c8"
   },
+  "RULE.Lyrics.vertical_alignment_with_baselines": {
+    "path": "/apply/verticalstack/Lyrics-vertical_alignment_with_baselines",
+    "request": "ced46e2a291b9a26f313f662f7a9a5bc1e6cab553c9bf948ed40675830ae67b2",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
   "RULE.CrossStaff.beaming_policy": {
     "path": "/apply/beaming/CrossStaff-beaming_policy",
     "request": "8d40ab34cf7cf5dadd7356dda6de7108728f690eff6a3d161f2ebb9a56d29d63",
@@ -88,5 +93,20 @@
     "path": "/apply/spacing/NoteSpacing-spacing_policy",
     "request": "7cdd3a833cc6a0cfea8e09b045626fb6165035583f3832356f0ac214515ffea4",
     "response": "a5860551c09a73456c3d992813878754bb4bf85a22c488591a699b17844fb913"
+  },
+  "RULE.PercentRepeat.layout_policy": {
+    "path": "/apply/verticalstack/PercentRepeat-layout_policy",
+    "request": "d3846a5868d4da86652ad60d6f13453db875553537130b3a6dc7024a8ccf9eff",
+    "response": "1d8e0fc8a3eac0056081cd70c4bbbb072569db0e4ffd9920cfdff91bc73801f5"
+  },
+  "RULE.SlashRepeat.layout_policy": {
+    "path": "/apply/verticalstack/SlashRepeat-layout_policy",
+    "request": "35618cf164193b5e3e0c2a742c0874a87b551e5f3c38f39b983400150329a767",
+    "response": "8b237dd93d41e9595a1bf61f2efc7a0ae0a12331a2c3df039935ede9c38bc1cf"
+  },
+  "RULE.SystemStartDelimiter.layout_policy": {
+    "path": "/apply/verticalstack/SystemStartDelimiter-layout_policy",
+    "request": "67fa59e65d2db12f13c582e98e650e63fba85daf41591da6a4ef0a053d96b7a3",
+    "response": "102d90f725e26d5b65073ff522b8554d1d9b82e12d44b358d4d1b5fc427f907a"
   }
 }
