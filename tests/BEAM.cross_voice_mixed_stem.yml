@@ -3,4 +3,4 @@ cases:
   - name: balanced_slope
     expectations:
       - { path: "/slopeSPPerSpaceAdjusted", op: "<=", value: 0.5 }
-
+      - { path: "/balanceScore", op: "<=", value: 1.0 }

@@ -3,4 +3,4 @@ cases:
   - name: hyphen_gap_minimum
     expectations:
       - { path: "/lyricOffsets/count", op: ">=", value: 1 }
-
+      - { path: "/baselineYOffsetSP", op: ">=", value: 0.0 }
