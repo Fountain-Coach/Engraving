@@ -14,6 +14,7 @@ let package = Package(
         .target(
             name: "RulesKit",
             resources: [
+                .copy("openapi.yaml"),
                 .copy("openapi/rules-as-functions.yaml")
             ],
             plugins: [
