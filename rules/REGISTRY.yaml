@@ -158,6 +158,114 @@ rules:
   - beam.thickness
   - noteheadBlack.bbox
 
+- id: RULE.Arpeggio.placement_policy
+  title: Arpeggio placement policy (avoid collisions)
+  agent: CollisionAgent
+  intent: placement
+  priority: 365
+  depends_on: []
+  inputs:
+  - chordBBox
+  - nearbyGrobs
+  parameters:
+    prefer_centered: true
+  procedure: Place arpeggio spanner along chord; offset to avoid collisions with text/lyrics.
+  exceptions: []
+  outputs:
+  - position
+  side_effects: []
+  test_plan:
+    cases:
+    - name: arpeggio_position
+      expectations:
+      - path: /position/y
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/arpeggios
+  smufl_inputs: []
+
+- id: RULE.Fingering.placement_policy
+  title: Fingering placement near noteheads with collision avoidance
+  agent: CollisionAgent
+  intent: placement
+  priority: 366
+  depends_on: []
+  inputs:
+  - fingeringBBox
+  - noteheadBBoxes
+  parameters:
+    prefer_above: true
+  procedure: Place fingering above/below/side of notehead to minimize collisions.
+  exceptions: []
+  outputs:
+  - position
+  side_effects: []
+  test_plan:
+    cases:
+    - name: fingering_position
+      expectations:
+      - path: /position/y
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/fingering
+  smufl_inputs: []
+
+- id: RULE.Pedal.line_and_text_policy
+  title: Pedal line and text placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 645
+  depends_on: []
+  inputs:
+  - systemBaseline
+  - pedalTextBBox
+  parameters:
+    min_distance_sp: 0.8
+  procedure: Place pedal text/line below system with minimum distance.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: pedal_offset
+      expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.8
+  trace:
+  - docs/pedal
+  smufl_inputs: []
+
+- id: RULE.TrillSpanner.placement_policy
+  title: Trill spanner placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 646
+  depends_on: []
+  inputs:
+  - trillBBox
+  - staffTop
+  parameters:
+    min_distance_sp: 0.8
+  procedure: Place trill spanner above staff with minimum distance and avoid collisions.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: trill_offset
+      expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.8
+  trace:
+  - docs/trill
+  smufl_inputs: []
+
 - id: RULE.Beaming.geometry_slope_and_segments
   title: Beam slope and segment geometry selection
   agent: BeamingAgent
