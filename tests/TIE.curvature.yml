@@ -2,3 +2,5 @@ rule: RULE.Tie.curvature_selection_with_clearance
 cases:
   - name: clearance_respected
     expectations: [ { path: "/minClearanceSP", op: ">=", value: 0.2 } ]
+  - name: non_negative_clearance
+    expectations: [ { path: "/minClearanceSP", op: ">=", value: 0.0 } ]

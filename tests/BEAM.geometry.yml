@@ -4,3 +4,6 @@ cases:
     expectations:
       - { path: "/slopeSPPerSpace", op: "<=", value: 0.5 }
       - { path: "/segments/count", op: ">=", value: 1 }
+  - name: segments_present
+    expectations:
+      - { path: "/segments/count", op: ">=", value: 1 }

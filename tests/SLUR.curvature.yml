@@ -2,3 +2,5 @@ rule: RULE.Slur.curvature_choice_with_collision_penalty
 cases:
   - name: accidental_under_slur
     expectations: [ { path: "/minClearanceSP", op: ">=", value: 0.25, tolerance: 0.05 } ]
+  - name: chosen_index_non_negative
+    expectations: [ { path: "/chosenIndex", op: ">=", value: 0.0 } ]

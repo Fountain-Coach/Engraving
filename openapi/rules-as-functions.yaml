@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T10:07:55.501403
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T10:12:54.641962
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -141,6 +141,7 @@ paths:
             - path: /kneed
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
   /apply/beaming/Beaming-compound_meter_grouping:
@@ -189,6 +190,7 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
         - noteheadBlack.bbox
@@ -229,6 +231,7 @@ paths:
             - path: /offsets/count
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
   /apply/collision/RestCollision-resolve_overlaps:
@@ -354,6 +357,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - lyricsText.bbox
   /apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance:
@@ -395,6 +399,7 @@ paths:
             - path: /slopeSPPerSpaceAdjusted
               op: <=
               value: 0.5
+        status: ratified
         smufl_inputs:
         - beam.thickness
         - noteheadBlack.bbox
@@ -561,6 +566,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        status: ratified
         smufl_inputs: []
   /apply/beaming/Beaming-slope_with_clearance:
     post:
@@ -647,6 +653,7 @@ paths:
             - path: /weights/count
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs:
         - noteheadBlack.advance
   /apply/collision/Arpeggio-placement_policy:
@@ -685,6 +692,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs: []
   /apply/collision/Fingering-placement_policy:
     post:
@@ -722,6 +730,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs: []
   /apply/verticalstack/Pedal-line_and_text_policy:
     post:
@@ -759,6 +768,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        status: ratified
         smufl_inputs: []
   /apply/verticalstack/TrillSpanner-placement_policy:
     post:
@@ -796,6 +806,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        status: ratified
         smufl_inputs: []
   /apply/beaming/Beaming-geometry_slope_and_segments:
     post:
@@ -876,6 +887,7 @@ paths:
             - path: /beamBreaks/count
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
   /apply/beaming/Beaming-subdivision_preference:
@@ -959,6 +971,7 @@ paths:
             - path: /drawFlags
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
   /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
@@ -1250,6 +1263,7 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.5
+        status: ratified
         smufl_inputs:
         - gClef.bbox
         - fClef.bbox
@@ -1289,6 +1303,7 @@ paths:
             - path: /showCourtesy
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - accidentalSharp.bbox
   /apply/accidental/TimeSignature-courtesy_at_line_breaks:
@@ -1327,6 +1342,7 @@ paths:
             - path: /showCourtesy
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - timeSig4.bbox
         - timeSigCommon.bbox
@@ -1405,6 +1421,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs: []
   /apply/verticalstack/PartStaff-braces_brackets_layout:
     post:
@@ -1442,6 +1459,7 @@ paths:
             - path: /braceOffsets/margin
               op: '>='
               value: 0.5
+        status: ratified
         smufl_inputs: []
   /apply/spacing/MultiVoice-stem_directions_up_down:
     post:
@@ -1479,6 +1497,7 @@ paths:
             - path: /stemDirections/0
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - noteheadBlack.bbox
   /apply/pagination/MultiMeasureRests-layout_policy:
@@ -1517,6 +1536,7 @@ paths:
             - path: /widthSP
               op: '>='
               value: 2.0
+        status: ratified
         smufl_inputs:
         - staffLine.thickness
   /apply/beaming/Tuplet-beaming_and_bracket_placement:
@@ -1556,6 +1576,7 @@ paths:
             - path: /bracketPosition/y
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
   /apply/spacing/Grace-clusters_width_policy:
@@ -1594,6 +1615,7 @@ paths:
             - path: /widthScale
               op: ==
               value: 0.7
+        status: ratified
         smufl_inputs:
         - noteheadBlack.advance
   /apply/beaming/CrossStaff-beaming_policy:
@@ -1709,6 +1731,7 @@ paths:
             - path: /heightSP
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs: []
   /apply/verticalstack/RehearsalMarks-placement_policy:
     post:
@@ -1784,6 +1807,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        status: ratified
         smufl_inputs: []
   /apply/accidental/Accidental-key_signature_positions_by_clef:
     post:
@@ -1858,6 +1882,7 @@ paths:
             - path: /positions/2
               op: ==
               value: 9.0
+        status: ratified
         smufl_inputs:
         - accidentalSharp.bbox
   /apply/ledger/Ledger-shorten_near_accidental:
@@ -1898,6 +1923,7 @@ paths:
               op: ==
               value: -0.4
               tolerance: 0.0
+        status: ratified
         smufl_inputs:
         - ledgerLine.bbox
         - accidentalSharp.bbox
@@ -2024,6 +2050,7 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
+        status: ratified
         smufl_inputs: []
   /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
     post:
@@ -2063,6 +2090,7 @@ paths:
               op: approx
               value: 1.0
               tolerance: 0.3
+        status: ratified
         smufl_inputs:
         - staffLine.thickness
         - noteheadBlack.stroke
@@ -2104,6 +2132,7 @@ paths:
             - path: /thickness
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - barlineSingle.bbox
         - barlineDouble.bbox
@@ -2144,6 +2173,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/Lyrics-extender_spacing_policy:
     post:
       operationId: RULE.Lyrics.extender_spacing_policy
@@ -2515,6 +2545,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/CueClef-placement_policy:
     post:
       operationId: RULE.CueClef.placement_policy
@@ -2551,6 +2582,7 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
   /apply/collision/DrumNotes-stem_side_and_notehead_policy:
     post:
       operationId: RULE.DrumNotes.stem_side_and_notehead_policy
@@ -2661,6 +2693,7 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
   /apply/pagination/PageTurn-break_preferences:
     post:
       operationId: RULE.PageTurn.break_preferences
@@ -2773,6 +2806,7 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/StanzaNumber-placement_policy:
     post:
       operationId: RULE.StanzaNumber.placement_policy
@@ -2809,6 +2843,7 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.0
+        status: ratified
   /apply/collision/Tab-notehead_string_fret_policy:
     post:
       operationId: RULE.Tab.notehead_string_fret_policy
@@ -2845,6 +2880,7 @@ paths:
             - path: /stemDirections/count
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/TabStaffSymbol-string_tuning_layout:
     post:
       operationId: RULE.TabStaffSymbol.string_tuning_layout
@@ -2881,6 +2917,7 @@ paths:
             - path: /stringYPositions/count
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/Text-placement_policy:
     post:
       operationId: RULE.Text.placement_policy
@@ -2917,6 +2954,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        status: ratified
   /apply/verticalstack/InstrumentSwitch-placement_policy:
     post:
       operationId: RULE.InstrumentSwitch.placement_policy

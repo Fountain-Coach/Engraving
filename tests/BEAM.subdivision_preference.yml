@@ -2,3 +2,5 @@ rule: RULE.Beaming.subdivision_preference
 cases:
   - name: four_four_grouping
     expectations: [ { path: "/beamBreaks/count", op: "==", value: 2.0 } ]
+  - name: basic_breaks_present
+    expectations: [ { path: "/beamBreaks/count", op: ">=", value: 1.0 } ]

@@ -119,6 +119,7 @@ rules:
   - internals/beam-interface
   smufl_inputs:
   - beam.thickness
+  status: ratified
 - id: RULE.Beaming.compound_meter_grouping
   title: Group beams by dotted-beat in compound meters
   agent: BeamingAgent
@@ -159,6 +160,7 @@ rules:
   smufl_inputs:
   - beam.thickness
   - noteheadBlack.bbox
+  status: ratified
 - id: RULE.BeamCollision.resolve_overlaps
   title: Resolve beam collisions by minimal offsets
   agent: CollisionAgent
@@ -188,6 +190,7 @@ rules:
   - docs/beaming/collision
   smufl_inputs:
   - beam.thickness
+  status: ratified
 - id: RULE.RestCollision.resolve_overlaps
   title: Resolve rest collisions with note columns
   agent: CollisionAgent
@@ -285,6 +288,7 @@ rules:
   - docs/lyrics/baseline
   smufl_inputs:
   - lyricsText.bbox
+  status: ratified
 - id: RULE.Beaming.cross_voice_mixed_stem_slope_balance
   title: Beaming slope balance across voices with mixed stems
   agent: BeamingAgent
@@ -319,6 +323,7 @@ rules:
   smufl_inputs:
   - beam.thickness
   - noteheadBlack.bbox
+  status: ratified
 - id: RULE.Dynamics.stacked_kerning_with_system_breaks
   title: Stacked dynamics kerning with system break awareness
   agent: DynamicsTextAgent
@@ -447,6 +452,7 @@ rules:
   trace:
   - docs/duration-lines
   smufl_inputs: []
+  status: ratified
 - id: RULE.Beaming.slope_with_clearance
   title: Adjust beam slope to maintain obstacle clearance
   agent: BeamingAgent
@@ -517,6 +523,7 @@ rules:
   - internals/SpacingSpanner
   smufl_inputs:
   - noteheadBlack.advance
+  status: ratified
 - id: RULE.Arpeggio.placement_policy
   title: Arpeggio placement policy (avoid collisions)
   agent: CollisionAgent
@@ -543,6 +550,7 @@ rules:
   trace:
   - docs/arpeggios
   smufl_inputs: []
+  status: ratified
 - id: RULE.Fingering.placement_policy
   title: Fingering placement near noteheads with collision avoidance
   agent: CollisionAgent
@@ -569,6 +577,7 @@ rules:
   trace:
   - docs/fingering
   smufl_inputs: []
+  status: ratified
 - id: RULE.Pedal.line_and_text_policy
   title: Pedal line and text placement policy
   agent: VerticalStackAgent
@@ -595,6 +604,7 @@ rules:
   trace:
   - docs/pedal
   smufl_inputs: []
+  status: ratified
 - id: RULE.TrillSpanner.placement_policy
   title: Trill spanner placement policy
   agent: VerticalStackAgent
@@ -621,6 +631,7 @@ rules:
   trace:
   - docs/trill
   smufl_inputs: []
+  status: ratified
 - id: RULE.Beaming.geometry_slope_and_segments
   title: Beam slope and segment geometry selection
   agent: BeamingAgent
@@ -684,6 +695,7 @@ rules:
   - docs/beaming/rests
   smufl_inputs:
   - beam.thickness
+  status: ratified
 - id: RULE.Beaming.subdivision_preference
   title: Subdivide beams according to meter grouping
   agent: BeamingAgent
@@ -744,6 +756,7 @@ rules:
   - docs/beaming/flags
   smufl_inputs:
   - beam.thickness
+  status: ratified
 - id: RULE.Slur.curvature_choice_with_collision_penalty
   title: Slur curvature selected by minimal collision/penalty
   agent: TieSlurAgent
@@ -972,6 +985,7 @@ rules:
   smufl_inputs:
   - gClef.bbox
   - fClef.bbox
+  status: ratified
 - id: RULE.KeySignature.courtesy_at_line_breaks
   title: Courtesy key signature at system breaks
   agent: AccidentalAgent
@@ -1000,6 +1014,7 @@ rules:
   - docs/key-signatures/courtesy
   smufl_inputs:
   - accidentalSharp.bbox
+  status: ratified
 - id: RULE.TimeSignature.courtesy_at_line_breaks
   title: Courtesy time signature at system breaks
   agent: AccidentalAgent
@@ -1029,6 +1044,7 @@ rules:
   smufl_inputs:
   - timeSig4.bbox
   - timeSigCommon.bbox
+  status: ratified
 - id: RULE.Lyrics.vertical_alignment_with_baselines
   title: Lyrics vertical alignment relative to staff baselines
   agent: VerticalStackAgent
@@ -1085,6 +1101,7 @@ rules:
   trace:
   - docs/ornaments
   smufl_inputs: []
+  status: ratified
 - id: RULE.PartStaff.braces_brackets_layout
   title: Braces and brackets placement for part/staff groups
   agent: VerticalStackAgent
@@ -1111,6 +1128,7 @@ rules:
   trace:
   - docs/braces-brackets
   smufl_inputs: []
+  status: ratified
 - id: RULE.MultiVoice.stem_directions_up_down
   title: Stem directions in multi-voice contexts (up/down)
   agent: SpacingAgent
@@ -1138,6 +1156,7 @@ rules:
   - docs/multi-voice
   smufl_inputs:
   - noteheadBlack.bbox
+  status: ratified
 - id: RULE.MultiMeasureRests.layout_policy
   title: Multi-measure rests layout policy
   agent: PaginationAgent
@@ -1164,6 +1183,7 @@ rules:
   - docs/multi-measure-rests
   smufl_inputs:
   - staffLine.thickness
+  status: ratified
 - id: RULE.Tuplet.beaming_and_bracket_placement
   title: Tuplet beaming and bracket placement
   agent: BeamingAgent
@@ -1193,6 +1213,7 @@ rules:
   - docs/tuplets
   smufl_inputs:
   - beam.thickness
+  status: ratified
 - id: RULE.Grace.clusters_width_policy
   title: Grace clusters width and spacing policy
   agent: SpacingAgent
@@ -1219,6 +1240,7 @@ rules:
   - docs/grace-notes
   smufl_inputs:
   - noteheadBlack.advance
+  status: ratified
 - id: RULE.CrossStaff.beaming_policy
   title: Cross-staff beaming policy
   agent: BeamingAgent
@@ -1302,6 +1324,7 @@ rules:
   trace:
   - docs/repeats
   smufl_inputs: []
+  status: ratified
 - id: RULE.RehearsalMarks.placement_policy
   title: Rehearsal mark placement policy
   agent: VerticalStackAgent
@@ -1355,6 +1378,7 @@ rules:
   trace:
   - docs/tempo
   smufl_inputs: []
+  status: ratified
 - id: RULE.Accidental.key_signature_positions_by_clef
   title: Key signature accidental staff positions by clef and mode
   agent: AccidentalAgent
@@ -1419,6 +1443,7 @@ rules:
   - docs/key-signatures
   smufl_inputs:
   - accidentalSharp.bbox
+  status: ratified
 - id: RULE.Ledger.shorten_near_accidental
   title: Ledger line shortening when accidental adjacent
   agent: LedgerAgent
@@ -1451,6 +1476,7 @@ rules:
   smufl_inputs:
   - ledgerLine.bbox
   - accidentalSharp.bbox
+  status: ratified
 - id: RULE.Vertical.min_dist_padding_and_stretch
   title: Staff and object vertical paddings within system
   agent: VerticalStackAgent
@@ -1549,6 +1575,7 @@ rules:
   trace:
   - docs/pagination
   smufl_inputs: []
+  status: ratified
 - id: RULE.OpticalSize.stroke_and_spacing_scalars
   title: Adjust line weights and spacing with staff size
   agent: OpticalSizingAgent
@@ -1581,6 +1608,7 @@ rules:
   smufl_inputs:
   - staffLine.thickness
   - noteheadBlack.stroke
+  status: ratified
 - id: RULE.Barline.style_and_break_policy
   title: Barline style and system-break policy
   agent: VerticalStackAgent
@@ -1616,6 +1644,7 @@ rules:
   - barlineSingle.bbox
   - barlineDouble.bbox
   - barlineFinal.bbox
+  status: ratified
 - id: RULE.BarNumber.placement_policy
   title: Bar number placement policy
   agent: VerticalStackAgent
@@ -1642,6 +1671,7 @@ rules:
         value: 0.0
   trace:
   - docs/bar-numbers
+  status: ratified
 - id: RULE.Lyrics.extender_spacing_policy
   title: Lyrics extender spacing policy
   agent: VerticalStackAgent
@@ -1916,6 +1946,7 @@ rules:
         value: 0.0
   trace:
   - docs/time-signatures
+  status: ratified
 - id: RULE.CueClef.placement_policy
   title: Cue clef placement and size policy
   agent: VerticalStackAgent
@@ -1942,6 +1973,7 @@ rules:
         value: 0.0
   trace:
   - docs/clefs/cue
+  status: ratified
 - id: RULE.DrumNotes.stem_side_and_notehead_policy
   title: Drum notes stem side and notehead policy
   agent: CollisionAgent
@@ -2024,6 +2056,7 @@ rules:
         value: 0.0
   trace:
   - docs/instrument-names
+  status: ratified
 - id: RULE.PageTurn.break_preferences
   title: Page turn break preferences
   agent: PaginationAgent
@@ -2107,6 +2140,7 @@ rules:
         value: 0.0
   trace:
   - docs/lyrics/stanzas
+  status: ratified
 - id: RULE.StanzaNumber.placement_policy
   title: Stanza number placement policy
   agent: VerticalStackAgent
@@ -2132,6 +2166,7 @@ rules:
         value: 0.0
   trace:
   - docs/lyrics/stanzas
+  status: ratified
 - id: RULE.Tab.notehead_string_fret_policy
   title: Tab noteheads show string/fret policy
   agent: CollisionAgent
@@ -2159,6 +2194,7 @@ rules:
         value: 0.0
   trace:
   - docs/tab/notation
+  status: ratified
 - id: RULE.TabStaffSymbol.string_tuning_layout
   title: Tab staff string tuning and line layout
   agent: VerticalStackAgent
@@ -2184,6 +2220,7 @@ rules:
         value: 0.0
   trace:
   - docs/tab/staff
+  status: ratified
 - id: RULE.Text.placement_policy
   title: General text placement with collision avoidance
   agent: VerticalStackAgent
@@ -2209,6 +2246,7 @@ rules:
         value: 0.0
   trace:
   - docs/text
+  status: ratified
 - id: RULE.InstrumentSwitch.placement_policy
   title: Instrument change text placement policy
   agent: VerticalStackAgent

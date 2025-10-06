@@ -46,5 +46,7 @@ jobs:
         run: python scripts/lint_typed_openapi.py
       - name: Rule tests gate (ratified rules)
         run: python scripts/check_rule_tests.py
+      - name: Core rule scenario coverage
+        run: python scripts/check_core_rule_scenarios.py
       - name: Property parity gate (grob properties)
         run: python scripts/check_property_parity.py
