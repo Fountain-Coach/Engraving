@@ -1,0 +1,6 @@
+rule: RULE.NoteSpacing.spacing_policy
+cases:
+  - name: optical_weight_respected
+    expectations:
+      - { path: "/columnPositions/count", op: ">=", value: 0 }
+

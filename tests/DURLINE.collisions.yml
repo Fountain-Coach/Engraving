@@ -1,0 +1,6 @@
+rule: RULE.DurationLine.placement_policy
+cases:
+  - name: avoids_lyrics_dynamics
+    expectations:
+      - { path: "/yOffsetSP", op: ">=", value: 0.8 }
+

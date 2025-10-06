@@ -1,0 +1,6 @@
+rule: RULE.BeamCollision.resolve_overlaps
+cases:
+  - name: offsets_present_with_obstacles
+    expectations:
+      - { path: "/offsets/count", op: ">=", value: 0 }
+
