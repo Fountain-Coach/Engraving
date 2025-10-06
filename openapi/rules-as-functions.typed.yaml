@@ -3341,10 +3341,10 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
+        status: ratified
         smufl_inputs:
         - beam.thickness
         - noteheadBlack.bbox
-        status: provisional
   /apply/spacing/NoteSpacing-optical_stem_weight_scalars:
     post:
       operationId: RULE.NoteSpacing.optical_stem_weight_scalars

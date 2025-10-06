@@ -1,0 +1,7 @@
+rule: RULE.Beaming.cross_voice_mixed_stem_slope_balance
+cases:
+  - name: dense_obstacles_balance
+    expectations:
+      - { path: "/slopeSPPerSpaceAdjusted", op: "<=", value: 0.4 }
+      - { path: "/balanceScore", op: "<=", value: 1.0 }
+

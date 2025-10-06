@@ -448,6 +448,7 @@ rules:
   agent: BeamingAgent
   intent: placement
   priority: 221
+  status: ratified
   depends_on:
   - RULE.Beaming.geometry_slope_and_segments
   inputs:

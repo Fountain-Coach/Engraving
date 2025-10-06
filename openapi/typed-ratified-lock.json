@@ -54,6 +54,11 @@
     "request": "8b205e1bd62907e0813c77363ae8bdb4882eb70d3745472a3b6850ed09b01358",
     "response": "44f821c130b3cab08af3daf7356280463df73a52947433a3f04829997ddfdcbe"
   },
+  "RULE.Beaming.slope_with_clearance": {
+    "path": "/apply/beaming/Beaming-slope_with_clearance",
+    "request": "d31268ed3549880f6b26fa8f04f1c7901f2dcc1724adb185986637a473e5ef56",
+    "response": "c338a2748c8a8f64e94f8e8e912e009c8c60af5b57a3cc6b4437d0435ffb733e"
+  },
   "RULE.NoteSpacing.spacing_policy": {
     "path": "/apply/spacing/NoteSpacing-spacing_policy",
     "request": "7cdd3a833cc6a0cfea8e09b045626fb6165035583f3832356f0ac214515ffea4",
