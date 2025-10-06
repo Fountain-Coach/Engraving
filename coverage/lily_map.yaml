@@ -259,11 +259,11 @@ map:
   Engraver.Page_turn_engraver:
   - RULE.PageTurn.policy
   Engraver.Parenthesis_engraver:
-  - RULE.Parenthesis.policy
+  - RULE.Parenthesis.placement_policy
   Engraver.Part_combine_engraver:
   - RULE.PartCombine.policy
   Engraver.Percent_repeat_engraver:
-  - RULE.PercentRepeat.policy
+  - RULE.PercentRepeat.layout_policy
   Engraver.Piano_pedal_align_engraver:
   - RULE.PianoPedalAlign.policy
   Engraver.Piano_pedal_engraver:
@@ -291,7 +291,7 @@ map:
   Engraver.Separating_line_group_engraver:
   - RULE.SeparatingLineGroup.policy
   Engraver.Slash_repeat_engraver:
-  - RULE.SlashRepeat.policy
+  - RULE.SlashRepeat.layout_policy
   Engraver.Spacing_engraver:
   - RULE.Spacing.policy
   Engraver.Span_arpeggio_engraver:
@@ -313,7 +313,7 @@ map:
   Engraver.Stem_engraver:
   - RULE.Stem.policy
   Engraver.System_start_delimiter_engraver:
-  - RULE.SystemStartDelimiter.policy
+  - RULE.SystemStartDelimiter.layout_policy
   Engraver.Tab_note_heads_engraver:
   - RULE.TabNoteHeads.policy
   Engraver.Tab_staff_symbol_engraver:
@@ -321,11 +321,12 @@ map:
   Engraver.Text_engraver:
   - RULE.Text.policy
   Engraver.Text_spanner_engraver:
-  - RULE.TextSpanner.policy
+  - RULE.TextSpanner.placement_policy
   Engraver.Tie_engraver:
   - RULE.Tie.policy
   Engraver.Time_signature_engraver:
-  - RULE.TimeSignature.policy
+  - RULE.TimeSignature.courtesy_at_line_breaks
+  - RULE.TimeSignature.placement_policy
   Engraver.Tuplet_engraver:
   - RULE.Tuplet.policy
   Engraver.Tweak_engraver:

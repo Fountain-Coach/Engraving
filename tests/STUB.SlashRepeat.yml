@@ -1,5 +1,5 @@
-rule: RULE.SlashRepeat.policy
+rule: RULE.SlashRepeat.layout_policy
 cases:
-  - name: stub_present
+  - name: at_least_one_position
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/xPositions/count", op: ">=", value: 0 }

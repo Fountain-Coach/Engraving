@@ -3121,31 +3121,31 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.Parenthesis.policy
-  title: Parenthesis policy (stub)
+- id: RULE.Parenthesis.placement_policy
+  title: Parenthesis placement around accidentals/notes
   agent: CollisionAgent
   intent: placement
-  priority: 500
+  priority: 420
   depends_on: []
   inputs:
-  - context
+  - targetBBox
+  - contextBBox
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    padding_sp: 0.2
+  procedure: Place parentheses with minimum padding around target glyph; avoid overlap with neighbors.
   exceptions: []
   outputs:
-  - adjustments
+  - paddingSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: non_negative_padding
       expectations:
-      - path: /adjustments/count
+      - path: /paddingSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/notation/parentheses
 - id: RULE.PartCombine.policy
   title: PartCombine policy (stub)
   agent: CollisionAgent
@@ -3171,31 +3171,30 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.PercentRepeat.policy
-  title: PercentRepeat policy (stub)
-  agent: CollisionAgent
+- id: RULE.PercentRepeat.layout_policy
+  title: Percent repeat layout policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 520
   depends_on: []
   inputs:
-  - context
+  - measureSpan
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_span_measures: 1
+  procedure: Lay out percent repeat brackets and glyphs across measureSpan; enforce minimum span.
   exceptions: []
   outputs:
-  - adjustments
+  - spanMeasures
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: span_non_negative
       expectations:
-      - path: /adjustments/count
+      - path: /spanMeasures
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/repeats/percent
 - id: RULE.PianoPedalAlign.policy
   title: PianoPedalAlign policy (stub)
   agent: VerticalStackAgent
@@ -3521,31 +3520,31 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.SlashRepeat.policy
-  title: SlashRepeat policy (stub)
-  agent: CollisionAgent
+- id: RULE.SlashRepeat.layout_policy
+  title: Slash repeat layout policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 521
   depends_on: []
   inputs:
-  - context
+  - beatUnit
+  - beatsPerBar
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_slash_gap_sp: 0.2
+  procedure: Place slash repeat glyphs evenly across the bar; ensure minimum gap between slashes.
   exceptions: []
   outputs:
-  - adjustments
+  - xPositions
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: at_least_one_position
       expectations:
-      - path: /adjustments/count
+      - path: /xPositions/count
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/repeats/slash
 - id: RULE.Spacing.policy
   title: Spacing policy (stub)
   agent: CollisionAgent
@@ -3796,31 +3795,32 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.SystemStartDelimiter.policy
-  title: SystemStartDelimiter policy (stub)
-  agent: CollisionAgent
+- id: RULE.SystemStartDelimiter.layout_policy
+  title: System start delimiter (braces/brackets) layout policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 340
   depends_on: []
   inputs:
-  - context
+  - staves
+  - styles
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_brace_gap_sp: 0.3
+  procedure: Choose delimiters per style (brace/bracket) and ensure minimum gaps across bracketed staves.
   exceptions: []
   outputs:
-  - adjustments
+  - delimiterTypes
+  - gapsSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: gaps_non_negative
       expectations:
-      - path: /adjustments/count
+      - path: /gapsSP/count
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/braces-brackets
 - id: RULE.TabNoteHeads.policy
   title: TabNoteHeads policy (stub)
   agent: CollisionAgent
@@ -3896,31 +3896,31 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.TextSpanner.policy
-  title: TextSpanner policy (stub)
-  agent: CollisionAgent
+- id: RULE.TextSpanner.placement_policy
+  title: Text spanner placement with collision avoidance
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 646
   depends_on: []
   inputs:
-  - context
+  - spannerBBox
+  - systemTop
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    min_distance_sp: 0.8
+  procedure: Place text spanners above/below system respecting minimum distance; avoid collisions with marks.
   exceptions: []
   outputs:
-  - adjustments
+  - yOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: non_negative_offset
       expectations:
-      - path: /adjustments/count
+      - path: /yOffsetSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/text-spanner
 - id: RULE.Tie.policy
   title: Tie policy (stub)
   agent: TieSlurAgent
@@ -3946,31 +3946,31 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
-- id: RULE.TimeSignature.policy
-  title: TimeSignature policy (stub)
-  agent: AccidentalAgent
+- id: RULE.TimeSignature.placement_policy
+  title: Time signature placement policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 332
   depends_on: []
   inputs:
-  - context
+  - systemTop
+  - staffCenter
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    vertical_center_bias_sp: 0.1
+  procedure: Place stacked numerator/denominator centered on staff; adjust by bias parameter.
   exceptions: []
   outputs:
-  - adjustments
+  - yOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: non_negative_offset
       expectations:
-      - path: /adjustments/count
+      - path: /yOffsetSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/time-signatures
 - id: RULE.Tuplet.policy
   title: Tuplet policy (stub)
   agent: BeamingAgent

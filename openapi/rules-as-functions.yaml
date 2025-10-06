@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:51:30.937615
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:55:11.494209
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -4170,10 +4170,10 @@ paths:
             - path: /adjustments/count
               op: '>='
               value: 0.0
-  /apply/collision/Parenthesis-policy:
+  /apply/collision/Parenthesis-placement_policy:
     post:
-      operationId: RULE.Parenthesis.policy
-      summary: Parenthesis policy (stub)
+      operationId: RULE.Parenthesis.placement_policy
+      summary: Parenthesis placement around accidentals/notes
       requestBody:
         required: true
         content:
@@ -4192,18 +4192,18 @@ paths:
       x-rule:
         agent: CollisionAgent
         intent: placement
-        priority: 500
+        priority: 420
         depends_on: []
         parameters:
-          tbd: true
+          padding_sp: 0.2
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/notation/parentheses
         test_plan:
           cases:
-          - name: stub_present
+          - name: non_negative_padding
             expectations:
-            - path: /adjustments/count
+            - path: /paddingSP
               op: '>='
               value: 0.0
   /apply/collision/PartCombine-policy:
@@ -4242,10 +4242,10 @@ paths:
             - path: /adjustments/count
               op: '>='
               value: 0.0
-  /apply/collision/PercentRepeat-policy:
+  /apply/verticalstack/PercentRepeat-layout_policy:
     post:
-      operationId: RULE.PercentRepeat.policy
-      summary: PercentRepeat policy (stub)
+      operationId: RULE.PercentRepeat.layout_policy
+      summary: Percent repeat layout policy
       requestBody:
         required: true
         content:
@@ -4262,20 +4262,20 @@ paths:
                 type: object
                 additionalProperties: true
       x-rule:
-        agent: CollisionAgent
+        agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 520
         depends_on: []
         parameters:
-          tbd: true
+          min_span_measures: 1
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/repeats/percent
         test_plan:
           cases:
-          - name: stub_present
+          - name: span_non_negative
             expectations:
-            - path: /adjustments/count
+            - path: /spanMeasures
               op: '>='
               value: 0.0
   /apply/verticalstack/PianoPedalAlign-policy:
@@ -4746,10 +4746,10 @@ paths:
             - path: /adjustments/count
               op: '>='
               value: 0.0
-  /apply/collision/SlashRepeat-policy:
+  /apply/verticalstack/SlashRepeat-layout_policy:
     post:
-      operationId: RULE.SlashRepeat.policy
-      summary: SlashRepeat policy (stub)
+      operationId: RULE.SlashRepeat.layout_policy
+      summary: Slash repeat layout policy
       requestBody:
         required: true
         content:
@@ -4766,20 +4766,20 @@ paths:
                 type: object
                 additionalProperties: true
       x-rule:
-        agent: CollisionAgent
+        agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 521
         depends_on: []
         parameters:
-          tbd: true
+          min_slash_gap_sp: 0.2
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/repeats/slash
         test_plan:
           cases:
-          - name: stub_present
+          - name: at_least_one_position
             expectations:
-            - path: /adjustments/count
+            - path: /xPositions/count
               op: '>='
               value: 0.0
   /apply/collision/Spacing-policy:
@@ -5142,10 +5142,10 @@ paths:
             - path: /adjustments/count
               op: '>='
               value: 0.0
-  /apply/collision/SystemStartDelimiter-policy:
+  /apply/verticalstack/SystemStartDelimiter-layout_policy:
     post:
-      operationId: RULE.SystemStartDelimiter.policy
-      summary: SystemStartDelimiter policy (stub)
+      operationId: RULE.SystemStartDelimiter.layout_policy
+      summary: System start delimiter (braces/brackets) layout policy
       requestBody:
         required: true
         content:
@@ -5162,20 +5162,20 @@ paths:
                 type: object
                 additionalProperties: true
       x-rule:
-        agent: CollisionAgent
+        agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 340
         depends_on: []
         parameters:
-          tbd: true
+          min_brace_gap_sp: 0.3
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/braces-brackets
         test_plan:
           cases:
-          - name: stub_present
+          - name: gaps_non_negative
             expectations:
-            - path: /adjustments/count
+            - path: /gapsSP/count
               op: '>='
               value: 0.0
   /apply/collision/TabNoteHeads-policy:
@@ -5286,10 +5286,10 @@ paths:
             - path: /adjustments/count
               op: '>='
               value: 0.0
-  /apply/collision/TextSpanner-policy:
+  /apply/verticalstack/TextSpanner-placement_policy:
     post:
-      operationId: RULE.TextSpanner.policy
-      summary: TextSpanner policy (stub)
+      operationId: RULE.TextSpanner.placement_policy
+      summary: Text spanner placement with collision avoidance
       requestBody:
         required: true
         content:
@@ -5306,20 +5306,20 @@ paths:
                 type: object
                 additionalProperties: true
       x-rule:
-        agent: CollisionAgent
+        agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 646
         depends_on: []
         parameters:
-          tbd: true
+          min_distance_sp: 0.8
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/text-spanner
         test_plan:
           cases:
-          - name: stub_present
+          - name: non_negative_offset
             expectations:
-            - path: /adjustments/count
+            - path: /yOffsetSP
               op: '>='
               value: 0.0
   /apply/tieslur/Tie-policy:
@@ -5358,10 +5358,10 @@ paths:
             - path: /adjustments/count
               op: '>='
               value: 0.0
-  /apply/accidental/TimeSignature-policy:
+  /apply/verticalstack/TimeSignature-placement_policy:
     post:
-      operationId: RULE.TimeSignature.policy
-      summary: TimeSignature policy (stub)
+      operationId: RULE.TimeSignature.placement_policy
+      summary: Time signature placement policy
       requestBody:
         required: true
         content:
@@ -5378,20 +5378,20 @@ paths:
                 type: object
                 additionalProperties: true
       x-rule:
-        agent: AccidentalAgent
+        agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 332
         depends_on: []
         parameters:
-          tbd: true
+          vertical_center_bias_sp: 0.1
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/time-signatures
         test_plan:
           cases:
-          - name: stub_present
+          - name: non_negative_offset
             expectations:
-            - path: /adjustments/count
+            - path: /yOffsetSP
               op: '>='
               value: 0.0
   /apply/beaming/Tuplet-policy:

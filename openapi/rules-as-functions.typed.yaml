@@ -1962,6 +1962,190 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LyricsExtenderOutput'
+  /apply/repeat/PercentRepeat-layout_policy:
+    post:
+      operationId: RULE.PercentRepeat.layout_policy
+      summary: Percent repeat layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                measureSpan:
+                  type: integer
+              required:
+              - measureSpan
+      responses:
+        '200':
+          description: Percent repeat span
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  spanMeasures:
+                    type: number
+                required:
+                - spanMeasures
+  /apply/repeat/SlashRepeat-layout_policy:
+    post:
+      operationId: RULE.SlashRepeat.layout_policy
+      summary: Slash repeat layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                beatsPerBar:
+                  type: integer
+                beatUnit:
+                  type: integer
+              required:
+              - beatsPerBar
+              - beatUnit
+      responses:
+        '200':
+          description: Slash positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  xPositions:
+                    type: array
+                    items:
+                      type: number
+                required:
+                - xPositions
+  /apply/system/SystemStartDelimiter-layout_policy:
+    post:
+      operationId: RULE.SystemStartDelimiter.layout_policy
+      summary: System start delimiter (braces/brackets) layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                staves:
+                  type: integer
+                styles:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - brace
+                    - bracket
+              required:
+              - staves
+      responses:
+        '200':
+          description: Delimiter types and gaps
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  delimiterTypes:
+                    type: array
+                    items:
+                      type: string
+                  gapsSP:
+                    type: array
+                    items:
+                      type: number
+                required:
+                - delimiterTypes
+  /apply/text/TextSpanner-placement_policy:
+    post:
+      operationId: RULE.TextSpanner.placement_policy
+      summary: Text spanner placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                spannerBBox:
+                  $ref: '#/components/schemas/BBox'
+                systemTop:
+                  type: number
+              required:
+              - spannerBBox
+      responses:
+        '200':
+          description: Spanner placement
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  yOffsetSP:
+                    type: number
+                required:
+                - yOffsetSP
+  /apply/parenthesis/Parenthesis-placement_policy:
+    post:
+      operationId: RULE.Parenthesis.placement_policy
+      summary: Parenthesis placement around accidentals/notes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetBBox:
+                  $ref: '#/components/schemas/BBox'
+                contextBBox:
+                  $ref: '#/components/schemas/BBox'
+      responses:
+        '200':
+          description: Parenthesis padding
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paddingSP:
+                    type: number
+                required:
+                - paddingSP
+  /apply/timesig/TimeSignature-placement_policy:
+    post:
+      operationId: RULE.TimeSignature.placement_policy
+      summary: Time signature placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemTop:
+                  type: number
+                staffCenter:
+                  type: number
+              required:
+              - systemTop
+      responses:
+        '200':
+          description: Time signature offset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  yOffsetSP:
+                    type: number
+                required:
+                - yOffsetSP
   /apply/beaming/Beaming-slope_with_clearance:
     post:
       operationId: RULE.Beaming.slope_with_clearance
@@ -3997,6 +4181,108 @@ paths:
     post:
       operationId: RULE.MetronomeMark.placement_policy
       summary: Metronome mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/collision/Parenthesis-placement_policy:
+    post:
+      operationId: RULE.Parenthesis.placement_policy
+      summary: Parenthesis placement around accidentals/notes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/PercentRepeat-layout_policy:
+    post:
+      operationId: RULE.PercentRepeat.layout_policy
+      summary: Percent repeat layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/SlashRepeat-layout_policy:
+    post:
+      operationId: RULE.SlashRepeat.layout_policy
+      summary: Slash repeat layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/SystemStartDelimiter-layout_policy:
+    post:
+      operationId: RULE.SystemStartDelimiter.layout_policy
+      summary: System start delimiter (braces/brackets) layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/TextSpanner-placement_policy:
+    post:
+      operationId: RULE.TextSpanner.placement_policy
+      summary: Text spanner placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenericInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOutput'
+  /apply/verticalstack/TimeSignature-placement_policy:
+    post:
+      operationId: RULE.TimeSignature.placement_policy
+      summary: Time signature placement policy
       requestBody:
         required: true
         content:

@@ -1,5 +1,5 @@
-rule: RULE.PercentRepeat.policy
+rule: RULE.PercentRepeat.layout_policy
 cases:
-  - name: stub_present
+  - name: span_non_negative
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/spanMeasures", op: ">=", value: 0 }

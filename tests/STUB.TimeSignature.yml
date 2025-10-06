@@ -1,5 +1,5 @@
-rule: RULE.TimeSignature.policy
+rule: RULE.TimeSignature.placement_policy
 cases:
-  - name: stub_present
+  - name: non_negative_offset
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/yOffsetSP", op: ">=", value: 0 }

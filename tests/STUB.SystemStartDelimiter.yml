@@ -1,5 +1,5 @@
-rule: RULE.SystemStartDelimiter.policy
+rule: RULE.SystemStartDelimiter.layout_policy
 cases:
-  - name: stub_present
+  - name: gaps_non_negative
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/gapsSP/count", op: ">=", value: 0 }

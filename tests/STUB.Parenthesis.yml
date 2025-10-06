@@ -1,5 +1,5 @@
-rule: RULE.Parenthesis.policy
+rule: RULE.Parenthesis.placement_policy
 cases:
-  - name: stub_present
+  - name: non_negative_padding
     expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }
+      - { path: "/paddingSP", op: ">=", value: 0 }
