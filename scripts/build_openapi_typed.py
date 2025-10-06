@@ -9,8 +9,11 @@ TYPED = ROOT / 'openapi' / 'rules-as-functions.typed.yaml'
 
 def ensure_components(doc):
     comp = doc.setdefault('components', {}).setdefault('schemas', {})
+    # Keep legacy placeholders present but unused to avoid KeyErrors.
     comp.setdefault('RuleInput', { 'type': 'object', 'additionalProperties': False, 'properties': {} })
     comp.setdefault('RuleOutput', { 'type': 'object', 'additionalProperties': False, 'properties': {} })
+    # Provide a generic typed fallback so we never emit RuleInput/RuleOutput.
+    comp.setdefault('StrictEmpty', { 'type': 'object', 'additionalProperties': False })
 
 def main():
     untyped = yaml.safe_load(UNTYPED.read_text())
@@ -24,12 +27,11 @@ def main():
             tpaths[path] = {'post': {
                 'operationId': rid,
                 'summary': op['post'].get('summary',''),
-                'requestBody': {'required': True, 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/RuleInput'}}}},
-                'responses': {'200': {'description': 'OK', 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/RuleOutput'}}}}}
+                'requestBody': {'required': True, 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/StrictEmpty'}}}},
+                'responses': {'200': {'description': 'OK', 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/StrictEmpty'}}}}}
             }}
     TYPED.write_text(yaml.safe_dump(typed, sort_keys=False))
     print('Typed OpenAPI updated with parity for all rules (placeholders for new ops).')
 
 if __name__ == '__main__':
     main()
-
