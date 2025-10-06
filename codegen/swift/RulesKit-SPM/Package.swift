@@ -13,11 +13,11 @@ let package = Package(
     targets: [
         .target(
             name: "RulesKit",
-            plugins: [
-                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator")
-            ],
             resources: [
                 .copy("openapi/rules-as-functions.yaml")
+            ],
+            plugins: [
+                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator")
             ]
         ),
         .testTarget(
