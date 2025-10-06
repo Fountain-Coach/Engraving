@@ -19,10 +19,6 @@ let package = Package(
             plugins: [
                 .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator")
             ]
-        ),
-        .testTarget(
-            name: "RulesKitTests",
-            dependencies: ["RulesKit"]
         )
     ]
 )
