@@ -4,3 +4,6 @@ cases:
     expectations:
       - { path: "/dynamicPosition/y", op: "<=", value: 0.0 }
       - { path: "/dynamicPosition/x", op: ">=", value: 0.0 }
+  - name: x_non_negative
+    expectations:
+      - { path: "/dynamicPosition/x", op: ">=", value: 0.0 }

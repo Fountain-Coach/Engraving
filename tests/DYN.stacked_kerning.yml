@@ -4,3 +4,6 @@ cases:
     expectations:
       - { path: "/dynamicPositions/count", op: ">=", value: 2 }
       - { path: "/dynamicPositions/0/x", op: ">=", value: 0.25 }
+  - name: at_system_break_bias
+    expectations:
+      - { path: "/dynamicPositions/count", op: ">=", value: 1 }

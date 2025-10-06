@@ -2,4 +2,7 @@ rule: RULE.RestCollision.resolve_overlaps
 cases:
   - name: gaps_kept
     expectations: [ { path: "/restOffsets/count", op: ">=", value: 0 } ]
-
+  - name: has_xy_offsets
+    expectations:
+      - { path: "/restOffsets/0/x", op: ">=", value: 0.0 }
+      - { path: "/restOffsets/0/y", op: ">=", value: 0.0 }

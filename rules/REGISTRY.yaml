@@ -193,6 +193,7 @@ rules:
   agent: CollisionAgent
   intent: collision
   priority: 356
+  status: ratified
   depends_on:
   - RULE.Spacing.duration_base_with_optical_corrections
   inputs:
@@ -322,6 +323,7 @@ rules:
   agent: DynamicsTextAgent
   intent: placement
   priority: 706
+  status: ratified
   depends_on:
   - RULE.Dynamics.align_with_noteheads_and_stems
   inputs:
@@ -1483,6 +1485,7 @@ rules:
   agent: DynamicsTextAgent
   intent: placement
   priority: 700
+  status: ratified
   depends_on: []
   inputs:
   - noteColumns

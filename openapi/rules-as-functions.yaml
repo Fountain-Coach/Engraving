@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:38:55.430682
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:47:11.691812
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -268,6 +268,7 @@ paths:
             - path: /restOffsets/count
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - noteheadBlack.bbox
   /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
@@ -434,6 +435,7 @@ paths:
             - path: /dynamicPositions/count
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs:
         - dynamicPiano.baseline
         - dynamicMezzoPiano.baseline
@@ -1973,6 +1975,7 @@ paths:
             - path: /dynamicPosition/y
               op: <=
               value: 0.0
+        status: ratified
         smufl_inputs:
         - dynamicPiano.baseline
         - dynamicForte.baseline

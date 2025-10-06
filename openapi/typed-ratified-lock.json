@@ -54,10 +54,25 @@
     "request": "8b205e1bd62907e0813c77363ae8bdb4882eb70d3745472a3b6850ed09b01358",
     "response": "44f821c130b3cab08af3daf7356280463df73a52947433a3f04829997ddfdcbe"
   },
+  "RULE.Dynamics.align_with_noteheads_and_stems": {
+    "path": "/apply/dynamicstext/Dynamics-align_with_noteheads_and_stems",
+    "request": "ad904d77fa141b018caa3596193f2766f66e18ed3d37c70b475fb77759158537",
+    "response": "bcb4271e2495651350ccb1c8078beb02482be94b433df7d918cf417551bf004e"
+  },
   "RULE.Beaming.slope_with_clearance": {
     "path": "/apply/beaming/Beaming-slope_with_clearance",
     "request": "d31268ed3549880f6b26fa8f04f1c7901f2dcc1724adb185986637a473e5ef56",
     "response": "c338a2748c8a8f64e94f8e8e912e009c8c60af5b57a3cc6b4437d0435ffb733e"
+  },
+  "RULE.Dynamics.stacked_kerning_with_system_breaks": {
+    "path": "/apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks",
+    "request": "7b0c0876eaf260ffdcfc2d726f0f9d85aac0c2d418fbf89225cf532e48b92872",
+    "response": "8ddb72d815503f62ab3eddce28fd58d4cc5b6008f46713218c0b2c712c693fb7"
+  },
+  "RULE.RestCollision.resolve_overlaps": {
+    "path": "/apply/collision/RestCollision-resolve_overlaps",
+    "request": "452cdcafb0b43e04cbb1cfce5eecf16c573a7c06c47dade8e50ce927b97f9e9e",
+    "response": "5b45c6540c9d568ecca6d1e83ecd2263566070eeac92ff1b4d81c772ce6ed09f"
   },
   "RULE.NoteSpacing.spacing_policy": {
     "path": "/apply/spacing/NoteSpacing-spacing_policy",

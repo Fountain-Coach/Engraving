@@ -3298,10 +3298,10 @@ paths:
             - path: /dynamicPosition/y
               op: <=
               value: 0.0
+        status: ratified
         smufl_inputs:
         - dynamicPiano.baseline
         - dynamicForte.baseline
-        status: provisional
   /apply/beaming/Beaming-slope_with_clearance:
     post:
       operationId: RULE.Beaming.slope_with_clearance
@@ -3463,6 +3463,7 @@ paths:
             - path: /dynamicPositions/count
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs:
         - dynamicPiano.baseline
         - dynamicMezzoPiano.baseline
@@ -3470,7 +3471,6 @@ paths:
         - dynamicForte.baseline
         - dynamicFortepiano.baseline
         - dynamicSforzando.baseline
-        status: provisional
   /apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction:
     post:
       operationId: RULE.Lyrics.hyphen_melisma_spacing_interaction
@@ -3622,9 +3622,9 @@ paths:
             - path: /restOffsets/count
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - noteheadBlack.bbox
-        status: provisional
   /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
     post:
       operationId: RULE.DynamicAlign.kerning_with_hairpins
