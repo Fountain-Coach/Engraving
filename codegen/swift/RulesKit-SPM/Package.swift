@@ -8,16 +8,12 @@ let package = Package(
         .library(name: "RulesKit", targets: ["RulesKit"]),
     ],
     dependencies: [
-        // Apple: https://github.com/apple/swift-openapi-generator
-        .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.5.0")
+        // To use the official plugin, add:
+        // .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.5.0")
     ],
     targets: [
         .target(
-            name: "RulesKit",
-            plugins: [
-                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator")
-            ],
-            resources: [.process("openapi")]
+            name: "RulesKit"
         ),
         .testTarget(
             name: "RulesKitTests",
