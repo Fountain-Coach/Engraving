@@ -2,5 +2,5 @@ rule: RULE.NoteSpacing.spacing_policy
 cases:
   - name: optical_weight_respected
     expectations:
-      - { path: "/columnPositions/count", op: ">=", value: 0 }
-
+      - { path: "/columnPositions/count", op: ">=", value: 1 }
+      - { path: "/columnPositions/0", op: "<=", value: 0.0, tolerance: 0.1 }

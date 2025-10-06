@@ -2,5 +2,4 @@ rule: RULE.Grace.clusters_width_policy
 cases:
   - name: grace_width_scaled
     expectations:
-      - { path: "/widthScale", op: ">=", value: 0.0 }
-
+      - { path: "/widthScale", op: ">=", value: 0.8, tolerance: 0.2 }

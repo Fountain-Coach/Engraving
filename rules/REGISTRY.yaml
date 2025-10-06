@@ -246,7 +246,10 @@ rules:
   trace:
   - docs/dynamics/kerning
   smufl_inputs:
+  - dynamicPiano.baseline
   - dynamicForte.baseline
+  - hairpinCrescendo.bbox
+  - hairpinDecrescendo.bbox
 
 - id: RULE.Lyrics.baseline_adjustment_with_variance
   title: Lyrics baseline adjustment with variance tolerance
@@ -342,7 +345,12 @@ rules:
   trace:
   - docs/dynamics/stacking
   smufl_inputs:
+  - dynamicPiano.baseline
+  - dynamicMezzoPiano.baseline
+  - dynamicMezzoForte.baseline
   - dynamicForte.baseline
+  - dynamicFortepiano.baseline
+  - dynamicSforzando.baseline
 
 - id: RULE.Lyrics.hyphen_melisma_spacing_interaction
   title: Lyrics hyphen and melisma spacing interaction

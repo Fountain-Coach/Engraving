@@ -10,8 +10,14 @@
     "accidentalFlat",
     "accidentalNatural",
     "dynamicPiano",
+    "dynamicMezzoPiano",
+    "dynamicMezzoForte",
     "dynamicForte",
+    "dynamicFortepiano",
+    "dynamicSforzando",
     "beam",
+    "hairpinCrescendo",
+    "hairpinDecrescendo",
     "staffLine",
     "ledgerLine",
     "lyricsText"
@@ -22,6 +28,9 @@
     "anchors.stemUp",
     "anchors.stemDown",
     "baseline",
+    "anchor.staffOrigin",
+    "anchors.start",
+    "anchors.end",
     "stroke",
     "thickness"
   ]
