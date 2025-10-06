@@ -11,7 +11,7 @@ PREG = ROOT / 'coverage' / 'grob_property_registry.yaml'
 
 def main():
     reg = yaml.safe_load(REG.read_text())
-    props_doc = yaml.safe_load(PROP.read_text()) or {'properties': []}
+    props_doc = yaml.safe_load(PROP.read_text()) or {}
     pmap = yaml.safe_load(PMAP.read_text())
     # Merge canonical properties (if present)
     props_reg = []
@@ -22,26 +22,43 @@ def main():
     mapping = pmap.get('map', {})
     regex_entries = []
     exact_entries = {}
+    catch_all = None
     for k, v in mapping.items():
         if isinstance(k, str) and len(k) >= 2 and k.startswith('/') and k.endswith('/'):
             try:
                 rx = re.compile(k[1:-1], re.I)
-                regex_entries.append((rx, v))
+                if rx.pattern == '.*':
+                    catch_all = (rx, v)
+                else:
+                    regex_entries.append((rx, v))
             except Exception:
                 pass
         else:
             exact_entries[k] = v
     missing = []
     invalid = []
-    all_props = set(props_doc.get('properties', [])) | set(props_reg)
+    prop_list = props_doc.get('properties') or []
+    all_props = set(prop_list) | set(props_reg)
+    must_specific = {
+        'X_offset','Y_offset','stencil','style','control_points','beam_thickness','beam_segments',
+        'baseline','left_bound_info','right_bound_info','line_break_system_details','alteration',
+        'KeySignature','TimeSignature','Clef','color','direction'
+    }
     for prop in sorted(all_props):
         targets = exact_entries.get(prop)
+        matched_specific = targets is not None
         if targets is None:
             for rx, tv in regex_entries:
                 if rx.search(prop):
                     targets = tv
+                    matched_specific = True
                     break
+        if targets is None and catch_all is not None:
+            targets = catch_all[1]
         if not targets:
+            missing.append(prop)
+            continue
+        if (prop in must_specific) and not matched_specific:
             missing.append(prop)
             continue
         for rid in targets:

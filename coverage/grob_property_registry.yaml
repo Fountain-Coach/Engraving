@@ -1,0 +1,2483 @@
+properties:
+- name: accidental_padding
+  type: number?
+  description: 'Property used by Beam to avoid
+
+    accidentals in whole note tremolos.'
+- name: add_stem_support
+  type: boolean?
+  description: 'If set, the @code{Stem} object is
+
+    included in this script''s support.'
+- name: after_line_breaking
+  type: boolean?
+  description: 'Dummy property, used to trigger
+
+    callback for @code{after-line-breaking}.'
+- name: allow_loose_spacing
+  type: boolean?
+  description: 'If set, column can be detached
+
+    from main spacing.'
+- name: allow_span_bar
+  type: boolean?
+  description: 'If false, no inter-staff bar line will
+
+    be created below this bar line.'
+- name: alteration
+  type: number?
+  description: Alteration numbers for accidental.
+- name: alteration_alist
+  type: alist?
+  description: 'List of @code{(@var{pitch}
+
+    . @var{accidental})} pairs for key signature.'
+- name: annotation_balloon
+  type: boolean?
+  description: Print the balloon around an annotation.
+- name: annotation_line
+  type: boolean?
+  description: 'Print the line from an annotation to the
+
+    grob that it annotates.'
+- name: arrow_length
+  type: number?
+  description: Arrow length.
+- name: arrow_width
+  type: number?
+  description: Arrow width.
+- name: automatically_numbered
+  type: boolean?
+  description: 'If set, footnotes are
+
+    automatically numbered.'
+- name: average_spacing_wishes
+  type: boolean?
+  description: 'If set, the spacing wishes are
+
+    averaged over staves.'
+- name: avoid_note_head
+  type: boolean?
+  description: 'If set, the stem of a chord does not
+
+    pass through all note heads, but starts at the last note head.'
+- name: avoid_scripts
+  type: boolean?
+  description: 'If set, a tuplet bracket avoids the
+
+    scripts associated with the note heads it encompasses.'
+- name: avoid_slur
+  type: symbol?
+  description: 'Method of handling slur collisions.
+
+    Choices are @code{inside}, @code{outside}, @code{around}, and
+
+    @code{ignore}.  @code{inside} adjusts the slur if needed to keep the
+
+    grob inside the slur.  @code{outside} moves the grob vertically to the
+
+    outside of the slur.  @code{around} moves the grob vertically to the
+
+    outside of the slur only if there is a collision.  @code{ignore} does
+
+    not move either.  In grobs whose notational significance depends on
+
+    vertical position (such as accidentals, clefs, etc.), @code{outside}
+
+    and @code{around} behave like @code{ignore}.'
+- name: axes
+  type: list?
+  description: 'List of axis numbers.  In the case of alignment
+
+    grobs, this should contain only one number.'
+- name: bar_extent
+  type: number-pair?
+  description: 'The Y-extent of the actual bar line.
+
+    This may differ from @code{Y-extent} because it does not include the
+
+    dots in a repeat bar line.'
+- name: beamed_stem_shorten
+  type: list?
+  description: 'How much to shorten beamed stems,
+
+    when their direction is forced.  It is a list, since the value is
+
+    different depending on the number of flags and beams.'
+- name: beaming
+  type: pair?
+  description: 'Pair of number lists.  Each number list
+
+    specifies which beams to make.  @code{0}@tie{}is the central beam,
+
+    @code{1}@tie{}is the next beam toward the note, etc.  This information
+
+    is used to determine how to connect the beaming patterns from stem to
+
+    stem inside a beam.'
+- name: beamlet_default_length
+  type: pair?
+  description: 'A pair of numbers.  The first
+
+    number specifies the default length of a beamlet that sticks out of
+
+    the left hand side of this stem; the second number specifies the
+
+    default length of the beamlet to the right.  The actual length of a
+
+    beamlet is determined by taking either the default length or the
+
+    length specified by @code{beamlet-max-length-proportion}, whichever is
+
+    smaller.'
+- name: beamlet_max_length_proportion
+  type: pair?
+  description: 'The maximum length of a
+
+    beamlet, as a proportion of the distance between two adjacent stems.'
+- name: before_line_breaking
+  type: boolean?
+  description: 'Dummy property, used to trigger
+
+    a callback function.'
+- name: bend_me
+  type: boolean?
+  description: Decide whether this grob is bent.
+- name: between_cols
+  type: pair?
+  description: Where to attach a loose column to.
+- name: bound_details
+  type: symbol-key-alist?
+  description: 'An alist of properties for
+
+    determining attachments of spanners to edges.'
+- name: bound_padding
+  type: number?
+  description: 'The amount of padding to insert around
+
+    spanner bounds.'
+- name: bound_prefatory_paddings
+  type: number-pair?
+  description: 'For a highlight,
+
+    the amount of padding to insert at a bound from a prefatory
+
+    item that is not a bar line.'
+- name: bracket_flare
+  type: number-pair?
+  description: 'A pair of numbers specifying how
+
+    much edges of brackets should slant outward.  Value @code{0.0} means
+
+    straight edges.'
+- name: bracket_visibility
+  type: boolean-or-symbol?
+  description: 'This controls the
+
+    visibility of the tuplet bracket.  Setting it to @code{#f} prevents
+
+    printing of the bracket.  Setting the property to @code{if-no-beam}
+
+    makes it print only if there is no beam associated with this tuplet
+
+    bracket.'
+- name: break_align_anchor
+  type: number?
+  description: 'Grobs aligned to this breakable
+
+    item will have their X-offsets shifted by this number.  In bar lines,
+
+    for example, this is used to position grobs relative to the (visual)
+
+    center of the bar line.'
+- name: break_align_anchor_alignment
+  type: number?
+  description: 'Read by
+
+    @code{ly:break-aligned-interface::calc-extent-aligned-anchor} for
+
+    aligning an anchor to a grob''s extent.'
+- name: break_align_orders
+  type: vector?
+  description: "This is a vector of 3@tie{}lists:\n@w{@code{#(@var{end-of-line} @var{unbroken}\
+    \ @var{start-of-line}}}).\nEach list contains @w{@emph{break-align symbols}} that\
+    \ specify an\norder of breakable items (see @rinternals{break-alignment-interface}).\n\
+    \nFor example, this places time signatures before clefs:\n\n@example\n\\\\override\
+    \ Score.BreakAlignment.break-align-orders =\n  #(make-vector 3 '(left-edge\n \
+    \                   cue-end-clef\n                    ambitus\n              \
+    \      breathing-sign\n                    time-signature\n                  \
+    \  clef\n                    cue-clef\n                    staff-bar\n       \
+    \             key-cancellation\n                    key-signature\n          \
+    \          custos))\n@end example"
+- name: break_align_symbol
+  type: symbol?
+  description: 'This key is used for aligning,
+
+    ordering, and spacing breakable items.  See
+
+    @rinternals{break-alignment-interface}.'
+- name: break_align_symbols
+  type: list?
+  description: 'A list of
+
+    @w{@emph{break-align symbols}} that determines which breakable
+
+    items to align this to.  If the grob selected by the first symbol
+
+    in the list is invisible due to @w{@code{break-visibility}}, we
+
+    will align to the next grob (and so on).  Choices are listed in
+
+    @rinternals{break-alignment-interface}.'
+- name: break_overshoot
+  type: number-pair?
+  description: 'A pair of numbers specifying how much a
+
+    broken spanner sticks out of its bounds horizontally on the broken side(s).  For
+
+    broken beams and broken tuplet brackets, the bounds are given by the prefatory
+
+    matter on the left and/or the rightmost column on the right.  For broken
+
+    horizontal brackets, the bounds are the leftmost and/or rightmost column; for
+
+    broken measure spanners, the left and/or right edge of the staff.'
+- name: break_visibility
+  type: vector?
+  description: 'A vector of 3@tie{}booleans,
+
+    @w{@code{#(@var{end-of-line} @var{unbroken} @var{begin-of-line})}}.
+
+    @code{#t} means visible, @code{#f} means killed.'
+- name: break_visibility_passage_end
+  type: vector?
+  description: 'The value to use for
+
+    @code{break-@/visibility} when the item marks the end of a passage.'
+- name: break_visibility_passage_default
+  type: vector?
+  description: 'The value to use for
+
+    @code{break-@/visibility} when the item does not specifically mark the start or
+
+    end of a passage.  (It might be both or neither, depending on the type of
+
+    item.)'
+- name: break_visibility_passage_start
+  type: vector?
+  description: 'The value to use for
+
+    @code{break-@/visibility} when the item marks the start of a passage.'
+- name: breakable
+  type: boolean?
+  description: Allow breaks here.
+- name: broken_bound_padding
+  type: number?
+  description: 'The amount of padding to insert
+
+    when a spanner is broken at a line break.'
+- name: chord_dots_limit
+  type: integer?
+  description: 'Limits the column of dots
+
+    on each chord to the height of the chord plus
+
+    @code{chord-dots-limit} staff positions.'
+- name: circled_tip
+  type: boolean?
+  description: 'Put a circle at start/@/end of
+
+    hairpins (al/@/del niente).'
+- name: clef_alignments
+  type: symbol-key-alist?
+  description: 'An alist of parent-alignments
+
+    that should be used for clef modifiers with various clefs'
+- name: clip_edges
+  type: boolean?
+  description: 'Allow outward pointing beamlets at the
+
+    edges of beams?'
+- name: collision_interfaces
+  type: list?
+  description: 'A list of interfaces for which
+
+    automatic beam-collision resolution is run.'
+- name: collision_voice_only
+  type: boolean?
+  description: 'Does automatic beam collsion apply
+
+    only to the voice in which the beam was created?'
+- name: color
+  type: color?
+  description: The color of this grob.
+- name: concaveness
+  type: number?
+  description: 'A beam is concave if its inner stems are
+
+    closer to the beam than the two outside stems.  This number is a
+
+    measure of the closeness of the inner stems.  It is used for damping
+
+    the slope of the beam.'
+- name: connect_to_neighbor
+  type: pair?
+  description: 'Pair of booleans, indicating whether
+
+    this grob looks as a continued break.'
+- name: control_points
+  type: number-pair-list?
+  description: 'List of offsets (number pairs) that form
+
+    control points for the tie, slur, or bracket shape.  For B@''eziers,
+
+    this should list the control points of a third-order B@''ezier curve.'
+- name: count_from
+  type: integer?
+  description: 'The first measure in a measure count
+
+    receives this number.  The following measures are numbered in
+
+    increments from this initial value.'
+- name: damping
+  type: number?
+  description: Amount of beam slope damping.
+- name: dash_definition
+  type: pair?
+  description: 'List of @code{dash-elements} defining the
+
+    dash structure.  Each @code{dash-element} has a starting t value,
+
+    an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.'
+- name: dash_fraction
+  type: number?
+  description: 'Size of the dashes, relative to
+
+    @code{dash-period}.  Should be between @code{0.1} and
+
+    @code{1.0} (continuous line).  If set to @code{0.0}, a dotted line is
+
+    produced'
+- name: dash_period
+  type: number?
+  description: 'The length of one dash together with
+
+    whitespace.  If negative, no line is drawn at all.'
+- name: dashed_edge
+  type: boolean?
+  description: 'If set, the bracket edges are dashed like
+
+    the rest of the bracket.'
+- name: default_staff_staff_spacing
+  type: list?
+  description: 'The settings to use for
+
+    @code{staff-staff-spacing} when it is unset, for ungrouped staves
+
+    and for grouped staves that do not have the relevant
+
+    @code{StaffGrouper} property set (@code{staff-staff-spacing} or
+
+    @code{staffgroup-staff-spacing}).'
+- name: denominator_style
+  type: symbol?
+  description: 'The style of denominators in a time
+
+    signature.'
+- name: details
+  type: symbol-key-alist?
+  description: 'An alist of parameters for detailed
+
+    grob behavior.  @xref{All layout objects} for more information on the
+
+    available parameters and their default values of a particular grob''s
+
+    @code{details} property.  @xref{Graphical Object Interfaces} for
+
+    documentation of the available parameters.  Supporting interfaces can
+
+    be found at the bottom of a grob''s description section.'
+- name: digit_names
+  type: vector?
+  description: Names for string finger digits.
+- name: dot_count
+  type: integer?
+  description: The number of dots.
+- name: dot_negative_kern
+  type: number?
+  description: 'The space to remove between a dot
+
+    and a slash in percent repeat glyphs.  Larger values bring the two
+
+    elements closer together.'
+- name: dot_placement_list
+  type: list?
+  description: 'List consisting of
+
+    @code{(@var{description} @var{string-number} @var{fret-number}
+
+    @var{finger-number})} entries used to define fret diagrams.'
+- name: double_stem_separation
+  type: number?
+  description: 'The distance between the two
+
+    stems of a half note in tablature when using @code{\\tabFullNotation},
+
+    not counting the width of the stems themselves, expressed as a multiple
+
+    of the default height of a staff-space in the traditional five-line
+
+    staff.'
+- name: duration_log
+  type: integer?
+  description: 'The 2-log of the note head duration,
+
+    i.e., @code{0} = whole note, @code{1} = half note, etc.'
+- name: eccentricity
+  type: number?
+  description: 'How asymmetrical to make a slur.
+
+    Positive means move the center to the right.'
+- name: edge_height
+  type: pair?
+  description: 'A pair of numbers specifying the heights of
+
+    the vertical edges: @code{(@var{left-height} . @var{right-height})}.'
+- name: edge_text
+  type: pair?
+  description: 'A pair specifying the texts to be set at the
+
+    edges: @code{(@var{left-text} . @var{right-text})}.'
+- name: endpoint_alignments
+  type: number-pair?
+  description: 'A pair of numbers representing
+
+    the alignments of an object''s endpoints.  E.g., the ends of a hairpin
+
+    relative to @code{NoteColumn} grobs.'
+- name: round_up_exceptions
+  type: list?
+  description: 'A list of pairs where car is the numerator
+
+    and cdr the denominator of a moment.  Each pair in this list means that
+
+    the multi-measure rests of the corresponding length will be rounded up to
+
+    the longer rest.  See @var{round-up-to-longer-rest}.'
+- name: expand_limit
+  type: integer?
+  description: 'Maximum number of measures expanded in
+
+    church rests.'
+- name: extra_dy
+  type: number?
+  description: Slope glissandi this much extra.
+- name: extra_offset
+  type: number-pair?
+  description: 'A pair representing an offset.  This
+
+    offset is added just before outputting the symbol, so the typesetting
+
+    engine is completely oblivious to it.  The values are measured in
+
+    @code{staff-space} units of the staff''s @code{StaffSymbol}.'
+- name: extra_spacing_height
+  type: number-pair?
+  description: 'In the horizontal spacing
+
+    problem, we increase the height of each item by this amount (by adding
+
+    the @q{car} to the bottom of the item and adding the @q{cdr} to the
+
+    top of the item).  In order to make a grob infinitely high (to prevent
+
+    the horizontal spacing problem from placing any other grobs above or
+
+    below this grob), set this to @code{(-inf.0 . +inf.0)}.'
+- name: extra_spacing_width
+  type: number-pair?
+  description: 'In the horizontal spacing
+
+    problem, we pad each item by this amount (by adding the @q{car} on the
+
+    left side of the item and adding the @q{cdr} on the right side of the
+
+    item).  In order to make a grob take up no horizontal space at all,
+
+    set this to @code{(+inf.0 . -inf.0)}.'
+- name: extroversion
+  type: number?
+  description: 'For polygons, how the thickness of the
+
+    line is spread on each side of the exact polygon whith ideal zero
+
+    thickness.  If this is@tie{}0, the middle of line is on the polygon.
+
+    If@tie{}1, the line sticks out of the polygon.  If@tie{}-1, the outer
+
+    side of the line is exactly on the polygon.  Other numeric values
+
+    are interpolated.'
+- name: filled
+  type: boolean?
+  description: Whether an object is filled with ink.
+- name: flag_count
+  type: number?
+  description: The number of tremolo beams.
+- name: flag_style
+  type: symbol?
+  description: 'The style of flags to be displayed within
+
+    markups (via @code{\\note-by-number}).  Available are
+
+    @code{''modern-straight-flag}, @code{''old-straight-flag},
+
+    @code{''flat-flag}, @code{''mensural}, @code{''stacked},
+
+    and @code{''default}.'
+- name: flat_positions
+  type: list?
+  description: 'Flats in key signatures are placed
+
+    within the specified ranges of staff positions.  The general form
+
+    is a list of pairs, with one pair for each type of clef, in order
+
+    of the staff position at which each clef places C:
+
+    @code{(alto treble tenor soprano baritone mezzosoprano bass)}.
+
+    If the list contains a single element it applies for all clefs.
+
+    A single number in place of a pair sets accidentals within the octave
+
+    ending at that staff position.'
+- name: font_encoding
+  type: symbol?
+  description: 'The font encoding is the broadest
+
+    category for selecting a font.  Currently, only lilypond''s system
+
+    fonts (Emmentaler) are using this property.  Available
+
+    values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
+
+    @code{fetaText} (Emmentaler).'
+- name: font_family
+  type: symbol?
+  description: 'The font family is the broadest category
+
+    for selecting text fonts.  Options include @code{serif}, @code{sans}
+
+    and @code{typewriter}.'
+- name: font_features
+  type: list?
+  description: Opentype features.
+- name: font_name
+  type: string?
+  description: 'This property is kept for backwards compatibility
+
+    only.  Use the @code{fonts} property instead.'
+- name: font_series
+  type: symbol?
+  description: 'Select the series of a font.  Common
+
+    choices are @code{normal} and @code{bold}.  The full list of symbols
+
+    that can be used is: @code{thin}, @code{ultralight} (or
+
+    @code{extralight}), @code{light}, @code{semilight} (or
+
+    @code{demilight}), @code{book}, @code{normal} (or @code{regular}),
+
+    @code{medium}, @code{semibold} (or @code{demibold}), @code{bold},
+
+    @code{ultrabold} (or @code{extrabold}), @code{heavy} (or @code{black}),
+
+    and @code{ultraheavy} (or @code{ultrablack} or @code{extrablack}).'
+- name: font_shape
+  type: symbol?
+  description: 'Select the shape of a font.  Possible values
+
+    are @code{upright}, @code{italic}, @code{oblique}, and @code{slanted}
+
+    (which is the same as @code{oblique}).'
+- name: font_size
+  type: number?
+  description: 'The font size, compared to the
+
+    @q{normal}@tie{}size.  @code{0}@tie{}is style-sheet''s normal size,
+
+    @w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
+
+    approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
+
+    larger.  If the context property @code{fontSize} is set, its value is
+
+    added to this before the glyph is printed.  Fractional values are
+
+    allowed.'
+- name: font_stretch
+  type: symbol?
+  description: 'Select a condensed or expanded
+
+    font, if available in the font family.  Possible values are
+
+    @code{ultra-condensed}, @code{extra-condensed}, @code{condensed},
+
+    @code{semi-condensed}, @code{normal}, @code{semi-expanded}, @code{expanded},
+
+    @code{extra-expanded}, and @code{ultra-expanded}.'
+- name: font_variant
+  type: symbol?
+  description: 'Select the variant of a font.
+
+    Choices include @code{normal} and @code{small-caps}.'
+- name: fonts
+  type: symbol-key-alist?
+  description: 'An alist mapping font families to
+
+    font names.  The standard font families are @code{music}, @code{serif},
+
+    @code{sans} and @code{typewriter}.'
+- name: footnote
+  type: boolean?
+  description: Should this be a footnote or in-note?
+- name: footnote_text
+  type: markup?
+  description: A footnote for the grob.
+- name: force_hshift
+  type: number?
+  description: 'This specifies a manual shift for notes
+
+    in collisions.  The unit is the note head width of the first down-stem
+
+    voice note; if there are no down-stem voices, the width of the first
+
+    up-stem voice note is taken instead.  This is used by
+
+    @rinternals{note-collision-interface}.'
+- name: forced_spacing
+  type: number?
+  description: 'Spacing forced between grobs, used in
+
+    various ligature engravers.'
+- name: fraction
+  type: number-pair?
+  description: 'Numerator and denominator of a time
+
+    signature object.'
+- name: french_beaming
+  type: boolean?
+  description: 'Use French beaming style for this
+
+    stem.  The stem stops at the innermost beams.'
+- name: full_length_padding
+  type: number?
+  description: 'How much padding to use at the
+
+    right side of a full-length tuplet bracket.'
+- name: full_length_to_extent
+  type: boolean?
+  description: 'Run to the extent of the column
+
+    for a full-length tuplet bracket.'
+- name: full_measure_extra_space
+  type: number?
+  description: 'Extra space that is allocated
+
+    at the beginning of a measure with only one note.  This property is
+
+    read from the NonMusicalPaperColumn that begins the measure.'
+- name: full_size_change
+  type: boolean?
+  description: Don't make a change clef smaller.
+- name: gap_count
+  type: integer?
+  description: Number of gapped beams for tremolo.
+- name: glissando_skip
+  type: boolean?
+  description: 'Should this @code{NoteHead} be skipped
+
+    by glissandi?'
+- name: glyph
+  type: string?
+  description: 'A string determining what @q{style} of glyph is
+
+    typeset.  Valid choices depend on the function that is reading this
+
+    property.
+
+
+    In combination with (span) bar lines, it is a string resembling the
+
+    bar line appearance in ASCII form.'
+- name: glyph_left
+  type: string?
+  description: 'The @code{glyph} value to use at the end of
+
+    the line when the line is broken.  @code{#f} indicates that no glyph
+
+    should be visible; otherwise the value must be a string.'
+- name: glyph_name
+  type: string?
+  description: 'The glyph name within the font.
+
+
+    In the context of (span) bar lines or clefs, @var{glyph-name} represents
+
+    a processed form of @code{glyph}, where decisions about line breaking,
+
+    etc., are already taken.'
+- name: glyph_right
+  type: string?
+  description: 'The @code{glyph} value to use at the
+
+    beginning of the line when the line is broken.  @code{#f} indicates
+
+    that no glyph should be visible; otherwise the value must be a string.'
+- name: alteration_glyph_name_alist
+  type: alist?
+  description: An alist of key-string pairs.
+- name: graphical
+  type: boolean?
+  description: 'Display in graphical (vs.@: text) form.'
+- name: hair_thickness
+  type: number?
+  description: 'Thickness of the thin line in a bar
+
+    line, expressed as a multiple of the default staff-line
+
+    thickness (i.e., the visual output is @emph{not} influenced by changes
+
+    to @code{@var{Staff}.StaffSymbol.thickness}).'
+- name: harp_pedal_details
+  type: symbol-key-alist?
+  description: 'An alist of detailed grob
+
+    properties for harp pedal diagrams.  Each alist entry consists of a
+
+    @code{(@var{property} . @var{value})} pair.  The properties which can
+
+    be included in harp-pedal-details include the following:
+
+
+    @itemize @bullet
+
+    @item
+
+    @code{box-offset} -- Vertical shift of the center of flat/@/sharp pedal
+
+    boxes above/@/below the horizontal line.  Default value@tie{}0.8.
+
+    @item
+
+    @code{box-width} -- Width of each pedal box.  Default value@tie{}0.4.
+
+    @item
+
+    @code{box-height} -- Height of each pedal box.  Default value@tie{}1.0.
+
+    @item
+
+    @code{space-before-divider} -- Space between boxes before the first
+
+    divider (so that the diagram can be made symmetric).  Default
+
+    value@tie{}0.8.
+
+    @item
+
+    @code{space-after-divider} -- Space between boxes after the first
+
+    divider.  Default value@tie{}0.8.
+
+    @item
+
+    @code{circle-thickness} -- Thickness (in unit of the line-thickness)
+
+    of the ellipse around circled pedals.  Default value@tie{}0.5.
+
+    @item
+
+    @code{circle-x-padding} -- Padding in X direction of the ellipse
+
+    around circled pedals.  Default value 0.15.
+
+    @item
+
+    @code{circle-y-padding} -- Padding in Y direction of the ellipse
+
+    around circled pedals.  Default value@tie{}0.2.
+
+    @end itemize'
+- name: hide_tied_accidental_after_break
+  type: boolean?
+  description: 'If set, an accidental
+
+    that appears on a tied note after a line break will not be displayed.'
+- name: horizon_padding
+  type: number?
+  description: 'The amount to pad the axis
+
+    along which a @code{Skyline} is built for the
+
+    @code{side-position-interface}.'
+- name: horizontal_shift
+  type: integer?
+  description: 'An integer that identifies ranking
+
+    of @code{NoteColumn}s for horizontal shifting.  This is used by
+
+    @rinternals{note-collision-interface}.'
+- name: id
+  type: string?
+  description: An id string for the grob.
+- name: ignore_ambitus
+  type: boolean?
+  description: 'If set, don''t consider this notehead
+
+    for ambitus calculation.'
+- name: ignore_collision
+  type: boolean?
+  description: 'If set, don''t do note collision
+
+    resolution on this @code{NoteColumn}.'
+- name: implicit
+  type: boolean?
+  description: Is this an implicit bass figure?
+- name: inspect_quants
+  type: number-pair?
+  description: 'If debugging is set, set beam and
+
+    slur position to a (quantized) position that is as close as possible
+
+    to this value, and print the demerits for the inspected position in
+
+    the output.'
+- name: keep_inside_line
+  type: boolean?
+  description: 'If set, this column cannot have
+
+    objects sticking into the margin.'
+- name: knee
+  type: boolean?
+  description: Is this beam kneed?
+- name: knee_spacing_correction
+  type: number?
+  description: 'Factor for the optical
+
+    correction amount for kneed beams.  Set between @code{0} for no
+
+    correction and @code{1} for full correction.'
+- name: knee_to_beam
+  type: boolean?
+  description: 'Determines whether a tuplet number
+
+    will be positioned next to a kneed beam.'
+- name: labels
+  type: list?
+  description: List of labels (symbols) placed on a column.
+- name: layer
+  type: integer?
+  description: 'An integer which determines the order of printing
+
+    objects.  Objects with the lowest value of layer are drawn first, then
+
+    objects with progressively higher values are drawn, so objects with
+
+    higher values overwrite objects with lower values.  By default most
+
+    objects are assigned a layer value of 1.'
+- name: ledger_line_thickness
+  type: number-pair?
+  description: 'The thickness of ledger
+
+    lines.  It is the sum of two numbers: The first is the factor for line
+
+    thickness, and the second for staff space.  Both contributions are added.'
+- name: ledger_positions
+  type: list?
+  description: 'A list of vertical positions of ledger lines.
+
+    Its exact behaviour depends on the grob; see @iref{StaffSymbol},
+
+    @iref{NoteHead}, @iref{Custos}, and @iref{Script}.'
+- name: ledger_positions_function
+  type: scheme?
+  description: 'A quoted Scheme procedure that takes
+
+    a @code{StaffSymbol} grob and the vertical position of a note head as arguments
+
+    and returns a list of ledger line positions.'
+- name: left_bound_info
+  type: symbol-key-alist?
+  description: 'An alist of properties for
+
+    determining attachments of spanners to edges.'
+- name: left_number_text
+  type: markup?
+  description: 'For a measure counter, this is the
+
+    formatted measure count.  When the measure counter extends over several
+
+    measures (like with compressed multi-measure rests), it is the text
+
+    on the left side of the dash.'
+- name: length_fraction
+  type: number?
+  description: 'Multiplier for lengths.  Used for
+
+    determining ledger lines and stem lengths.'
+- name: line_break_penalty
+  type: number?
+  description: 'Penalty for a line break at this
+
+    column.  This affects the choices of the line breaker; it avoids a
+
+    line break at a column with a positive penalty and prefers a line
+
+    break at a column with a negative penalty.'
+- name: line_break_permission
+  type: symbol?
+  description: 'Instructs the line breaker on
+
+    whether to put a line break at this column.  Can be @code{force} or
+
+    @code{allow}.'
+- name: line_break_system_details
+  type: symbol-key-alist?
+  description: 'An alist of properties to
+
+    use if this column is the start of a system.'
+- name: line_count
+  type: integer?
+  description: The number of staff lines.
+- name: line_positions
+  type: list?
+  description: Vertical positions of staff lines.
+- name: line_thickness
+  type: number?
+  description: 'For slurs and ties, this is the
+
+    diameter of the virtual @qq{pen} that draws the two arcs of the
+
+    curve''s outline, which intersect at the endpoints.  This property is
+
+    expressed as a multiple of the current staff-line thickness (i.e., the
+
+    visual output is influenced by changes to
+
+    @code{@var{Staff}.StaffSymbol.thickness}).'
+- name: long_text
+  type: markup?
+  description: Text markup.  See @rnotation{Formatting text}.
+- name: main_extent
+  type: number-pair?
+  description: 'The horizontal extent of a
+
+    @code{NoteColumn} grob without taking suspended @code{NoteHead}
+
+    grobs into account (i.e., @code{NoteHead}s forced into the unnatural
+
+    direction of the @code{Stem} because of a chromatic clash).'
+- name: max_beam_connect
+  type: integer?
+  description: 'Maximum number of beams to connect
+
+    to beams from this stem.  Further beams are typeset as beamlets.'
+- name: maximum_gap
+  type: number?
+  description: 'Maximum value allowed for @code{gap}
+
+    property.'
+- name: max_slope_factor
+  type: non-negative-number?
+  description: 'Factor for calculating
+
+    the maximum tuplet bracket slope.  Notice that there exists a homonymous
+
+    property for slurs.'
+- name: max_symbol_separation
+  type: number?
+  description: 'The maximum distance between
+
+    symbols making up a church rest.'
+- name: measure_count
+  type: integer?
+  description: 'The number of measures for a
+
+    multi-measure rest.'
+- name: measure_division
+  type: number-list?
+  description: 'A list representing what fraction
+
+    of the measure length each chord name takes in a chord square.  The list
+
+    is made of exact numbers between 0 and@tie{}1, which should add up to@tie{}1.
+
+    Example: a measure @code{c2 g4 g4} results in @code{''(1/2 1/4 1/4)}.'
+- name: measure_division_chord_placement_alist
+  type: alist?
+  description: 'An alist mapping
+
+    measure divisions (see the @code{measure-division} property) to lists
+
+    of coordinates (number pairs) applied to the chord names of a chord
+
+    square.  Coordinates are normalized between -1 and@tie{}1 within the square.'
+- name: measure_division_lines_alist
+  type: alist?
+  description: 'An alist mapping measure
+
+    divisions (see the @code{measure-division} property) to lists of lines
+
+    to draw in the square, given as 4-element lists:
+
+    @code{(@var{x-start} @var{y-start} @var{x-end} @var{y-end})}.'
+- name: measure_length
+  type: positive-musical-length-as-moment?
+  description: 'Length of a measure.
+
+    Used in some spacing situations.'
+- name: merge_differently_dotted
+  type: boolean?
+  description: 'Merge note heads in
+
+    collisions, even if they have a different number of dots.  This is
+
+    normal notation for some types of polyphonic music.
+
+
+    @code{merge-differently-dotted} only applies to opposing stem
+
+    directions (i.e., voice 1 &@tie{}2).'
+- name: merge_differently_headed
+  type: boolean?
+  description: 'Merge note heads in
+
+    collisions, even if they have different note heads.  The smaller of
+
+    the two heads is rendered invisible.  This is used in polyphonic
+
+    guitar notation.  The value of this setting is used by
+
+    @rinternals{note-collision-interface}.
+
+
+    @code{merge-differently-headed} only applies to opposing stem
+
+    directions (i.e., voice 1 &@tie{}2).'
+- name: minimum_length_fraction
+  type: number?
+  description: 'Minimum length of ledger line
+
+    as fraction of note head size.'
+- name: minimum_X_extent
+  type: number-pair?
+  description: 'Minimum size of an object in
+
+    X@tie{}dimension, measured in @code{staff-space} units.'
+- name: minimum_Y_extent
+  type: number-pair?
+  description: 'Minimum size of an object in
+
+    Y@tie{}dimension, measured in @code{staff-space} units.'
+- name: musical_length
+  type: musical-length-as-moment?
+  description: Musical length.
+- name: nested_fraction_mixed
+  type: boolean?
+  description: 'Whether a fractional term of a time
+
+    signature is printed as a mixed number (e.g., @q{2@tie{}1/2}) or as a common
+
+    fraction (e.g., @q{5/2}).'
+- name: nested_fraction_relative_font_size
+  type: number?
+  description: 'The font size of a numeral in
+
+    a fractional term of a time signature, relative to size of the whole numbers.'
+- name: nested_fraction_orientation
+  type: symbol?
+  description: 'A symbol describing the orientation
+
+    of a fractional part of a time signature.'
+- name: neutral_position
+  type: number?
+  description: 'Position (in half staff spaces) where
+
+    to flip the direction of custos stem.'
+- name: no_ledgers
+  type: boolean?
+  description: 'If set, don''t draw ledger lines on this
+
+    object.'
+- name: no_stem_extend
+  type: boolean?
+  description: 'If set, notes with ledger lines do not
+
+    get stems extending to the middle staff line.'
+- name: non_break_align_symbols
+  type: list?
+  description: 'A list of symbols that determine
+
+    which NON-break-aligned interfaces to align this to.'
+- name: non_default
+  type: boolean?
+  description: Set for manually specified clefs and keys.
+- name: non_musical
+  type: boolean?
+  description: 'True if the grob belongs to a
+
+    @code{NonMusicalPaperColumn}.'
+- name: nonstaff_nonstaff_spacing
+  type: symbol-key-alist?
+  description: 'The spacing alist
+
+    controlling the distance between the current non-staff line and
+
+    the next non-staff line in the direction of @code{staff-affinity},
+
+    if both are on the same side of the related staff, and
+
+    @code{staff-affinity} is either @code{UP} or @code{DOWN}.  See
+
+    @code{staff-staff-spacing} for a description of the alist
+
+    structure.'
+- name: nonstaff_relatedstaff_spacing
+  type: symbol-key-alist?
+  description: 'The spacing
+
+    alist controlling the distance between the current non-staff line and
+
+    the nearest staff in the direction of @code{staff-affinity}, if
+
+    there are no non-staff lines between the two, and
+
+    @code{staff-affinity} is either @code{UP} or @code{DOWN}.  If
+
+    @code{staff-affinity} is @code{CENTER}, then
+
+    @code{nonstaff-relatedstaff-spacing} is used for the nearest
+
+    staves on @emph{both} sides, even if other non-staff lines appear
+
+    between the current one and either of the staves.  See
+
+    @code{staff-staff-spacing} for a description of the alist
+
+    structure.'
+- name: nonstaff_unrelatedstaff_spacing
+  type: symbol-key-alist?
+  description: 'The spacing
+
+    alist controlling the distance between the current non-staff line and
+
+    the nearest staff in the opposite direction from
+
+    @code{staff-affinity}, if there are no other non-staff lines
+
+    between the two, and @code{staff-affinity} is either @code{UP} or
+
+    @code{DOWN}.  See @code{staff-staff-spacing} for a description of
+
+    the alist structure.'
+- name: normalized_endpoints
+  type: pair?
+  description: 'Represents left and right placement
+
+    over the total spanner, where the width of the spanner is normalized
+
+    between 0 and 1.'
+- name: note_names
+  type: vector?
+  description: 'Vector of strings containing names for
+
+    easy-notation note heads.'
+- name: note_flag_style
+  type: symbol?
+  description: 'The style of the flags in a number-over-note
+
+    time signature.  See @code{flag-style}.'
+- name: note_head_style
+  type: symbol?
+  description: 'The style of the note head in a number-over-note
+
+    time signature.  See @rnotation{Note head styles}.'
+- name: note_staff_position
+  type: number?
+  description: 'The position of the note in a
+
+    number-over-note time signature.  See @code{staff-position}.'
+- name: number_range_separator
+  type: markup?
+  description: 'For a measure counter extending over
+
+    several measures (like with compressed multi-measure rests), this is
+
+    the separator between the two printed numbers.'
+- name: number_type
+  type: symbol?
+  description: 'Numbering style.  Choices include
+
+    @code{arabic}, @code{roman-ij-lower}, @code{roman-ij-upper},
+
+    @code{roman-lower}, and @code{roman-upper}.'
+- name: outside_staff_horizontal_padding
+  type: number?
+  description: 'By default, an
+
+    outside-staff-object can be placed so that is it very close to another
+
+    grob horizontally.  If this property is set, the outside-staff-object
+
+    is raised so that it is not so close to its neighbor.'
+- name: outside_staff_padding
+  type: number?
+  description: 'The padding to place between
+
+    grobs when spacing according to @code{outside-@/staff-@/priority}.
+
+    Two grobs with different @code{outside-@/staff-@/padding} values have
+
+    the larger value of padding between them.'
+- name: outside_staff_placement_directive
+  type: symbol?
+  description: 'One of four directives
+
+    telling how outside staff objects should be placed.
+
+    @itemize @bullet
+
+    @item
+
+    @code{left-to-right-greedy} -- Place each successive grob from left to
+
+    right.
+
+    @item
+
+    @code{left-to-right-polite} -- Place a grob from left to right only if
+
+    it does not potentially overlap with another grob that has been placed
+
+    on a pass through a grob array. If there is overlap, do another pass to
+
+    determine placement.
+
+    @item
+
+    @code{right-to-left-greedy} -- Same as @code{left-to-right-greedy}, but
+
+    from right to left.
+
+    @item
+
+    @code{right-to-left-polite} -- Same as @code{left-to-right-polite}, but
+
+    from right to left.
+
+    @end itemize'
+- name: outside_staff_priority
+  type: number?
+  description: 'If set, the grob is positioned
+
+    outside the staff in such a way as to avoid all collisions.  In case
+
+    of a potential collision, the grob with the smaller
+
+    @code{outside-staff-priority} is closer to the staff.'
+- name: packed_spacing
+  type: boolean?
+  description: 'If set, the notes are spaced as
+
+    tightly as possible.'
+- name: padding_pairs
+  type: alist?
+  description: 'An alist of padding pairs for key
+
+    signatures (and key cancellations).  Each alist entry has the form
+
+    @example
+
+    ((@var{left-glyph-name} . @var{right-glyph-name}) . @var{dist})
+
+    @end example
+
+    @noindent
+
+    specifying the padding @var{dist} between two adjacent key signature
+
+    elements.  If there is no entry in the alist for a given pair, the
+
+    padding value given by the @code{padding} property of the
+
+    @code{KeySignature} (or @code{KeyCancellation}) grob is used instead.
+
+
+    A special feature is the handling of adjacent naturals (to be more precise,
+
+    the handling of glyph @code{accidentals@/.natural}): If there is no
+
+    @q{natural-natural} entry in @code{padding-pairs} explicitly overriding it,
+
+    LilyPond adds some extra padding (in addition to the grob''s @code{padding}
+
+    value) to avoid collisions.'
+- name: page_break_penalty
+  type: number?
+  description: 'Penalty for page break at this
+
+    column.  This affects the choices of the page breaker; it avoids a
+
+    page break at a column with a positive penalty and prefers a page
+
+    break at a column with a negative penalty.'
+- name: page_break_permission
+  type: symbol?
+  description: 'Instructs the page breaker on
+
+    whether to put a page break at this column.  Can be @code{force} or
+
+    @code{allow}.'
+- name: page_number
+  type: number?
+  description: Page number on which this system ends up.
+- name: page_turn_penalty
+  type: number?
+  description: 'Penalty for a page turn at this
+
+    column.  This affects the choices of the page breaker; it avoids a
+
+    page turn at a column with a positive penalty and prefers a page turn
+
+    at a column with a negative penalty.'
+- name: page_turn_permission
+  type: symbol?
+  description: 'Instructs the page breaker on
+
+    whether to put a page turn at this column.  Can be @code{force} or
+
+    @code{allow}.'
+- name: parent_alignment_X
+  type: number?
+  description: 'Specify on which point
+
+    of the parent the object is aligned. The value @w{@code{-1}} means
+
+    aligned on parent''s left edge, @code{0}@tie{}on@tie{}center, and
+
+    @code{1}@tie{}right edge, in X@tie{}direction.  Other numerical
+
+    values may also be specified - the unit is half the parent''s width.
+
+    If not a number, align on the parent''s reference point.
+
+    If unset, the value from @code{self-alignment-X} property will be
+
+    used.'
+- name: parent_alignment_Y
+  type: number?
+  description: 'Like @code{parent-alignment-X}
+
+    but for the Y@tie{}axis.'
+- name: parenthesis_id
+  type: symbol?
+  description: 'When parenthesized grobs created in the
+
+    same time step have this property, there is one set of parentheses for
+
+    each group of grobs having the same value.'
+- name: parenthesis_friends
+  type: list?
+  description: 'A list of Grob types, as symbols.
+
+    When parentheses enclose a Grob that has ''parenthesis-friends, the
+
+    parentheses widen to include any child Grobs with type among
+
+    ''parenthesis-friends.'
+- name: parenthesized
+  type: boolean?
+  description: Parenthesize this grob.
+- name: positions
+  type: number-pair?
+  description: 'Pair of staff coordinates
+
+    @code{(@var{start} . @var{end})}, where @var{start} and
+
+    @var{end} are vertical positions in @code{staff-space} units of the current
+
+    staff.  For slurs, this value selects which slur candidate to use; if extreme
+
+    positions are requested, the closest one is taken.'
+- name: prefer_dotted_right
+  type: boolean?
+  description: 'For note collisions, prefer to
+
+    shift dotted up-note to the right, rather than shifting just the
+
+    dot.'
+- name: protrusion
+  type: number?
+  description: 'In a bracket indicating non-arpeggio or optional
+
+    material, the length of the horizontal edges.'
+- name: range_collapse_threshold
+  type: index?
+  description: 'If the length of a volta
+
+    range is greater than or equal to this threshold, print it with
+
+    a dash.  For example, if this is@tie{}3, a @code{\\volta 1,2,3} is
+
+    printed as @samp{1.-3.}, but if it is@tie{}4, it is printed as
+
+    @samp{1.2.3.}.'
+- name: rank_on_page
+  type: number?
+  description: 0-based index of the system on a page.
+- name: ratio
+  type: number?
+  description: 'Parameter for slur shape.  The higher this
+
+    number, the quicker the slur attains its @code{height-limit}.'
+- name: remove_empty
+  type: boolean?
+  description: 'If set, remove group if it contains no
+
+    interesting items.'
+- name: remove_first
+  type: boolean?
+  description: 'Remove the first staff of an orchestral
+
+    score?'
+- name: remove_layer
+  type: key?
+  description: 'When set as a positive integer, the
+
+    @code{Keep_alive_together_engraver} removes all
+
+    @code{VerticalAxisGroup} grobs with a @code{remove-layer} larger than
+
+    the smallest retained @code{remove-layer}. Set to @code{#f} to make a
+
+    layer independent of the @code{Keep_alive_together_engraver}. Set to
+
+    @code{''()}, the layer does not participate in the layering decisions.
+
+    The property can also be set as a symbol for common behaviors:
+
+    @code{#''any} to keep the layer alive with any other layer in the
+
+    group; @code{#''above} or @code{#''below} to keep the layer alive with
+
+    the context immediately before or after it, respectively.'
+- name: remove_short_autoextender
+  type: boolean?
+  description: 'If set, auto-generated
+
+    unbroken lyric extenders are removed if the lyric syllable stretches
+
+    up to the last contained note head.'
+- name: replacement_alist
+  type: alist?
+  description: 'Alist of strings.
+
+    The key is a string of the pattern to be replaced.  The value is a
+
+    string of what should be displayed.  Useful for ligatures.'
+- name: restore_first
+  type: boolean?
+  description: 'Print a natural before the
+
+    accidental.'
+- name: rhythmic_location
+  type: rhythmic-location?
+  description: 'Where (bar number,
+
+    measure position) in the score.'
+- name: right_bound_info
+  type: symbol-key-alist?
+  description: 'An alist of properties for
+
+    determining attachments of spanners to edges.'
+- name: right_justified
+  type: boolean?
+  description: 'Used for @code{BarLine}s to right-align them.
+
+    Usually the extent of a @code{BarLine} has some positive value to the right.  If
+
+    this property is set to @code{#t}, @code{BarLine.stencil} is translated to the
+
+    left by this value.  Needs to be set at @code{Score} or @code{StaffGroup} level.
+
+    As a result all @code{BarLine}s of said @code{Score} or @code{StaffGroup} are
+
+    right-justified.'
+- name: right_number_text
+  type: markup?
+  description: 'When the measure counter extends
+
+    over several measures (like with compressed multi-measure rests), this
+
+    is the text on the right side of the dash.  Usually unset.'
+- name: rotation
+  type: list?
+  description: 'Number of degrees to rotate this object, and
+
+    what point to rotate around.  For example, @code{''(45 0 0)} rotates
+
+    by 45 degrees around the center of this object.'
+- name: rounded
+  type: boolean?
+  description: Decide whether lines should be drawn rounded or not.
+- name: round_up_to_longer_rest
+  type: boolean?
+  description: 'Displays the longer multi-measure
+
+    rest when the length of a measure is between two values of
+
+    @code{usable-duration-logs}.  For example, displays a breve instead of a whole
+
+    in a 3/2 measure.'
+- name: same_direction_correction
+  type: number?
+  description: 'Optical correction amount
+
+    for stems that are placed in tight configurations.  This amount is
+
+    used for stems with the same direction to compensate for note head to
+
+    stem distance.'
+- name: script_priority
+  type: number?
+  description: 'A key for determining the order of
+
+    scripts in a stack, by being added to the position of the script in
+
+    the user input, the sum being the overall priority.  Smaller means
+
+    closer to the head.'
+- name: segno_kern
+  type: number?
+  description: 'The space between the two thin lines
+
+    of the segno bar line symbol, expressed as a multiple of the
+
+    default staff-line thickness (i.e., the visual output is @emph{not}
+
+    influenced by changes to
+
+    @code{@var{Staff}.StaffSymbol.thickness}).'
+- name: self_alignment_X
+  type: number?
+  description: 'Specify alignment of an object.  The
+
+    value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
+
+    @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
+
+    values may also be specified - the unit is half the object width.
+
+    If not a number, align on the object''s reference point.'
+- name: self_alignment_Y
+  type: number?
+  description: 'Like @code{self-alignment-X} but for
+
+    the Y@tie{}axis.'
+- name: shape
+  type: symbol?
+  description: 'This setting determines what shape a grob
+
+    has.  Valid choices depend on the @code{stencil} callback reading
+
+    this property.'
+- name: sharp_positions
+  type: list?
+  description: 'Sharps in key signatures are placed
+
+    within the specified ranges of staff positions.  The general form
+
+    is a list of pairs, with one pair for each type of clef, in order
+
+    of the staff position at which each clef places C:
+
+    @code{(alto treble tenor soprano baritone mezzosoprano bass)}.
+
+    If the list contains a single element it applies for all clefs.
+
+    A single number in place of a pair sets accidentals within the octave
+
+    ending at that staff position.'
+- name: short_bar_extent
+  type: number-pair?
+  description: 'The Y-extent of a short bar line.  The
+
+    default is half the normal bar extent, rounded up to an integer number of staff
+
+    spaces.'
+- name: shorten_pair
+  type: number-pair?
+  description: 'The lengths to shorten on both sides
+
+    a hairpin or text-spanner such as a pedal bracket.  Positive values
+
+    shorten the hairpin or text-spanner, while negative values lengthen
+
+    it.'
+- name: shortest_duration_space
+  type: number?
+  description: 'Start with this multiple of
+
+    @code{spacing-increment} space for the shortest duration.  See also
+
+    @rinternals{spacing-spanner-interface}.'
+- name: show_control_points
+  type: boolean?
+  description: "For grobs printing B\xE9zier\ncurves, setting this property to @code{#t}\
+    \ causes the control points\nand control polygon to be drawn on the page for ease\
+    \ of tweaking."
+- name: show_horizontal_skylines
+  type: boolean?
+  description: 'If true, print this
+
+    grob''s horizontal skylines.  This is meant for debugging purposes.'
+- name: show_vertical_skylines
+  type: boolean?
+  description: 'If true, print this
+
+    grob''s vertical skylines.  This is meant for debugging purposes.'
+- name: side_axis
+  type: number?
+  description: 'If the value is @code{X} (or
+
+    equivalently@tie{}@code{0}), the object is placed horizontally next to
+
+    the other object.  If the value is @code{Y} or@tie{}@code{1}, it is
+
+    placed vertically.'
+- name: size
+  type: number?
+  description: 'The ratio of the size of the object to its default
+
+    size.'
+- name: skip_quanting
+  type: boolean?
+  description: Should beam quanting be skipped?
+- name: skyline_horizontal_padding
+  type: number?
+  description: 'For determining the
+
+    vertical distance between two staves, it is possible to have a
+
+    configuration which would result in a tight interleaving of grobs from
+
+    the top staff and the bottom staff.  The larger this parameter is, the
+
+    farther apart the staves are placed in such a configuration.'
+- name: skyline_vertical_padding
+  type: number?
+  description: 'The amount by which the left
+
+    and right skylines of a column are padded vertically, beyond the
+
+    @code{Y-extent}s and @code{extra-spacing-height}s of the constituent
+
+    grobs in the column.  Increase this to prevent interleaving of grobs
+
+    from adjacent columns.'
+- name: slash_negative_kern
+  type: number?
+  description: 'The space to remove between
+
+    slashes in percent repeat glyphs.  Larger values bring the two
+
+    elements closer together.'
+- name: slope
+  type: number?
+  description: The slope of this object.
+- name: slur_padding
+  type: number?
+  description: Extra distance between slur and script.
+- name: snap_radius
+  type: number?
+  description: 'The maximum distance between two objects that
+
+    will cause them to snap to alignment along an axis.'
+- name: space_alist
+  type: symbol-key-alist?
+  description: "An alist that specifies distances from\nthis grob to other breakable\
+    \ items, using the format:\n\n@example\n'((@var{break-align-symbol} . (@var{spacing-style}\
+    \ . @var{space}))\n  (@var{break-align-symbol} . (@var{spacing-style} . @var{space}))\n\
+    \  ...)\n@end example\n\nStandard choices for @code{@var{break-align-symbol}}\
+    \ are listed in\n@rinternals{break-alignment-interface}.  Additionally, three\
+    \ special\nbreak-align symbols available to @code{space-alist} are:\n\n@quotation\n\
+    @table @code\n@item first-note\nused when the grob is just left of the first note\
+    \ on a line\n\n@item next-note\nused when the grob is just left of any other note;\n\
+    if not set, the value of @code{first-note} gets used\n\n@item right-edge\nused\
+    \ when the grob is the last item on the line (only compatible with\nthe @w{@code{extra-space}}\
+    \ spacing style)\n@end table\n@end quotation\n\nIf @code{space-alist} is defined\
+    \ for a grob that gets spaced in a\nstaff, an entry for @code{first-note} must\
+    \ be present.  If there\nis no @code{next-note} entry, the value of @code{first-note}\
+    \ is\nused instead.\n\nChoices for @code{@var{spacing-style}} are:\n\n@quotation\n\
+    @table @code\n@item extra-space\nPut this much space between the two grobs.  The\
+    \ space is stretchable\nand shrinkable when paired with @code{first-note} or @code{next-note};\n\
+    otherwise it is fixed.\n\n@item minimum-space\nPut at least this much space between\
+    \ the left sides of both grobs,\nwithout allowing them to collide.  The space\
+    \ is stretchable and\nshrinkable when paired with @code{first-note} or @code{next-note};\n\
+    otherwise it is fixed.  Not compatible with @code{right-edge}.\n\n@item fixed-space\n\
+    Only compatible with @code{first-note} and @code{next-note}.  Put\nthis much fixed\
+    \ space between the grob and the note.\n\n@item minimum-fixed-space\nOnly compatible\
+    \ with @code{first-note} and @code{next-note}.  Put at\nleast this much fixed\
+    \ space between the left side of the grob and the\nleft side of the note, without\
+    \ allowing them to collide.\n\n@item semi-fixed-space\nOnly compatible with @code{first-note}\
+    \ and @code{next-note}.  Put\nthis much space between the grob and the note, such\
+    \ that half of the\nspace is fixed and half is stretchable and shrinkable.\n\n\
+    @item shrink-space\nOnly compatible with @code{first-note} and @code{next-note}.\
+    \  Put\nthis much space between the two grobs.  The space is only shrinkable.\n\
+    \n@item semi-shrink-space\nOnly compatible with @code{first-note} and @code{next-note}.\
+    \  Put\nthis much space between the grob and the note, such that half of the\n\
+    space is fixed and half is shrinkable.\n\n@end table\n@end quotation\n\nRules\
+    \ for this spacing are much more complicated than this.\nSee [Wanske] page 126--134,\
+    \ [Ross] page 143--147."
+- name: space_to_barline
+  type: boolean?
+  description: 'If set, the distance between a note
+
+    and the following non-musical column will be measured to the bar line
+
+    instead of to the beginning of the non-musical column.  If there is a
+
+    clef change followed by a bar line, for example, this means that we
+
+    will try to space the non-musical column as though the clef is not
+
+    there.'
+- name: spacing_pair
+  type: pair?
+  description: "A pair of alignment symbols which set an object's\nspacing relative\
+    \ to its left and right @code{BreakAlignment}s.\n\nFor example, a @code{MultiMeasureRest}\
+    \ will ignore prefatory items at its\nbounds (i.e., clefs, key signatures and\
+    \ time signatures) using the following\noverride:\n\n@example\n\\\\override MultiMeasureRest.spacing-pair\
+    \ =\n             #'(staff-bar . staff-bar)\n@end example"
+- name: span_all_note_heads
+  type: boolean?
+  description: 'If true, tuplet brackets are
+
+    printed spanning horizontally from the first to the last note head
+
+    instead of covering only the stems.'
+- name: spanner_id
+  type: key?
+  description: An identifier to distinguish concurrent spanners.
+- name: springs_and_rods
+  type: boolean?
+  description: 'Dummy variable for triggering
+
+    spacing routines.'
+- name: staff_position
+  type: number?
+  description: 'Vertical position, measured in half
+
+    staff spaces, counted from the middle line.
+
+
+    For ties, there is a distinction between exact and inexact values: an
+
+    exact value serves as a rough vertical offset that gets further tuned
+
+    to make the tie avoid staff lines.  An inexact value is taken as the
+
+    precise vertical offset without further adjustments.'
+- name: staff_staff_spacing
+  type: symbol-key-alist?
+  description: 'When applied to a
+
+    staff-group''s @code{StaffGrouper} grob, this spacing alist controls
+
+    the distance between consecutive staves within the staff-group.  When
+
+    applied to a staff''s @code{VerticalAxisGroup} grob, it controls the
+
+    distance between the staff and the nearest staff below it in the same
+
+    system, replacing any settings inherited from the @code{StaffGrouper}
+
+    grob of the containing staff-group, if there is one.  This property
+
+    remains in effect even when non-staff lines appear between staves.
+
+    The alist can contain the following keys:
+
+
+    @itemize
+
+
+    @item
+
+    @code{basic-distance} -- the vertical distance, measured in
+
+    staff-spaces, between the reference points of the two items when
+
+    no collisions would result, and no stretching or compressing is in
+
+    effect.
+
+
+    @item
+
+    @code{minimum-distance} -- the smallest allowable vertical
+
+    distance, measured in staff-spaces, between the reference points
+
+    of the two items, when compressing is in effect.
+
+
+    @item
+
+    @code{padding} -- the minimum required amount of unobstructed
+
+    vertical whitespace between the bounding boxes (or skylines) of
+
+    the two items, measured in staff-spaces.
+
+
+    @item
+
+    @code{stretchability} -- a unitless measure of the dimension''s
+
+    relative propensity to stretch.  If zero, the distance will not
+
+    stretch (unless collisions would result).
+
+
+    @end itemize'
+- name: staffgroup_staff_spacing
+  type: symbol-key-alist?
+  description: 'The spacing alist
+
+    controlling the distance between the last staff of the current
+
+    staff-group and the staff just below it in the same system, even
+
+    if one or more non-staff lines exist between the two staves.  If
+
+    the @code{staff-staff-spacing} property of the staff''s
+
+    @code{VerticalAxisGroup} grob is set, that is used instead.  See
+
+    @code{staff-staff-spacing} for a description of the alist
+
+    structure.'
+- name: stem_attachment
+  type: number-pair?
+  description: 'An @code{(@var{x} . @var{y})}
+
+    pair where the stem attaches to the notehead.'
+- name: stem_begin_position
+  type: number?
+  description: 'User override for the
+
+    begin position of a stem.'
+- name: stem_spacing_correction
+  type: number?
+  description: 'Optical correction amount for
+
+    stems that are placed in tight configurations.  For opposite
+
+    directions, this amount is the correction for two normal sized stems
+
+    that overlap completely.'
+- name: stemlet_length
+  type: number?
+  description: 'How long should be a stem over a
+
+    rest?'
+- name: stencils
+  type: list?
+  description: 'Multiple stencils, used as intermediate
+
+    value.'
+- name: strict_grace_spacing
+  type: boolean?
+  description: 'If set, main notes are spaced
+
+    normally, then grace notes are put left of the musical columns for the
+
+    main notes.'
+- name: strict_note_spacing
+  type: boolean?
+  description: 'If set, unbroken columns with
+
+    non-musical material (clefs, bar lines, etc.@:) are not spaced
+
+    separately, but put before musical columns.'
+- name: style
+  type: symbol?
+  description: 'This setting determines in what style a grob is
+
+    typeset.  Valid choices depend on the @code{stencil} callback reading
+
+    this property.'
+- name: text
+  type: markup?
+  description: Text markup.  See @rnotation{Formatting text}.
+- name: text_alignment_X
+  type: number?
+  description: How to align an annotation horizontally.
+- name: text_alignment_Y
+  type: number?
+  description: How to align an annotation vertically.
+- name: thick_thickness
+  type: number?
+  description: 'Thickness of the thick line in a
+
+    bar line, expressed as a multiple of the default staff-line
+
+    thickness (i.e., the visual output is @emph{not} influenced by
+
+    changes to @code{@var{Staff}.StaffSymbol.thickness}).'
+- name: thickness
+  type: number?
+  description: 'For grobs made up of lines, this is the
+
+    thickness of the line.  For slurs and ties, this is the distance
+
+    between the two arcs of the curve''s outline at its thickest point,
+
+    not counting the diameter of the virtual @qq{pen} that draws the
+
+    arcs.  This property is expressed as a multiple of the current
+
+    staff-line thickness (i.e., the visual output is influenced by
+
+    changes to @code{@var{Staff}.StaffSymbol.thickness}).'
+- name: tie_configuration
+  type: list?
+  description: 'List of @code{(@var{position} .
+
+    @var{dir})} pairs, indicating a desired tie configuration that
+
+    overrides the default.  @var{position} is the offset from the center
+
+    of the staff in half staff-space units, and @var{dir} indicates the
+
+    direction of the tie (@code{1}=>up, @w{@code{-1}}=>down,
+
+    @code{0}=>center).  A non-pair entry in the list causes the
+
+    corresponding tie to be formatted automatically.
+
+
+    There is a distinction between exact and inexact values for
+
+    @var{position}: an exact value serves as a rough vertical offset that
+
+    gets further tuned to make the tie avoid staff lines.  An inexact
+
+    value is taken as the precise vertical offset without further
+
+    adjustments.'
+- name: to_barline
+  type: boolean?
+  description: 'If true, the spanner will stop at the bar
+
+    line just before it would otherwise stop.'
+- name: toward_stem_shift
+  type: number?
+  description: 'Amount by which scripts are shifted
+
+    toward the stem if their direction coincides with the stem direction.
+
+    @code{0.0} means centered on the note head (the default position of
+
+    most scripts); @code{1.0} means centered on the stem.  Interpolated
+
+    values are possible.'
+- name: toward_stem_shift_in_column
+  type: number?
+  description: 'Amount by which a script
+
+    is shifted toward the stem if its direction coincides with the stem
+
+    direction and it is associated with a @code{ScriptColumn} object.
+
+    @code{0.0} means centered on the note head (the default position of
+
+    most scripts); @code{1.0} means centered on the stem.  Interpolated
+
+    values are possible.'
+- name: tuplet_slur
+  type: boolean?
+  description: 'Draw a slur instead of a bracket for
+
+    tuplets.'
+- name: transparent
+  type: boolean?
+  description: This makes the grob invisible.
+- name: uniform_stretching
+  type: boolean?
+  description: 'If set, items stretch
+
+    proportionally to their natural separation based on durations.
+
+    This looks better in complex polyphonic patterns.'
+- name: used
+  type: boolean?
+  description: 'If set, this spacing column is kept in the
+
+    spacing problem.'
+- name: usable_duration_logs
+  type: list?
+  description: 'List of @code{duration-log}s that
+
+    can be used in typesetting the grob.'
+- name: visible_over_note_heads
+  type: boolean?
+  description: 'This prints a tuplet bracket
+
+    when the bracket is set to be over the note heads.  This option can
+
+    be combined with the default tuplet bracket visibility style and
+
+    with @code{#''if-no-beam}.'
+- name: voiced_position
+  type: number?
+  description: 'The staff position of a voiced
+
+    @code{Rest}, negative if the rest has @code{direction} @code{DOWN}.'
+- name: volta_number_offset
+  type: number-pair?
+  description: 'The offset of the volta number
+
+    relative to the upper left corner of the volta bracket.'
+- name: whiteout
+  type: boolean-or-number?
+  description: 'If a number or true, the grob is
+
+    printed over a white background to white-out underlying material, if
+
+    the grob is visible.  A number indicates how far the white background
+
+    extends beyond the bounding box of the grob as a multiple of the
+
+    staff-line thickness.  The @code{LyricHyphen} grob uses a special
+
+    implementation of whiteout: A positive number indicates how far the
+
+    white background extends beyond the bounding box in multiples of
+
+    @code{line-thickness}.  The shape of the background is determined by
+
+    @code{whiteout-style}.
+
+
+    Usually @code{#f} by default.  If @code{whiteout-color} is set, use
+
+    this color instead of white for the background.'
+- name: whiteout_color
+  type: color?
+  description: 'The background color used if property
+
+    @code{whiteout} is set.'
+- name: whiteout_style
+  type: symbol?
+  description: 'Determines the shape of the
+
+    @code{whiteout} background.  Available are @code{''outline},
+
+    @code{''rounded-box}, and the default @code{''box}.  There is one
+
+    exception: Use @code{''special} for @code{LyricHyphen}.'
+- name: widened_extent
+  type: number-pair?
+  description: 'The vertical extent that a bar
+
+    line on a certain staff symbol should have.  If the staff symbol is
+
+    small (e.g., has just one line, as in a @code{RhythmicStaff}, this is
+
+    wider than the staff symbol''s Y extent.'
+- name: woodwind_diagram_details
+  type: symbol-key-alist?
+  description: 'An alist of detailed
+
+    grob properties for woodwind diagrams.  Each alist entry consists of a
+
+    @code{(@var{property} . @var{value})} pair.  The properties which can
+
+    be included in woodwind-diagram-details include the following:
+
+
+    @itemize @bullet
+
+    @item
+
+    @code{fill-angle} -- Rotation angle of a partially filled key from
+
+    horizontal. Default value@tie{}0.
+
+    @item
+
+    @code{text-trill-circled} -- In non-graphical mode, for keys shown as
+
+    text, indicate a trill by circling the text if true, or by shading the
+
+    text if false.  Default value@tie{}#t.
+
+    @end itemize'
+- name: X_align_on_main_noteheads
+  type: boolean?
+  description: 'If true, this grob will
+
+    ignore suspended noteheads when aligning itself on NoteColumn.'
+- name: X_alignment_extent
+  type: number-pair?
+  description: 'If a grob wants to align
+
+    itself on a @code{PaperColumn} grob that doesn''t contain note heads,
+
+    use this horizontal extent as a placeholder.'
+- name: X_attachment
+  type: number?
+  description: 'Horizontal attachment of a line on a
+
+    frame, typically between -1 (left) and 1 (right).'
+- name: X_extent
+  type: number-pair?
+  description: 'Extent (size) in the X@tie{}direction,
+
+    measured in staff-space units, relative to object''s reference point.'
+- name: X_offset
+  type: number?
+  description: 'The horizontal amount that this object is
+
+    moved relative to its X-parent.
+
+
+    Note that many objects have special positioning considerations, which cause any
+
+    setting of @code{X-offset} to be ignored or modified, even though the object
+
+    supports the @iref{self-alignment-interface}.'
+- name: X_positions
+  type: number-pair?
+  description: 'Pair of X staff coordinates of a spanner
+
+    in the form @code{(@var{left} . @var{right})}, where both @var{left} and
+
+    @var{right} are in @code{staff-space} units of the current staff.'
+- name: Y_attachment
+  type: number?
+  description: 'Vertical attachment of a line on a
+
+    frame, typically between -1 (down) and 1 (up).'
+- name: Y_extent
+  type: number-pair?
+  description: 'Extent (size) in the Y@tie{}direction,
+
+    measured in staff-space units, relative to object''s reference point.'
+- name: Y_offset
+  type: number?
+  description: 'The vertical amount that this object is moved
+
+    relative to its Y-parent.
+
+
+    Note that many objects have special positioning considerations, which cause any
+
+    setting of @code{Y-offset} to be ignored or modified, even though the object
+
+    supports the @iref{self-alignment-interface}.'
+- name: accidental_grobs
+  type: alist?
+  description: 'An alist with @code{(@var{notename} .
+
+    @var{groblist})} entries.'
+- name: allow_span_bar_above
+  type: boolean?
+  description: 'If false, no inter-staff bar line will
+
+    be created above this item.'
+- name: annotation
+  type: string?
+  description: Annotate a grob for debug purposes.
+- name: beam_segments
+  type: list?
+  description: Internal representation of beam segments.
+- name: bound_alignment_interfaces
+  type: list
+  description: 'Interfaces to be used
+
+    for positioning elements that align with a column.'
+- name: c0_position
+  type: integer?
+  description: 'An integer indicating the position of
+
+    middle@tie{}C.'
+- name: fa_styles
+  type: symbol-list?
+  description: "List of note head styles that identify\n @q{fa} shape note heads."
+- name: glissando_index
+  type: integer?
+  description: 'The index of a glissando in its note
+
+    column.'
+- name: has_span_bar
+  type: pair?
+  description: 'A pair of grobs containing the span bars to
+
+    be drawn below and above the staff.  If no span bar is in a position,
+
+    the respective element is set to @code{#f}.'
+- name: in_note_system_padding
+  type: number?
+  description: 'Padding between in-note and its
+
+    associated system.'
+- name: minimum_translations_alist
+  type: alist?
+  description: 'An list of translations for a given
+
+    start and end point.'
+- name: span_start
+  type: boolean?
+  description: Is the note head at the start of a spanner?
+- name: spanner_broken
+  type: boolean?
+  description: 'Indicates whether spanner
+
+    alignment should be broken after the current spanner.'
+- name: adjacent_pure_heights
+  type: pair?
+  description: 'A pair of vectors.  Used by a
+
+    @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
+
+    ranges.'
+- name: auto_generated
+  type: boolean?
+  description: 'True if the grob was created by an
+
+    automatic mechanism as opposed to an explicit event.  Used for lyric
+
+    extenders.'
+- name: begin_of_line_visible
+  type: boolean?
+  description: 'Set to make @code{ChordName} or
+
+    @code{FretBoard} be visible only at beginning of line or at
+
+    chord changes.'
+- name: cause
+  type: scheme?
+  description: 'Any kind of causation objects (i.e., music, or perhaps
+
+    translator) that was the cause for this grob.'
+- name: cross_staff
+  type: boolean?
+  description: 'True for grobs whose @code{Y-extent} depends on
+
+    inter-staff spacing.  The extent is measured relative to the grobs''s parent
+
+    staff (more generally, its @code{VerticalAxisGroup}) so this boolean flags
+
+    grobs that are not rigidly fixed to their parent staff.
+
+    Beams that join notes from two staves are @code{cross-staff}.
+
+    Grobs that are positioned around such beams are also @code{cross-staff}.
+
+    Grobs that are grouping objects, however, like @code{VerticalAxisGroups}
+
+    will not in general be marked @code{cross-staff} when some of the members
+
+    of the group are @code{cross-staff}.'
+- name: delta_position
+  type: number?
+  description: The vertical position difference.
+- name: forced
+  type: boolean?
+  description: Manually forced accidental.
+- name: ideal_distances
+  type: list?
+  description: '@code{(@var{obj} . (@var{dist} .
+
+    @var{strength}))} pairs.'
+- name: important_column_ranks
+  type: vector?
+  description: 'A cache of columns that contain
+
+    @code{items-worth-living} data.'
+- name: index
+  type: index?
+  description: 'For some grobs in a group, this is a
+
+    number associated with the grob.'
+- name: interfaces
+  type: list?
+  description: 'A list of symbols indicating the interfaces
+
+    supported by this object.  It is initialized from the @code{meta} field.'
+- name: least_squares_dy
+  type: number?
+  description: The ideal beam slope, without damping.
+- name: maybe_loose
+  type: boolean?
+  description: 'Used to mark a breakable column that is
+
+    loose if and only if it is in the middle of a line.'
+- name: meta
+  type: symbol-key-alist?
+  description: 'Provide meta information.  It is an alist with
+
+    the entries @code{name} and @code{interfaces}.'
+- name: minimum_distances
+  type: list?
+  description: 'A list of rods that have the format
+
+    @code{(@var{obj} . @var{dist})}.'
+- name: numbering_assertion_function
+  type: scheme?
+  description: 'The function used to assert
+
+    that footnotes are receiving correct automatic numbers.'
+- name: positioning_done
+  type: boolean?
+  description: 'Used to signal that a positioning element
+
+    did its job.  This ensures that a positioning is only done once.'
+- name: pure_Y_extent
+  type: number-pair?
+  description: The estimated height of a system.
+- name: pure_Y_offset_in_progress
+  type: boolean?
+  description: 'A debugging aid for catching
+
+    cyclic dependencies.'
+- name: quantize_position
+  type: boolean?
+  description: 'If set, a vertical alignment is aligned
+
+    to be within staff spaces.'
+- name: quantized_positions
+  type: number-pair?
+  description: 'The beam positions after
+
+    quanting.'
+- name: script_stencil
+  type: pair?
+  description: 'A pair @code{(@var{type} . @var{arg})} which
+
+    acts as an index for looking up a @code{Stencil} object.'
+- name: stem_info
+  type: pair?
+  description: A cache of stem parameters.
+- name: system_Y_offset
+  type: number?
+  description: 'The Y-offset (relative to the bottom of the
+
+    top-margin of the page) of the system to which this staff belongs.'
+- name: volta_numbers
+  type: number-list?
+  description: List of volta numbers.
+- name: add_cauda
+  type: boolean?
+  description: 'Does this flexa require an additional cauda on
+
+    the left side?'
+- name: add_join
+  type: boolean?
+  description: 'Is this ligature head-joined with the next one
+
+    by a vertical line?'
+- name: add_stem
+  type: boolean?
+  description: 'Is this ligature head a virga and therefore needs
+
+    an additional stem on the right side?'
+- name: ascendens
+  type: boolean?
+  description: Is this neume of ascending type?
+- name: auctum
+  type: boolean?
+  description: Is this neume liquescentically augmented?
+- name: cavum
+  type: boolean?
+  description: Is this neume outlined?
+- name: context_info
+  type: integer?
+  description: 'Within a ligature, the final glyph or shape of
+
+    a head may be affected by the left and/@/or right neighbour head.
+
+    @code{context-info} holds for each head such information about the left and
+
+    right neighbour, encoded as a bit mask.'
+- name: deminutum
+  type: boolean?
+  description: Is this neume deminished?
+- name: descendens
+  type: boolean?
+  description: Is this neume of descendent type?
+- name: flexa_interval
+  type: integer?
+  description: 'The interval spanned by the two notes of a
+
+    flexa shape (1 is a second, 7 is an octave).'
+- name: left_down_stem
+  type: boolean?
+  description: 'request a downward left stem for an
+
+    initial breve in a ligature.'
+- name: ligature_flexa
+  type: boolean?
+  description: 'request joining note to the previous one
+
+    in a flexa.'
+- name: inclinatum
+  type: boolean?
+  description: Is this neume an inclinatum?
+- name: linea
+  type: boolean?
+  description: Attach vertical lines to this neume?
+- name: oriscus
+  type: boolean?
+  description: Is this neume an oriscus?
+- name: pes_or_flexa
+  type: boolean?
+  description: 'Shall this neume be joined with the previous
+
+    head?'
+- name: prefix_set
+  type: number?
+  description: 'A bit mask that holds all Gregorian head
+
+    prefixes, such as @code{\\virga} or @code{\\quilisma}.'
+- name: primitive
+  type: integer?
+  description: 'A pointer to a ligature primitive, i.e., an item
+
+    similar to a note head that is part of a ligature.'
+- name: quilisma
+  type: boolean?
+  description: Is this neume a quilisma?
+- name: right_down_stem
+  type: boolean?
+  description: 'request a downward right stem for a
+
+    maxima in a ligature.'
+- name: right_up_stem
+  type: boolean?
+  description: 'request an upward right stem for a final
+
+    longa or maxima in a ligature.'
+- name: stropha
+  type: boolean?
+  description: Is this neume a stropha?
+- name: virga
+  type: boolean?
+  description: Is this neume a virga?
