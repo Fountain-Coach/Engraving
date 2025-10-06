@@ -92,12 +92,18 @@ def main():
             for xkey in ('x-rule','x-smufl'):
                 if xkey in op['post']:
                     newpost[xkey] = op['post'][xkey]
+            # Ensure x-rule.status default
+            xr = newpost.setdefault('x-rule', {})
+            xr.setdefault('status', 'provisional')
             tpaths[path] = {'post': newpost}
         # Ensure vendor extensions are present for existing paths
         post = tpaths[path]['post']
         for xkey in ('x-rule','x-smufl'):
             if xkey in op['post']:
                 post[xkey] = op['post'][xkey]
+        # Ensure default status if missing
+        xr = post.setdefault('x-rule', {})
+        xr.setdefault('status', 'provisional')
         # Replace StrictEmpty with concrete typed schemas when mapping exists
         if rid in schema_map:
             req, res = schema_map[rid]

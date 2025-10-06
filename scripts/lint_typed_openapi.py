@@ -54,6 +54,10 @@ def main():
         if not xr:
             errs.append(f"Path {p} missing x-rule vendor extension")
             continue
+        # Require status in x-rule
+        status = xr.get('status')
+        if status not in ('draft','provisional','ratified'):
+            errs.append(f"Path {p} x-rule.status missing or invalid (expected draft|provisional|ratified)")
         tr = xr.get('trace', [])
         if not tr:
             errs.append(f"Path {p} x-rule.trace is empty")
