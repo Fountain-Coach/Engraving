@@ -1,1 +1,17 @@
+# macOS
 .DS_Store
+
+# Python virtual envs
+.venv/
+
+# SwiftPM build artifacts
+.build/
+.swiftpm/
+DerivedData/
+
+# RulesKit-SPM local build artifacts
+codegen/swift/RulesKit-SPM/.build/
+codegen/swift/RulesKit-SPM/.swiftpm/
+
+# Plugin/generated transient outputs (kept under .build)
+# (No explicit ignores needed beyond .build/)

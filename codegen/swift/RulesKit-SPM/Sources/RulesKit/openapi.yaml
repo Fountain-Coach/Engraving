@@ -1,8 +1,5106 @@
-openapi: "3.0.3"
+openapi: 3.1.0
 info:
-  title: RulesKit API (Engraving Rules)
+  title: "Engraving Rules (Functions) \u2014 Typed"
   version: 0.2.0
-paths:
-  $ref: ./openapi/rules-as-functions.yaml#/paths
+  description: 'Typed variant for first-class code generation in Swift 6 (and others).
+
+    '
+servers: []
 components:
-  $ref: ./openapi/rules-as-functions.yaml#/components
+  schemas:
+    StaffSpace:
+      type: number
+      description: Distance in staff spaces (sp)
+    BBox:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        w:
+          type: number
+        h:
+          type: number
+      required:
+      - x
+      - y
+      - w
+      - h
+    SpacingDurationBaseInput:
+      type: object
+      properties:
+        durations:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - w
+            - h
+            - q
+            - e
+            - s
+            - t
+            - x
+        stems:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        preItems:
+          type: array
+          minItems: 0
+          items:
+            type: string
+            enum:
+            - accidental
+            - none
+        postItems:
+          type: array
+          minItems: 0
+          items:
+            type: string
+            enum:
+            - stacc
+            - accent
+            - none
+        noteheadWidths:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        minColumnGap:
+          $ref: '#/components/schemas/StaffSpace'
+        accidentalPadding:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - durations
+      - noteheadWidths
+    SpacingDurationBaseOutput:
+      type: object
+      properties:
+        columnPositions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        columnMinWidths:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        gaps:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        leadIn:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - columnPositions
+    BeamingKneeInput:
+      type: object
+      properties:
+        verticalGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - verticalGapSP
+      - beamThicknessSP
+    BeamingKneeOutput:
+      type: object
+      properties:
+        kneed:
+          type: boolean
+        thresholdUsedSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - kneed
+    AccidentalLeadInInput:
+      type: object
+      properties:
+        accidentalBBox:
+          $ref: '#/components/schemas/BBox'
+        columnLeft:
+          type: number
+        noteheadWidthSP:
+          $ref: '#/components/schemas/StaffSpace'
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - accidentalBBox
+      - columnLeft
+      - noteheadWidthSP
+      - paddingSP
+    AccidentalLeadInOutput:
+      type: object
+      properties:
+        columnMinWidthSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - columnMinWidthSP
+    SlurInput:
+      type: object
+      properties:
+        candidates:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              controlPoints:
+                type: array
+                minItems: 1
+                items:
+                  type: number
+              curvature:
+                type: number
+              collisions:
+                type: integer
+            required:
+            - controlPoints
+      required:
+      - candidates
+    SlurOutput:
+      type: object
+      properties:
+        chosenIndex:
+          type: integer
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+        score:
+          type: number
+      required:
+      - chosenIndex
+    RuleInput:
+      type: object
+      additionalProperties: false
+      properties: {}
+    RuleOutput:
+      type: object
+      additionalProperties: false
+      properties: {}
+    BeamSegment:
+      type: object
+      properties:
+        x1:
+          type: number
+        y1:
+          type: number
+        x2:
+          type: number
+        y2:
+          type: number
+      required:
+      - x1
+      - y1
+      - x2
+      - y2
+    BeamGeometryInput:
+      type: object
+      properties:
+        notePositionsSP:
+          type: array
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        stemDirections:
+          type: array
+          minItems: 2
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        beamThicknessSP:
+          allOf:
+          - $ref: '#/components/schemas/StaffSpace'
+          - type: number
+            exclusiveMinimum: 0
+      required:
+      - notePositionsSP
+      - stemDirections
+      - beamThicknessSP
+    BeamGeometryOutput:
+      type: object
+      properties:
+        slopeSPPerSpace:
+          type: number
+        segments:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BeamSegment'
+      required:
+      - slopeSPPerSpace
+      - segments
+    RestSplitInput:
+      type: object
+      properties:
+        sequence:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - note
+            - rest
+      required:
+      - sequence
+    RestSplitOutput:
+      type: object
+      properties:
+        groups:
+          type: array
+          minItems: 1
+          items:
+            type: array
+            minItems: 1
+            items:
+              type: integer
+        beamBreaks:
+          type: array
+          minItems: 0
+          items:
+            type: integer
+      required:
+      - groups
+    Pitch:
+      type: object
+      properties:
+        step:
+          type: string
+          enum:
+          - C
+          - D
+          - E
+          - F
+          - G
+          - A
+          - B
+        alter:
+          type: integer
+        octave:
+          type: integer
+      required:
+      - step
+      - alter
+      - octave
+    AccidentalCautionaryInput:
+      type: object
+      properties:
+        previousSpelling:
+          $ref: '#/components/schemas/Pitch'
+        currentSpelling:
+          $ref: '#/components/schemas/Pitch'
+      required:
+      - previousSpelling
+      - currentSpelling
+    AccidentalCautionaryOutput:
+      type: object
+      properties:
+        showCautionary:
+          type: boolean
+        parenthesized:
+          type: boolean
+      required:
+      - showCautionary
+    AccidentalMicrotonalInput:
+      type: object
+      properties:
+        pitchAlterCents:
+          type: number
+        baseSpacingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - pitchAlterCents
+    AccidentalMicrotonalOutput:
+      type: object
+      properties:
+        chosenGlyph:
+          type: string
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - chosenGlyph
+    CourtesyKeyInput:
+      type: object
+      properties:
+        upcomingKey:
+          type: object
+          properties:
+            fifths:
+              type: integer
+          required:
+          - fifths
+        atSystemEnd:
+          type: boolean
+      required:
+      - upcomingKey
+      - atSystemEnd
+    CourtesyKeyOutput:
+      type: object
+      properties:
+        showCourtesy:
+          type: boolean
+      required:
+      - showCourtesy
+    CourtesyTimeInput:
+      type: object
+      properties:
+        upcomingTimeSig:
+          type: object
+          properties:
+            beatsPerBar:
+              type: integer
+            beatUnit:
+              type: integer
+          required:
+          - beatsPerBar
+          - beatUnit
+        atSystemEnd:
+          type: boolean
+      required:
+      - upcomingTimeSig
+      - atSystemEnd
+    CourtesyTimeOutput:
+      type: object
+      properties:
+        showCourtesy:
+          type: boolean
+      required:
+      - showCourtesy
+    TieCurvatureInput:
+      type: object
+      properties:
+        start:
+          $ref: '#/components/schemas/BBox'
+        end:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - start
+      - end
+    TieCurvatureOutput:
+      type: object
+      properties:
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - minClearanceSP
+    LyricsAlignInput:
+      type: object
+      properties:
+        lyricBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricBBox
+      - staffBaseline
+    LyricsAlignOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    KeepInsideInput:
+      type: object
+      properties:
+        lineWidth:
+          type: number
+        columns:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - lineWidth
+      - columns
+    KeepInsideOutput:
+      type: object
+      properties:
+        systemBreaks:
+          type: array
+          minItems: 0
+          items:
+            type: integer
+        columnPositions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+        overfull:
+          type: number
+      required:
+      - columnPositions
+    CompoundBeamingInput:
+      type: object
+      properties:
+        timeSignature:
+          type: object
+          properties:
+            beatsPerBar:
+              type: integer
+            beatUnit:
+              type: integer
+          required:
+          - beatsPerBar
+          - beatUnit
+        noteValues:
+          type: array
+          minItems: 1
+          items:
+            type: string
+      required:
+      - timeSignature
+    CompoundBeamingOutput:
+      type: object
+      properties:
+        beamBreaks:
+          type: array
+          minItems: 0
+          items:
+            type: integer
+        groups:
+          type: array
+          minItems: 1
+          items:
+            type: array
+            minItems: 1
+            items:
+              type: integer
+      required:
+      - beamBreaks
+    CollisionLatticeInput:
+      type: object
+      properties:
+        grobTypes:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        proximities:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - grobTypes
+    CollisionLatticeOutput:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+    LedgerShortenInput:
+      type: object
+      properties:
+        standardLengthSP:
+          type: number
+        accidentalProximitySP:
+          type: number
+        shortenBySP:
+          type: number
+      required:
+      - standardLengthSP
+      - accidentalProximitySP
+    LedgerShortenOutput:
+      type: object
+      properties:
+        adjustedLengthSP:
+          type: number
+      required:
+      - adjustedLengthSP
+    VerticalStackInput:
+      type: object
+      properties:
+        objectBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+        minDistances:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - objectBBoxes
+    VerticalStackOutput:
+      type: object
+      properties:
+        staffPositions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+        objectOffsets:
+          type: array
+          minItems: 1
+          items:
+            type: number
+    DynamicsAlignInput:
+      type: object
+      properties:
+        noteColumns:
+          type: array
+          minItems: 1
+          items:
+            type: number
+        dynamicBBox:
+          $ref: '#/components/schemas/BBox'
+        baseline:
+          type: number
+      required:
+      - dynamicBBox
+    DynamicsAlignOutput:
+      type: object
+      properties:
+        dynamicPosition:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+      required:
+      - dynamicPosition
+    CastoffInput:
+      type: object
+      properties:
+        systemWidths:
+          type: array
+          minItems: 1
+          items:
+            type: number
+        breakOpportunities:
+          type: array
+          minItems: 0
+          items:
+            type: integer
+        pageSize:
+          type: string
+      required:
+      - systemWidths
+    CastoffOutput:
+      type: object
+      properties:
+        systemBreaks:
+          type: array
+          minItems: 0
+          items:
+            type: integer
+        overfull:
+          type: number
+    OpticalInput:
+      type: object
+      properties:
+        staffSizePT:
+          type: number
+        baseLineThickness:
+          type: number
+      required:
+      - staffSizePT
+    OpticalOutput:
+      type: object
+      properties:
+        strokeScalar:
+          type: number
+        spacingScalar:
+          type: number
+      required:
+      - strokeScalar
+      - spacingScalar
+    OrnamentPlacementInput:
+      type: object
+      properties:
+        ornamentBBox:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - ornamentBBox
+    OrnamentPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            y:
+              type: number
+      required:
+      - position
+    FingeringPlacementInput:
+      type: object
+      properties:
+        fingeringBBox:
+          $ref: '#/components/schemas/BBox'
+        noteheadBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - fingeringBBox
+      - noteheadBBoxes
+    FingeringPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
+    PedalPlacementInput:
+      type: object
+      properties:
+        pedalTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - pedalTextBBox
+      - systemBaseline
+    PedalPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    BracesLayoutInput:
+      type: object
+      properties:
+        staves:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        grouping:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        braceMarginSP:
+          type: number
+      required:
+      - staves
+    BracesLayoutOutput:
+      type: object
+      properties:
+        braceOffsets:
+          type: object
+          additionalProperties:
+            type: number
+      required:
+      - braceOffsets
+    MultiVoiceStemsInput:
+      type: object
+      properties:
+        voices:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        notePositions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - voices
+    MultiVoiceStemsOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+      required:
+      - stemDirections
+    MMRestLayoutInput:
+      type: object
+      properties:
+        measureCount:
+          type: integer
+      required:
+      - measureCount
+    MMRestLayoutOutput:
+      type: object
+      properties:
+        widthSP:
+          type: number
+      required:
+      - widthSP
+    TupletBeamingInput:
+      type: object
+      properties:
+        tupletRatio:
+          type: string
+        noteValues:
+          type: array
+          minItems: 1
+          items:
+            type: string
+      required:
+      - tupletRatio
+    TupletBeamingOutput:
+      type: object
+      properties:
+        bracketPosition:
+          type: object
+          properties:
+            y:
+              type: number
+    GraceWidthInput:
+      type: object
+      properties:
+        graceNotes:
+          type: array
+          minItems: 1
+          items:
+            type: string
+      required:
+      - graceNotes
+    GraceWidthOutput:
+      type: object
+      properties:
+        widthScale:
+          type: number
+      required:
+      - widthScale
+    CrossStaffBeamingInput:
+      type: object
+      properties:
+        staffAssignments:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        notePositions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - staffAssignments
+    CrossStaffBeamingOutput:
+      type: object
+      properties:
+        beamStaff:
+          type: integer
+      required:
+      - beamStaff
+    OttavaPlacementInput:
+      type: object
+      properties:
+        ottavaType:
+          type: string
+        staffBaseline:
+          type: number
+      required:
+      - ottavaType
+      - staffBaseline
+    OttavaPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          type: number
+      required:
+      - yOffsetSP
+    VoltaLayoutInput:
+      type: object
+      properties:
+        bars:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        voltaNumbers:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        minHeightSP:
+          type: number
+      required:
+      - bars
+    VoltaLayoutOutput:
+      type: object
+      properties:
+        heightSP:
+          type: number
+      required:
+      - heightSP
+    RehearsalPlacementInput:
+      type: object
+      properties:
+        markBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          type: number
+      required:
+      - markBBox
+    RehearsalPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          type: number
+      required:
+      - yOffsetSP
+    TempoPlacementInput:
+      type: object
+      properties:
+        tempoTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          type: number
+      required:
+      - tempoTextBBox
+    TempoPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          type: number
+      required:
+      - yOffsetSP
+    BeamingSubdivisionInput:
+      type: object
+      properties:
+        timeSignature:
+          type: object
+          properties:
+            beatsPerBar:
+              type: integer
+            beatUnit:
+              type: integer
+          required:
+          - beatsPerBar
+          - beatUnit
+        noteValues:
+          type: array
+          minItems: 1
+          items:
+            type: string
+      required:
+      - timeSignature
+    BeamingSubdivisionOutput:
+      type: object
+      properties:
+        beamBreaks:
+          type: array
+          minItems: 0
+          items:
+            type: integer
+      required:
+      - beamBreaks
+    FlagSuppressionInput:
+      type: object
+      properties:
+        isBeamedGroup:
+          type: boolean
+      required:
+      - isBeamedGroup
+    FlagSuppressionOutput:
+      type: object
+      properties:
+        drawFlags:
+          type: boolean
+      required:
+      - drawFlags
+    ClefPlacementInput:
+      type: object
+      properties:
+        clefType:
+          type: string
+          enum:
+          - treble
+          - bass
+          - alto
+          - tenor
+        staffSizePT:
+          type: number
+        leftPaddingSP:
+          type: number
+      required:
+      - clefType
+      - staffSizePT
+    ClefPlacementOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          type: number
+      required:
+      - xOffsetSP
+    KeySigPositionsInput:
+      type: object
+      properties:
+        clef:
+          type: string
+          enum:
+          - treble
+          - bass
+        fifths:
+          type: integer
+      required:
+      - clef
+      - fifths
+    KeySigPositionsOutput:
+      type: object
+      properties:
+        positions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - positions
+    BarlineStyleInput:
+      type: object
+      properties:
+        atSystemBreak:
+          type: boolean
+        style:
+          type: string
+          enum:
+          - single
+          - double
+          - final
+          - heavy
+        repeat:
+          type: string
+          enum:
+          - none
+          - start
+          - end
+          - both
+      required:
+      - style
+    BarlineStyleOutput:
+      type: object
+      properties:
+        glyph:
+          type: string
+        thickness:
+          type: number
+          minimum: 0
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - glyph
+      - thickness
+    BeamingSlopeClearanceInput:
+      type: object
+      properties:
+        notePositionsSP:
+          type: array
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+        stemDirections:
+          type: array
+          minItems: 2
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - notePositionsSP
+      - stemDirections
+      - beamThicknessSP
+    BeamingSlopeClearanceOutput:
+      type: object
+      properties:
+        slopeSPPerSpaceAdjusted:
+          type: number
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - slopeSPPerSpaceAdjusted
+    NoteSpacingOpticalWeightsInput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+        beatStrengths:
+          type: array
+          minItems: 1
+          items:
+            type: number
+    NoteSpacingOpticalWeightsOutput:
+      type: object
+      properties:
+        weights:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - weights
+    BarNumberInput:
+      type: object
+      properties:
+        staffTop:
+          type: number
+        topMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - staffTop
+    BarNumberOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    MetronomeMarkInput:
+      type: object
+      properties:
+        tempoTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - tempoTextBBox
+      - systemTop
+    MetronomeMarkOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    LyricsBaselineVarianceInput:
+      type: object
+      properties:
+        lyricBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+        varianceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricBBox
+      - staffBaseline
+    LyricsBaselineVarianceOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    BeamingCrossVoiceSlopeInput:
+      type: object
+      properties:
+        voiceNotePositionsSP:
+          type: array
+          minItems: 1
+          items:
+            type: array
+            minItems: 2
+            items:
+              $ref: '#/components/schemas/StaffSpace'
+        voiceStemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: array
+            minItems: 2
+            items:
+              type: string
+              enum:
+              - up
+              - down
+        beamThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - voiceNotePositionsSP
+      - voiceStemDirections
+      - beamThicknessSP
+    BeamingCrossVoiceSlopeOutput:
+      type: object
+      properties:
+        slopeSPPerSpaceAdjusted:
+          type: number
+        balanceScore:
+          type: number
+      required:
+      - slopeSPPerSpaceAdjusted
+    DynamicsStackKerningInput:
+      type: object
+      properties:
+        dynamicBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+        hairpinBBoxes:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+        atSystemBreak:
+          type: boolean
+      required:
+      - dynamicBBoxes
+    DynamicsStackKerningOutput:
+      type: object
+      properties:
+        dynamicPositions:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              x:
+                $ref: '#/components/schemas/StaffSpace'
+              y:
+                $ref: '#/components/schemas/StaffSpace'
+            required:
+            - x
+            - y
+      required:
+      - dynamicPositions
+    LyricsHyphenMelismaInput:
+      type: object
+      properties:
+        syllableBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+        hyphenBBoxes:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+        melismaLineBBoxes:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - syllableBBoxes
+      - staffBaseline
+    LyricsHyphenMelismaOutput:
+      type: object
+      properties:
+        lyricOffsets:
+          type: array
+          minItems: 1
+          items:
+            type: number
+        baselineYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricOffsets
+    LyricsExtenderInput:
+      type: object
+      properties:
+        syllableBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+        extenderLineBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - syllableBBoxes
+      - staffBaseline
+    LyricsExtenderOutput:
+      type: object
+      properties:
+        minLineLengthSP:
+          $ref: '#/components/schemas/StaffSpace'
+        baselineYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - minLineLengthSP
+    InstrumentSwitchInput:
+      type: object
+      properties:
+        changeTextBBox:
+          $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - changeTextBBox
+      - staffBaseline
+    InstrumentSwitchOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    LigatureBracketInput:
+      type: object
+      properties:
+        ligatureNotes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+        staffBaseline:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - ligatureNotes
+    LigatureBracketOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    NonMusicalScriptColumnInput:
+      type: object
+      properties:
+        textBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - textBBoxes
+    NonMusicalScriptColumnOutput:
+      type: object
+      properties:
+        yOffsetsSP:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetsSP
+    OutputPropertyOverrideInput:
+      type: object
+      properties:
+        overrides:
+          type: object
+          additionalProperties: true
+      required:
+      - overrides
+    OutputPropertyOverrideOutput:
+      type: object
+      properties:
+        effectiveProperties:
+          type: object
+          additionalProperties: true
+      required:
+      - effectiveProperties
+    PitchedTrillInput:
+      type: object
+      properties:
+        trillTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+      required:
+      - trillTextBBox
+      - systemTop
+    PitchedTrillOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    ScriptColumnInput:
+      type: object
+      properties:
+        scriptBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - scriptBBoxes
+    ScriptColumnOutput:
+      type: object
+      properties:
+        yOffsetsSP:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetsSP
+    ScriptRowInput:
+      type: object
+      properties:
+        scriptBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - scriptBBoxes
+    ScriptRowOutput:
+      type: object
+      properties:
+        xOffsetsSP:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - xOffsetsSP
+    SpanArpeggioInput:
+      type: object
+      properties:
+        chordBBox:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - chordBBox
+    SpanArpeggioOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
+    HorizontalBracketInput:
+      type: object
+      properties:
+        bracketBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+      required:
+      - bracketBBox
+      - systemTop
+    HorizontalBracketOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    TextPlacementInput:
+      type: object
+      properties:
+        textBBox:
+          $ref: '#/components/schemas/BBox'
+        targets:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+    TextPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
+    BeamCollisionInput:
+      type: object
+      properties:
+        beamSegments:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BeamSegment'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - beamSegments
+      - nearbyGrobs
+    BeamCollisionOutput:
+      type: object
+      properties:
+        offsets:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - offsets
+    RestCollisionInput:
+      type: object
+      properties:
+        restBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+        noteColumnBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - restBBoxes
+      - noteColumnBBoxes
+    RestCollisionOutput:
+      type: object
+      properties:
+        restOffsets:
+          type: array
+          minItems: 0
+          items:
+            type: object
+            properties:
+              x:
+                $ref: '#/components/schemas/StaffSpace'
+              y:
+                $ref: '#/components/schemas/StaffSpace'
+            required:
+            - x
+            - y
+      required:
+      - restOffsets
+    DynamicKerningInput:
+      type: object
+      properties:
+        dynamicBBox:
+          $ref: '#/components/schemas/BBox'
+        hairpinBBox:
+          $ref: '#/components/schemas/BBox'
+        lyricBBox:
+          $ref: '#/components/schemas/BBox'
+      required:
+      - dynamicBBox
+    DynamicKerningOutput:
+      type: object
+      properties:
+        dynamicPosition:
+          type: object
+          properties:
+            x:
+              $ref: '#/components/schemas/StaffSpace'
+            y:
+              $ref: '#/components/schemas/StaffSpace'
+          required:
+          - x
+          - y
+      required:
+      - dynamicPosition
+    StrictEmpty:
+      type: object
+      additionalProperties: false
+    BarlineStyleBreakInput:
+      type: object
+      properties:
+        style:
+          type: string
+          enum:
+          - single
+          - double
+          - final
+          - repeatStart
+          - repeatEnd
+          - repeatBoth
+        atSystemBreak:
+          type: boolean
+        defaultThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+        breakMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - style
+    BarlineStyleBreakOutput:
+      type: object
+      properties:
+        thickness:
+          type: number
+        breakMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - thickness
+    BarNumberPlacementInput:
+      type: object
+      properties:
+        numberBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - numberBBox
+    BarNumberPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    MetronomeMarkPlacementInput:
+      type: object
+      properties:
+        markBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - markBBox
+    MetronomeMarkPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    ParenthesisPlacementInput:
+      type: object
+      properties:
+        targetBBox:
+          $ref: '#/components/schemas/BBox'
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - targetBBox
+    ParenthesisPlacementOutput:
+      type: object
+      properties:
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - paddingSP
+    PercentRepeatLayoutInput:
+      type: object
+      properties:
+        measures:
+          type: integer
+          minimum: 0
+        repeatCount:
+          type: integer
+          minimum: 0
+      required:
+      - measures
+    PercentRepeatLayoutOutput:
+      type: object
+      properties:
+        spanMeasures:
+          type: number
+      required:
+      - spanMeasures
+    SlashRepeatLayoutInput:
+      type: object
+      properties:
+        slashCount:
+          type: integer
+          minimum: 1
+        measureWidthSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - slashCount
+    SlashRepeatLayoutOutput:
+      type: object
+      properties:
+        xPositions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - xPositions
+    SystemStartDelimiterLayoutInput:
+      type: object
+      properties:
+        groupSizes:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 1
+        style:
+          type: string
+          enum:
+          - brace
+          - bracket
+        minBraceGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - groupSizes
+      - style
+    SystemStartDelimiterLayoutOutput:
+      type: object
+      properties:
+        gapsSP:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - gapsSP
+    TimeSignaturePlacementInput:
+      type: object
+      properties:
+        timeSigBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        verticalCenterBiasSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - timeSigBBox
+    TimeSignaturePlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    InstrumentNamePolicyInput:
+      type: object
+      properties:
+        nameBBox:
+          $ref: '#/components/schemas/BBox'
+        leftMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - nameBBox
+    InstrumentNamePolicyOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    CueClefPlacementInput:
+      type: object
+      properties:
+        clefBBox:
+          $ref: '#/components/schemas/BBox'
+        cueScale:
+          type: number
+          minimum: 0
+      required:
+      - clefBBox
+    CueClefPlacementOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    TextSpannerPlacementInput:
+      type: object
+      properties:
+        spannerBBox:
+          $ref: '#/components/schemas/BBox'
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - spannerBBox
+    TextSpannerPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    StanzaNumberAlignInput:
+      type: object
+      properties:
+        stanzaBBox:
+          $ref: '#/components/schemas/BBox'
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - stanzaBBox
+      - lyricsBaselineSP
+    StanzaNumberAlignOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    StanzaNumberPlacementInput:
+      type: object
+      properties:
+        stanzaBBox:
+          $ref: '#/components/schemas/BBox'
+        leftMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - stanzaBBox
+    StanzaNumberPlacementOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    TabNoteheadStringFretInput:
+      type: object
+      properties:
+        fretNumbers:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 0
+        stringNumbers:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 1
+        preferUpStems:
+          type: boolean
+      required:
+      - fretNumbers
+      - stringNumbers
+    TabNoteheadStringFretOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+      required:
+      - stemDirections
+    TabStaffStringTuningLayoutInput:
+      type: object
+      properties:
+        tunings:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        stringCount:
+          type: integer
+          minimum: 1
+        stringGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - tunings
+      - stringCount
+    TabStaffStringTuningLayoutOutput:
+      type: object
+      properties:
+        linePositionsSP:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - linePositionsSP
+    OpticalSizeInput:
+      type: object
+      properties:
+        staffSizePT:
+          type: number
+        fontFamily:
+          type: string
+      required:
+      - staffSizePT
+    OpticalSizeOutput:
+      type: object
+      properties:
+        strokeScalar:
+          type: number
+        spacingScalar:
+          type: number
+      required:
+      - strokeScalar
+      - spacingScalar
+    DrumNotesPolicyInput:
+      type: object
+      properties:
+        noteheadBBoxes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - noteheadBBoxes
+    DrumNotesPolicyOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+      required:
+      - stemDirections
+    FiguredBassPositionInput:
+      type: object
+      properties:
+        figures:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        systemTop:
+          type: number
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - figures
+    FiguredBassPositionOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    InstrumentNameAlignmentInput:
+      allOf:
+      - $ref: '#/components/schemas/InstrumentNamePolicyInput'
+    InstrumentNameAlignmentOutput:
+      allOf:
+      - $ref: '#/components/schemas/InstrumentNamePolicyOutput'
+    PageTurnBreakInput:
+      type: object
+      properties:
+        breakCandidates:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 0
+        preferRestsWeight:
+          type: number
+      required:
+      - breakCandidates
+    PageTurnBreakOutput:
+      type: object
+      properties:
+        chosenBreak:
+          type: integer
+          minimum: 0
+      required:
+      - chosenBreak
+    PartCombineStemInput:
+      type: object
+      properties:
+        notePairs:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              isUnison:
+                type: boolean
+            required:
+            - isUnison
+      required:
+      - notePairs
+    PartCombineStemOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+      required:
+      - stemDirections
+    ArpeggioPlacementInput:
+      type: object
+      properties:
+        chordBBox:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - chordBBox
+    ArpeggioPlacementOutput:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+          required:
+          - y
+      required:
+      - position
+    TrillPlacementInput:
+      type: object
+      properties:
+        trillTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - trillTextBBox
+    TrillPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+paths:
+  /apply/spacing/Spacing-duration_base_with_optical_corrections:
+    post:
+      operationId: RULE.Spacing.duration_base_with_optical_corrections
+      summary: Duration-proportional spacing with optical adjustments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpacingDurationBaseInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpacingDurationBaseOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 100
+        depends_on: []
+        parameters:
+          min_column_gap: 0.5 sp
+          accidental_leading_padding: 0.25 sp
+          articulation_padding: 0.2 sp
+          optical_stem_adj_weight: '0.4'
+        exceptions:
+        - grace_clusters_scale_widths
+        trace:
+        - docs/horizontal-spacing
+        - internals/SpacingSpanner
+        test_plan:
+          cases:
+          - name: Opposing stems add optical gap
+            expectations:
+            - path: /gaps/1
+              op: '>='
+              value: 0.7
+              tolerance: 0.1
+          - name: Sharp causes lead-in
+            expectations:
+            - path: /leadIn/2
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+          fixtures:
+            font: Bravura
+            staffSize: 20pt
+            paper: A4
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
+  /apply/spacing/Spacing-keep_inside_system_constraints:
+    post:
+      operationId: RULE.Spacing.keep_inside_system_constraints
+      summary: Keep-inside-line/system packing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeepInsideInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeepInsideOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 110
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          line_fill_penalty: '1.0'
+          overfull_penalty: '10.0'
+        exceptions: []
+        trace:
+        - docs/line-breaking
+        test_plan:
+          cases:
+          - name: Near break threshold
+            expectations:
+            - path: /overfull
+              op: ==
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
+  /apply/beaming/Beaming-auto_knee_threshold:
+    post:
+      operationId: RULE.Beaming.auto_knee_threshold
+      summary: Insert kneed beam on excessive vertical gap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamingKneeInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamingKneeOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 200
+        depends_on: []
+        parameters:
+          knee_gap_threshold: 5.5 sp + beam_thickness
+        exceptions:
+        - forced_beaming_overrides
+        trace:
+        - docs/beaming/auto-knee
+        - internals/beam-interface
+        test_plan:
+          cases:
+          - name: Large leap triggers knee
+            expectations:
+            - path: /kneed
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/beaming/Beaming-compound_meter_grouping:
+    post:
+      operationId: RULE.Beaming.compound_meter_grouping
+      summary: Group beams by dotted-beat in compound meters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompoundBeamingInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompoundBeamingOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 215
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          6/8: 3+3 eighths
+          9/8: 3+3+3 eighths
+          12/8: 3+3+3+3 eighths
+        exceptions:
+        - forced_beaming_overrides
+        - rests_split_groups
+        trace:
+        - docs/beaming/compound
+        test_plan:
+          cases:
+          - name: 6/8 two dotted beats
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 1.0
+          - name: 9/8 three dotted beats
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 2.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
+  /apply/beaming/Beaming-geometry_slope_and_segments:
+    post:
+      operationId: RULE.Beaming.geometry_slope_and_segments
+      summary: Beam slope and segment geometry selection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamGeometryInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamGeometryOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 220
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          max_slope_sp_per_space: 0.5
+          prefer_shallow_beams_weight: '0.6'
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/slope
+        test_plan:
+          cases:
+          - name: shallow_preference
+            expectations:
+            - path: /slopeSPPerSpace
+              op: <=
+              value: 0.5
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/beaming/Beaming-rests_split_groups:
+    post:
+      operationId: RULE.Beaming.rests_split_groups
+      summary: Split beamed groups at rests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestSplitInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestSplitOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 221
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          split_on_rests: true
+        exceptions: []
+        trace:
+        - docs/beaming/rests
+        test_plan:
+          cases:
+          - name: rest_splits_group
+            expectations:
+            - path: /beamBreaks/count
+              op: '>='
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/beaming/Beaming-subdivision_preference:
+    post:
+      operationId: RULE.Beaming.subdivision_preference
+      summary: Subdivide beams according to meter grouping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamingSubdivisionInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamingSubdivisionOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 210
+        depends_on: []
+        parameters:
+          4/4: 2+2 eighths
+          7/8: 2+2+3 | 3+2+2
+        exceptions: []
+        trace:
+        - docs/beaming/subdivision
+        test_plan:
+          cases:
+          - name: 4/4 standard grouping
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 2.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/beaming/Beaming-suppress_flags_when_beamed:
+    post:
+      operationId: RULE.Beaming.suppress_flags_when_beamed
+      summary: Suppress individual flags on notes within beamed groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlagSuppressionInput'
+      responses:
+        '200':
+          description: Flag suppression
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlagSuppressionOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: rendering
+        priority: 220
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters: {}
+        exceptions: []
+        trace:
+        - docs/beaming/flags
+        test_plan:
+          cases:
+          - name: beamed_group
+            expectations:
+            - path: /drawFlags
+              op: ==
+              value: 0.0
+          - name: single_unbeamed_note
+            expectations:
+            - path: /drawFlags
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
+    post:
+      operationId: RULE.Slur.curvature_choice_with_collision_penalty
+      summary: Slur curvature selected by minimal collision/penalty
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlurInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlurOutput'
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 300
+        depends_on: []
+        parameters:
+          collision_penalty: '1.0'
+          excess_curvature_penalty: '0.4'
+          endpoint_clearance: 0.25 sp
+        exceptions:
+        - cross_system_phrase_looser
+        trace:
+        - docs/slurs
+        - internals/slur-grob
+        test_plan:
+          cases:
+          - name: Accidental under slur
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+  /apply/collision/Collision-priority_lattice:
+    post:
+      operationId: RULE.Collision.priority_lattice
+      summary: Collision resolution priority ordering
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollisionLatticeInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollisionLatticeOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 350
+        depends_on: []
+        parameters:
+          priority: stem > notehead > accidental > dynamic > lyric
+        exceptions:
+        - forced_positions
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Dynamic vs. lyric
+            expectations:
+            - path: /offsets/dynamic/y
+              op: '>='
+              value: 0.2
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+        - dynamicForte.bbox
+        - lyricsText.bbox
+  /apply/accidental/Accidental-leading_padding_and_column_inflation:
+    post:
+      operationId: RULE.Accidental.leading_padding_and_column_inflation
+      summary: Accidental lead-in spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccidentalLeadInInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentalLeadInOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: spacing
+        priority: 400
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          accidental_padding: 0.25 sp
+          cluster_stack_gap: 0.2 sp
+        exceptions: []
+        trace:
+        - docs/accidentals
+        - internals/spacing
+        test_plan:
+          cases:
+          - name: Single sharp
+            expectations:
+            - path: /columnMinWidthSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+        - accidentalFlat.bbox
+        - accidentalNatural.bbox
+  /apply/accidental/Accidental-cautionary_parenthesized_policy:
+    post:
+      operationId: RULE.Accidental.cautionary_parenthesized_policy
+      summary: "Cautionary (courtesy) accidentals \u2014 parenthesized policy"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccidentalCautionaryInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentalCautionaryOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: notation
+        priority: 410
+        depends_on: []
+        parameters:
+          show_cautionary_when_spelling_changes: true
+          parenthesis_padding_sp: 0.3
+        exceptions:
+        - explicit_editor_override
+        trace:
+        - docs/accidentals/cautionary
+        test_plan:
+          cases:
+          - name: spelling_changes
+            expectations:
+            - path: /showCautionary
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+  /apply/accidental/Accidental-microtonal_glyph_selection_and_spacing:
+    post:
+      operationId: RULE.Accidental.microtonal_glyph_selection_and_spacing
+      summary: Microtonal accidental glyph selection and spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccidentalMicrotonalInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentalMicrotonalOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: notation
+        priority: 415
+        depends_on: []
+        parameters:
+          min_padding_sp: 0.25
+        exceptions:
+        - unsupported_glyph_fallback
+        trace:
+        - docs/accidentals/microtonal
+        test_plan:
+          cases:
+          - name: enforce_min_padding
+            expectations:
+            - path: /paddingSP
+              op: '>='
+              value: 0.25
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+  /apply/tieslur/Tie-curvature_selection_with_clearance:
+    post:
+      operationId: RULE.Tie.curvature_selection_with_clearance
+      summary: Tie curvature selected with clearance from noteheads
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TieCurvatureInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TieCurvatureOutput'
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 305
+        depends_on: []
+        parameters:
+          min_clearance_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/ties
+        test_plan:
+          cases:
+          - name: clearance_respected
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.2
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+  /apply/accidental/Clef-mid_system_placement:
+    post:
+      operationId: RULE.Clef.mid_system_placement
+      summary: Mid-system clef placement and spacing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClefPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClefPlacementOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: placement
+        priority: 320
+        depends_on: []
+        parameters:
+          left_padding_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/clefs
+        test_plan:
+          cases:
+          - name: padding_applied
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.5
+        status: ratified
+        smufl_inputs:
+        - gClef.bbox
+        - fClef.bbox
+  /apply/accidental/KeySignature-courtesy_at_line_breaks:
+    post:
+      operationId: RULE.KeySignature.courtesy_at_line_breaks
+      summary: Courtesy key signature at system breaks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourtesyKeyInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourtesyKeyOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: engraving
+        priority: 330
+        depends_on: []
+        parameters:
+          show_courtesy: true
+        exceptions: []
+        trace:
+        - docs/key-signatures/courtesy
+        test_plan:
+          cases:
+          - name: courtesy_enabled
+            expectations:
+            - path: /showCourtesy
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+  /apply/accidental/TimeSignature-courtesy_at_line_breaks:
+    post:
+      operationId: RULE.TimeSignature.courtesy_at_line_breaks
+      summary: Courtesy time signature at system breaks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourtesyTimeInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourtesyTimeOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: engraving
+        priority: 331
+        depends_on: []
+        parameters:
+          show_courtesy: true
+        exceptions: []
+        trace:
+        - docs/time-signatures/courtesy
+        test_plan:
+          cases:
+          - name: courtesy_enabled
+            expectations:
+            - path: /showCourtesy
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - timeSig4.bbox
+        - timeSigCommon.bbox
+  /apply/verticalstack/Lyrics-vertical_alignment_with_baselines:
+    post:
+      operationId: RULE.Lyrics.vertical_alignment_with_baselines
+      summary: Lyrics vertical alignment relative to staff baselines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsAlignInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsAlignOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 610
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.7
+        exceptions: []
+        trace:
+        - docs/lyrics
+        test_plan:
+          cases:
+          - name: minimum_distance
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.7
+        status: ratified
+        smufl_inputs:
+        - lyricsText.bbox
+  /apply/collision/Ornaments-placement_above_below_with_collision:
+    post:
+      operationId: RULE.Ornaments.placement_above_below_with_collision
+      summary: Ornaments placement above/below with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrnamentPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrnamentPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 360
+        depends_on: []
+        parameters:
+          prefer_above: true
+        exceptions: []
+        trace:
+        - docs/ornaments
+        test_plan:
+          cases:
+          - name: collision_moves
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs: []
+  /apply/verticalstack/PartStaff-braces_brackets_layout:
+    post:
+      operationId: RULE.PartStaff.braces_brackets_layout
+      summary: Braces and brackets placement for part/staff groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BracesLayoutInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BracesLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 620
+        depends_on: []
+        parameters:
+          brace_margin_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/braces-brackets
+        test_plan:
+          cases:
+          - name: margin_applied
+            expectations:
+            - path: /braceOffsets/margin
+              op: '>='
+              value: 0.5
+        status: ratified
+        smufl_inputs: []
+  /apply/spacing/MultiVoice-stem_directions_up_down:
+    post:
+      operationId: RULE.MultiVoice.stem_directions_up_down
+      summary: Stem directions in multi-voice contexts (up/down)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiVoiceStemsInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiVoiceStemsOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: notation
+        priority: 130
+        depends_on: []
+        parameters:
+          default_voice0_up: true
+        exceptions: []
+        trace:
+        - docs/multi-voice
+        test_plan:
+          cases:
+          - name: default_directions
+            expectations:
+            - path: /stemDirections/0
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+  /apply/pagination/MultiMeasureRests-layout_policy:
+    post:
+      operationId: RULE.MultiMeasureRests.layout_policy
+      summary: Multi-measure rests layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MMRestLayoutInput'
+      responses:
+        '200':
+          description: MM rest layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MMRestLayoutOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 810
+        depends_on: []
+        parameters:
+          min_width_sp: 2.0
+        exceptions: []
+        trace:
+        - docs/multi-measure-rests
+        test_plan:
+          cases:
+          - name: width_minimum
+            expectations:
+            - path: /widthSP
+              op: '>='
+              value: 2.0
+        status: ratified
+        smufl_inputs:
+        - staffLine.thickness
+  /apply/beaming/Tuplet-beaming_and_bracket_placement:
+    post:
+      operationId: RULE.Tuplet.beaming_and_bracket_placement
+      summary: Tuplet beaming and bracket placement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TupletBeamingInput'
+      responses:
+        '200':
+          description: Tuplet beaming/bracket
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TupletBeamingOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: notation
+        priority: 222
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          show_bracket_outside_beam: true
+        exceptions: []
+        trace:
+        - docs/tuplets
+        test_plan:
+          cases:
+          - name: bracket_visible
+            expectations:
+            - path: /bracketPosition/y
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/spacing/Grace-clusters_width_policy:
+    post:
+      operationId: RULE.Grace.clusters_width_policy
+      summary: Grace clusters width and spacing policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraceWidthInput'
+      responses:
+        '200':
+          description: Grace width policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraceWidthOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 140
+        depends_on: []
+        parameters:
+          scale_width_factor: 0.7
+        exceptions: []
+        trace:
+        - docs/grace-notes
+        test_plan:
+          cases:
+          - name: scaled_width
+            expectations:
+            - path: /widthScale
+              op: ==
+              value: 0.7
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+  /apply/beaming/CrossStaff-beaming_policy:
+    post:
+      operationId: RULE.CrossStaff.beaming_policy
+      summary: Cross-staff beaming policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrossStaffBeamingInput'
+      responses:
+        '200':
+          description: Cross-staff beaming
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossStaffBeamingOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 223
+        depends_on: []
+        parameters:
+          prefer_primary_staff: true
+        exceptions: []
+        trace:
+        - docs/cross-staff
+        test_plan:
+          cases:
+          - name: primary_staff
+            expectations:
+            - path: /beamStaff
+              op: ==
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/verticalstack/Ottava-placement_policy:
+    post:
+      operationId: RULE.Ottava.placement_policy
+      summary: Ottava line placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OttavaPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OttavaPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 630
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/ottava
+        test_plan:
+          cases:
+          - name: offset_minimum
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        status: ratified
+        smufl_inputs: []
+  /apply/pagination/RepeatVolta-layout_policy:
+    post:
+      operationId: RULE.RepeatVolta.layout_policy
+      summary: Repeat/Volta bracket layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoltaLayoutInput'
+      responses:
+        '200':
+          description: Volta layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoltaLayoutOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 820
+        depends_on: []
+        parameters:
+          min_height_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/repeats
+        test_plan:
+          cases:
+          - name: minimum_height
+            expectations:
+            - path: /heightSP
+              op: '>='
+              value: 1.0
+        status: ratified
+        smufl_inputs: []
+  /apply/verticalstack/RehearsalMarks-placement_policy:
+    post:
+      operationId: RULE.RehearsalMarks.placement_policy
+      summary: Rehearsal mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RehearsalPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RehearsalPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 640
+        depends_on: []
+        parameters:
+          top_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/rehearsal-marks
+        test_plan:
+          cases:
+          - name: top_margin
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 1.0
+        status: ratified
+        smufl_inputs: []
+  /apply/verticalstack/TempoMarks-placement_policy:
+    post:
+      operationId: RULE.TempoMarks.placement_policy
+      summary: Tempo mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TempoPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TempoPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 641
+        depends_on: []
+        parameters:
+          top_margin_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/tempo
+        test_plan:
+          cases:
+          - name: top_margin
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        status: ratified
+        smufl_inputs: []
+  /apply/accidental/Accidental-key_signature_positions_by_clef:
+    post:
+      operationId: RULE.Accidental.key_signature_positions_by_clef
+      summary: Key signature accidental staff positions by clef and mode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeySigPositionsInput'
+      responses:
+        '200':
+          description: Key signature positions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeySigPositionsOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: placement
+        priority: 405
+        depends_on: []
+        parameters:
+          treble.sharps:
+          - 8
+          - 5
+          - 9
+          - 6
+          - 3
+          - 7
+          - 4
+          treble.flats:
+          - 4
+          - 7
+          - 3
+          - 6
+          - 2
+          - 5
+          - 1
+          bass.sharps:
+          - 3
+          - 6
+          - 2
+          - 5
+          - 1
+          - 4
+          - 0
+          bass.flats:
+          - 6
+          - 3
+          - 7
+          - 4
+          - 1
+          - 5
+          - 2
+        exceptions: []
+        trace:
+        - docs/key-signatures
+        test_plan:
+          cases:
+          - name: treble_three_sharps
+            expectations:
+            - path: /positions/0
+              op: ==
+              value: 8.0
+            - path: /positions/1
+              op: ==
+              value: 5.0
+            - path: /positions/2
+              op: ==
+              value: 9.0
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+  /apply/ledger/Ledger-shorten_near_accidental:
+    post:
+      operationId: RULE.Ledger.shorten_near_accidental
+      summary: Ledger line shortening when accidental adjacent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerShortenInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerShortenOutput'
+      x-rule:
+        agent: LedgerAgent
+        intent: shape
+        priority: 500
+        depends_on: []
+        parameters:
+          shorten_by: 0.4 sp
+        exceptions: []
+        trace:
+        - docs/ledger
+        - engraving-details/ledger-shortening
+        test_plan:
+          cases:
+          - name: High note with sharp
+            expectations:
+            - path: /adjustedLengthSP
+              op: ==
+              value: -0.4
+              tolerance: 0.0
+        status: ratified
+        smufl_inputs:
+        - ledgerLine.bbox
+        - accidentalSharp.bbox
+  /apply/verticalstack/Vertical-min_dist_padding_and_stretch:
+    post:
+      operationId: RULE.Vertical.min_dist_padding_and_stretch
+      summary: Staff and object vertical paddings within system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerticalStackInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerticalStackOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 600
+        depends_on: []
+        parameters:
+          min_staff_gap: 1.5 sp
+          min_text_above_staff: 0.7 sp
+          stretch_weight: '1.0'
+        exceptions: []
+        trace:
+        - docs/vertical-spacing
+        - internals/VerticalAxisGroup
+        test_plan:
+          cases:
+          - name: Lyrics+dynamics two staves
+            expectations:
+            - path: /minStaffGap
+              op: '>='
+              value: 1.5
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - staffLine.thickness
+  /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
+    post:
+      operationId: RULE.Dynamics.align_with_noteheads_and_stems
+      summary: Align dynamics to local musical anchors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicsAlignInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicsAlignOutput'
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 700
+        depends_on: []
+        parameters:
+          y_offset_preference: below
+          x_anchor_bias: columnCenter
+        exceptions: []
+        trace:
+        - docs/dynamics-alignment
+        test_plan:
+          cases:
+          - name: mp under beamed group
+            expectations:
+            - path: /dynamicPosition/y
+              op: <=
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicForte.baseline
+  /apply/beaming/Beaming-slope_with_clearance:
+    post:
+      operationId: RULE.Beaming.slope_with_clearance
+      summary: Adjust beam slope to maintain obstacle clearance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamingSlopeClearanceInput'
+      responses:
+        '200':
+          description: Adjusted beam slope with clearance info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamingSlopeClearanceOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 221
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          min_clearance_sp: 0.25
+          slope_penalty_weight: '0.5'
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/slope
+        - internals/beam-interface
+        test_plan:
+          cases:
+          - name: maintain_clearance
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
+  /apply/spacing/NoteSpacing-optical_stem_weight_scalars:
+    post:
+      operationId: RULE.NoteSpacing.optical_stem_weight_scalars
+      summary: Compute optical stem-weight scalars per column
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteSpacingOpticalWeightsInput'
+      responses:
+        '200':
+          description: Optical stem weight scalars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteSpacingOpticalWeightsOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 121
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          up_weight: '0.4'
+          down_weight: '0.4'
+          strong_beat_bonus: '0.1'
+        exceptions: []
+        trace:
+        - docs/spacing/optical
+        - internals/SpacingSpanner
+        test_plan:
+          cases:
+          - name: weights_present
+            expectations:
+            - path: /weights/count
+              op: '>='
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+  /apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance:
+    post:
+      operationId: RULE.Beaming.cross_voice_mixed_stem_slope_balance
+      summary: Beaming slope balance across voices with mixed stems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamingCrossVoiceSlopeInput'
+      responses:
+        '200':
+          description: Balanced beam slope and score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamingCrossVoiceSlopeOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 222
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          balance_weight: '0.6'
+          min_clearance_sp: 0.25
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/cross-voice
+        test_plan:
+          cases:
+          - name: balanced_slope
+            expectations:
+            - path: /slopeSPPerSpaceAdjusted
+              op: <=
+              value: 0.5
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
+  /apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks:
+    post:
+      operationId: RULE.Dynamics.stacked_kerning_with_system_breaks
+      summary: Stacked dynamics kerning with system break awareness
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicsStackKerningInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicsStackKerningOutput'
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 706
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          stacked_min_gap_sp: 0.25
+          break_margin_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/dynamics/stacking
+        test_plan:
+          cases:
+          - name: stacked_gap_respected
+            expectations:
+            - path: /dynamicPositions/count
+              op: '>='
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicMezzoPiano.baseline
+        - dynamicMezzoForte.baseline
+        - dynamicForte.baseline
+        - dynamicFortepiano.baseline
+        - dynamicSforzando.baseline
+  /apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction:
+    post:
+      operationId: RULE.Lyrics.hyphen_melisma_spacing_interaction
+      summary: Lyrics hyphen and melisma spacing interaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsHyphenMelismaInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsHyphenMelismaOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 612
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          hyphen_min_gap_sp: 0.3
+          melisma_baseline_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/lyrics/hyphens
+        test_plan:
+          cases:
+          - name: hyphen_gap_minimum
+            expectations:
+            - path: /lyricOffsets/count
+              op: '>='
+              value: 1.0
+        status: ratified
+        smufl_inputs:
+        - lyricsText.bbox
+  /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
+    post:
+      operationId: RULE.Lyrics.baseline_adjustment_with_variance
+      summary: Lyrics baseline adjustment with variance tolerance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsBaselineVarianceInput'
+      responses:
+        '200':
+          description: Adjusted lyrics baseline offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsBaselineVarianceOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 611
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          max_variance_sp: 0.2
+          prefer_stable_baseline: true
+        exceptions: []
+        trace:
+        - docs/lyrics/baseline
+        test_plan:
+          cases:
+          - name: within_variance_cap
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - lyricsText.bbox
+  /apply/collision/BeamCollision-resolve_overlaps:
+    post:
+      operationId: RULE.BeamCollision.resolve_overlaps
+      summary: Resolve beam collisions by minimal offsets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamCollisionInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamCollisionOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 355
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          min_clearance_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/beaming/collision
+        test_plan:
+          cases:
+          - name: minimal_offsets
+            expectations:
+            - path: /offsets/count
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
+  /apply/collision/RestCollision-resolve_overlaps:
+    post:
+      operationId: RULE.RestCollision.resolve_overlaps
+      summary: Resolve rest collisions with note columns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestCollisionInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestCollisionOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 356
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          min_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/collisions/rests
+        test_plan:
+          cases:
+          - name: gaps_kept
+            expectations:
+            - path: /restOffsets/count
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+  /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
+    post:
+      operationId: RULE.DynamicAlign.kerning_with_hairpins
+      summary: Dynamic text kerning with hairpins and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicKerningInput'
+      responses:
+        '200':
+          description: Kerning offsets for dynamics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicKerningOutput'
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 705
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          min_kerning_sp: 0.2
+          hairpin_clearance_sp: 0.3
+          lyrics_baseline_variance_sp: 0.15
+        exceptions: []
+        trace:
+        - docs/dynamics/kerning
+        test_plan:
+          cases:
+          - name: kerning_applied
+            expectations:
+            - path: /dynamicPosition/x
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicForte.baseline
+        - hairpinCrescendo.bbox
+        - hairpinDecrescendo.bbox
+  /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
+    post:
+      operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
+      summary: System breaking to avoid overfull/underfull pages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CastoffInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CastoffOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: pagination
+        priority: 800
+        depends_on:
+        - RULE.Spacing.keep_inside_system_constraints
+        parameters:
+          overfull_penalty: '10'
+          underfull_penalty: '2'
+          widow_orphan_penalty: '3'
+        exceptions: []
+        trace:
+        - docs/pagination
+        test_plan:
+          cases:
+          - name: Two-page balance
+            expectations:
+            - path: /overfull
+              op: ==
+              value: 0.0
+        status: ratified
+        smufl_inputs: []
+  /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
+    post:
+      operationId: RULE.OpticalSize.stroke_and_spacing_scalars
+      summary: Adjust line weights and spacing with staff size
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpticalSizeInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpticalSizeOutput'
+      x-rule:
+        agent: OpticalSizingAgent
+        intent: optical
+        priority: 900
+        depends_on: []
+        parameters:
+          stroke_scalar: f(size)
+          spacing_scalar: f(size)
+        exceptions: []
+        trace:
+        - docs/optical-sizing
+        test_plan:
+          cases:
+          - name: 15pt vs 20pt vs 26pt
+            expectations:
+            - path: /strokeScalar
+              op: approx
+              value: 1.0
+              tolerance: 0.3
+        status: ratified
+        smufl_inputs:
+        - staffLine.thickness
+        - noteheadBlack.stroke
+  /apply/collision/Arpeggio-placement_policy:
+    post:
+      operationId: RULE.Arpeggio.placement_policy
+      summary: Arpeggio placement policy (avoid collisions)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArpeggioPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArpeggioPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 365
+        depends_on: []
+        parameters:
+          prefer_centered: true
+        exceptions: []
+        trace:
+        - docs/arpeggios
+        test_plan:
+          cases:
+          - name: arpeggio_position
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs: []
+  /apply/collision/Fingering-placement_policy:
+    post:
+      operationId: RULE.Fingering.placement_policy
+      summary: Fingering placement near noteheads with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FingeringPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FingeringPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 366
+        depends_on: []
+        parameters:
+          prefer_above: true
+        exceptions: []
+        trace:
+        - docs/fingering
+        test_plan:
+          cases:
+          - name: fingering_position
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs: []
+  /apply/verticalstack/Pedal-line_and_text_policy:
+    post:
+      operationId: RULE.Pedal.line_and_text_policy
+      summary: Pedal line and text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedalPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedalPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 645
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/pedal
+        test_plan:
+          cases:
+          - name: pedal_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        status: ratified
+        smufl_inputs: []
+  /apply/verticalstack/TrillSpanner-placement_policy:
+    post:
+      operationId: RULE.TrillSpanner.placement_policy
+      summary: Trill spanner placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrillPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrillPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/trill
+        test_plan:
+          cases:
+          - name: trill_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        status: ratified
+        smufl_inputs: []
+  /apply/spacing/NoteSpacing-spacing_policy:
+    post:
+      operationId: RULE.NoteSpacing.spacing_policy
+      summary: Note spacing policy (column gaps and alignment)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeepInsideInput'
+      responses:
+        '200':
+          description: Note spacing columns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeepInsideOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 120
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          optical_stem_weight: 0.4
+        exceptions: []
+        trace:
+        - docs/spacing/note-columns
+        test_plan:
+          cases:
+          - name: gaps_respected
+            expectations:
+            - path: /columnPositions/0
+              op: <=
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+  /apply/verticalstack/DurationLine-placement_policy:
+    post:
+      operationId: RULE.DurationLine.placement_policy
+      summary: Duration line placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OttavaPlacementInput'
+      responses:
+        '200':
+          description: Duration line y-offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OttavaPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 635
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/duration-lines
+        test_plan:
+          cases:
+          - name: duration_line_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        status: ratified
+        smufl_inputs: []
+  /apply/verticalstack/Barline-style_and_break_policy:
+    post:
+      operationId: RULE.Barline.style_and_break_policy
+      summary: Barline style and system-break policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BarlineStyleBreakInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarlineStyleBreakOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 332
+        depends_on:
+        - RULE.Pagination.castoff_fill_vs_overfull_penalties
+        parameters:
+          default_thickness_sp: 0.2
+          break_margin_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/barlines
+        test_plan:
+          cases:
+          - name: thickness_non_negative
+            expectations:
+            - path: /thickness
+              op: '>='
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - barlineSingle.bbox
+        - barlineDouble.bbox
+        - barlineFinal.bbox
+  /apply/verticalstack/BarNumber-placement_policy:
+    post:
+      operationId: RULE.BarNumber.placement_policy
+      summary: Bar number placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BarNumberPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarNumberPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 333
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/bar-numbers
+        test_plan:
+          cases:
+          - name: distance_respected
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/Lyrics-extender_spacing_policy:
+    post:
+      operationId: RULE.Lyrics.extender_spacing_policy
+      summary: Lyrics extender spacing policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LyricsExtenderInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LyricsExtenderOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 612
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_line_length_sp: 1.0
+          baseline_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/lyrics/extenders
+        test_plan:
+          cases:
+          - name: line_length_minimum
+            expectations:
+            - path: /minLineLengthSP
+              op: '>='
+              value: 1.0
+        status: ratified
+  /apply/verticalstack/MetronomeMark-placement_policy:
+    post:
+      operationId: RULE.MetronomeMark.placement_policy
+      summary: Metronome mark placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetronomeMarkPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetronomeMarkPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 334
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.9
+        exceptions: []
+        trace:
+        - docs/tempo
+        test_plan:
+          cases:
+          - name: metronome_above_system
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/collision/Parenthesis-placement_policy:
+    post:
+      operationId: RULE.Parenthesis.placement_policy
+      summary: Parenthesis placement around accidentals/notes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParenthesisPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParenthesisPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 420
+        depends_on: []
+        parameters:
+          padding_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/notation/parentheses
+        test_plan:
+          cases:
+          - name: non_negative_padding
+            expectations:
+            - path: /paddingSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/PercentRepeat-layout_policy:
+    post:
+      operationId: RULE.PercentRepeat.layout_policy
+      summary: Percent repeat layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PercentRepeatLayoutInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PercentRepeatLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 520
+        depends_on: []
+        parameters:
+          min_span_measures: 1
+        exceptions: []
+        trace:
+        - docs/repeats/percent
+        test_plan:
+          cases:
+          - name: span_non_negative
+            expectations:
+            - path: /spanMeasures
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/SlashRepeat-layout_policy:
+    post:
+      operationId: RULE.SlashRepeat.layout_policy
+      summary: Slash repeat layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlashRepeatLayoutInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlashRepeatLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 521
+        depends_on: []
+        parameters:
+          min_slash_gap_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/repeats/slash
+        test_plan:
+          cases:
+          - name: at_least_one_position
+            expectations:
+            - path: /xPositions/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/SystemStartDelimiter-layout_policy:
+    post:
+      operationId: RULE.SystemStartDelimiter.layout_policy
+      summary: System start delimiter (braces/brackets) layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemStartDelimiterLayoutInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStartDelimiterLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 340
+        depends_on: []
+        parameters:
+          min_brace_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/braces-brackets
+        test_plan:
+          cases:
+          - name: gaps_non_negative
+            expectations:
+            - path: /gapsSP/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/TextSpanner-placement_policy:
+    post:
+      operationId: RULE.TextSpanner.placement_policy
+      summary: Text spanner placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextSpannerPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextSpannerPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/text-spanner
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/TimeSignature-placement_policy:
+    post:
+      operationId: RULE.TimeSignature.placement_policy
+      summary: Time signature placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeSignaturePlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSignaturePlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 332
+        depends_on: []
+        parameters:
+          vertical_center_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/time-signatures
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/InstrumentName-policy:
+    post:
+      operationId: RULE.InstrumentName.policy
+      summary: Instrument name alignment policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstrumentNamePolicyInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentNamePolicyOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 335
+        depends_on: []
+        parameters:
+          left_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/instrument-names
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/CueClef-placement_policy:
+    post:
+      operationId: RULE.CueClef.placement_policy
+      summary: Cue clef placement and size policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CueClefPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CueClefPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 331
+        depends_on: []
+        parameters:
+          cue_scale: 0.7
+        exceptions: []
+        trace:
+        - docs/clefs/cue
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/collision/DrumNotes-stem_side_and_notehead_policy:
+    post:
+      operationId: RULE.DrumNotes.stem_side_and_notehead_policy
+      summary: Drum notes stem side and notehead policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DrumNotesPolicyInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DrumNotesPolicyOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 361
+        depends_on: []
+        parameters:
+          hi_hat_x: true
+        exceptions: []
+        trace:
+        - docs/percussion/drum-notes
+        test_plan:
+          cases:
+          - name: output_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/FiguredBass-position_stack_policy:
+    post:
+      operationId: RULE.FiguredBass.position_stack_policy
+      summary: Figured bass position and stack policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FiguredBassPositionInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FiguredBassPositionOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 541
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.7
+        exceptions: []
+        trace:
+        - docs/figured-bass
+        test_plan:
+          cases:
+          - name: distance_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/InstrumentName-alignment_policy:
+    post:
+      operationId: RULE.InstrumentName.alignment_policy
+      summary: Instrument name alignment policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstrumentNameAlignmentInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentNameAlignmentOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 335
+        depends_on: []
+        parameters:
+          left_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/instrument-names
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/pagination/PageTurn-break_preferences:
+    post:
+      operationId: RULE.PageTurn.break_preferences
+      summary: Page turn break preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageTurnBreakInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageTurnBreakOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 150
+        depends_on:
+        - RULE.Pagination.castoff_fill_vs_overfull_penalties
+        parameters:
+          prefer_rests_weight: 0.6
+        exceptions: []
+        trace:
+        - docs/pagination/page-turns
+        test_plan:
+          cases:
+          - name: break_present
+            expectations:
+            - path: /chosenBreak
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/collision/PartCombine-stem_direction_policy:
+    post:
+      operationId: RULE.PartCombine.stem_direction_policy
+      summary: Part-combine stem direction policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartCombineStemInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartCombineStemOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 367
+        depends_on: []
+        parameters:
+          unison_split_threshold_sp: 0.0
+        exceptions: []
+        trace:
+        - docs/parts/part-combine
+        test_plan:
+          cases:
+          - name: outputs_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/StanzaNumber-align_with_lyrics_policy:
+    post:
+      operationId: RULE.StanzaNumber.align_with_lyrics_policy
+      summary: Stanza number alignment with lyric baselines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StanzaNumberAlignInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StanzaNumberAlignOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 613
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_gap_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/lyrics/stanzas
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/StanzaNumber-placement_policy:
+    post:
+      operationId: RULE.StanzaNumber.placement_policy
+      summary: Stanza number placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StanzaNumberPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StanzaNumberPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 614
+        depends_on: []
+        parameters:
+          left_margin_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/lyrics/stanzas
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/collision/Tab-notehead_string_fret_policy:
+    post:
+      operationId: RULE.Tab.notehead_string_fret_policy
+      summary: Tab noteheads show string/fret policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TabNoteheadStringFretInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabNoteheadStringFretOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 362
+        depends_on: []
+        parameters:
+          prefer_up_stems: true
+        exceptions: []
+        trace:
+        - docs/tab/notation
+        test_plan:
+          cases:
+          - name: outputs_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/TabStaffSymbol-string_tuning_layout:
+    post:
+      operationId: RULE.TabStaffSymbol.string_tuning_layout
+      summary: Tab staff string tuning and line layout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TabStaffStringTuningLayoutInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabStaffStringTuningLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 342
+        depends_on: []
+        parameters:
+          string_gap_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/tab/staff
+        test_plan:
+          cases:
+          - name: positions_present
+            expectations:
+            - path: /stringYPositions/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/Text-placement_policy:
+    post:
+      operationId: RULE.Text.placement_policy
+      summary: General text placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextPlacementInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 336
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/text
+        test_plan:
+          cases:
+          - name: position_present
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/HorizontalBracket-placement_policy:
+    post:
+      operationId: RULE.HorizontalBracket.placement_policy
+      summary: Horizontal bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HorizontalBracketInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HorizontalBracketOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 645
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/brackets/horizontal
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/InstrumentSwitch-placement_policy:
+    post:
+      operationId: RULE.InstrumentSwitch.placement_policy
+      summary: Instrument change text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstrumentSwitchInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentSwitchOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 336
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/instrument-changes
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/collision/LigatureBracket-placement_policy:
+    post:
+      operationId: RULE.LigatureBracket.placement_policy
+      summary: Ligature bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LigatureBracketInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LigatureBracketOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 361
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/notation/ligature-brackets
+        test_plan:
+          cases:
+          - name: offset_present
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/NonMusicalScriptColumn-layout_policy:
+    post:
+      operationId: RULE.NonMusicalScriptColumn.layout_policy
+      summary: Non-musical script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NonMusicalScriptColumnInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NonMusicalScriptColumnOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 337
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/text/columns
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/OutputProperty-override_inheritance_policy:
+    post:
+      operationId: RULE.OutputProperty.override_inheritance_policy
+      summary: Output property override and inheritance policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputPropertyOverrideInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputPropertyOverrideOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 130
+        depends_on: []
+        parameters:
+          allow_inherit: true
+        exceptions: []
+        trace:
+        - docs/overrides
+        test_plan:
+          cases:
+          - name: effective_present
+            expectations:
+            - path: /effectiveProperties
+              op: '!='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/PitchedTrill-placement_policy:
+    post:
+      operationId: RULE.PitchedTrill.placement_policy
+      summary: Pitched trill placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PitchedTrillInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PitchedTrillOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/ornaments/pitched-trill
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/ScriptColumn-layout_policy:
+    post:
+      operationId: RULE.ScriptColumn.layout_policy
+      summary: Script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScriptColumnInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScriptColumnOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 338
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.4
+        exceptions: []
+        trace:
+        - docs/ornaments/scripts
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/ScriptRow-layout_policy:
+    post:
+      operationId: RULE.ScriptRow.layout_policy
+      summary: Script row layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScriptRowInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScriptRowOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 339
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.4
+        exceptions: []
+        trace:
+        - docs/ornaments/scripts
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/collision/SpanArpeggio-placement_policy:
+    post:
+      operationId: RULE.SpanArpeggio.placement_policy
+      summary: Span arpeggio placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpanArpeggioInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpanArpeggioOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 365
+        depends_on: []
+        parameters:
+          prefer_centered: true
+        exceptions: []
+        trace:
+        - docs/arpeggios/span
+        test_plan:
+          cases:
+          - name: position_present
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: ratified
