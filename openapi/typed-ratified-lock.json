@@ -236,8 +236,8 @@
   },
   "RULE.TrillSpanner.placement_policy": {
     "path": "/apply/verticalstack/TrillSpanner-placement_policy",
-    "request": "ed31b86466c903b1379ef8d690cd741f8daf63c267aeda851ea6fe799077d51a",
-    "response": "3f3df5c66b3084c385063465365568ff4cd2b7402603655ec65750af0db9c521"
+    "request": "27dba5ed956a19f9a7ba396465fe7ace2e074e7338bad0c92c7fd834f13c321b",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
   },
   "RULE.NoteSpacing.spacing_policy": {
     "path": "/apply/spacing/NoteSpacing-spacing_policy",

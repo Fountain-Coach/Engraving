@@ -406,6 +406,24 @@ def ensure_components(doc):
         'required': ['stemDirections']
     })
 
+    # Trill spanner placement
+    put('TrillPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'trillTextBBox': { '$ref': '#/components/schemas/BBox' },
+            'systemTop': { 'type': 'number' },
+            'minDistanceSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['trillTextBBox']
+    })
+    put('TrillPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['yOffsetSP']
+    })
+
 def main():
     untyped = yaml.safe_load(UNTYPED.read_text())
     typed = yaml.safe_load(TYPED.read_text())

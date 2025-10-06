@@ -2001,6 +2001,24 @@ components:
           - y
       required:
       - position
+    TrillPlacementInput:
+      type: object
+      properties:
+        trillTextBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - trillTextBBox
+    TrillPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:

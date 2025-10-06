@@ -613,6 +613,9 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 646
+  migration:
+    id: R-trill-001
+    note: "Introduce typed TrillPlacementInput/Output schemas; no semantic change, typed API only."
   depends_on: []
   inputs:
   - trillBBox
