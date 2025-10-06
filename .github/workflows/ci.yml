@@ -42,3 +42,5 @@ jobs:
           assert '#/components/schemas/RuleInput' not in refs and '#/components/schemas/RuleOutput' not in refs, 'Typed placeholders are not allowed'
           print('No typed placeholders present.')
           PY
+      - name: Property parity gate (grob properties)
+        run: python scripts/check_property_parity.py

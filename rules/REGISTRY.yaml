@@ -158,6 +158,148 @@ rules:
   - beam.thickness
   - noteheadBlack.bbox
 
+- id: RULE.BeamCollision.resolve_overlaps
+  title: Resolve beam collisions by minimal offsets
+  agent: CollisionAgent
+  intent: collision
+  priority: 355
+  depends_on:
+  - RULE.Beaming.geometry_slope_and_segments
+  inputs:
+  - beamSegments
+  - nearbyGrobs
+  parameters:
+    min_clearance_sp: 0.25
+  procedure: Compute minimal offsets to resolve overlaps between beams and nearby grobs; respect min_clearance.
+  exceptions: []
+  outputs:
+  - offsets
+  side_effects: []
+  test_plan:
+    cases:
+    - name: minimal_offsets
+      expectations:
+      - path: /offsets/count
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/beaming/collision
+  smufl_inputs:
+  - beam.thickness
+
+- id: RULE.RestCollision.resolve_overlaps
+  title: Resolve rest collisions with note columns
+  agent: CollisionAgent
+  intent: collision
+  priority: 356
+  depends_on:
+  - RULE.Spacing.duration_base_with_optical_corrections
+  inputs:
+  - restBBoxes
+  - noteColumnBBoxes
+  parameters:
+    min_gap_sp: 0.3
+  procedure: Offset rests horizontally/vertically to maintain minimum gaps from note columns.
+  exceptions: []
+  outputs:
+  - restOffsets
+  side_effects: []
+  test_plan:
+    cases:
+    - name: gaps_kept
+      expectations:
+      - path: /restOffsets/count
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/collisions/rests
+  smufl_inputs:
+  - noteheadBlack.bbox
+
+- id: RULE.DynamicAlign.kerning_with_hairpins
+  title: Dynamic text kerning with hairpins and lyrics
+  agent: DynamicsTextAgent
+  intent: placement
+  priority: 705
+  depends_on:
+  - RULE.Dynamics.align_with_noteheads_and_stems
+  inputs:
+  - dynamicBBox
+  - hairpinBBox
+  - lyricBBox
+  parameters:
+    min_kerning_sp: 0.2
+  procedure: Adjust dynamic text x/y to avoid overlaps with hairpins and lyrics while preserving baseline preference.
+  exceptions: []
+  outputs:
+  - dynamicPosition
+  side_effects: []
+  test_plan:
+    cases:
+    - name: kerning_applied
+      expectations:
+      - path: /dynamicPosition/x
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/dynamics/kerning
+  smufl_inputs:
+  - dynamicForte.baseline
+- id: RULE.NoteSpacing.spacing_policy
+  title: Note spacing policy (column gaps and alignment)
+  agent: SpacingAgent
+  intent: spacing
+  priority: 120
+  depends_on:
+  - RULE.Spacing.duration_base_with_optical_corrections
+  inputs:
+  - columns
+  - minGapsSP
+  parameters:
+    optical_stem_weight: 0.4
+  procedure: Adjust note columns to meet minimum gaps and align beats while respecting optical stem weights.
+  exceptions: []
+  outputs:
+  - columnPositions
+  side_effects: []
+  test_plan:
+    cases:
+    - name: gaps_respected
+      expectations:
+      - path: /columnPositions/0
+        op: '<='
+        value: 0.0
+  trace:
+  - docs/spacing/note-columns
+  smufl_inputs:
+  - noteheadBlack.advance
+
+- id: RULE.DurationLine.placement_policy
+  title: Duration line placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 635
+  depends_on: []
+  inputs:
+  - systemBaseline
+  - durationLineBBox
+  parameters:
+    min_distance_sp: 0.8
+  procedure: Place duration lines below staff with minimum distance and avoid collisions with lyrics/dynamics.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: duration_line_offset
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.8
+  trace:
+  - docs/duration-lines
+  smufl_inputs: []
 - id: RULE.Arpeggio.placement_policy
   title: Arpeggio placement policy (avoid collisions)
   agent: CollisionAgent

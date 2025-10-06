@@ -1,0 +1,4 @@
+rule: RULE.NoteSpacing.spacing_policy
+cases:
+  - name: gaps_respected
+    expectations: [ { path: "/columnPositions/0", op: "<=", value: 0.0 } ]

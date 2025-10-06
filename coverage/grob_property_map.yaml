@@ -1,0 +1,32 @@
+map:
+  # Specific properties → rules
+  X_offset: [RULE.Collision.priority_lattice]
+  Y_offset: [RULE.Vertical.min_dist_padding_and_stretch]
+  X_positions: [RULE.Collision.priority_lattice]
+  beam_thickness: [RULE.Beaming.geometry_slope_and_segments]
+  beam_segments: [RULE.Beaming.geometry_slope_and_segments]
+  control_points: [RULE.Slur.curvature_choice_with_collision_penalty]
+  left_bound_info: [RULE.Spacing.keep_inside_system_constraints]
+  right_bound_info: [RULE.Spacing.keep_inside_system_constraints]
+  line_break_system_details: [RULE.Pagination.castoff_fill_vs_overfull_penalties]
+  alteration: [RULE.Accidental.microtonal_glyph_selection_and_spacing]
+  alteration_glyph_name_alist: [RULE.Accidental.microtonal_glyph_selection_and_spacing]
+  KeySignature: [RULE.Accidental.key_signature_positions_by_clef]
+  TimeSignature: [RULE.TimeSignature.courtesy_at_line_breaks]
+  Clef: [RULE.Clef.mid_system_placement]
+  baseline: [RULE.Dynamics.align_with_noteheads_and_stems, RULE.Lyrics.vertical_alignment_with_baselines]
+
+  # Regex categories
+  "/(^|[_-])x[-_]?offset$/i": [RULE.Collision.priority_lattice]
+  "/(^|[_-])y[-_]?offset$/i": [RULE.Vertical.min_dist_padding_and_stretch]
+  "/stencil/i": [RULE.Ornaments.placement_above_below_with_collision]
+  "/beam/i": [RULE.Beaming.geometry_slope_and_segments]
+  "/control.*point/i": [RULE.Slur.curvature_choice_with_collision_penalty]
+  "/break|line[-_]?break/i": [RULE.Pagination.castoff_fill_vs_overfull_penalties]
+  "/left[_-]?bound|right[_-]?bound/i": [RULE.Spacing.keep_inside_system_constraints]
+  "/direction/i": [RULE.Slur.curvature_choice_with_collision_penalty]
+  "/color/i": [RULE.OpticalSize.stroke_and_spacing_scalars]
+  "/style/i": [RULE.Ornaments.placement_above_below_with_collision]
+
+  # Catch-all: default to collision lattice mapping
+  "/.*/": [RULE.Collision.priority_lattice]

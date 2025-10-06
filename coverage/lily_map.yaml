@@ -76,7 +76,7 @@ map:
     - RULE.Tuplet.beaming_and_bracket_placement
   Grace.clusters:
     - RULE.Grace.clusters_width_policy
-  CrossStaff.beaming:
+  CrossStaff.beaming: 
     - RULE.CrossStaff.beaming_policy
 
   # Other markings
@@ -88,6 +88,10 @@ map:
     - RULE.RehearsalMarks.placement_policy
   TempoMarks.placement:
     - RULE.TempoMarks.placement_policy
+  Engraver.Note_spacing_engraver:
+    - RULE.NoteSpacing.spacing_policy
+  Engraver.Duration_line_engraver:
+    - RULE.DurationLine.placement_policy
 
   # Grob mappings (extracted from LilyPond sources)
   Grob.Accidental:

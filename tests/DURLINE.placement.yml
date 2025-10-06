@@ -1,0 +1,4 @@
+rule: RULE.DurationLine.placement_policy
+cases:
+  - name: duration_line_offset
+    expectations: [ { path: "/yOffsetSP", op: ">=", value: 0.8 } ]

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T05:51:09.729960
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T06:35:54.376787
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -179,6 +179,150 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
+  /apply/collision/Arpeggio-placement_policy:
+    post:
+      operationId: RULE.Arpeggio.placement_policy
+      summary: Arpeggio placement policy (avoid collisions)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 365
+        depends_on: []
+        parameters:
+          prefer_centered: true
+        exceptions: []
+        trace:
+        - docs/arpeggios
+        test_plan:
+          cases:
+          - name: arpeggio_position
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+  /apply/collision/Fingering-placement_policy:
+    post:
+      operationId: RULE.Fingering.placement_policy
+      summary: Fingering placement near noteheads with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 366
+        depends_on: []
+        parameters:
+          prefer_above: true
+        exceptions: []
+        trace:
+        - docs/fingering
+        test_plan:
+          cases:
+          - name: fingering_position
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/Pedal-line_and_text_policy:
+    post:
+      operationId: RULE.Pedal.line_and_text_policy
+      summary: Pedal line and text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 645
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/pedal
+        test_plan:
+          cases:
+          - name: pedal_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+  /apply/verticalstack/TrillSpanner-placement_policy:
+    post:
+      operationId: RULE.TrillSpanner.placement_policy
+      summary: Trill spanner placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/trill
+        test_plan:
+          cases:
+          - name: trill_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
   /apply/beaming/Beaming-geometry_slope_and_segments:
     post:
       operationId: RULE.Beaming.geometry_slope_and_segments

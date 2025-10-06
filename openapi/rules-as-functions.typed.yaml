@@ -1580,3 +1580,113 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OpticalOutput'
+  /apply/collision/Arpeggio-placement_policy:
+    post:
+      operationId: RULE.Arpeggio.placement_policy
+      summary: Arpeggio placement policy (avoid collisions)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/collision/Fingering-placement_policy:
+    post:
+      operationId: RULE.Fingering.placement_policy
+      summary: Fingering placement near noteheads with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/Pedal-line_and_text_policy:
+    post:
+      operationId: RULE.Pedal.line_and_text_policy
+      summary: Pedal line and text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/verticalstack/TrillSpanner-placement_policy:
+    post:
+      operationId: RULE.TrillSpanner.placement_policy
+      summary: Trill spanner placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleOutput'
+  /apply/spacing/NoteSpacing-spacing_policy:
+    post:
+      operationId: RULE.NoteSpacing.spacing_policy
+      summary: Note spacing policy (column gaps and alignment)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeepInsideInput'
+      responses:
+        '200':
+          description: Note spacing columns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeepInsideOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 120
+  /apply/verticalstack/DurationLine-placement_policy:
+    post:
+      operationId: RULE.DurationLine.placement_policy
+      summary: Duration line placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OttavaPlacementInput'
+      responses:
+        '200':
+          description: Duration line y-offset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OttavaPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 635
