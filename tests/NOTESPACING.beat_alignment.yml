@@ -1,0 +1,9 @@
+rule: RULE.NoteSpacing.spacing_policy
+cases:
+  - name: columns_non_decreasing
+    expectations:
+      - { path: "/columnPositions/0", op: "<=", value: 0.0, tolerance: 0.1 }
+  - name: at_least_one_column
+    expectations:
+      - { path: "/columnPositions/count", op: ">=", value: 1.0 }
+

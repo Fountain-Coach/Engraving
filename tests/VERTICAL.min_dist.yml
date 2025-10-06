@@ -1,0 +1,9 @@
+rule: RULE.Vertical.min_dist_padding_and_stretch
+cases:
+  - name: staff_gap_minimum
+    expectations:
+      - { path: "/staffPositions/count", op: ">=", value: 1.0 }
+  - name: object_offsets_present
+    expectations:
+      - { path: "/objectOffsets/count", op: ">=", value: 1.0 }
+

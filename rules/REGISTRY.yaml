@@ -391,6 +391,7 @@ rules:
   agent: SpacingAgent
   intent: spacing
   priority: 120
+  status: ratified
   depends_on:
   - RULE.Spacing.duration_base_with_optical_corrections
   inputs:
@@ -1446,6 +1447,7 @@ rules:
   agent: VerticalStackAgent
   intent: layout
   priority: 600
+  status: ratified
   depends_on: []
   inputs:
   - VAG

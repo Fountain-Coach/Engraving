@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:32:55.645326
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:37:02.976343
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -518,6 +518,7 @@ paths:
             - path: /columnPositions/0
               op: <=
               value: 0.0
+        status: ratified
         smufl_inputs:
         - noteheadBlack.advance
   /apply/verticalstack/DurationLine-placement_policy:
@@ -1931,6 +1932,7 @@ paths:
               op: '>='
               value: 1.5
               tolerance: 0.05
+        status: ratified
         smufl_inputs:
         - staffLine.thickness
   /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:

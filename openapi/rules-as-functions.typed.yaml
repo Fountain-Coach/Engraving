@@ -3260,9 +3260,9 @@ paths:
               op: '>='
               value: 1.5
               tolerance: 0.05
+        status: ratified
         smufl_inputs:
         - staffLine.thickness
-        status: provisional
   /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
     post:
       operationId: RULE.Dynamics.align_with_noteheads_and_stems
@@ -3926,9 +3926,9 @@ paths:
             - path: /columnPositions/0
               op: <=
               value: 0.0
+        status: ratified
         smufl_inputs:
         - noteheadBlack.advance
-        status: provisional
   /apply/verticalstack/DurationLine-placement_policy:
     post:
       operationId: RULE.DurationLine.placement_policy

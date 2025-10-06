@@ -48,5 +48,15 @@
     "path": "/apply/tieslur/Tie-curvature_selection_with_clearance",
     "request": "f9cebe475f897ccc660388f91a68c4cf34fa573a6e17119331efac8d3dd0538e",
     "response": "ae5d0c19e3a8f5baacdd74042f09a676e744b79af92ee727579540e9547f78c8"
+  },
+  "RULE.Vertical.min_dist_padding_and_stretch": {
+    "path": "/apply/verticalstack/Vertical-min_dist_padding_and_stretch",
+    "request": "8b205e1bd62907e0813c77363ae8bdb4882eb70d3745472a3b6850ed09b01358",
+    "response": "44f821c130b3cab08af3daf7356280463df73a52947433a3f04829997ddfdcbe"
+  },
+  "RULE.NoteSpacing.spacing_policy": {
+    "path": "/apply/spacing/NoteSpacing-spacing_policy",
+    "request": "7cdd3a833cc6a0cfea8e09b045626fb6165035583f3832356f0ac214515ffea4",
+    "response": "a5860551c09a73456c3d992813878754bb4bf85a22c488591a699b17844fb913"
   }
 }
