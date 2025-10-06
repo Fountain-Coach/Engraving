@@ -59,6 +59,16 @@
     "request": "8d40ab34cf7cf5dadd7356dda6de7108728f690eff6a3d161f2ebb9a56d29d63",
     "response": "c9eacfe16ae0e2bef9695fe63bbc3a209c701eec4def8f686310fd63b7bda7df"
   },
+  "RULE.Ottava.placement_policy": {
+    "path": "/apply/verticalstack/Ottava-placement_policy",
+    "request": "eec29fb86fed175a25f6043a7514162de7a705943a9c99fd526beaa8bb9d23d2",
+    "response": "dbf84e8e725d5d81de454a84cd1930791e2420f7b26a259a093a86a27496194a"
+  },
+  "RULE.RehearsalMarks.placement_policy": {
+    "path": "/apply/verticalstack/RehearsalMarks-placement_policy",
+    "request": "e506ab92f28d97f27fc0569f4cf3611022d9220ba2036d053532425f8b1caed7",
+    "response": "dbf84e8e725d5d81de454a84cd1930791e2420f7b26a259a093a86a27496194a"
+  },
   "RULE.Vertical.min_dist_padding_and_stretch": {
     "path": "/apply/verticalstack/Vertical-min_dist_padding_and_stretch",
     "request": "8b205e1bd62907e0813c77363ae8bdb4882eb70d3745472a3b6850ed09b01358",
@@ -104,6 +114,16 @@
     "request": "0d3773b699ac78c0a84d47ce9710c6ebaaaace0f39b20396cb6dc3a32204ff56",
     "response": "3225a3653306ad8a7881a71c8ed0b4c28a236823caf715b67a30af88b5f82e63"
   },
+  "RULE.MetronomeMark.placement_policy": {
+    "path": "/apply/verticalstack/MetronomeMark-placement_policy",
+    "request": "705b8b959cf840a6bb89cf11230ddce89016438cdf042e596973e081417b7e50",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.Parenthesis.placement_policy": {
+    "path": "/apply/collision/Parenthesis-placement_policy",
+    "request": "698187949e78601e51e8fa488228619539f21f6e43242a60a2352c2da59cef2e",
+    "response": "c95fbffbeb662d1897748ec9e2ddd9c4c178fd7951333b9d2156f1cbf48ce9cf"
+  },
   "RULE.PercentRepeat.layout_policy": {
     "path": "/apply/verticalstack/PercentRepeat-layout_policy",
     "request": "d3846a5868d4da86652ad60d6f13453db875553537130b3a6dc7024a8ccf9eff",
@@ -118,5 +138,80 @@
     "path": "/apply/verticalstack/SystemStartDelimiter-layout_policy",
     "request": "67fa59e65d2db12f13c582e98e650e63fba85daf41591da6a4ef0a053d96b7a3",
     "response": "102d90f725e26d5b65073ff522b8554d1d9b82e12d44b358d4d1b5fc427f907a"
+  },
+  "RULE.TextSpanner.placement_policy": {
+    "path": "/apply/verticalstack/TextSpanner-placement_policy",
+    "request": "f1122c74ff97ca53d50cb051a9a1c811f657e01ca4b5c83a06543831ee5d58aa",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.InstrumentName.policy": {
+    "path": "/apply/verticalstack/InstrumentName-policy",
+    "request": "16c2e75607e9b99e57478b5c9a80c8f6e3892fe60d7692f24147f576e44b164d",
+    "response": "3401aaf6b8128ce83ca19e919ba48e1321ed9acf6e20cb6b10ad9af9e504c939"
+  },
+  "RULE.DrumNotes.stem_side_and_notehead_policy": {
+    "path": "/apply/collision/DrumNotes-stem_side_and_notehead_policy",
+    "request": "d0752219746c91f0de07a8a5ec19a0f0abb1771f92713a3b18653e1c2bec0985",
+    "response": "a87e4cd95fd44559ab16b8414e1e4e8dd65d14717dc2cab19abf1f50789f43ca"
+  },
+  "RULE.FiguredBass.position_stack_policy": {
+    "path": "/apply/verticalstack/FiguredBass-position_stack_policy",
+    "request": "15e2fd5adbb7578e5e6f45bd2f885728275ca7701791cf49aecdb78c5a2339e8",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.PageTurn.break_preferences": {
+    "path": "/apply/pagination/PageTurn-break_preferences",
+    "request": "80f9d58a33aee6d942c88374412b0d3c9d94f042a09603920ad9df8c03d13964",
+    "response": "b0d3ac82e25371c815ecf7559be9ae01ddbcb9139e1cb488829298837facccbc"
+  },
+  "RULE.PartCombine.stem_direction_policy": {
+    "path": "/apply/collision/PartCombine-stem_direction_policy",
+    "request": "954732f0fc69bf4de691e0e883394bf6769efd3fbfe202c0afe66c9924cadba2",
+    "response": "a87e4cd95fd44559ab16b8414e1e4e8dd65d14717dc2cab19abf1f50789f43ca"
+  },
+  "RULE.HorizontalBracket.placement_policy": {
+    "path": "/apply/verticalstack/HorizontalBracket-placement_policy",
+    "request": "fe2e0b964f3b71d24bfb3a0e9f4a03f65ad58986d54e595d9a38d24dee471de5",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.InstrumentSwitch.placement_policy": {
+    "path": "/apply/verticalstack/InstrumentSwitch-placement_policy",
+    "request": "f0d86eadb13647e0dab33105d6d983453a3ee85599c5ffab4d3fe8fd5e763b34",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.LigatureBracket.placement_policy": {
+    "path": "/apply/collision/LigatureBracket-placement_policy",
+    "request": "6bdcfb38365e236582499c8d208a8267c64caa4b72e61f94ba8fe26442dd55c8",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.NonMusicalScriptColumn.layout_policy": {
+    "path": "/apply/verticalstack/NonMusicalScriptColumn-layout_policy",
+    "request": "9f8879639a58a1274e42a3167f1438a1fc706c35c478e093ee82225aa27f36ca",
+    "response": "cd5ed4dfd887ab84044f83fbcd2c4b6d68f4904ea3e6afbe4746bf97bbd67ce6"
+  },
+  "RULE.OutputProperty.override_inheritance_policy": {
+    "path": "/apply/verticalstack/OutputProperty-override_inheritance_policy",
+    "request": "0ded5b93ee0b762175388cbd7a9bbbbae93bf2e06f24b7665ddd89264fd41e7a",
+    "response": "d9375e0573930262346c5879ba21d9fdd28c73ff8e0b740a51a02bcd739a0c73"
+  },
+  "RULE.PitchedTrill.placement_policy": {
+    "path": "/apply/verticalstack/PitchedTrill-placement_policy",
+    "request": "72c7a30f0fa04e99582444957b3eacc937c633dd77131a8870bf95f5cc33e4d1",
+    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+  },
+  "RULE.ScriptColumn.layout_policy": {
+    "path": "/apply/verticalstack/ScriptColumn-layout_policy",
+    "request": "7bb42527266be0cbecfd60dd54e70f37db272ec62f8249c3eaf3b030f7e9fa2c",
+    "response": "cd5ed4dfd887ab84044f83fbcd2c4b6d68f4904ea3e6afbe4746bf97bbd67ce6"
+  },
+  "RULE.ScriptRow.layout_policy": {
+    "path": "/apply/verticalstack/ScriptRow-layout_policy",
+    "request": "7bb42527266be0cbecfd60dd54e70f37db272ec62f8249c3eaf3b030f7e9fa2c",
+    "response": "7d3e375b795d0465111b8338bea966a7738cb52650039d613340a5f6edec8366"
+  },
+  "RULE.SpanArpeggio.placement_policy": {
+    "path": "/apply/collision/SpanArpeggio-placement_policy",
+    "request": "afc66d0b8476a5f30e65ae34adb44a25276b1ee530bfc9ebf67c772315b2ff10",
+    "response": "4120f5e1d36b3afd5ef4dd1dbd18990505dd84f8140fa71404180d77bd80615b"
   }
 }

@@ -1,0 +1,5 @@
+rule: RULE.PitchedTrill.placement_policy
+cases:
+  - name: y_offset_present
+    expectations: [ { path: "/yOffsetSP", op: ">=", value: 0.0 } ]
+

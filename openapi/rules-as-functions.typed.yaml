@@ -2998,8 +2998,8 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        status: ratified
         smufl_inputs: []
-        status: provisional
   /apply/pagination/RepeatVolta-layout_policy:
     post:
       operationId: RULE.RepeatVolta.layout_policy
@@ -3070,8 +3070,8 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 1.0
+        status: ratified
         smufl_inputs: []
-        status: provisional
   /apply/verticalstack/TempoMarks-placement_policy:
     post:
       operationId: RULE.TempoMarks.placement_policy
@@ -4112,7 +4112,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Parenthesis-placement_policy:
     post:
       operationId: RULE.Parenthesis.placement_policy
@@ -4147,7 +4147,7 @@ paths:
             - path: /paddingSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/PercentRepeat-layout_policy:
     post:
       operationId: RULE.PercentRepeat.layout_policy
@@ -4287,7 +4287,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/TimeSignature-placement_policy:
     post:
       operationId: RULE.TimeSignature.placement_policy
@@ -4357,7 +4357,7 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/CueClef-placement_policy:
     post:
       operationId: RULE.CueClef.placement_policy
@@ -4427,7 +4427,7 @@ paths:
             - path: /stemDirections/count
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/FiguredBass-position_stack_policy:
     post:
       operationId: RULE.FiguredBass.position_stack_policy
@@ -4462,7 +4462,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/InstrumentName-alignment_policy:
     post:
       operationId: RULE.InstrumentName.alignment_policy
@@ -4533,7 +4533,7 @@ paths:
             - path: /chosenBreak
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/PartCombine-stem_direction_policy:
     post:
       operationId: RULE.PartCombine.stem_direction_policy
@@ -4568,7 +4568,7 @@ paths:
             - path: /stemDirections/count
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/StanzaNumber-align_with_lyrics_policy:
     post:
       operationId: RULE.StanzaNumber.align_with_lyrics_policy
@@ -4779,7 +4779,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/InstrumentSwitch-placement_policy:
     post:
       operationId: RULE.InstrumentSwitch.placement_policy
@@ -4814,7 +4814,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/LigatureBracket-placement_policy:
     post:
       operationId: RULE.LigatureBracket.placement_policy
@@ -4849,7 +4849,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/NonMusicalScriptColumn-layout_policy:
     post:
       operationId: RULE.NonMusicalScriptColumn.layout_policy
@@ -4884,7 +4884,7 @@ paths:
             - path: /yOffsetsSP/count
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/OutputProperty-override_inheritance_policy:
     post:
       operationId: RULE.OutputProperty.override_inheritance_policy
@@ -4919,7 +4919,7 @@ paths:
             - path: /effectiveProperties
               op: '!='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/PitchedTrill-placement_policy:
     post:
       operationId: RULE.PitchedTrill.placement_policy
@@ -4954,7 +4954,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/ScriptColumn-layout_policy:
     post:
       operationId: RULE.ScriptColumn.layout_policy
@@ -4989,7 +4989,7 @@ paths:
             - path: /yOffsetsSP/count
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/verticalstack/ScriptRow-layout_policy:
     post:
       operationId: RULE.ScriptRow.layout_policy
@@ -5024,7 +5024,7 @@ paths:
             - path: /xOffsetsSP/count
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/SpanArpeggio-placement_policy:
     post:
       operationId: RULE.SpanArpeggio.placement_policy
@@ -5059,4 +5059,4 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified

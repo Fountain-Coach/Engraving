@@ -1,0 +1,5 @@
+rule: RULE.SpanArpeggio.placement_policy
+cases:
+  - name: position_present
+    expectations: [ { path: "/position/y", op: ">=", value: 0.0 } ]
+

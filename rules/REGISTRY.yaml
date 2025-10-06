@@ -1253,6 +1253,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 630
+  status: ratified
   depends_on: []
   inputs:
   - ottavaType
@@ -1306,6 +1307,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 640
+  status: ratified
   depends_on: []
   inputs:
   - markBBox
@@ -1676,6 +1678,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 645
+  status: ratified
   depends_on: []
   inputs:
   - bracketBBox
@@ -1702,6 +1705,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 335
+  status: ratified
   depends_on: []
   inputs:
   - nameBBox
@@ -1728,6 +1732,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 334
+  status: ratified
   depends_on: []
   inputs:
   - tempoTextBBox
@@ -1755,6 +1760,7 @@ rules:
   agent: CollisionAgent
   intent: placement
   priority: 420
+  status: ratified
   depends_on: []
   inputs:
   - targetBBox
@@ -1862,6 +1868,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 646
+  status: ratified
   depends_on: []
   inputs:
   - spannerBBox
@@ -1940,6 +1947,7 @@ rules:
   agent: CollisionAgent
   intent: placement
   priority: 361
+  status: ratified
   depends_on: []
   inputs:
   - drumPitches
@@ -1967,6 +1975,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 541
+  status: ratified
   depends_on: []
   inputs:
   - figures
@@ -2020,6 +2029,7 @@ rules:
   agent: PaginationAgent
   intent: layout
   priority: 150
+  status: ratified
   depends_on:
   - RULE.Pagination.castoff_fill_vs_overfull_penalties
   inputs:
@@ -2046,6 +2056,7 @@ rules:
   agent: CollisionAgent
   intent: placement
   priority: 367
+  status: ratified
   depends_on: []
   inputs:
   - mergedVoices
@@ -2203,6 +2214,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 336
+  status: ratified
   depends_on: []
   inputs:
   - changeTextBBox
@@ -2229,6 +2241,7 @@ rules:
   agent: CollisionAgent
   intent: placement
   priority: 361
+  status: ratified
   depends_on: []
   inputs:
   - ligatureNotes
@@ -2255,6 +2268,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 337
+  status: ratified
   depends_on: []
   inputs:
   - textBBoxes
@@ -2280,6 +2294,7 @@ rules:
   agent: VerticalStackAgent
   intent: layout
   priority: 130
+  status: ratified
   depends_on: []
   inputs:
   - overrides
@@ -2305,6 +2320,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 646
+  status: ratified
   depends_on: []
   inputs:
   - trillTextBBox
@@ -2331,6 +2347,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 338
+  status: ratified
   depends_on: []
   inputs:
   - scriptBBoxes
@@ -2356,6 +2373,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 339
+  status: ratified
   depends_on: []
   inputs:
   - scriptBBoxes
@@ -2381,6 +2399,7 @@ rules:
   agent: CollisionAgent
   intent: placement
   priority: 365
+  status: ratified
   depends_on: []
   inputs:
   - chordBBox

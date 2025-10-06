@@ -1,0 +1,5 @@
+rule: RULE.ScriptColumn.layout_policy
+cases:
+  - name: y_offsets_present
+    expectations: [ { path: "/yOffsetsSP/count", op: ">=", value: 1.0 } ]
+

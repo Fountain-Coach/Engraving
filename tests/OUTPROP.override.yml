@@ -1,0 +1,5 @@
+rule: RULE.OutputProperty.override_inheritance_policy
+cases:
+  - name: effective_present
+    expectations: [ { path: "/effectiveProperties", op: "!=", value: 0.0 } ]
+
