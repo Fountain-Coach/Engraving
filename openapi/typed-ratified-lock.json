@@ -1,0 +1,52 @@
+{
+  "RULE.Spacing.duration_base_with_optical_corrections": {
+    "path": "/apply/spacing/Spacing-duration_base_with_optical_corrections",
+    "request": "3635f44496f16dbac41cbeca46ac68327b8011e4e1c390e23e84215555bbab08",
+    "response": "b5fe506caec62dc8830eff8dfddf59058557ca499ed8ebef6c3817c8f6492761"
+  },
+  "RULE.Spacing.keep_inside_system_constraints": {
+    "path": "/apply/spacing/Spacing-keep_inside_system_constraints",
+    "request": "7cdd3a833cc6a0cfea8e09b045626fb6165035583f3832356f0ac214515ffea4",
+    "response": "a5860551c09a73456c3d992813878754bb4bf85a22c488591a699b17844fb913"
+  },
+  "RULE.Beaming.geometry_slope_and_segments": {
+    "path": "/apply/beaming/Beaming-geometry_slope_and_segments",
+    "request": "ce0d09970ea83429231d814d88274aa1cb1b713d993ddc8e401d56610a35c067",
+    "response": "c124b95b9105705f8bf30756748fc66271e64a4af4eb3f0915005a0cf724320a"
+  },
+  "RULE.Beaming.subdivision_preference": {
+    "path": "/apply/beaming/Beaming-subdivision_preference",
+    "request": "f40039b206ac7801f3ff20553e3b4eab667ae3b1bf48117aea9af02a57240d7d",
+    "response": "e9d44fc942a99dcff3c76b2ad173ea288c707c8cb30f8b62418bde8c6e38e9f5"
+  },
+  "RULE.Slur.curvature_choice_with_collision_penalty": {
+    "path": "/apply/tieslur/Slur-curvature_choice_with_collision_penalty",
+    "request": "678660c46cbf81d81f3e7fb9d7116c0fe8c383524385c18068e967356601b150",
+    "response": "352bc68a478da400a37d5b4bdc51a1a78e9e4513bbe614ed98b9df3ca8c222b6"
+  },
+  "RULE.Collision.priority_lattice": {
+    "path": "/apply/collision/Collision-priority_lattice",
+    "request": "2fb96d7b4e2f79e679a663d17ec2e1296c1fa16feb4725d95d8b07a202a27553",
+    "response": "6c1d9847232c53dcb8c6fe3bc32e22cfd6a2fa2864040de96d7ff12420c4f1ec"
+  },
+  "RULE.Accidental.leading_padding_and_column_inflation": {
+    "path": "/apply/accidental/Accidental-leading_padding_and_column_inflation",
+    "request": "51daae714849129b90ae134ec317b5bb4a1502f6c8df42b012f78fefc9707361",
+    "response": "a01faf1212a933a96401a5285cb7461c84b89edf611d45f2077e1e3d1c79af4e"
+  },
+  "RULE.Accidental.cautionary_parenthesized_policy": {
+    "path": "/apply/accidental/Accidental-cautionary_parenthesized_policy",
+    "request": "a309664b3dbf7e759e4f3830a56c8873a062811f56e6037e0e803c616589ac7d",
+    "response": "c4bbdb961b145b804eac7820f04806ab80bfaee718be0ff3f2661fe9cf8dc75e"
+  },
+  "RULE.Accidental.microtonal_glyph_selection_and_spacing": {
+    "path": "/apply/accidental/Accidental-microtonal_glyph_selection_and_spacing",
+    "request": "be8a06318396be0c7bc389aad8e4ad40beb62b85d3f7584c076a1bae28872c9d",
+    "response": "2f1f27a3111226eb5a9f2b3a0fbab6e08edfaa08eaa2cb69f289e9dbd961ffc6"
+  },
+  "RULE.Tie.curvature_selection_with_clearance": {
+    "path": "/apply/tieslur/Tie-curvature_selection_with_clearance",
+    "request": "f9cebe475f897ccc660388f91a68c4cf34fa573a6e17119331efac8d3dd0538e",
+    "response": "ae5d0c19e3a8f5baacdd74042f09a676e744b79af92ee727579540e9547f78c8"
+  }
+}
