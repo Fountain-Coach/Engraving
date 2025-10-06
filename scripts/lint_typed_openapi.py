@@ -33,6 +33,9 @@ def main():
     errs = []
     if missing:
         errs.append(f"Typed spec missing {len(missing)} paths found in untyped: e.g. {missing[:5]}")
+    extra = sorted(t_paths - u_paths)
+    if extra:
+        errs.append(f"Typed spec has {len(extra)} extra paths not in untyped (stale): e.g. {extra[:5]}")
 
     # Check arrays in components
     comps = typ.get('components', {}).get('schemas', {})
@@ -53,4 +56,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
