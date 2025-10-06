@@ -1,0 +1,7 @@
+rule: RULE.Accidental.key_signature_positions_by_clef
+cases:
+  - name: treble_three_sharps
+    expectations:
+      - { path: "/positions/0", op: "==", value: 8.0 }
+      - { path: "/positions/1", op: "==", value: 5.0 }
+      - { path: "/positions/2", op: "==", value: 9.0 }

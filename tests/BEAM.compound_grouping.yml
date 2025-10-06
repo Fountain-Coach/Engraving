@@ -1,0 +1,6 @@
+rule: RULE.Beaming.compound_meter_grouping
+cases:
+  - name: six_eighths_6_8
+    expectations: [ { path: "/beamBreaks/count", op: "==", value: 1.0 } ]
+  - name: nine_eighths_9_8
+    expectations: [ { path: "/beamBreaks/count", op: "==", value: 2.0 } ]

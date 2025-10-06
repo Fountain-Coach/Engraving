@@ -1,0 +1,6 @@
+rule: RULE.Beaming.suppress_flags_when_beamed
+cases:
+  - name: beamed
+    expectations: [ { path: "/drawFlags", op: "==", value: 0.0 } ]
+  - name: unbeamed
+    expectations: [ { path: "/drawFlags", op: "==", value: 1.0 } ]
