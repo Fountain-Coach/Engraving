@@ -2961,9 +2961,9 @@ paths:
             - path: /beamStaff
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
-        status: provisional
   /apply/verticalstack/Ottava-placement_policy:
     post:
       operationId: RULE.Ottava.placement_policy
@@ -3662,12 +3662,12 @@ paths:
             - path: /dynamicPosition/x
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - dynamicPiano.baseline
         - dynamicForte.baseline
         - hairpinCrescendo.bbox
         - hairpinDecrescendo.bbox
-        status: provisional
   /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties

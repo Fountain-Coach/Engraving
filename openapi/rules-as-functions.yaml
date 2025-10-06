@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:47:11.691812
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:49:17.848914
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -310,6 +310,7 @@ paths:
             - path: /dynamicPosition/x
               op: '>='
               value: 0.0
+        status: ratified
         smufl_inputs:
         - dynamicPiano.baseline
         - dynamicForte.baseline
@@ -1629,6 +1630,7 @@ paths:
             - path: /beamStaff
               op: ==
               value: 1.0
+        status: ratified
         smufl_inputs:
         - beam.thickness
   /apply/verticalstack/Ottava-placement_policy:

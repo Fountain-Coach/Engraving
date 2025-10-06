@@ -4,3 +4,6 @@ cases:
     expectations:
       - { path: "/dynamicPosition/x", op: ">=", value: 0.2 }
       - { path: "/dynamicPosition/y", op: ">=", value: 0.0 }
+  - name: hairpin_clearance_bias
+    expectations:
+      - { path: "/dynamicPosition/x", op: ">=", value: 0.0 }

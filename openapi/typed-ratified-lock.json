@@ -49,6 +49,11 @@
     "request": "f9cebe475f897ccc660388f91a68c4cf34fa573a6e17119331efac8d3dd0538e",
     "response": "ae5d0c19e3a8f5baacdd74042f09a676e744b79af92ee727579540e9547f78c8"
   },
+  "RULE.CrossStaff.beaming_policy": {
+    "path": "/apply/beaming/CrossStaff-beaming_policy",
+    "request": "8d40ab34cf7cf5dadd7356dda6de7108728f690eff6a3d161f2ebb9a56d29d63",
+    "response": "c9eacfe16ae0e2bef9695fe63bbc3a209c701eec4def8f686310fd63b7bda7df"
+  },
   "RULE.Vertical.min_dist_padding_and_stretch": {
     "path": "/apply/verticalstack/Vertical-min_dist_padding_and_stretch",
     "request": "8b205e1bd62907e0813c77363ae8bdb4882eb70d3745472a3b6850ed09b01358",
@@ -73,6 +78,11 @@
     "path": "/apply/collision/RestCollision-resolve_overlaps",
     "request": "452cdcafb0b43e04cbb1cfce5eecf16c573a7c06c47dade8e50ce927b97f9e9e",
     "response": "5b45c6540c9d568ecca6d1e83ecd2263566070eeac92ff1b4d81c772ce6ed09f"
+  },
+  "RULE.DynamicAlign.kerning_with_hairpins": {
+    "path": "/apply/dynamicstext/DynamicAlign-kerning_with_hairpins",
+    "request": "c5db5a579387c4394ec0cd9a6dd0bc515259c46ca2b0ec78ce827d71c4a57c9f",
+    "response": "f0826b8862b55f000b37c367f3b0218b51ae6f358eedc6bb6a86212d4723b3c3"
   },
   "RULE.NoteSpacing.spacing_policy": {
     "path": "/apply/spacing/NoteSpacing-spacing_policy",

@@ -223,6 +223,7 @@ rules:
   agent: DynamicsTextAgent
   intent: placement
   priority: 705
+  status: ratified
   depends_on:
   - RULE.Dynamics.align_with_noteheads_and_stems
   inputs:
@@ -1221,6 +1222,7 @@ rules:
   agent: BeamingAgent
   intent: placement
   priority: 223
+  status: ratified
   depends_on: []
   inputs:
   - staffAssignments
