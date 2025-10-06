@@ -12,7 +12,8 @@ def find_engravers(lily: Path):
             txt = p.read_text(errors='ignore')
         except Exception:
             continue
-        for m in re.finditer(r'class\s+([A-Za-z0-9_]+)\s*:\s*public\s+Engraver', txt):
+        # Match: class Name [final]? : public Engraver
+        for m in re.finditer(r'class\s+([A-Za-z0-9_]+)\s+(?:final\s+)?:\s*public\s+Engraver', txt):
             engravers.add(m.group(1))
     return sorted(engravers)
 
@@ -53,4 +54,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

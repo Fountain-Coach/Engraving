@@ -21,6 +21,18 @@ map:
   color: [RULE.OpticalSize.stroke_and_spacing_scalars]
   beam_slope: [RULE.Beaming.geometry_slope_and_segments]
   beam_positions: [RULE.Beaming.geometry_slope_and_segments]
+  X_extent: [RULE.Collision.priority_lattice]
+  Y_extent: [RULE.Vertical.min_dist_padding_and_stretch]
+  bar_extent: [RULE.Vertical.min_dist_padding_and_stretch]
+  baseline_skip: [RULE.Lyrics.vertical_alignment_with_baselines]
+  axes: [RULE.Vertical.min_dist_padding_and_stretch]
+  align_dir: [RULE.Ornaments.placement_above_below_with_collision]
+  transparent: [RULE.Ornaments.placement_above_below_with_collision]
+  breakable: [RULE.Pagination.castoff_fill_vs_overfull_penalties]
+  padding: [RULE.Spacing.keep_inside_system_constraints]
+  thickness: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  beam_width: [RULE.Beaming.geometry_slope_and_segments]
+  beaming: [RULE.Beaming.subdivision_preference]
 
   # Regex categories
   "/(^|[_-])x[-_]?offset$/i": [RULE.Collision.priority_lattice]
@@ -35,6 +47,11 @@ map:
   "/direction/i": [RULE.Slur.curvature_choice_with_collision_penalty]
   "/color/i": [RULE.OpticalSize.stroke_and_spacing_scalars]
   "/style/i": [RULE.Ornaments.placement_above_below_with_collision]
+  "/(^|[_-])x[-_]?extent$/i": [RULE.Collision.priority_lattice]
+  "/(^|[_-])y[-_]?extent$/i": [RULE.Vertical.min_dist_padding_and_stretch]
+  "/padding/i": [RULE.Spacing.keep_inside_system_constraints]
+  "/thickness/i": [RULE.OpticalSize.stroke_and_spacing_scalars]
+  "/transparent|visibility/i": [RULE.Ornaments.placement_above_below_with_collision]
 
   # Catch-all: default to collision lattice mapping
   "/.*/": [RULE.Collision.priority_lattice]

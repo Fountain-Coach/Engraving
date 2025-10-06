@@ -42,7 +42,8 @@ def main():
     must_specific = {
         'X_offset','Y_offset','stencil','style','control_points','beam_thickness','beam_segments',
         'baseline','left_bound_info','right_bound_info','line_break_system_details','alteration',
-        'KeySignature','TimeSignature','Clef','color','direction'
+        'KeySignature','TimeSignature','Clef','color','direction',
+        'X_extent','Y_extent','bar_extent','baseline_skip','axes','align_dir','transparent','breakable','padding','thickness','beam_width','beaming'
     }
     for prop in sorted(all_props):
         targets = exact_entries.get(prop)

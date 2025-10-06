@@ -1,159 +1,321 @@
 map:
-  # Spacing
   Spacing.duration_base:
-    - RULE.Spacing.duration_base_with_optical_corrections
+  - RULE.Spacing.duration_base_with_optical_corrections
   Spacing.keep_inside_system:
-    - RULE.Spacing.keep_inside_system_constraints
-
-  # Beaming
+  - RULE.Spacing.keep_inside_system_constraints
   Beaming.subdivision:
-    - RULE.Beaming.subdivision_preference
+  - RULE.Beaming.subdivision_preference
   Beaming.compound:
-    - RULE.Beaming.compound_meter_grouping
+  - RULE.Beaming.compound_meter_grouping
   Beaming.auto_knee:
-    - RULE.Beaming.auto_knee_threshold
+  - RULE.Beaming.auto_knee_threshold
   Beaming.flags_suppression:
-    - RULE.Beaming.suppress_flags_when_beamed
+  - RULE.Beaming.suppress_flags_when_beamed
   Beaming.geometry:
-    - RULE.Beaming.geometry_slope_and_segments
+  - RULE.Beaming.geometry_slope_and_segments
   Beaming.rest_split:
-    - RULE.Beaming.rests_split_groups
-
-  # Accidentals / Key
+  - RULE.Beaming.rests_split_groups
   Accidental.leading_padding:
-    - RULE.Accidental.leading_padding_and_column_inflation
+  - RULE.Accidental.leading_padding_and_column_inflation
   Accidental.key_signature_positions:
-    - RULE.Accidental.key_signature_positions_by_clef
+  - RULE.Accidental.key_signature_positions_by_clef
   Accidental.cautionary:
-    - RULE.Accidental.cautionary_parenthesized_policy
+  - RULE.Accidental.cautionary_parenthesized_policy
   Accidental.microtonal:
-    - RULE.Accidental.microtonal_glyph_selection_and_spacing
-
-  # Ledger
+  - RULE.Accidental.microtonal_glyph_selection_and_spacing
   Ledger.shorten_near_accidental:
-    - RULE.Ledger.shorten_near_accidental
-
-  # Collision / Vertical
+  - RULE.Ledger.shorten_near_accidental
   Collision.priority_lattice:
-    - RULE.Collision.priority_lattice
+  - RULE.Collision.priority_lattice
   Vertical.min_dist_padding_and_stretch:
-    - RULE.Vertical.min_dist_padding_and_stretch
-
-  # Dynamics / Text
+  - RULE.Vertical.min_dist_padding_and_stretch
   Dynamics.align_with_noteheads:
-    - RULE.Dynamics.align_with_noteheads_and_stems
+  - RULE.Dynamics.align_with_noteheads_and_stems
   Lyrics.alignment:
-    - RULE.Lyrics.vertical_alignment_with_baselines
+  - RULE.Lyrics.vertical_alignment_with_baselines
   Ornaments.placement:
-    - RULE.Ornaments.placement_above_below_with_collision
-
-  # Pagination / Layout
+  - RULE.Ornaments.placement_above_below_with_collision
   Pagination.castoff_penalties:
-    - RULE.Pagination.castoff_fill_vs_overfull_penalties
+  - RULE.Pagination.castoff_fill_vs_overfull_penalties
   PartStaff.braces_brackets:
-    - RULE.PartStaff.braces_brackets_layout
+  - RULE.PartStaff.braces_brackets_layout
   MultiVoiceStaff.stems_directions:
-    - RULE.MultiVoice.stem_directions_up_down
+  - RULE.MultiVoice.stem_directions_up_down
   MultiMeasureRests.layout:
-    - RULE.MultiMeasureRests.layout_policy
-
-  # Ties / Slurs
+  - RULE.MultiMeasureRests.layout_policy
   Slur.curvature_choice:
-    - RULE.Slur.curvature_choice_with_collision_penalty
+  - RULE.Slur.curvature_choice_with_collision_penalty
   Tie.curvature:
-    - RULE.Tie.curvature_selection_with_clearance
-
-  # Time/Key/Clef display rules
+  - RULE.Tie.curvature_selection_with_clearance
   Clef.placement:
-    - RULE.Clef.mid_system_placement
+  - RULE.Clef.mid_system_placement
   KeySignature.courtesy:
-    - RULE.KeySignature.courtesy_at_line_breaks
+  - RULE.KeySignature.courtesy_at_line_breaks
   TimeSignature.courtesy:
-    - RULE.TimeSignature.courtesy_at_line_breaks
-
-  # Rhythm details
+  - RULE.TimeSignature.courtesy_at_line_breaks
   Tuplet.beaming:
-    - RULE.Tuplet.beaming_and_bracket_placement
+  - RULE.Tuplet.beaming_and_bracket_placement
   Grace.clusters:
-    - RULE.Grace.clusters_width_policy
-  CrossStaff.beaming: 
-    - RULE.CrossStaff.beaming_policy
-
-  # Other markings
+  - RULE.Grace.clusters_width_policy
+  CrossStaff.beaming:
+  - RULE.CrossStaff.beaming_policy
   Ottava.placement:
-    - RULE.Ottava.placement_policy
+  - RULE.Ottava.placement_policy
   RepeatVolta.layout:
-    - RULE.RepeatVolta.layout_policy
+  - RULE.RepeatVolta.layout_policy
   RehearsalMarks.placement:
-    - RULE.RehearsalMarks.placement_policy
+  - RULE.RehearsalMarks.placement_policy
   TempoMarks.placement:
-    - RULE.TempoMarks.placement_policy
+  - RULE.TempoMarks.placement_policy
   Engraver.Note_spacing_engraver:
-    - RULE.NoteSpacing.spacing_policy
+  - RULE.NoteSpacing.spacing_policy
   Engraver.Duration_line_engraver:
-    - RULE.DurationLine.placement_policy
-
-  # Grob mappings (extracted from LilyPond sources)
+  - RULE.DurationLine.placement_policy
   Grob.Accidental:
-    - RULE.Accidental.leading_padding_and_column_inflation
-    - RULE.Accidental.cautionary_parenthesized_policy
-    - RULE.Accidental.microtonal_glyph_selection_and_spacing
-    - RULE.KeySignature.courtesy_at_line_breaks
+  - RULE.Accidental.leading_padding_and_column_inflation
+  - RULE.Accidental.cautionary_parenthesized_policy
+  - RULE.Accidental.microtonal_glyph_selection_and_spacing
+  - RULE.KeySignature.courtesy_at_line_breaks
   Grob.Arpeggio:
-    - RULE.Arpeggio.placement_policy
+  - RULE.Arpeggio.placement_policy
   Grob.Beam:
-    - RULE.Beaming.subdivision_preference
-    - RULE.Beaming.compound_meter_grouping
-    - RULE.Beaming.auto_knee_threshold
-    - RULE.Beaming.geometry_slope_and_segments
-    - RULE.Beaming.rests_split_groups
-    - RULE.Beaming.suppress_flags_when_beamed
+  - RULE.Beaming.subdivision_preference
+  - RULE.Beaming.compound_meter_grouping
+  - RULE.Beaming.auto_knee_threshold
+  - RULE.Beaming.geometry_slope_and_segments
+  - RULE.Beaming.rests_split_groups
+  - RULE.Beaming.suppress_flags_when_beamed
   Grob.Clef:
-    - RULE.Clef.mid_system_placement
+  - RULE.Clef.mid_system_placement
   Grob.Crescendo:
-    - RULE.Dynamics.align_with_noteheads_and_stems
+  - RULE.Dynamics.align_with_noteheads_and_stems
   Grob.DynamicText:
-    - RULE.Dynamics.align_with_noteheads_and_stems
+  - RULE.Dynamics.align_with_noteheads_and_stems
   Grob.Fingering:
-    - RULE.Fingering.placement_policy
+  - RULE.Fingering.placement_policy
   Grob.Flag:
-    - RULE.Beaming.suppress_flags_when_beamed
+  - RULE.Beaming.suppress_flags_when_beamed
   Grob.Hairpin:
-    - RULE.Dynamics.align_with_noteheads_and_stems
+  - RULE.Dynamics.align_with_noteheads_and_stems
   Grob.KeySignature:
-    - RULE.Accidental.key_signature_positions_by_clef
-    - RULE.KeySignature.courtesy_at_line_breaks
+  - RULE.Accidental.key_signature_positions_by_clef
+  - RULE.KeySignature.courtesy_at_line_breaks
   Grob.LyricText:
-    - RULE.Lyrics.vertical_alignment_with_baselines
+  - RULE.Lyrics.vertical_alignment_with_baselines
   Grob.NoteHead:
-    - RULE.Spacing.duration_base_with_optical_corrections
-    - RULE.Collision.priority_lattice
+  - RULE.Spacing.duration_base_with_optical_corrections
+  - RULE.Collision.priority_lattice
   Grob.OttavaBracket:
-    - RULE.Ottava.placement_policy
+  - RULE.Ottava.placement_policy
   Grob.Pedal:
-    - RULE.Pedal.line_and_text_policy
+  - RULE.Pedal.line_and_text_policy
   Grob.RepeatTie:
-    - RULE.Tie.curvature_selection_with_clearance
+  - RULE.Tie.curvature_selection_with_clearance
   Grob.Rest:
-    - RULE.Spacing.duration_base_with_optical_corrections
+  - RULE.Spacing.duration_base_with_optical_corrections
   Grob.Script:
-    - RULE.Ornaments.placement_above_below_with_collision
+  - RULE.Ornaments.placement_above_below_with_collision
   Grob.Slur:
-    - RULE.Slur.curvature_choice_with_collision_penalty
+  - RULE.Slur.curvature_choice_with_collision_penalty
   Grob.StaffSymbol:
-    - RULE.Vertical.min_dist_padding_and_stretch
+  - RULE.Vertical.min_dist_padding_and_stretch
   Grob.Stem:
-    - RULE.Beaming.geometry_slope_and_segments
+  - RULE.Beaming.geometry_slope_and_segments
   Grob.TextScript:
-    - RULE.RehearsalMarks.placement_policy
-    - RULE.TempoMarks.placement_policy
+  - RULE.RehearsalMarks.placement_policy
+  - RULE.TempoMarks.placement_policy
   Grob.Tie:
-    - RULE.Tie.curvature_selection_with_clearance
+  - RULE.Tie.curvature_selection_with_clearance
   Grob.TimeSignature:
-    - RULE.TimeSignature.courtesy_at_line_breaks
+  - RULE.TimeSignature.courtesy_at_line_breaks
   Grob.TrillSpanner:
-    - RULE.TrillSpanner.placement_policy
+  - RULE.TrillSpanner.placement_policy
   Grob.TupletBracket:
-    - RULE.Tuplet.beaming_and_bracket_placement
+  - RULE.Tuplet.beaming_and_bracket_placement
   Grob.VoltaBracket:
-    - RULE.RepeatVolta.layout_policy
+  - RULE.RepeatVolta.layout_policy
+  Engraver.Accidental_engraver: &id005
+  - RULE.Accidental.leading_padding_and_column_inflation
+  - RULE.Accidental.key_signature_positions_by_clef
+  - RULE.KeySignature.courtesy_at_line_breaks
+  - RULE.Accidental.cautionary_parenthesized_policy
+  - RULE.Accidental.microtonal_glyph_selection_and_spacing
+  Engraver.Ambitus_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Arpeggio_engraver: &id009
+  - RULE.Arpeggio.placement_policy
+  Engraver.Axis_group_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Balloon_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Bar_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Bar_number_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Beam_collision_engraver:
+  - RULE.Beaming.subdivision_preference
+  - RULE.Beaming.compound_meter_grouping
+  - RULE.Beaming.auto_knee_threshold
+  - RULE.Beaming.geometry_slope_and_segments
+  - RULE.Beaming.rests_split_groups
+  - RULE.Beaming.suppress_flags_when_beamed
+  Engraver.Break_align_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Caesura_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Chord_tremolo_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Clef_engraver: &id001
+  - RULE.Clef.mid_system_placement
+  Engraver.Cluster_spanner_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Collision_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Completion_heads_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Completion_rest_engraver: &id006
+  - RULE.Spacing.duration_base_with_optical_corrections
+  Engraver.Concurrent_hairpin_engraver: &id002
+  - RULE.Dynamics.align_with_noteheads_and_stems
+  Engraver.Cue_clef_engraver: *id001
+  Engraver.Custos_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Dot_column_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Dots_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Double_percent_repeat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Drum_notes_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Dynamic_align_engraver: *id002
+  Engraver.Dynamic_engraver: *id002
+  Engraver.Episema_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Extender_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Figured_bass_position_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Fingering_column_engraver: &id003
+  - RULE.Fingering.placement_policy
+  Engraver.Fingering_engraver: *id003
+  Engraver.Font_size_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Footnote_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Forbid_line_break_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Fretboard_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Glissando_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Grace_engraver: &id004
+  - RULE.Grace.clusters_width_policy
+  - RULE.Beaming.subdivision_preference
+  Engraver.Grace_spacing_engraver: *id004
+  Engraver.Grid_line_span_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Grid_point_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Grob_pq_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Horizontal_bracket_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Hyphen_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Instrument_name_engraver:
+  - RULE.RehearsalMarks.placement_policy
+  Engraver.Instrument_switch_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Jump_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Keep_alive_together_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Key_engraver: *id005
+  Engraver.Ledger_line_engraver:
+  - RULE.Ledger.shorten_near_accidental
+  Engraver.Ligature_bracket_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Lyric_engraver:
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  Engraver.Melody_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Metronome_mark_engraver:
+  - RULE.TempoMarks.placement_policy
+  Engraver.Multi_measure_rest_engraver: *id006
+  Engraver.New_fingering_engraver: *id003
+  Engraver.Non_musical_script_column_engraver: &id008
+  - RULE.Ornaments.placement_above_below_with_collision
+  Engraver.Note_head_line_engraver: *id006
+  Engraver.Note_heads_engraver: *id006
+  Engraver.Note_name_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Ottava_spanner_engraver:
+  - RULE.Ottava.placement_policy
+  Engraver.Output_property_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Page_turn_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Parenthesis_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Part_combine_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Percent_repeat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Piano_pedal_align_engraver: &id007
+  - RULE.Pedal.line_and_text_policy
+  Engraver.Piano_pedal_engraver: *id007
+  Engraver.Pitch_squash_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Pitched_trill_engraver:
+  - RULE.TrillSpanner.placement_policy
+  Engraver.Pure_from_neighbor_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Repeat_acknowledge_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Rest_collision_engraver: *id006
+  Engraver.Rest_engraver: *id006
+  Engraver.Rhythmic_column_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Script_column_engraver: *id008
+  Engraver.Script_engraver: *id008
+  Engraver.Script_row_engraver: *id008
+  Engraver.Separating_line_group_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Slash_repeat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Spacing_engraver: *id006
+  Engraver.Span_arpeggio_engraver: *id009
+  Engraver.Span_bar_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Span_bar_stub_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Spanner_break_forbid_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Staff_collecting_engraver: &id010
+  - RULE.Vertical.min_dist_padding_and_stretch
+  Engraver.Staff_symbol_engraver: *id010
+  Engraver.Stanza_number_align_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Stanza_number_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Stem_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.System_start_delimiter_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Tab_note_heads_engraver: *id006
+  Engraver.Tab_staff_symbol_engraver: *id010
+  Engraver.Text_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Text_spanner_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Tie_engraver:
+  - RULE.Tie.curvature_selection_with_clearance
+  Engraver.Time_signature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Tuplet_engraver:
+  - RULE.Tuplet.beaming_and_bracket_placement
+  Engraver.Tweak_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Vertical_align_engraver:
+  - RULE.Collision.priority_lattice
