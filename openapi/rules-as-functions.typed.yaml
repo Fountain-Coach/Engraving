@@ -888,6 +888,86 @@ components:
             type: number
       required:
       - positions
+    BeamCollisionInput:
+      type: object
+      properties:
+        beamSegments:
+          type: array
+          items:
+            $ref: '#/components/schemas/BeamSegment'
+        nearbyGrobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - beamSegments
+      - nearbyGrobs
+    BeamCollisionOutput:
+      type: object
+      properties:
+        offsets:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - offsets
+    RestCollisionInput:
+      type: object
+      properties:
+        restBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+        noteColumnBBoxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/BBox'
+      required:
+      - restBBoxes
+      - noteColumnBBoxes
+    RestCollisionOutput:
+      type: object
+      properties:
+        restOffsets:
+          type: array
+          items:
+            type: object
+            properties:
+              x:
+                $ref: '#/components/schemas/StaffSpace'
+              y:
+                $ref: '#/components/schemas/StaffSpace'
+            required:
+            - x
+            - y
+      required:
+      - restOffsets
+    DynamicKerningInput:
+      type: object
+      properties:
+        dynamicBBox:
+          $ref: '#/components/schemas/BBox'
+        hairpinBBox:
+          $ref: '#/components/schemas/BBox'
+        lyricBBox:
+          $ref: '#/components/schemas/BBox'
+      required:
+      - dynamicBBox
+    DynamicKerningOutput:
+      type: object
+      properties:
+        dynamicPosition:
+          type: object
+          properties:
+            x:
+              $ref: '#/components/schemas/StaffSpace'
+            y:
+              $ref: '#/components/schemas/StaffSpace'
+          required:
+          - x
+          - y
+      required:
+      - dynamicPosition
 paths:
   /apply/spacing/duration-base-with-optical-corrections:
     post:
@@ -1546,6 +1626,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DynamicsAlignOutput'
+  /apply/collision/BeamCollision-resolve_overlaps:
+    post:
+      operationId: RULE.BeamCollision.resolve_overlaps
+      summary: Resolve beam collisions by minimal offsets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeamCollisionInput'
+      responses:
+        '200':
+          description: Beam collision offsets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeamCollisionOutput'
+  /apply/collision/RestCollision-resolve_overlaps:
+    post:
+      operationId: RULE.RestCollision.resolve_overlaps
+      summary: Resolve rest collisions with note columns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestCollisionInput'
+      responses:
+        '200':
+          description: Rest collision offsets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestCollisionOutput'
+  /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
+    post:
+      operationId: RULE.DynamicAlign.kerning_with_hairpins
+      summary: Dynamic text kerning with hairpins and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicKerningInput'
+      responses:
+        '200':
+          description: Kerning offsets for dynamics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicKerningOutput'
   /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T06:35:54.376787
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:10:46.729094
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -179,6 +179,190 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
+  /apply/collision/BeamCollision-resolve_overlaps:
+    post:
+      operationId: RULE.BeamCollision.resolve_overlaps
+      summary: Resolve beam collisions by minimal offsets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 355
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          min_clearance_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/beaming/collision
+        test_plan:
+          cases:
+          - name: minimal_offsets
+            expectations:
+            - path: /offsets/count
+              op: '>='
+              value: 0.0
+  /apply/collision/RestCollision-resolve_overlaps:
+    post:
+      operationId: RULE.RestCollision.resolve_overlaps
+      summary: Resolve rest collisions with note columns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 356
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          min_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/collisions/rests
+        test_plan:
+          cases:
+          - name: gaps_kept
+            expectations:
+            - path: /restOffsets/count
+              op: '>='
+              value: 0.0
+  /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
+    post:
+      operationId: RULE.DynamicAlign.kerning_with_hairpins
+      summary: Dynamic text kerning with hairpins and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 705
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          min_kerning_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/dynamics/kerning
+        test_plan:
+          cases:
+          - name: kerning_applied
+            expectations:
+            - path: /dynamicPosition/x
+              op: '>='
+              value: 0.0
+  /apply/spacing/NoteSpacing-spacing_policy:
+    post:
+      operationId: RULE.NoteSpacing.spacing_policy
+      summary: Note spacing policy (column gaps and alignment)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 120
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          optical_stem_weight: 0.4
+        exceptions: []
+        trace:
+        - docs/spacing/note-columns
+        test_plan:
+          cases:
+          - name: gaps_respected
+            expectations:
+            - path: /columnPositions/0
+              op: <=
+              value: 0.0
+  /apply/verticalstack/DurationLine-placement_policy:
+    post:
+      operationId: RULE.DurationLine.placement_policy
+      summary: Duration line placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 635
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/duration-lines
+        test_plan:
+          cases:
+          - name: duration_line_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
   /apply/collision/Arpeggio-placement_policy:
     post:
       operationId: RULE.Arpeggio.placement_policy
