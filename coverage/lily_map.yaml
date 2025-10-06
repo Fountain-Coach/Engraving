@@ -68,7 +68,7 @@ map:
   TempoMarks.placement:
   - RULE.TempoMarks.placement_policy
   Engraver.Note_spacing_engraver:
-  - RULE.NoteSpacing.spacing_policy
+  - RULE.NoteSpacing.policy
   Engraver.Duration_line_engraver:
   - RULE.DurationLine.placement_policy
   Grob.Accidental:
@@ -134,188 +134,199 @@ map:
   - RULE.Tuplet.beaming_and_bracket_placement
   Grob.VoltaBracket:
   - RULE.RepeatVolta.layout_policy
-  Engraver.Accidental_engraver: &id005
-  - RULE.Accidental.leading_padding_and_column_inflation
-  - RULE.Accidental.key_signature_positions_by_clef
-  - RULE.KeySignature.courtesy_at_line_breaks
-  - RULE.Accidental.cautionary_parenthesized_policy
-  - RULE.Accidental.microtonal_glyph_selection_and_spacing
+  Engraver.Accidental_engraver:
+  - RULE.Accidental.policy
   Engraver.Ambitus_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Arpeggio_engraver: &id009
-  - RULE.Arpeggio.placement_policy
+  - RULE.Ambitus.policy
+  Engraver.Arpeggio_engraver:
+  - RULE.Arpeggio.policy
   Engraver.Axis_group_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.AxisGroup.policy
   Engraver.Balloon_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Balloon.policy
   Engraver.Bar_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Bar.policy
   Engraver.Bar_number_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.BarNumber.policy
   Engraver.Beam_collision_engraver:
-  - RULE.Beaming.subdivision_preference
-  - RULE.Beaming.compound_meter_grouping
-  - RULE.Beaming.auto_knee_threshold
-  - RULE.Beaming.geometry_slope_and_segments
-  - RULE.Beaming.rests_split_groups
-  - RULE.Beaming.suppress_flags_when_beamed
+  - RULE.BeamCollision.policy
   Engraver.Break_align_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.BreakAlign.policy
   Engraver.Caesura_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Caesura.policy
   Engraver.Chord_tremolo_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Clef_engraver: &id001
-  - RULE.Clef.mid_system_placement
+  - RULE.ChordTremolo.policy
+  Engraver.Clef_engraver:
+  - RULE.Clef.policy
   Engraver.Cluster_spanner_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.ClusterSpanner.policy
   Engraver.Collision_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Collision.policy
   Engraver.Completion_heads_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Completion_rest_engraver: &id006
-  - RULE.Spacing.duration_base_with_optical_corrections
-  Engraver.Concurrent_hairpin_engraver: &id002
-  - RULE.Dynamics.align_with_noteheads_and_stems
-  Engraver.Cue_clef_engraver: *id001
+  - RULE.CompletionHeads.policy
+  Engraver.Completion_rest_engraver:
+  - RULE.CompletionRest.policy
+  Engraver.Concurrent_hairpin_engraver:
+  - RULE.ConcurrentHairpin.policy
+  Engraver.Cue_clef_engraver:
+  - RULE.CueClef.policy
   Engraver.Custos_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Custos.policy
   Engraver.Dot_column_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.DotColumn.policy
   Engraver.Dots_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Dots.policy
   Engraver.Double_percent_repeat_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.DoublePercentRepeat.policy
   Engraver.Drum_notes_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Dynamic_align_engraver: *id002
-  Engraver.Dynamic_engraver: *id002
+  - RULE.DrumNotes.policy
+  Engraver.Dynamic_align_engraver:
+  - RULE.DynamicAlign.policy
+  Engraver.Dynamic_engraver:
+  - RULE.Dynamic.policy
   Engraver.Episema_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Episema.policy
   Engraver.Extender_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Extender.policy
   Engraver.Figured_bass_position_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Fingering_column_engraver: &id003
-  - RULE.Fingering.placement_policy
-  Engraver.Fingering_engraver: *id003
+  - RULE.FiguredBassPosition.policy
+  Engraver.Fingering_column_engraver:
+  - RULE.FingeringColumn.policy
+  Engraver.Fingering_engraver:
+  - RULE.Fingering.policy
   Engraver.Font_size_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.FontSize.policy
   Engraver.Footnote_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Footnote.policy
   Engraver.Forbid_line_break_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.ForbidLineBreak.policy
   Engraver.Fretboard_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Fretboard.policy
   Engraver.Glissando_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Grace_engraver: &id004
-  - RULE.Grace.clusters_width_policy
-  - RULE.Beaming.subdivision_preference
-  Engraver.Grace_spacing_engraver: *id004
+  - RULE.Glissando.policy
+  Engraver.Grace_engraver:
+  - RULE.Grace.policy
+  Engraver.Grace_spacing_engraver:
+  - RULE.GraceSpacing.policy
   Engraver.Grid_line_span_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.GridLineSpan.policy
   Engraver.Grid_point_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.GridPoint.policy
   Engraver.Grob_pq_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.GrobPq.policy
   Engraver.Horizontal_bracket_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.HorizontalBracket.policy
   Engraver.Hyphen_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Hyphen.policy
   Engraver.Instrument_name_engraver:
-  - RULE.RehearsalMarks.placement_policy
+  - RULE.InstrumentName.policy
   Engraver.Instrument_switch_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.InstrumentSwitch.policy
   Engraver.Jump_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Jump.policy
   Engraver.Keep_alive_together_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Key_engraver: *id005
+  - RULE.KeepAliveTogether.policy
+  Engraver.Key_engraver:
+  - RULE.Key.policy
   Engraver.Ledger_line_engraver:
-  - RULE.Ledger.shorten_near_accidental
+  - RULE.LedgerLine.policy
   Engraver.Ligature_bracket_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.LigatureBracket.policy
   Engraver.Lyric_engraver:
-  - RULE.Lyrics.vertical_alignment_with_baselines
+  - RULE.Lyric.policy
   Engraver.Melody_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Melody.policy
   Engraver.Metronome_mark_engraver:
-  - RULE.TempoMarks.placement_policy
-  Engraver.Multi_measure_rest_engraver: *id006
-  Engraver.New_fingering_engraver: *id003
-  Engraver.Non_musical_script_column_engraver: &id008
-  - RULE.Ornaments.placement_above_below_with_collision
-  Engraver.Note_head_line_engraver: *id006
-  Engraver.Note_heads_engraver: *id006
+  - RULE.MetronomeMark.policy
+  Engraver.Multi_measure_rest_engraver:
+  - RULE.MultiMeasureRest.policy
+  Engraver.New_fingering_engraver:
+  - RULE.NewFingering.policy
+  Engraver.Non_musical_script_column_engraver:
+  - RULE.NonMusicalScriptColumn.policy
+  Engraver.Note_head_line_engraver:
+  - RULE.NoteHeadLine.policy
+  Engraver.Note_heads_engraver:
+  - RULE.NoteHeads.policy
   Engraver.Note_name_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.NoteName.policy
   Engraver.Ottava_spanner_engraver:
-  - RULE.Ottava.placement_policy
+  - RULE.OttavaSpanner.policy
   Engraver.Output_property_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.OutputProperty.policy
   Engraver.Page_turn_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.PageTurn.policy
   Engraver.Parenthesis_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Parenthesis.policy
   Engraver.Part_combine_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.PartCombine.policy
   Engraver.Percent_repeat_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Piano_pedal_align_engraver: &id007
-  - RULE.Pedal.line_and_text_policy
-  Engraver.Piano_pedal_engraver: *id007
+  - RULE.PercentRepeat.policy
+  Engraver.Piano_pedal_align_engraver:
+  - RULE.PianoPedalAlign.policy
+  Engraver.Piano_pedal_engraver:
+  - RULE.PianoPedal.policy
   Engraver.Pitch_squash_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.PitchSquash.policy
   Engraver.Pitched_trill_engraver:
-  - RULE.TrillSpanner.placement_policy
+  - RULE.PitchedTrill.policy
   Engraver.Pure_from_neighbor_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.PureFromNeighbor.policy
   Engraver.Repeat_acknowledge_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Rest_collision_engraver: *id006
-  Engraver.Rest_engraver: *id006
+  - RULE.RepeatAcknowledge.policy
+  Engraver.Rest_collision_engraver:
+  - RULE.RestCollision.policy
+  Engraver.Rest_engraver:
+  - RULE.Rest.policy
   Engraver.Rhythmic_column_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Script_column_engraver: *id008
-  Engraver.Script_engraver: *id008
-  Engraver.Script_row_engraver: *id008
+  - RULE.RhythmicColumn.policy
+  Engraver.Script_column_engraver:
+  - RULE.ScriptColumn.policy
+  Engraver.Script_engraver:
+  - RULE.Script.policy
+  Engraver.Script_row_engraver:
+  - RULE.ScriptRow.policy
   Engraver.Separating_line_group_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.SeparatingLineGroup.policy
   Engraver.Slash_repeat_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Spacing_engraver: *id006
-  Engraver.Span_arpeggio_engraver: *id009
+  - RULE.SlashRepeat.policy
+  Engraver.Spacing_engraver:
+  - RULE.Spacing.policy
+  Engraver.Span_arpeggio_engraver:
+  - RULE.SpanArpeggio.policy
   Engraver.Span_bar_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.SpanBar.policy
   Engraver.Span_bar_stub_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.SpanBarStub.policy
   Engraver.Spanner_break_forbid_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Staff_collecting_engraver: &id010
-  - RULE.Vertical.min_dist_padding_and_stretch
-  Engraver.Staff_symbol_engraver: *id010
+  - RULE.SpannerBreakForbid.policy
+  Engraver.Staff_collecting_engraver:
+  - RULE.StaffCollecting.policy
+  Engraver.Staff_symbol_engraver:
+  - RULE.StaffSymbol.policy
   Engraver.Stanza_number_align_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.StanzaNumberAlign.policy
   Engraver.Stanza_number_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.StanzaNumber.policy
   Engraver.Stem_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Stem.policy
   Engraver.System_start_delimiter_engraver:
-  - RULE.Collision.priority_lattice
-  Engraver.Tab_note_heads_engraver: *id006
-  Engraver.Tab_staff_symbol_engraver: *id010
+  - RULE.SystemStartDelimiter.policy
+  Engraver.Tab_note_heads_engraver:
+  - RULE.TabNoteHeads.policy
+  Engraver.Tab_staff_symbol_engraver:
+  - RULE.TabStaffSymbol.policy
   Engraver.Text_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Text.policy
   Engraver.Text_spanner_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.TextSpanner.policy
   Engraver.Tie_engraver:
-  - RULE.Tie.curvature_selection_with_clearance
+  - RULE.Tie.policy
   Engraver.Time_signature_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.TimeSignature.policy
   Engraver.Tuplet_engraver:
-  - RULE.Tuplet.beaming_and_bracket_placement
+  - RULE.Tuplet.policy
   Engraver.Tweak_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.Tweak.policy
   Engraver.Vertical_align_engraver:
-  - RULE.Collision.priority_lattice
+  - RULE.VerticalAlign.policy

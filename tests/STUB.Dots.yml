@@ -1,0 +1,5 @@
+rule: RULE.Dots.policy
+cases:
+  - name: stub_present
+    expectations:
+      - { path: "/adjustments/count", op: ">=", value: 0 }

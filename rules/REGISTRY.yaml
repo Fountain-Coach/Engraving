@@ -131,8 +131,8 @@ rules:
     6/8: 3+3 eighths
     9/8: 3+3+3 eighths
     12/8: 3+3+3+3 eighths
-  procedure: In 6/8, 9/8, 12/8, prefer breaks at dotted-beat boundaries (every 3
-    eighths) unless explicit overrides or rests split the group.
+  procedure: In 6/8, 9/8, 12/8, prefer breaks at dotted-beat boundaries (every 3 eighths)
+    unless explicit overrides or rests split the group.
   exceptions:
   - forced_beaming_overrides
   - rests_split_groups
@@ -157,7 +157,6 @@ rules:
   smufl_inputs:
   - beam.thickness
   - noteheadBlack.bbox
-
 - id: RULE.BeamCollision.resolve_overlaps
   title: Resolve beam collisions by minimal offsets
   agent: CollisionAgent
@@ -170,7 +169,8 @@ rules:
   - nearbyGrobs
   parameters:
     min_clearance_sp: 0.25
-  procedure: Compute minimal offsets to resolve overlaps between beams and nearby grobs; respect min_clearance.
+  procedure: Compute minimal offsets to resolve overlaps between beams and nearby
+    grobs; respect min_clearance.
   exceptions: []
   outputs:
   - offsets
@@ -180,13 +180,12 @@ rules:
     - name: minimal_offsets
       expectations:
       - path: /offsets/count
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/beaming/collision
   smufl_inputs:
   - beam.thickness
-
 - id: RULE.RestCollision.resolve_overlaps
   title: Resolve rest collisions with note columns
   agent: CollisionAgent
@@ -199,7 +198,8 @@ rules:
   - noteColumnBBoxes
   parameters:
     min_gap_sp: 0.3
-  procedure: Offset rests horizontally/vertically to maintain minimum gaps from note columns.
+  procedure: Offset rests horizontally/vertically to maintain minimum gaps from note
+    columns.
   exceptions: []
   outputs:
   - restOffsets
@@ -209,13 +209,12 @@ rules:
     - name: gaps_kept
       expectations:
       - path: /restOffsets/count
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/collisions/rests
   smufl_inputs:
   - noteheadBlack.bbox
-
 - id: RULE.DynamicAlign.kerning_with_hairpins
   title: Dynamic text kerning with hairpins and lyrics
   agent: DynamicsTextAgent
@@ -231,7 +230,8 @@ rules:
     min_kerning_sp: 0.2
     hairpin_clearance_sp: 0.3
     lyrics_baseline_variance_sp: 0.15
-  procedure: Adjust dynamic text x/y to avoid overlaps with hairpins and lyrics while preserving baseline preference.
+  procedure: Adjust dynamic text x/y to avoid overlaps with hairpins and lyrics while
+    preserving baseline preference.
   exceptions: []
   outputs:
   - dynamicPosition
@@ -241,7 +241,7 @@ rules:
     - name: kerning_applied
       expectations:
       - path: /dynamicPosition/x
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/dynamics/kerning
@@ -250,7 +250,6 @@ rules:
   - dynamicForte.baseline
   - hairpinCrescendo.bbox
   - hairpinDecrescendo.bbox
-
 - id: RULE.Lyrics.baseline_adjustment_with_variance
   title: Lyrics baseline adjustment with variance tolerance
   agent: VerticalStackAgent
@@ -265,7 +264,8 @@ rules:
   parameters:
     max_variance_sp: 0.2
     prefer_stable_baseline: true
-  procedure: Adjust lyrics baseline by up to varianceSP (capped by max_variance_sp) to accommodate descenders and maintain visual consistency across a system.
+  procedure: Adjust lyrics baseline by up to varianceSP (capped by max_variance_sp)
+    to accommodate descenders and maintain visual consistency across a system.
   exceptions: []
   outputs:
   - yOffsetSP
@@ -281,7 +281,6 @@ rules:
   - docs/lyrics/baseline
   smufl_inputs:
   - lyricsText.bbox
-
 - id: RULE.Beaming.cross_voice_mixed_stem_slope_balance
   title: Beaming slope balance across voices with mixed stems
   agent: BeamingAgent
@@ -296,7 +295,8 @@ rules:
   parameters:
     balance_weight: '0.6'
     min_clearance_sp: 0.25
-  procedure: Choose a beam slope minimizing the difference of beamlet lengths across voices while maintaining minimum clearance to nearby symbols.
+  procedure: Choose a beam slope minimizing the difference of beamlet lengths across
+    voices while maintaining minimum clearance to nearby symbols.
   exceptions:
   - forced_beam_slope
   outputs:
@@ -308,14 +308,13 @@ rules:
     - name: balanced_slope
       expectations:
       - path: /slopeSPPerSpaceAdjusted
-        op: '<='
+        op: <=
         value: 0.5
   trace:
   - docs/beaming/cross-voice
   smufl_inputs:
   - beam.thickness
   - noteheadBlack.bbox
-
 - id: RULE.Dynamics.stacked_kerning_with_system_breaks
   title: Stacked dynamics kerning with system break awareness
   agent: DynamicsTextAgent
@@ -330,7 +329,8 @@ rules:
   parameters:
     stacked_min_gap_sp: 0.25
     break_margin_sp: 0.3
-  procedure: Kerning for multiple dynamic marks on the same beat; enforce stacked_min_gap and increase margins near system breaks.
+  procedure: Kerning for multiple dynamic marks on the same beat; enforce stacked_min_gap
+    and increase margins near system breaks.
   exceptions: []
   outputs:
   - dynamicPositions
@@ -340,7 +340,7 @@ rules:
     - name: stacked_gap_respected
       expectations:
       - path: /dynamicPositions/count
-        op: ">="
+        op: '>='
         value: 1.0
   trace:
   - docs/dynamics/stacking
@@ -351,7 +351,6 @@ rules:
   - dynamicForte.baseline
   - dynamicFortepiano.baseline
   - dynamicSforzando.baseline
-
 - id: RULE.Lyrics.hyphen_melisma_spacing_interaction
   title: Lyrics hyphen and melisma spacing interaction
   agent: VerticalStackAgent
@@ -367,7 +366,8 @@ rules:
   parameters:
     hyphen_min_gap_sp: 0.3
     melisma_baseline_bias_sp: 0.1
-  procedure: Ensure hyphen gaps meet minimums and adjust baseline slightly under melismas to avoid collisions with stems/beams.
+  procedure: Ensure hyphen gaps meet minimums and adjust baseline slightly under melismas
+    to avoid collisions with stems/beams.
   exceptions: []
   outputs:
   - lyricOffsets
@@ -378,7 +378,7 @@ rules:
     - name: hyphen_gap_minimum
       expectations:
       - path: /lyricOffsets/count
-        op: ">="
+        op: '>='
         value: 1.0
   trace:
   - docs/lyrics/hyphens
@@ -396,7 +396,8 @@ rules:
   - minGapsSP
   parameters:
     optical_stem_weight: 0.4
-  procedure: Adjust note columns to meet minimum gaps and align beats while respecting optical stem weights.
+  procedure: Adjust note columns to meet minimum gaps and align beats while respecting
+    optical stem weights.
   exceptions: []
   outputs:
   - columnPositions
@@ -406,13 +407,12 @@ rules:
     - name: gaps_respected
       expectations:
       - path: /columnPositions/0
-        op: '<='
+        op: <=
         value: 0.0
   trace:
   - docs/spacing/note-columns
   smufl_inputs:
   - noteheadBlack.advance
-
 - id: RULE.DurationLine.placement_policy
   title: Duration line placement policy
   agent: VerticalStackAgent
@@ -424,7 +424,8 @@ rules:
   - durationLineBBox
   parameters:
     min_distance_sp: 0.8
-  procedure: Place duration lines below staff with minimum distance and avoid collisions with lyrics/dynamics.
+  procedure: Place duration lines below staff with minimum distance and avoid collisions
+    with lyrics/dynamics.
   exceptions: []
   outputs:
   - yOffsetSP
@@ -439,7 +440,6 @@ rules:
   trace:
   - docs/duration-lines
   smufl_inputs: []
-
 - id: RULE.Beaming.slope_with_clearance
   title: Adjust beam slope to maintain obstacle clearance
   agent: BeamingAgent
@@ -477,7 +477,6 @@ rules:
   smufl_inputs:
   - beam.thickness
   - noteheadBlack.bbox
-
 - id: RULE.NoteSpacing.optical_stem_weight_scalars
   title: Compute optical stem-weight scalars per column
   agent: SpacingAgent
@@ -531,12 +530,11 @@ rules:
     - name: arpeggio_position
       expectations:
       - path: /position/y
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/arpeggios
   smufl_inputs: []
-
 - id: RULE.Fingering.placement_policy
   title: Fingering placement near noteheads with collision avoidance
   agent: CollisionAgent
@@ -558,12 +556,11 @@ rules:
     - name: fingering_position
       expectations:
       - path: /position/y
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/fingering
   smufl_inputs: []
-
 - id: RULE.Pedal.line_and_text_policy
   title: Pedal line and text placement policy
   agent: VerticalStackAgent
@@ -585,12 +582,11 @@ rules:
     - name: pedal_offset
       expectations:
       - path: /yOffsetSP
-        op: ">="
+        op: '>='
         value: 0.8
   trace:
   - docs/pedal
   smufl_inputs: []
-
 - id: RULE.TrillSpanner.placement_policy
   title: Trill spanner placement policy
   agent: VerticalStackAgent
@@ -612,12 +608,11 @@ rules:
     - name: trill_offset
       expectations:
       - path: /yOffsetSP
-        op: ">="
+        op: '>='
         value: 0.8
   trace:
   - docs/trill
   smufl_inputs: []
-
 - id: RULE.Beaming.geometry_slope_and_segments
   title: Beam slope and segment geometry selection
   agent: BeamingAgent
@@ -632,8 +627,8 @@ rules:
   parameters:
     max_slope_sp_per_space: 0.5
     prefer_shallow_beams_weight: '0.6'
-  procedure: Fit a line through stem tips; clamp slope by max; round to visually
-    pleasing angles; output segment endpoints.
+  procedure: Fit a line through stem tips; clamp slope by max; round to visually pleasing
+    angles; output segment endpoints.
   exceptions:
   - forced_beam_slope
   outputs:
@@ -651,7 +646,6 @@ rules:
   - docs/beaming/slope
   smufl_inputs:
   - beam.thickness
-
 - id: RULE.Beaming.rests_split_groups
   title: Split beamed groups at rests
   agent: BeamingAgent
@@ -709,7 +703,6 @@ rules:
   - docs/beaming/subdivision
   smufl_inputs:
   - beam.thickness
-
 - id: RULE.Beaming.suppress_flags_when_beamed
   title: Suppress individual flags on notes within beamed groups
   agent: BeamingAgent
@@ -845,9 +838,8 @@ rules:
   - accidentalSharp.bbox
   - accidentalFlat.bbox
   - accidentalNatural.bbox
-
 - id: RULE.Accidental.cautionary_parenthesized_policy
-  title: Cautionary (courtesy) accidentals — parenthesized policy
+  title: "Cautionary (courtesy) accidentals \u2014 parenthesized policy"
   agent: AccidentalAgent
   intent: notation
   priority: 410
@@ -858,8 +850,8 @@ rules:
   parameters:
     show_cautionary_when_spelling_changes: true
     parenthesis_padding_sp: 0.3
-  procedure: If pitch spelling differs from previous bar’s local context, emit cautionary
-    accidental with parentheses and apply padding.
+  procedure: "If pitch spelling differs from previous bar\u2019s local context, emit\
+    \ cautionary accidental with parentheses and apply padding."
   exceptions:
   - explicit_editor_override
   outputs:
@@ -877,7 +869,6 @@ rules:
   - docs/accidentals/cautionary
   smufl_inputs:
   - accidentalSharp.bbox
-
 - id: RULE.Accidental.microtonal_glyph_selection_and_spacing
   title: Microtonal accidental glyph selection and spacing
   agent: AccidentalAgent
@@ -908,7 +899,6 @@ rules:
   - docs/accidentals/microtonal
   smufl_inputs:
   - accidentalSharp.bbox
-
 - id: RULE.Tie.curvature_selection_with_clearance
   title: Tie curvature selected with clearance from noteheads
   agent: TieSlurAgent
@@ -937,7 +927,6 @@ rules:
   - docs/ties
   smufl_inputs:
   - noteheadBlack.bbox
-
 - id: RULE.Clef.mid_system_placement
   title: Mid-system clef placement and spacing
   agent: AccidentalAgent
@@ -966,7 +955,6 @@ rules:
   smufl_inputs:
   - gClef.bbox
   - fClef.bbox
-
 - id: RULE.KeySignature.courtesy_at_line_breaks
   title: Courtesy key signature at system breaks
   agent: AccidentalAgent
@@ -995,7 +983,6 @@ rules:
   - docs/key-signatures/courtesy
   smufl_inputs:
   - accidentalSharp.bbox
-
 - id: RULE.TimeSignature.courtesy_at_line_breaks
   title: Courtesy time signature at system breaks
   agent: AccidentalAgent
@@ -1023,7 +1010,6 @@ rules:
   trace:
   - docs/time-signatures/courtesy
   smufl_inputs: []
-
 - id: RULE.Lyrics.vertical_alignment_with_baselines
   title: Lyrics vertical alignment relative to staff baselines
   agent: VerticalStackAgent
@@ -1052,7 +1038,6 @@ rules:
   - docs/lyrics
   smufl_inputs:
   - lyricsText.bbox
-
 - id: RULE.Ornaments.placement_above_below_with_collision
   title: Ornaments placement above/below with collision avoidance
   agent: CollisionAgent
@@ -1080,7 +1065,6 @@ rules:
   trace:
   - docs/ornaments
   smufl_inputs: []
-
 - id: RULE.PartStaff.braces_brackets_layout
   title: Braces and brackets placement for part/staff groups
   agent: VerticalStackAgent
@@ -1107,7 +1091,6 @@ rules:
   trace:
   - docs/braces-brackets
   smufl_inputs: []
-
 - id: RULE.MultiVoice.stem_directions_up_down
   title: Stem directions in multi-voice contexts (up/down)
   agent: SpacingAgent
@@ -1135,7 +1118,6 @@ rules:
   - docs/multi-voice
   smufl_inputs:
   - noteheadBlack.bbox
-
 - id: RULE.MultiMeasureRests.layout_policy
   title: Multi-measure rests layout policy
   agent: PaginationAgent
@@ -1162,7 +1144,6 @@ rules:
   - docs/multi-measure-rests
   smufl_inputs:
   - staffLine.thickness
-
 - id: RULE.Tuplet.beaming_and_bracket_placement
   title: Tuplet beaming and bracket placement
   agent: BeamingAgent
@@ -1192,7 +1173,6 @@ rules:
   - docs/tuplets
   smufl_inputs:
   - beam.thickness
-
 - id: RULE.Grace.clusters_width_policy
   title: Grace clusters width and spacing policy
   agent: SpacingAgent
@@ -1219,7 +1199,6 @@ rules:
   - docs/grace-notes
   smufl_inputs:
   - noteheadBlack.advance
-
 - id: RULE.CrossStaff.beaming_policy
   title: Cross-staff beaming policy
   agent: BeamingAgent
@@ -1248,7 +1227,6 @@ rules:
   - docs/cross-staff
   smufl_inputs:
   - beam.thickness
-
 - id: RULE.Ottava.placement_policy
   title: Ottava line placement policy
   agent: VerticalStackAgent
@@ -1275,7 +1253,6 @@ rules:
   trace:
   - docs/ottava
   smufl_inputs: []
-
 - id: RULE.RepeatVolta.layout_policy
   title: Repeat/Volta bracket layout policy
   agent: PaginationAgent
@@ -1287,8 +1264,8 @@ rules:
   - voltaNumbers
   parameters:
     min_height_sp: 1.0
-  procedure: Place volta brackets spanning bar range with minimum height and room for
-    numbers.
+  procedure: Place volta brackets spanning bar range with minimum height and room
+    for numbers.
   exceptions: []
   outputs:
   - heightSP
@@ -1303,7 +1280,6 @@ rules:
   trace:
   - docs/repeats
   smufl_inputs: []
-
 - id: RULE.RehearsalMarks.placement_policy
   title: Rehearsal mark placement policy
   agent: VerticalStackAgent
@@ -1330,7 +1306,6 @@ rules:
   trace:
   - docs/rehearsal-marks
   smufl_inputs: []
-
 - id: RULE.TempoMarks.placement_policy
   title: Tempo mark placement policy
   agent: VerticalStackAgent
@@ -1357,7 +1332,6 @@ rules:
   trace:
   - docs/tempo
   smufl_inputs: []
-
 - id: RULE.Accidental.key_signature_positions_by_clef
   title: Key signature accidental staff positions by clef and mode
   agent: AccidentalAgent
@@ -1368,10 +1342,38 @@ rules:
   - clef
   - fifths
   parameters:
-    treble.sharps: [8,5,9,6,3,7,4]
-    treble.flats: [4,7,3,6,2,5,1]
-    bass.sharps: [3,6,2,5,1,4,0]
-    bass.flats: [6,3,7,4,1,5,2]
+    treble.sharps:
+    - 8
+    - 5
+    - 9
+    - 6
+    - 3
+    - 7
+    - 4
+    treble.flats:
+    - 4
+    - 7
+    - 3
+    - 6
+    - 2
+    - 5
+    - 1
+    bass.sharps:
+    - 3
+    - 6
+    - 2
+    - 5
+    - 1
+    - 4
+    - 0
+    bass.flats:
+    - 6
+    - 3
+    - 7
+    - 4
+    - 1
+    - 5
+    - 2
   procedure: Choose sequence by clef and sign of `fifths`; return first |fifths| entries.
   exceptions: []
   outputs:
@@ -1554,3 +1556,2478 @@ rules:
   smufl_inputs:
   - staffLine.thickness
   - noteheadBlack.stroke
+- id: RULE.Accidental.policy
+  title: Accidental policy (stub)
+  agent: AccidentalAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Ambitus.policy
+  title: Ambitus policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Arpeggio.policy
+  title: Arpeggio policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.AxisGroup.policy
+  title: AxisGroup policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Balloon.policy
+  title: Balloon policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Bar.policy
+  title: Bar policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.BarNumber.policy
+  title: BarNumber policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.BeamCollision.policy
+  title: BeamCollision policy (stub)
+  agent: BeamingAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.BreakAlign.policy
+  title: BreakAlign policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Caesura.policy
+  title: Caesura policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.ChordTremolo.policy
+  title: ChordTremolo policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Clef.policy
+  title: Clef policy (stub)
+  agent: AccidentalAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.ClusterSpanner.policy
+  title: ClusterSpanner policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Collision.policy
+  title: Collision policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.CompletionHeads.policy
+  title: CompletionHeads policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.CompletionRest.policy
+  title: CompletionRest policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.ConcurrentHairpin.policy
+  title: ConcurrentHairpin policy (stub)
+  agent: DynamicsTextAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.CueClef.policy
+  title: CueClef policy (stub)
+  agent: AccidentalAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Custos.policy
+  title: Custos policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.DotColumn.policy
+  title: DotColumn policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Dots.policy
+  title: Dots policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.DoublePercentRepeat.policy
+  title: DoublePercentRepeat policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.DrumNotes.policy
+  title: DrumNotes policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.DynamicAlign.policy
+  title: DynamicAlign policy (stub)
+  agent: DynamicsTextAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Dynamic.policy
+  title: Dynamic policy (stub)
+  agent: DynamicsTextAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Episema.policy
+  title: Episema policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Extender.policy
+  title: Extender policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.FiguredBassPosition.policy
+  title: FiguredBassPosition policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.FingeringColumn.policy
+  title: FingeringColumn policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Fingering.policy
+  title: Fingering policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.FontSize.policy
+  title: FontSize policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Footnote.policy
+  title: Footnote policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.ForbidLineBreak.policy
+  title: ForbidLineBreak policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Fretboard.policy
+  title: Fretboard policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Glissando.policy
+  title: Glissando policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Grace.policy
+  title: Grace policy (stub)
+  agent: BeamingAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.GraceSpacing.policy
+  title: GraceSpacing policy (stub)
+  agent: BeamingAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.GridLineSpan.policy
+  title: GridLineSpan policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.GridPoint.policy
+  title: GridPoint policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.GrobPq.policy
+  title: GrobPq policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.HorizontalBracket.policy
+  title: HorizontalBracket policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Hyphen.policy
+  title: Hyphen policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.InstrumentName.policy
+  title: InstrumentName policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.InstrumentSwitch.policy
+  title: InstrumentSwitch policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Jump.policy
+  title: Jump policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.KeepAliveTogether.policy
+  title: KeepAliveTogether policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Key.policy
+  title: Key policy (stub)
+  agent: AccidentalAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.LedgerLine.policy
+  title: LedgerLine policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.LigatureBracket.policy
+  title: LigatureBracket policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Lyric.policy
+  title: Lyric policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Melody.policy
+  title: Melody policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.MetronomeMark.policy
+  title: MetronomeMark policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.MultiMeasureRest.policy
+  title: MultiMeasureRest policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.NewFingering.policy
+  title: NewFingering policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.NonMusicalScriptColumn.policy
+  title: NonMusicalScriptColumn policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.NoteHeadLine.policy
+  title: NoteHeadLine policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.NoteHeads.policy
+  title: NoteHeads policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.NoteName.policy
+  title: NoteName policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.NoteSpacing.policy
+  title: NoteSpacing policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.OttavaSpanner.policy
+  title: OttavaSpanner policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.OutputProperty.policy
+  title: OutputProperty policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PageTurn.policy
+  title: PageTurn policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Parenthesis.policy
+  title: Parenthesis policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PartCombine.policy
+  title: PartCombine policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PercentRepeat.policy
+  title: PercentRepeat policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PianoPedalAlign.policy
+  title: PianoPedalAlign policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PianoPedal.policy
+  title: PianoPedal policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PitchSquash.policy
+  title: PitchSquash policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PitchedTrill.policy
+  title: PitchedTrill policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.PureFromNeighbor.policy
+  title: PureFromNeighbor policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.RepeatAcknowledge.policy
+  title: RepeatAcknowledge policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.RestCollision.policy
+  title: RestCollision policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Rest.policy
+  title: Rest policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.RhythmicColumn.policy
+  title: RhythmicColumn policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.ScriptColumn.policy
+  title: ScriptColumn policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Script.policy
+  title: Script policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.ScriptRow.policy
+  title: ScriptRow policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SeparatingLineGroup.policy
+  title: SeparatingLineGroup policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SlashRepeat.policy
+  title: SlashRepeat policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Spacing.policy
+  title: Spacing policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SpanArpeggio.policy
+  title: SpanArpeggio policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SpanBar.policy
+  title: SpanBar policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SpanBarStub.policy
+  title: SpanBarStub policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SpannerBreakForbid.policy
+  title: SpannerBreakForbid policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.StaffCollecting.policy
+  title: StaffCollecting policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.StaffSymbol.policy
+  title: StaffSymbol policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.StanzaNumberAlign.policy
+  title: StanzaNumberAlign policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.StanzaNumber.policy
+  title: StanzaNumber policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Stem.policy
+  title: Stem policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.SystemStartDelimiter.policy
+  title: SystemStartDelimiter policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.TabNoteHeads.policy
+  title: TabNoteHeads policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.TabStaffSymbol.policy
+  title: TabStaffSymbol policy (stub)
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Text.policy
+  title: Text policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.TextSpanner.policy
+  title: TextSpanner policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Tie.policy
+  title: Tie policy (stub)
+  agent: TieSlurAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.TimeSignature.policy
+  title: TimeSignature policy (stub)
+  agent: AccidentalAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Tuplet.policy
+  title: Tuplet policy (stub)
+  agent: BeamingAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.Tweak.policy
+  title: Tweak policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
+- id: RULE.VerticalAlign.policy
+  title: VerticalAlign policy (stub)
+  agent: CollisionAgent
+  intent: placement
+  priority: 500
+  depends_on: []
+  inputs:
+  - context
+  parameters:
+    tbd: true
+  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
+    behavior.
+  exceptions: []
+  outputs:
+  - adjustments
+  side_effects: []
+  test_plan:
+    cases:
+    - name: stub_present
+      expectations:
+      - path: /adjustments/count
+        op: '>='
+        value: 0.0
+  trace:
+  - _vendor/lilypond
