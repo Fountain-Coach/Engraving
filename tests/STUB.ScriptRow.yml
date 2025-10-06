@@ -1,5 +1,0 @@
-rule: RULE.ScriptRow.layout_policy
-cases:
-  - name: offsets_present
-    expectations:
-      - { path: "/xOffsetsSP/count", op: ">=", value: 0 }

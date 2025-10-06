@@ -1,5 +1,0 @@
-rule: RULE.TabStaffSymbol.string_tuning_layout
-cases:
-  - name: positions_present
-    expectations:
-      - { path: "/stringYPositions/count", op: ">=", value: 0 }

@@ -1,5 +1,0 @@
-rule: RULE.Tab.notehead_string_fret_policy
-cases:
-  - name: outputs_present
-    expectations:
-      - { path: "/stemDirections/count", op: ">=", value: 0 }

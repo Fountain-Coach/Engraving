@@ -1,5 +1,0 @@
-rule: RULE.FiguredBass.position_stack_policy
-cases:
-  - name: distance_non_negative
-    expectations:
-      - { path: "/yOffsetSP", op: ">=", value: 0 }

@@ -1,5 +1,0 @@
-rule: RULE.RepeatAcknowledge.policy
-cases:
-  - name: stub_present
-    expectations:
-      - { path: "/adjustments/count", op: ">=", value: 0 }

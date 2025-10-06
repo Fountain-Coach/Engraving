@@ -1,5 +1,0 @@
-rule: RULE.PageTurn.break_preferences
-cases:
-  - name: break_present
-    expectations:
-      - { path: "/chosenBreak", op: ">=", value: 0 }

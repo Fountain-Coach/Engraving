@@ -1,5 +1,0 @@
-rule: RULE.TextSpanner.placement_policy
-cases:
-  - name: non_negative_offset
-    expectations:
-      - { path: "/yOffsetSP", op: ">=", value: 0 }

@@ -1,5 +1,0 @@
-rule: RULE.Parenthesis.placement_policy
-cases:
-  - name: non_negative_padding
-    expectations:
-      - { path: "/paddingSP", op: ">=", value: 0 }

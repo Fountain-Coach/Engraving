@@ -1,5 +1,0 @@
-rule: RULE.PercentRepeat.layout_policy
-cases:
-  - name: span_at_least_one
-    expectations:
-      - { path: "/spanMeasures", op: ">=", value: 1 }

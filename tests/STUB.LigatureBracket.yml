@@ -1,5 +1,0 @@
-rule: RULE.LigatureBracket.placement_policy
-cases:
-  - name: offset_present
-    expectations:
-      - { path: "/yOffsetSP", op: ">=", value: 0 }

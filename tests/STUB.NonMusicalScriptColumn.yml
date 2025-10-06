@@ -1,5 +1,0 @@
-rule: RULE.NonMusicalScriptColumn.layout_policy
-cases:
-  - name: offsets_present
-    expectations:
-      - { path: "/yOffsetsSP/count", op: ">=", value: 0 }

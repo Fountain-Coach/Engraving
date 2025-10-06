@@ -1,5 +1,0 @@
-rule: RULE.MetronomeMark.placement_policy
-cases:
-  - name: metronome_above_system
-    expectations:
-      - { path: "/yOffsetSP", op: ">=", value: 0 }

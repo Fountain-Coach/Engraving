@@ -1,3 +1,5 @@
-# .swift-openapi-generator config (optional)
-# Place at repo root for customizations if desired.
-# This demo uses plugin defaults.
+targets:
+  RulesKit:
+    input:
+      - path: Sources/RulesKit/openapi/rules-as-functions.yaml
+        accessModifier: public

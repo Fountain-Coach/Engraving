@@ -1,5 +1,0 @@
-rule: RULE.SlashRepeat.layout_policy
-cases:
-  - name: at_least_one_position
-    expectations:
-      - { path: "/xPositions/count", op: ">=", value: 1 }

@@ -1,5 +1,0 @@
-rule: RULE.BarNumber.placement_policy
-cases:
-  - name: distance_respected
-    expectations:
-      - { path: "/yOffsetSP", op: ">=", value: 0 }

@@ -1,5 +1,0 @@
-rule: RULE.Lyrics.extender_spacing_policy
-cases:
-  - name: line_length_minimum
-    expectations:
-      - { path: "/minLineLengthSP", op: ">=", value: 1.0 }

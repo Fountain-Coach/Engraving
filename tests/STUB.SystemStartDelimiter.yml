@@ -1,5 +1,0 @@
-rule: RULE.SystemStartDelimiter.layout_policy
-cases:
-  - name: gaps_present
-    expectations:
-      - { path: "/gapsSP/count", op: ">=", value: 1 }

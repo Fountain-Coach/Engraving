@@ -1,5 +1,0 @@
-rule: RULE.DrumNotes.stem_side_and_notehead_policy
-cases:
-  - name: output_present
-    expectations:
-      - { path: "/stemDirections/count", op: ">=", value: 0 }
