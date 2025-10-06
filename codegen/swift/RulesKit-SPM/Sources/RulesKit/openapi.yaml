@@ -1,9 +1,7 @@
-openapi: 3.1.0
+openapi: "3.0.3"
 info:
   title: RulesKit API (Engraving Rules)
   version: 0.2.0
-  description: Typed OpenAPI for Engraving rules; sections reference the typed spec.
-servers: []
 paths:
   $ref: ./openapi/rules-as-functions.yaml#/paths
 components:
