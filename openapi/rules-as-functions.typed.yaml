@@ -1548,103 +1548,316 @@ components:
     StrictEmpty:
       type: object
       additionalProperties: false
+    BarlineStyleBreakInput:
+      type: object
+      properties:
+        style:
+          type: string
+          enum:
+          - single
+          - double
+          - final
+          - repeatStart
+          - repeatEnd
+          - repeatBoth
+        atSystemBreak:
+          type: boolean
+        defaultThicknessSP:
+          $ref: '#/components/schemas/StaffSpace'
+        breakMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - style
+    BarlineStyleBreakOutput:
+      type: object
+      properties:
+        thickness:
+          type: number
+        breakMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - thickness
+    BarNumberPlacementInput:
+      type: object
+      properties:
+        numberBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - numberBBox
+    BarNumberPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    MetronomeMarkPlacementInput:
+      type: object
+      properties:
+        markBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        topMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - markBBox
+    MetronomeMarkPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    ParenthesisPlacementInput:
+      type: object
+      properties:
+        targetBBox:
+          $ref: '#/components/schemas/BBox'
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - targetBBox
+    ParenthesisPlacementOutput:
+      type: object
+      properties:
+        paddingSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - paddingSP
+    PercentRepeatLayoutInput:
+      type: object
+      properties:
+        measures:
+          type: integer
+          minimum: 0
+        repeatCount:
+          type: integer
+          minimum: 0
+      required:
+      - measures
+    PercentRepeatLayoutOutput:
+      type: object
+      properties:
+        spanMeasures:
+          type: number
+      required:
+      - spanMeasures
+    SlashRepeatLayoutInput:
+      type: object
+      properties:
+        slashCount:
+          type: integer
+          minimum: 1
+        measureWidthSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - slashCount
+    SlashRepeatLayoutOutput:
+      type: object
+      properties:
+        xPositions:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - xPositions
+    SystemStartDelimiterLayoutInput:
+      type: object
+      properties:
+        groupSizes:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 1
+        style:
+          type: string
+          enum:
+          - brace
+          - bracket
+        minBraceGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - groupSizes
+      - style
+    SystemStartDelimiterLayoutOutput:
+      type: object
+      properties:
+        gapsSP:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/StaffSpace'
+      required:
+      - gapsSP
+    TimeSignaturePlacementInput:
+      type: object
+      properties:
+        timeSigBBox:
+          $ref: '#/components/schemas/BBox'
+        systemTop:
+          type: number
+        verticalCenterBiasSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - timeSigBBox
+    TimeSignaturePlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    InstrumentNamePolicyInput:
+      type: object
+      properties:
+        nameBBox:
+          $ref: '#/components/schemas/BBox'
+        leftMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - nameBBox
+    InstrumentNamePolicyOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    CueClefPlacementInput:
+      type: object
+      properties:
+        clefBBox:
+          $ref: '#/components/schemas/BBox'
+        cueScale:
+          type: number
+          minimum: 0
+      required:
+      - clefBBox
+    CueClefPlacementOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    TextSpannerPlacementInput:
+      type: object
+      properties:
+        spannerBBox:
+          $ref: '#/components/schemas/BBox'
+        minDistanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - spannerBBox
+    TextSpannerPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
+    StanzaNumberAlignInput:
+      type: object
+      properties:
+        stanzaBBox:
+          $ref: '#/components/schemas/BBox'
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - stanzaBBox
+      - lyricsBaselineSP
+    StanzaNumberAlignOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    StanzaNumberPlacementInput:
+      type: object
+      properties:
+        stanzaBBox:
+          $ref: '#/components/schemas/BBox'
+        leftMarginSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - stanzaBBox
+    StanzaNumberPlacementOutput:
+      type: object
+      properties:
+        xOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - xOffsetSP
+    TabNoteheadStringFretInput:
+      type: object
+      properties:
+        fretNumbers:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 0
+        stringNumbers:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            minimum: 1
+        preferUpStems:
+          type: boolean
+      required:
+      - fretNumbers
+      - stringNumbers
+    TabNoteheadStringFretOutput:
+      type: object
+      properties:
+        stemDirections:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - up
+            - down
+      required:
+      - stemDirections
+    TabStaffStringTuningLayoutInput:
+      type: object
+      properties:
+        tunings:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+        stringCount:
+          type: integer
+          minimum: 1
+        stringGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - tunings
+      - stringCount
+    TabStaffStringTuningLayoutOutput:
+      type: object
+      properties:
+        linePositionsSP:
+          type: array
+          minItems: 1
+          items:
+            type: number
+      required:
+      - linePositionsSP
 paths:
-  /apply/spacing/duration-base-with-optical-corrections:
-    post:
-      operationId: RULE.Spacing.duration_base_with_optical_corrections
-      summary: Duration-proportional spacing with optical adjustments
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SpacingDurationBaseInput'
-      responses:
-        '200':
-          description: Duration spacing
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpacingDurationBaseOutput'
-      x-rule:
-        agent: SpacingAgent
-        intent: spacing
-        priority: 100
-      x-smufl:
-      - noteheadBlack.advance
-      - noteheadWhole.advance
-  /apply/beaming/auto-knee-threshold:
-    post:
-      operationId: RULE.Beaming.auto_knee_threshold
-      summary: Insert kneed beam on excessive vertical gap
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BeamingKneeInput'
-      responses:
-        '200':
-          description: Kneed beam decision
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BeamingKneeOutput'
-      x-rule:
-        agent: BeamingAgent
-        intent: placement
-        priority: 200
-      x-smufl:
-      - beam.thickness
-  /apply/accidental/leading-padding-and-column-inflation:
-    post:
-      operationId: RULE.Accidental.leading_padding_and_column_inflation
-      summary: Accidental lead-in spacing
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AccidentalLeadInInput'
-      responses:
-        '200':
-          description: Accidental lead-in
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccidentalLeadInOutput'
-      x-rule:
-        agent: AccidentalAgent
-        intent: spacing
-        priority: 400
-      x-smufl:
-      - accidentalSharp.bbox
-      - accidentalFlat.bbox
-      - accidentalNatural.bbox
-  /apply/slur/curvature-choice-with-collision-penalty:
-    post:
-      operationId: RULE.Slur.curvature_choice_with_collision_penalty
-      summary: Slur curvature selected by minimal collision/penalty
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SlurInput'
-      responses:
-        '200':
-          description: Slur selection
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SlurOutput'
-      x-rule:
-        agent: TieSlurAgent
-        intent: placement
-        priority: 300
-      x-smufl:
-      - noteheadBlack.bbox
-      - accidentalSharp.bbox
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
       operationId: RULE.Spacing.duration_base_with_optical_corrections
@@ -1657,11 +1870,48 @@ paths:
               $ref: '#/components/schemas/SpacingDurationBaseInput'
       responses:
         '200':
-          description: Duration spacing
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpacingDurationBaseOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 100
+        depends_on: []
+        parameters:
+          min_column_gap: 0.5 sp
+          accidental_leading_padding: 0.25 sp
+          articulation_padding: 0.2 sp
+          optical_stem_adj_weight: '0.4'
+        exceptions:
+        - grace_clusters_scale_widths
+        trace:
+        - docs/horizontal-spacing
+        - internals/SpacingSpanner
+        test_plan:
+          cases:
+          - name: Opposing stems add optical gap
+            expectations:
+            - path: /gaps/1
+              op: '>='
+              value: 0.7
+              tolerance: 0.1
+          - name: Sharp causes lead-in
+            expectations:
+            - path: /leadIn/2
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+          fixtures:
+            font: Bravura
+            staffSize: 20pt
+            paper: A4
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
   /apply/spacing/Spacing-keep_inside_system_constraints:
     post:
       operationId: RULE.Spacing.keep_inside_system_constraints
@@ -1674,11 +1924,34 @@ paths:
               $ref: '#/components/schemas/KeepInsideInput'
       responses:
         '200':
-          description: Keep-inside result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/KeepInsideOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 110
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          line_fill_penalty: '1.0'
+          overfull_penalty: '10.0'
+        exceptions: []
+        trace:
+        - docs/line-breaking
+        test_plan:
+          cases:
+          - name: Near break threshold
+            expectations:
+            - path: /overfull
+              op: ==
+              value: 0.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
   /apply/beaming/Beaming-auto_knee_threshold:
     post:
       operationId: RULE.Beaming.auto_knee_threshold
@@ -1691,11 +1964,33 @@ paths:
               $ref: '#/components/schemas/BeamingKneeInput'
       responses:
         '200':
-          description: Kneed beam decision
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeamingKneeOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 200
+        depends_on: []
+        parameters:
+          knee_gap_threshold: 5.5 sp + beam_thickness
+        exceptions:
+        - forced_beaming_overrides
+        trace:
+        - docs/beaming/auto-knee
+        - internals/beam-interface
+        test_plan:
+          cases:
+          - name: Large leap triggers knee
+            expectations:
+            - path: /kneed
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/beaming/Beaming-compound_meter_grouping:
     post:
       operationId: RULE.Beaming.compound_meter_grouping
@@ -1708,11 +2003,42 @@ paths:
               $ref: '#/components/schemas/CompoundBeamingInput'
       responses:
         '200':
-          description: Compound beaming result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompoundBeamingOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 215
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          6/8: 3+3 eighths
+          9/8: 3+3+3 eighths
+          12/8: 3+3+3+3 eighths
+        exceptions:
+        - forced_beaming_overrides
+        - rests_split_groups
+        trace:
+        - docs/beaming/compound
+        test_plan:
+          cases:
+          - name: 6/8 two dotted beats
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 1.0
+          - name: 9/8 three dotted beats
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 2.0
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
+        status: provisional
   /apply/beaming/Beaming-geometry_slope_and_segments:
     post:
       operationId: RULE.Beaming.geometry_slope_and_segments
@@ -1725,11 +2051,34 @@ paths:
               $ref: '#/components/schemas/BeamGeometryInput'
       responses:
         '200':
-          description: Beam slope and segments
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeamGeometryOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 220
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          max_slope_sp_per_space: 0.5
+          prefer_shallow_beams_weight: '0.6'
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/slope
+        test_plan:
+          cases:
+          - name: shallow_preference
+            expectations:
+            - path: /slopeSPPerSpace
+              op: <=
+              value: 0.5
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
   /apply/beaming/Beaming-rests_split_groups:
     post:
       operationId: RULE.Beaming.rests_split_groups
@@ -1742,11 +2091,32 @@ paths:
               $ref: '#/components/schemas/RestSplitInput'
       responses:
         '200':
-          description: Groups split at rests
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestSplitOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 221
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          split_on_rests: true
+        exceptions: []
+        trace:
+        - docs/beaming/rests
+        test_plan:
+          cases:
+          - name: rest_splits_group
+            expectations:
+            - path: /beamBreaks/count
+              op: '>='
+              value: 1.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/beaming/Beaming-subdivision_preference:
     post:
       operationId: RULE.Beaming.subdivision_preference
@@ -1759,11 +2129,32 @@ paths:
               $ref: '#/components/schemas/BeamingSubdivisionInput'
       responses:
         '200':
-          description: Subdivision beaming
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeamingSubdivisionOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 210
+        depends_on: []
+        parameters:
+          4/4: 2+2 eighths
+          7/8: 2+2+3 | 3+2+2
+        exceptions: []
+        trace:
+        - docs/beaming/subdivision
+        test_plan:
+          cases:
+          - name: 4/4 standard grouping
+            expectations:
+            - path: /beamBreaks/count
+              op: ==
+              value: 2.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/beaming/Beaming-suppress_flags_when_beamed:
     post:
       operationId: RULE.Beaming.suppress_flags_when_beamed
@@ -1781,6 +2172,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlagSuppressionOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: rendering
+        priority: 220
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters: {}
+        exceptions: []
+        trace:
+        - docs/beaming/flags
+        test_plan:
+          cases:
+          - name: beamed_group
+            expectations:
+            - path: /drawFlags
+              op: ==
+              value: 0.0
+          - name: single_unbeamed_note
+            expectations:
+            - path: /drawFlags
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
     post:
       operationId: RULE.Slur.curvature_choice_with_collision_penalty
@@ -1793,11 +2209,36 @@ paths:
               $ref: '#/components/schemas/SlurInput'
       responses:
         '200':
-          description: Slur selection
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SlurOutput'
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 300
+        depends_on: []
+        parameters:
+          collision_penalty: '1.0'
+          excess_curvature_penalty: '0.4'
+          endpoint_clearance: 0.25 sp
+        exceptions:
+        - cross_system_phrase_looser
+        trace:
+        - docs/slurs
+        - internals/slur-grob
+        test_plan:
+          cases:
+          - name: Accidental under slur
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        smufl_inputs:
+        - noteheadBlack.bbox
+        status: provisional
   /apply/collision/Collision-priority_lattice:
     post:
       operationId: RULE.Collision.priority_lattice
@@ -1810,11 +2251,36 @@ paths:
               $ref: '#/components/schemas/CollisionLatticeInput'
       responses:
         '200':
-          description: Collision offsets
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollisionLatticeOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 350
+        depends_on: []
+        parameters:
+          priority: stem > notehead > accidental > dynamic > lyric
+        exceptions:
+        - forced_positions
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Dynamic vs. lyric
+            expectations:
+            - path: /offsets/dynamic/y
+              op: '>='
+              value: 0.2
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+        - dynamicForte.bbox
+        - lyricsText.bbox
   /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation
@@ -1827,11 +2293,37 @@ paths:
               $ref: '#/components/schemas/AccidentalLeadInInput'
       responses:
         '200':
-          description: Accidental lead-in
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccidentalLeadInOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: spacing
+        priority: 400
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          accidental_padding: 0.25 sp
+          cluster_stack_gap: 0.2 sp
+        exceptions: []
+        trace:
+        - docs/accidentals
+        - internals/spacing
+        test_plan:
+          cases:
+          - name: Single sharp
+            expectations:
+            - path: /columnMinWidthSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+        - accidentalFlat.bbox
+        - accidentalNatural.bbox
   /apply/accidental/Accidental-cautionary_parenthesized_policy:
     post:
       operationId: RULE.Accidental.cautionary_parenthesized_policy
@@ -1844,11 +2336,33 @@ paths:
               $ref: '#/components/schemas/AccidentalCautionaryInput'
       responses:
         '200':
-          description: Cautionary accidentals policy
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccidentalCautionaryOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: notation
+        priority: 410
+        depends_on: []
+        parameters:
+          show_cautionary_when_spelling_changes: true
+          parenthesis_padding_sp: 0.3
+        exceptions:
+        - explicit_editor_override
+        trace:
+        - docs/accidentals/cautionary
+        test_plan:
+          cases:
+          - name: spelling_changes
+            expectations:
+            - path: /showCautionary
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - accidentalSharp.bbox
+        status: provisional
   /apply/accidental/Accidental-microtonal_glyph_selection_and_spacing:
     post:
       operationId: RULE.Accidental.microtonal_glyph_selection_and_spacing
@@ -1861,11 +2375,32 @@ paths:
               $ref: '#/components/schemas/AccidentalMicrotonalInput'
       responses:
         '200':
-          description: Microtonal glyph and spacing
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccidentalMicrotonalOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: notation
+        priority: 415
+        depends_on: []
+        parameters:
+          min_padding_sp: 0.25
+        exceptions:
+        - unsupported_glyph_fallback
+        trace:
+        - docs/accidentals/microtonal
+        test_plan:
+          cases:
+          - name: enforce_min_padding
+            expectations:
+            - path: /paddingSP
+              op: '>='
+              value: 0.25
+        smufl_inputs:
+        - accidentalSharp.bbox
+        status: provisional
   /apply/tieslur/Tie-curvature_selection_with_clearance:
     post:
       operationId: RULE.Tie.curvature_selection_with_clearance
@@ -1878,11 +2413,31 @@ paths:
               $ref: '#/components/schemas/TieCurvatureInput'
       responses:
         '200':
-          description: Tie curvature clearance report
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TieCurvatureOutput'
+      x-rule:
+        agent: TieSlurAgent
+        intent: placement
+        priority: 305
+        depends_on: []
+        parameters:
+          min_clearance_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/ties
+        test_plan:
+          cases:
+          - name: clearance_respected
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.2
+        smufl_inputs:
+        - noteheadBlack.bbox
+        status: provisional
   /apply/accidental/Clef-mid_system_placement:
     post:
       operationId: RULE.Clef.mid_system_placement
@@ -1895,11 +2450,32 @@ paths:
               $ref: '#/components/schemas/ClefPlacementInput'
       responses:
         '200':
-          description: Clef placement
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClefPlacementOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: placement
+        priority: 320
+        depends_on: []
+        parameters:
+          left_padding_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/clefs
+        test_plan:
+          cases:
+          - name: padding_applied
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.5
+        smufl_inputs:
+        - gClef.bbox
+        - fClef.bbox
+        status: provisional
   /apply/accidental/KeySignature-courtesy_at_line_breaks:
     post:
       operationId: RULE.KeySignature.courtesy_at_line_breaks
@@ -1912,11 +2488,31 @@ paths:
               $ref: '#/components/schemas/CourtesyKeyInput'
       responses:
         '200':
-          description: Courtesy key decision
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CourtesyKeyOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: engraving
+        priority: 330
+        depends_on: []
+        parameters:
+          show_courtesy: true
+        exceptions: []
+        trace:
+        - docs/key-signatures/courtesy
+        test_plan:
+          cases:
+          - name: courtesy_enabled
+            expectations:
+            - path: /showCourtesy
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - accidentalSharp.bbox
+        status: provisional
   /apply/accidental/TimeSignature-courtesy_at_line_breaks:
     post:
       operationId: RULE.TimeSignature.courtesy_at_line_breaks
@@ -1929,11 +2525,32 @@ paths:
               $ref: '#/components/schemas/CourtesyTimeInput'
       responses:
         '200':
-          description: Courtesy time decision
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CourtesyTimeOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: engraving
+        priority: 331
+        depends_on: []
+        parameters:
+          show_courtesy: true
+        exceptions: []
+        trace:
+        - docs/time-signatures/courtesy
+        test_plan:
+          cases:
+          - name: courtesy_enabled
+            expectations:
+            - path: /showCourtesy
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - timeSig4.bbox
+        - timeSigCommon.bbox
+        status: provisional
   /apply/verticalstack/Lyrics-vertical_alignment_with_baselines:
     post:
       operationId: RULE.Lyrics.vertical_alignment_with_baselines
@@ -1946,11 +2563,31 @@ paths:
               $ref: '#/components/schemas/LyricsAlignInput'
       responses:
         '200':
-          description: Lyrics offset result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LyricsAlignOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 610
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.7
+        exceptions: []
+        trace:
+        - docs/lyrics
+        test_plan:
+          cases:
+          - name: minimum_distance
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.7
+        smufl_inputs:
+        - lyricsText.bbox
+        status: provisional
   /apply/collision/Ornaments-placement_above_below_with_collision:
     post:
       operationId: RULE.Ornaments.placement_above_below_with_collision
@@ -1963,11 +2600,30 @@ paths:
               $ref: '#/components/schemas/OrnamentPlacementInput'
       responses:
         '200':
-          description: Ornament placement result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrnamentPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 360
+        depends_on: []
+        parameters:
+          prefer_above: true
+        exceptions: []
+        trace:
+        - docs/ornaments
+        test_plan:
+          cases:
+          - name: collision_moves
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        smufl_inputs: []
+        status: provisional
   /apply/verticalstack/PartStaff-braces_brackets_layout:
     post:
       operationId: RULE.PartStaff.braces_brackets_layout
@@ -1980,11 +2636,30 @@ paths:
               $ref: '#/components/schemas/BracesLayoutInput'
       responses:
         '200':
-          description: Braces/brackets layout
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BracesLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 620
+        depends_on: []
+        parameters:
+          brace_margin_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/braces-brackets
+        test_plan:
+          cases:
+          - name: margin_applied
+            expectations:
+            - path: /braceOffsets/margin
+              op: '>='
+              value: 0.5
+        smufl_inputs: []
+        status: provisional
   /apply/spacing/MultiVoice-stem_directions_up_down:
     post:
       operationId: RULE.MultiVoice.stem_directions_up_down
@@ -1997,11 +2672,31 @@ paths:
               $ref: '#/components/schemas/MultiVoiceStemsInput'
       responses:
         '200':
-          description: Stem directions
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MultiVoiceStemsOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: notation
+        priority: 130
+        depends_on: []
+        parameters:
+          default_voice0_up: true
+        exceptions: []
+        trace:
+        - docs/multi-voice
+        test_plan:
+          cases:
+          - name: default_directions
+            expectations:
+            - path: /stemDirections/0
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - noteheadBlack.bbox
+        status: provisional
   /apply/pagination/MultiMeasureRests-layout_policy:
     post:
       operationId: RULE.MultiMeasureRests.layout_policy
@@ -2019,6 +2714,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MMRestLayoutOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 810
+        depends_on: []
+        parameters:
+          min_width_sp: 2.0
+        exceptions: []
+        trace:
+        - docs/multi-measure-rests
+        test_plan:
+          cases:
+          - name: width_minimum
+            expectations:
+            - path: /widthSP
+              op: '>='
+              value: 2.0
+        smufl_inputs:
+        - staffLine.thickness
+        status: provisional
   /apply/beaming/Tuplet-beaming_and_bracket_placement:
     post:
       operationId: RULE.Tuplet.beaming_and_bracket_placement
@@ -2036,6 +2751,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TupletBeamingOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: notation
+        priority: 222
+        depends_on:
+        - RULE.Beaming.subdivision_preference
+        parameters:
+          show_bracket_outside_beam: true
+        exceptions: []
+        trace:
+        - docs/tuplets
+        test_plan:
+          cases:
+          - name: bracket_visible
+            expectations:
+            - path: /bracketPosition/y
+              op: '>='
+              value: 0.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/spacing/Grace-clusters_width_policy:
     post:
       operationId: RULE.Grace.clusters_width_policy
@@ -2053,6 +2789,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GraceWidthOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 140
+        depends_on: []
+        parameters:
+          scale_width_factor: 0.7
+        exceptions: []
+        trace:
+        - docs/grace-notes
+        test_plan:
+          cases:
+          - name: scaled_width
+            expectations:
+            - path: /widthScale
+              op: ==
+              value: 0.7
+        smufl_inputs:
+        - noteheadBlack.advance
+        status: provisional
   /apply/beaming/CrossStaff-beaming_policy:
     post:
       operationId: RULE.CrossStaff.beaming_policy
@@ -2070,6 +2826,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CrossStaffBeamingOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 223
+        depends_on: []
+        parameters:
+          prefer_primary_staff: true
+        exceptions: []
+        trace:
+        - docs/cross-staff
+        test_plan:
+          cases:
+          - name: primary_staff
+            expectations:
+            - path: /beamStaff
+              op: ==
+              value: 1.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/verticalstack/Ottava-placement_policy:
     post:
       operationId: RULE.Ottava.placement_policy
@@ -2082,11 +2858,30 @@ paths:
               $ref: '#/components/schemas/OttavaPlacementInput'
       responses:
         '200':
-          description: Ottava placement
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OttavaPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 630
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/ottava
+        test_plan:
+          cases:
+          - name: offset_minimum
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        smufl_inputs: []
+        status: provisional
   /apply/pagination/RepeatVolta-layout_policy:
     post:
       operationId: RULE.RepeatVolta.layout_policy
@@ -2104,6 +2899,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VoltaLayoutOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 820
+        depends_on: []
+        parameters:
+          min_height_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/repeats
+        test_plan:
+          cases:
+          - name: minimum_height
+            expectations:
+            - path: /heightSP
+              op: '>='
+              value: 1.0
+        smufl_inputs: []
+        status: provisional
   /apply/verticalstack/RehearsalMarks-placement_policy:
     post:
       operationId: RULE.RehearsalMarks.placement_policy
@@ -2116,11 +2930,30 @@ paths:
               $ref: '#/components/schemas/RehearsalPlacementInput'
       responses:
         '200':
-          description: Rehearsal placement
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RehearsalPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 640
+        depends_on: []
+        parameters:
+          top_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/rehearsal-marks
+        test_plan:
+          cases:
+          - name: top_margin
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 1.0
+        smufl_inputs: []
+        status: provisional
   /apply/verticalstack/TempoMarks-placement_policy:
     post:
       operationId: RULE.TempoMarks.placement_policy
@@ -2133,11 +2966,30 @@ paths:
               $ref: '#/components/schemas/TempoPlacementInput'
       responses:
         '200':
-          description: Tempo placement
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TempoPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 641
+        depends_on: []
+        parameters:
+          top_margin_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/tempo
+        test_plan:
+          cases:
+          - name: top_margin
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        smufl_inputs: []
+        status: provisional
   /apply/accidental/Accidental-key_signature_positions_by_clef:
     post:
       operationId: RULE.Accidental.key_signature_positions_by_clef
@@ -2155,6 +3007,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/KeySigPositionsOutput'
+      x-rule:
+        agent: AccidentalAgent
+        intent: placement
+        priority: 405
+        depends_on: []
+        parameters:
+          treble.sharps:
+          - 8
+          - 5
+          - 9
+          - 6
+          - 3
+          - 7
+          - 4
+          treble.flats:
+          - 4
+          - 7
+          - 3
+          - 6
+          - 2
+          - 5
+          - 1
+          bass.sharps:
+          - 3
+          - 6
+          - 2
+          - 5
+          - 1
+          - 4
+          - 0
+          bass.flats:
+          - 6
+          - 3
+          - 7
+          - 4
+          - 1
+          - 5
+          - 2
+        exceptions: []
+        trace:
+        - docs/key-signatures
+        test_plan:
+          cases:
+          - name: treble_three_sharps
+            expectations:
+            - path: /positions/0
+              op: ==
+              value: 8.0
+            - path: /positions/1
+              op: ==
+              value: 5.0
+            - path: /positions/2
+              op: ==
+              value: 9.0
+        smufl_inputs:
+        - accidentalSharp.bbox
+        status: provisional
   /apply/ledger/Ledger-shorten_near_accidental:
     post:
       operationId: RULE.Ledger.shorten_near_accidental
@@ -2167,11 +3076,34 @@ paths:
               $ref: '#/components/schemas/LedgerShortenInput'
       responses:
         '200':
-          description: Ledger shorten result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LedgerShortenOutput'
+      x-rule:
+        agent: LedgerAgent
+        intent: shape
+        priority: 500
+        depends_on: []
+        parameters:
+          shorten_by: 0.4 sp
+        exceptions: []
+        trace:
+        - docs/ledger
+        - engraving-details/ledger-shortening
+        test_plan:
+          cases:
+          - name: High note with sharp
+            expectations:
+            - path: /adjustedLengthSP
+              op: ==
+              value: -0.4
+              tolerance: 0.0
+        smufl_inputs:
+        - ledgerLine.bbox
+        - accidentalSharp.bbox
+        status: provisional
   /apply/verticalstack/Vertical-min_dist_padding_and_stretch:
     post:
       operationId: RULE.Vertical.min_dist_padding_and_stretch
@@ -2184,11 +3116,35 @@ paths:
               $ref: '#/components/schemas/VerticalStackInput'
       responses:
         '200':
-          description: Vertical layout result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/VerticalStackOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 600
+        depends_on: []
+        parameters:
+          min_staff_gap: 1.5 sp
+          min_text_above_staff: 0.7 sp
+          stretch_weight: '1.0'
+        exceptions: []
+        trace:
+        - docs/vertical-spacing
+        - internals/VerticalAxisGroup
+        test_plan:
+          cases:
+          - name: Lyrics+dynamics two staves
+            expectations:
+            - path: /minStaffGap
+              op: '>='
+              value: 1.5
+              tolerance: 0.05
+        smufl_inputs:
+        - staffLine.thickness
+        status: provisional
   /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
     post:
       operationId: RULE.Dynamics.align_with_noteheads_and_stems
@@ -2201,447 +3157,33 @@ paths:
               $ref: '#/components/schemas/DynamicsAlignInput'
       responses:
         '200':
-          description: Dynamics alignment
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DynamicsAlignOutput'
-  /apply/barline/Barline-style_and_break_policy:
-    post:
-      operationId: RULE.Barline.style_and_break_policy
-      summary: Barline style and system-break policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BarlineStyleInput'
-      responses:
-        '200':
-          description: Barline selection and padding
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BarlineStyleOutput'
-  /apply/barnumber/BarNumber-placement_policy:
-    post:
-      operationId: RULE.BarNumber.placement_policy
-      summary: Bar number placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BarNumberInput'
-      responses:
-        '200':
-          description: Bar number offset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BarNumberOutput'
-  /apply/tempo/MetronomeMark-placement_policy:
-    post:
-      operationId: RULE.MetronomeMark.placement_policy
-      summary: Metronome mark placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MetronomeMarkInput'
-      responses:
-        '200':
-          description: Metronome mark offset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MetronomeMarkOutput'
-  /apply/lyrics/Lyrics-extender_spacing_policy:
-    post:
-      operationId: RULE.Lyrics.extender_spacing_policy
-      summary: Lyrics extender spacing policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LyricsExtenderInput'
-      responses:
-        '200':
-          description: Extender spacing outputs
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LyricsExtenderOutput'
-  /apply/instrument/InstrumentSwitch-placement_policy:
-    post:
-      operationId: RULE.InstrumentSwitch.placement_policy
-      summary: Instrument change text placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InstrumentSwitchInput'
-      responses:
-        '200':
-          description: Instrument change offset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InstrumentSwitchOutput'
-  /apply/ligature/LigatureBracket-placement_policy:
-    post:
-      operationId: RULE.LigatureBracket.placement_policy
-      summary: Ligature bracket placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LigatureBracketInput'
-      responses:
-        '200':
-          description: Ligature bracket offset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LigatureBracketOutput'
-  /apply/scripts/NonMusicalScriptColumn-layout_policy:
-    post:
-      operationId: RULE.NonMusicalScriptColumn.layout_policy
-      summary: Non-musical script column layout policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NonMusicalScriptColumnInput'
-      responses:
-        '200':
-          description: Script column y offsets
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NonMusicalScriptColumnOutput'
-  /apply/output/OutputProperty-override_inheritance_policy:
-    post:
-      operationId: RULE.OutputProperty.override_inheritance_policy
-      summary: Output property override and inheritance policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OutputPropertyOverrideInput'
-      responses:
-        '200':
-          description: Effective properties
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OutputPropertyOverrideOutput'
-  /apply/ornaments/PitchedTrill-placement_policy:
-    post:
-      operationId: RULE.PitchedTrill.placement_policy
-      summary: Pitched trill placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PitchedTrillInput'
-      responses:
-        '200':
-          description: Trill offset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PitchedTrillOutput'
-  /apply/scripts/ScriptColumn-layout_policy:
-    post:
-      operationId: RULE.ScriptColumn.layout_policy
-      summary: Script column layout policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScriptColumnInput'
-      responses:
-        '200':
-          description: Script column y offsets
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScriptColumnOutput'
-  /apply/scripts/ScriptRow-layout_policy:
-    post:
-      operationId: RULE.ScriptRow.layout_policy
-      summary: Script row layout policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScriptRowInput'
-      responses:
-        '200':
-          description: Script row x offsets
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScriptRowOutput'
-  /apply/arpeggio/SpanArpeggio-placement_policy:
-    post:
-      operationId: RULE.SpanArpeggio.placement_policy
-      summary: Span arpeggio placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SpanArpeggioInput'
-      responses:
-        '200':
-          description: Span arpeggio position
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpanArpeggioOutput'
-  /apply/brackets/HorizontalBracket-placement_policy:
-    post:
-      operationId: RULE.HorizontalBracket.placement_policy
-      summary: Horizontal bracket placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HorizontalBracketInput'
-      responses:
-        '200':
-          description: Horizontal bracket offset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HorizontalBracketOutput'
-  /apply/text/Text-placement_policy:
-    post:
-      operationId: RULE.Text.placement_policy
-      summary: General text placement with collision avoidance
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TextPlacementInput'
-      responses:
-        '200':
-          description: Text placement position
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TextPlacementOutput'
-  /apply/repeat/PercentRepeat-layout_policy:
-    post:
-      operationId: RULE.PercentRepeat.layout_policy
-      summary: Percent repeat layout policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                measureSpan:
-                  type: integer
-                  minimum: 1
-              required:
-              - measureSpan
-      responses:
-        '200':
-          description: Percent repeat span
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  spanMeasures:
-                    type: number
-                    minimum: 1
-                required:
-                - spanMeasures
-  /apply/repeat/SlashRepeat-layout_policy:
-    post:
-      operationId: RULE.SlashRepeat.layout_policy
-      summary: Slash repeat layout policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                beatsPerBar:
-                  type: integer
-                  minimum: 1
-                beatUnit:
-                  type: integer
-                  enum:
-                  - 1
-                  - 2
-                  - 4
-                  - 8
-                  - 16
-              required:
-              - beatsPerBar
-              - beatUnit
-      responses:
-        '200':
-          description: Slash positions
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  xPositions:
-                    type: array
-                    minItems: 1
-                    items:
-                      type: number
-                required:
-                - xPositions
-  /apply/system/SystemStartDelimiter-layout_policy:
-    post:
-      operationId: RULE.SystemStartDelimiter.layout_policy
-      summary: System start delimiter (braces/brackets) layout policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                staves:
-                  type: integer
-                  minimum: 1
-                styles:
-                  type: array
-                  minItems: 1
-                  items:
-                    type: string
-                    enum:
-                    - brace
-                    - bracket
-              required:
-              - staves
-      responses:
-        '200':
-          description: Delimiter types and gaps
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  delimiterTypes:
-                    type: array
-                    minItems: 1
-                    items:
-                      type: string
-                  gapsSP:
-                    type: array
-                    minItems: 0
-                    items:
-                      type: number
-                required:
-                - delimiterTypes
-  /apply/text/TextSpanner-placement_policy:
-    post:
-      operationId: RULE.TextSpanner.placement_policy
-      summary: Text spanner placement with collision avoidance
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                spannerBBox:
-                  $ref: '#/components/schemas/BBox'
-                systemTop:
-                  type: number
-              required:
-              - spannerBBox
-      responses:
-        '200':
-          description: Spanner placement
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  yOffsetSP:
-                    type: number
-                required:
-                - yOffsetSP
-  /apply/parenthesis/Parenthesis-placement_policy:
-    post:
-      operationId: RULE.Parenthesis.placement_policy
-      summary: Parenthesis placement around accidentals/notes
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                targetBBox:
-                  $ref: '#/components/schemas/BBox'
-                contextBBox:
-                  $ref: '#/components/schemas/BBox'
-      responses:
-        '200':
-          description: Parenthesis padding
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  paddingSP:
-                    type: number
-                required:
-                - paddingSP
-  /apply/timesig/TimeSignature-placement_policy:
-    post:
-      operationId: RULE.TimeSignature.placement_policy
-      summary: Time signature placement policy
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                systemTop:
-                  type: number
-                staffCenter:
-                  type: number
-              required:
-              - systemTop
-      responses:
-        '200':
-          description: Time signature offset
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  yOffsetSP:
-                    type: number
-                required:
-                - yOffsetSP
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 700
+        depends_on: []
+        parameters:
+          y_offset_preference: below
+          x_anchor_bias: columnCenter
+        exceptions: []
+        trace:
+        - docs/dynamics-alignment
+        test_plan:
+          cases:
+          - name: mp under beamed group
+            expectations:
+            - path: /dynamicPosition/y
+              op: <=
+              value: 0.0
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicForte.baseline
+        status: provisional
   /apply/beaming/Beaming-slope_with_clearance:
     post:
       operationId: RULE.Beaming.slope_with_clearance
@@ -2659,6 +3201,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeamingSlopeClearanceOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 221
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          min_clearance_sp: 0.25
+          slope_penalty_weight: '0.5'
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/slope
+        - internals/beam-interface
+        test_plan:
+          cases:
+          - name: maintain_clearance
+            expectations:
+            - path: /minClearanceSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
+        status: provisional
   /apply/spacing/NoteSpacing-optical_stem_weight_scalars:
     post:
       operationId: RULE.NoteSpacing.optical_stem_weight_scalars
@@ -2676,6 +3244,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NoteSpacingOpticalWeightsOutput'
+      x-rule:
+        agent: SpacingAgent
+        intent: spacing
+        priority: 121
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          up_weight: '0.4'
+          down_weight: '0.4'
+          strong_beat_bonus: '0.1'
+        exceptions: []
+        trace:
+        - docs/spacing/optical
+        - internals/SpacingSpanner
+        test_plan:
+          cases:
+          - name: weights_present
+            expectations:
+            - path: /weights/count
+              op: '>='
+              value: 1.0
+        smufl_inputs:
+        - noteheadBlack.advance
+        status: provisional
   /apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance:
     post:
       operationId: RULE.Beaming.cross_voice_mixed_stem_slope_balance
@@ -2693,6 +3285,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeamingCrossVoiceSlopeOutput'
+      x-rule:
+        agent: BeamingAgent
+        intent: placement
+        priority: 222
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          balance_weight: '0.6'
+          min_clearance_sp: 0.25
+        exceptions:
+        - forced_beam_slope
+        trace:
+        - docs/beaming/cross-voice
+        test_plan:
+          cases:
+          - name: balanced_slope
+            expectations:
+            - path: /slopeSPPerSpaceAdjusted
+              op: <=
+              value: 0.5
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
+        status: provisional
   /apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks:
     post:
       operationId: RULE.Dynamics.stacked_kerning_with_system_breaks
@@ -2705,11 +3321,38 @@ paths:
               $ref: '#/components/schemas/DynamicsStackKerningInput'
       responses:
         '200':
-          description: Kerning-adjusted dynamic positions
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DynamicsStackKerningOutput'
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 706
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          stacked_min_gap_sp: 0.25
+          break_margin_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/dynamics/stacking
+        test_plan:
+          cases:
+          - name: stacked_gap_respected
+            expectations:
+            - path: /dynamicPositions/count
+              op: '>='
+              value: 1.0
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicMezzoPiano.baseline
+        - dynamicMezzoForte.baseline
+        - dynamicForte.baseline
+        - dynamicFortepiano.baseline
+        - dynamicSforzando.baseline
+        status: provisional
   /apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction:
     post:
       operationId: RULE.Lyrics.hyphen_melisma_spacing_interaction
@@ -2722,11 +3365,33 @@ paths:
               $ref: '#/components/schemas/LyricsHyphenMelismaInput'
       responses:
         '200':
-          description: Lyric offsets and baseline adjustment
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LyricsHyphenMelismaOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 612
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          hyphen_min_gap_sp: 0.3
+          melisma_baseline_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/lyrics/hyphens
+        test_plan:
+          cases:
+          - name: hyphen_gap_minimum
+            expectations:
+            - path: /lyricOffsets/count
+              op: '>='
+              value: 1.0
+        smufl_inputs:
+        - lyricsText.bbox
+        status: provisional
   /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
     post:
       operationId: RULE.Lyrics.baseline_adjustment_with_variance
@@ -2744,6 +3409,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LyricsBaselineVarianceOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 611
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          max_variance_sp: 0.2
+          prefer_stable_baseline: true
+        exceptions: []
+        trace:
+        - docs/lyrics/baseline
+        test_plan:
+          cases:
+          - name: within_variance_cap
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        smufl_inputs:
+        - lyricsText.bbox
+        status: provisional
   /apply/collision/BeamCollision-resolve_overlaps:
     post:
       operationId: RULE.BeamCollision.resolve_overlaps
@@ -2756,11 +3443,32 @@ paths:
               $ref: '#/components/schemas/BeamCollisionInput'
       responses:
         '200':
-          description: Beam collision offsets
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeamCollisionOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 355
+        depends_on:
+        - RULE.Beaming.geometry_slope_and_segments
+        parameters:
+          min_clearance_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/beaming/collision
+        test_plan:
+          cases:
+          - name: minimal_offsets
+            expectations:
+            - path: /offsets/count
+              op: '>='
+              value: 0.0
+        smufl_inputs:
+        - beam.thickness
+        status: provisional
   /apply/collision/RestCollision-resolve_overlaps:
     post:
       operationId: RULE.RestCollision.resolve_overlaps
@@ -2773,11 +3481,32 @@ paths:
               $ref: '#/components/schemas/RestCollisionInput'
       responses:
         '200':
-          description: Rest collision offsets
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestCollisionOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 356
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          min_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/collisions/rests
+        test_plan:
+          cases:
+          - name: gaps_kept
+            expectations:
+            - path: /restOffsets/count
+              op: '>='
+              value: 0.0
+        smufl_inputs:
+        - noteheadBlack.bbox
+        status: provisional
   /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
     post:
       operationId: RULE.DynamicAlign.kerning_with_hairpins
@@ -2795,6 +3524,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DynamicKerningOutput'
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: placement
+        priority: 705
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          min_kerning_sp: 0.2
+          hairpin_clearance_sp: 0.3
+          lyrics_baseline_variance_sp: 0.15
+        exceptions: []
+        trace:
+        - docs/dynamics/kerning
+        test_plan:
+          cases:
+          - name: kerning_applied
+            expectations:
+            - path: /dynamicPosition/x
+              op: '>='
+              value: 0.0
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicForte.baseline
+        - hairpinCrescendo.bbox
+        - hairpinDecrescendo.bbox
+        status: provisional
   /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
@@ -2807,11 +3562,33 @@ paths:
               $ref: '#/components/schemas/CastoffInput'
       responses:
         '200':
-          description: Castoff result
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CastoffOutput'
+      x-rule:
+        agent: PaginationAgent
+        intent: pagination
+        priority: 800
+        depends_on:
+        - RULE.Spacing.keep_inside_system_constraints
+        parameters:
+          overfull_penalty: '10'
+          underfull_penalty: '2'
+          widow_orphan_penalty: '3'
+        exceptions: []
+        trace:
+        - docs/pagination
+        test_plan:
+          cases:
+          - name: Two-page balance
+            expectations:
+            - path: /overfull
+              op: ==
+              value: 0.0
+        smufl_inputs: []
+        status: provisional
   /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
     post:
       operationId: RULE.OpticalSize.stroke_and_spacing_scalars
@@ -2821,14 +3598,37 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OpticalInput'
+              $ref: '#/components/schemas/StrictEmpty'
       responses:
         '200':
-          description: Optical sizing scalars
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OpticalOutput'
+                $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: OpticalSizingAgent
+        intent: optical
+        priority: 900
+        depends_on: []
+        parameters:
+          stroke_scalar: f(size)
+          spacing_scalar: f(size)
+        exceptions: []
+        trace:
+        - docs/optical-sizing
+        test_plan:
+          cases:
+          - name: 15pt vs 20pt vs 26pt
+            expectations:
+            - path: /strokeScalar
+              op: approx
+              value: 1.0
+              tolerance: 0.3
+        smufl_inputs:
+        - staffLine.thickness
+        - noteheadBlack.stroke
+        status: provisional
   /apply/collision/Arpeggio-placement_policy:
     post:
       operationId: RULE.Arpeggio.placement_policy
@@ -2838,14 +3638,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/ArpeggioPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/ArpeggioPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 365
+        depends_on: []
+        parameters:
+          prefer_centered: true
+        exceptions: []
+        trace:
+        - docs/arpeggios
+        test_plan:
+          cases:
+          - name: arpeggio_position
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        smufl_inputs: []
+        status: provisional
   /apply/collision/Fingering-placement_policy:
     post:
       operationId: RULE.Fingering.placement_policy
@@ -2855,14 +3674,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/FingeringPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/FingeringPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 366
+        depends_on: []
+        parameters:
+          prefer_above: true
+        exceptions: []
+        trace:
+        - docs/fingering
+        test_plan:
+          cases:
+          - name: fingering_position
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        smufl_inputs: []
+        status: provisional
   /apply/verticalstack/Pedal-line_and_text_policy:
     post:
       operationId: RULE.Pedal.line_and_text_policy
@@ -2872,14 +3710,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/PedalPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/PedalPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 645
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/pedal
+        test_plan:
+          cases:
+          - name: pedal_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        smufl_inputs: []
+        status: provisional
   /apply/verticalstack/TrillSpanner-placement_policy:
     post:
       operationId: RULE.TrillSpanner.placement_policy
@@ -2889,14 +3746,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RuleInput'
+              $ref: '#/components/schemas/TrillPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RuleOutput'
+                $ref: '#/components/schemas/TrillPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/trill
+        test_plan:
+          cases:
+          - name: trill_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        smufl_inputs: []
+        status: provisional
   /apply/spacing/NoteSpacing-spacing_policy:
     post:
       operationId: RULE.NoteSpacing.spacing_policy
@@ -2918,6 +3794,23 @@ paths:
         agent: SpacingAgent
         intent: spacing
         priority: 120
+        depends_on:
+        - RULE.Spacing.duration_base_with_optical_corrections
+        parameters:
+          optical_stem_weight: 0.4
+        exceptions: []
+        trace:
+        - docs/spacing/note-columns
+        test_plan:
+          cases:
+          - name: gaps_respected
+            expectations:
+            - path: /columnPositions/0
+              op: <=
+              value: 0.0
+        smufl_inputs:
+        - noteheadBlack.advance
+        status: provisional
   /apply/verticalstack/DurationLine-placement_policy:
     post:
       operationId: RULE.DurationLine.placement_policy
@@ -2939,1689 +3832,21 @@ paths:
         agent: VerticalStackAgent
         intent: placement
         priority: 635
-  /apply/accidental/Accidental-policy:
-    post:
-      operationId: RULE.Accidental.policy
-      summary: Accidental policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Ambitus-policy:
-    post:
-      operationId: RULE.Ambitus.policy
-      summary: Ambitus policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Arpeggio-policy:
-    post:
-      operationId: RULE.Arpeggio.policy
-      summary: Arpeggio policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/AxisGroup-policy:
-    post:
-      operationId: RULE.AxisGroup.policy
-      summary: AxisGroup policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Balloon-policy:
-    post:
-      operationId: RULE.Balloon.policy
-      summary: Balloon policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Bar-policy:
-    post:
-      operationId: RULE.Bar.policy
-      summary: Bar policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/BarNumber-policy:
-    post:
-      operationId: RULE.BarNumber.policy
-      summary: BarNumber policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/beaming/BeamCollision-policy:
-    post:
-      operationId: RULE.BeamCollision.policy
-      summary: BeamCollision policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/BreakAlign-policy:
-    post:
-      operationId: RULE.BreakAlign.policy
-      summary: BreakAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Caesura-policy:
-    post:
-      operationId: RULE.Caesura.policy
-      summary: Caesura policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/ChordTremolo-policy:
-    post:
-      operationId: RULE.ChordTremolo.policy
-      summary: ChordTremolo policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/accidental/Clef-policy:
-    post:
-      operationId: RULE.Clef.policy
-      summary: Clef policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/ClusterSpanner-policy:
-    post:
-      operationId: RULE.ClusterSpanner.policy
-      summary: ClusterSpanner policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Collision-policy:
-    post:
-      operationId: RULE.Collision.policy
-      summary: Collision policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/CompletionHeads-policy:
-    post:
-      operationId: RULE.CompletionHeads.policy
-      summary: CompletionHeads policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/CompletionRest-policy:
-    post:
-      operationId: RULE.CompletionRest.policy
-      summary: CompletionRest policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/dynamicstext/ConcurrentHairpin-policy:
-    post:
-      operationId: RULE.ConcurrentHairpin.policy
-      summary: ConcurrentHairpin policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/accidental/CueClef-policy:
-    post:
-      operationId: RULE.CueClef.policy
-      summary: CueClef policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Custos-policy:
-    post:
-      operationId: RULE.Custos.policy
-      summary: Custos policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/DotColumn-policy:
-    post:
-      operationId: RULE.DotColumn.policy
-      summary: DotColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Dots-policy:
-    post:
-      operationId: RULE.Dots.policy
-      summary: Dots policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/DoublePercentRepeat-policy:
-    post:
-      operationId: RULE.DoublePercentRepeat.policy
-      summary: DoublePercentRepeat policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/DrumNotes-policy:
-    post:
-      operationId: RULE.DrumNotes.policy
-      summary: DrumNotes policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/dynamicstext/DynamicAlign-policy:
-    post:
-      operationId: RULE.DynamicAlign.policy
-      summary: DynamicAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/dynamicstext/Dynamic-policy:
-    post:
-      operationId: RULE.Dynamic.policy
-      summary: Dynamic policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Episema-policy:
-    post:
-      operationId: RULE.Episema.policy
-      summary: Episema policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/Extender-policy:
-    post:
-      operationId: RULE.Extender.policy
-      summary: Extender policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/FiguredBassPosition-policy:
-    post:
-      operationId: RULE.FiguredBassPosition.policy
-      summary: FiguredBassPosition policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/FingeringColumn-policy:
-    post:
-      operationId: RULE.FingeringColumn.policy
-      summary: FingeringColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Fingering-policy:
-    post:
-      operationId: RULE.Fingering.policy
-      summary: Fingering policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/FontSize-policy:
-    post:
-      operationId: RULE.FontSize.policy
-      summary: FontSize policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Footnote-policy:
-    post:
-      operationId: RULE.Footnote.policy
-      summary: Footnote policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/ForbidLineBreak-policy:
-    post:
-      operationId: RULE.ForbidLineBreak.policy
-      summary: ForbidLineBreak policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Fretboard-policy:
-    post:
-      operationId: RULE.Fretboard.policy
-      summary: Fretboard policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Glissando-policy:
-    post:
-      operationId: RULE.Glissando.policy
-      summary: Glissando policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/beaming/Grace-policy:
-    post:
-      operationId: RULE.Grace.policy
-      summary: Grace policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/beaming/GraceSpacing-policy:
-    post:
-      operationId: RULE.GraceSpacing.policy
-      summary: GraceSpacing policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/GridLineSpan-policy:
-    post:
-      operationId: RULE.GridLineSpan.policy
-      summary: GridLineSpan policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/GridPoint-policy:
-    post:
-      operationId: RULE.GridPoint.policy
-      summary: GridPoint policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/GrobPq-policy:
-    post:
-      operationId: RULE.GrobPq.policy
-      summary: GrobPq policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/HorizontalBracket-policy:
-    post:
-      operationId: RULE.HorizontalBracket.policy
-      summary: HorizontalBracket policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/Hyphen-policy:
-    post:
-      operationId: RULE.Hyphen.policy
-      summary: Hyphen policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/InstrumentName-policy:
-    post:
-      operationId: RULE.InstrumentName.policy
-      summary: InstrumentName policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/InstrumentSwitch-policy:
-    post:
-      operationId: RULE.InstrumentSwitch.policy
-      summary: InstrumentSwitch policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Jump-policy:
-    post:
-      operationId: RULE.Jump.policy
-      summary: Jump policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/KeepAliveTogether-policy:
-    post:
-      operationId: RULE.KeepAliveTogether.policy
-      summary: KeepAliveTogether policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/accidental/Key-policy:
-    post:
-      operationId: RULE.Key.policy
-      summary: Key policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/LedgerLine-policy:
-    post:
-      operationId: RULE.LedgerLine.policy
-      summary: LedgerLine policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/LigatureBracket-policy:
-    post:
-      operationId: RULE.LigatureBracket.policy
-      summary: LigatureBracket policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/Lyric-policy:
-    post:
-      operationId: RULE.Lyric.policy
-      summary: Lyric policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Melody-policy:
-    post:
-      operationId: RULE.Melody.policy
-      summary: Melody policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/MetronomeMark-policy:
-    post:
-      operationId: RULE.MetronomeMark.policy
-      summary: MetronomeMark policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/MultiMeasureRest-policy:
-    post:
-      operationId: RULE.MultiMeasureRest.policy
-      summary: MultiMeasureRest policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/NewFingering-policy:
-    post:
-      operationId: RULE.NewFingering.policy
-      summary: NewFingering policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/NonMusicalScriptColumn-policy:
-    post:
-      operationId: RULE.NonMusicalScriptColumn.policy
-      summary: NonMusicalScriptColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/NoteHeadLine-policy:
-    post:
-      operationId: RULE.NoteHeadLine.policy
-      summary: NoteHeadLine policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/NoteHeads-policy:
-    post:
-      operationId: RULE.NoteHeads.policy
-      summary: NoteHeads policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/NoteName-policy:
-    post:
-      operationId: RULE.NoteName.policy
-      summary: NoteName policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/NoteSpacing-policy:
-    post:
-      operationId: RULE.NoteSpacing.policy
-      summary: NoteSpacing policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/OttavaSpanner-policy:
-    post:
-      operationId: RULE.OttavaSpanner.policy
-      summary: OttavaSpanner policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/OutputProperty-policy:
-    post:
-      operationId: RULE.OutputProperty.policy
-      summary: OutputProperty policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/PageTurn-policy:
-    post:
-      operationId: RULE.PageTurn.policy
-      summary: PageTurn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Parenthesis-policy:
-    post:
-      operationId: RULE.Parenthesis.policy
-      summary: Parenthesis policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/PartCombine-policy:
-    post:
-      operationId: RULE.PartCombine.policy
-      summary: PartCombine policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/PercentRepeat-policy:
-    post:
-      operationId: RULE.PercentRepeat.policy
-      summary: PercentRepeat policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/PianoPedalAlign-policy:
-    post:
-      operationId: RULE.PianoPedalAlign.policy
-      summary: PianoPedalAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/PianoPedal-policy:
-    post:
-      operationId: RULE.PianoPedal.policy
-      summary: PianoPedal policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/PitchSquash-policy:
-    post:
-      operationId: RULE.PitchSquash.policy
-      summary: PitchSquash policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/PitchedTrill-policy:
-    post:
-      operationId: RULE.PitchedTrill.policy
-      summary: PitchedTrill policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/PureFromNeighbor-policy:
-    post:
-      operationId: RULE.PureFromNeighbor.policy
-      summary: PureFromNeighbor policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/RepeatAcknowledge-policy:
-    post:
-      operationId: RULE.RepeatAcknowledge.policy
-      summary: RepeatAcknowledge policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/RestCollision-policy:
-    post:
-      operationId: RULE.RestCollision.policy
-      summary: RestCollision policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Rest-policy:
-    post:
-      operationId: RULE.Rest.policy
-      summary: Rest policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/RhythmicColumn-policy:
-    post:
-      operationId: RULE.RhythmicColumn.policy
-      summary: RhythmicColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/ScriptColumn-policy:
-    post:
-      operationId: RULE.ScriptColumn.policy
-      summary: ScriptColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Script-policy:
-    post:
-      operationId: RULE.Script.policy
-      summary: Script policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/ScriptRow-policy:
-    post:
-      operationId: RULE.ScriptRow.policy
-      summary: ScriptRow policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SeparatingLineGroup-policy:
-    post:
-      operationId: RULE.SeparatingLineGroup.policy
-      summary: SeparatingLineGroup policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SlashRepeat-policy:
-    post:
-      operationId: RULE.SlashRepeat.policy
-      summary: SlashRepeat policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Spacing-policy:
-    post:
-      operationId: RULE.Spacing.policy
-      summary: Spacing policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SpanArpeggio-policy:
-    post:
-      operationId: RULE.SpanArpeggio.policy
-      summary: SpanArpeggio policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SpanBar-policy:
-    post:
-      operationId: RULE.SpanBar.policy
-      summary: SpanBar policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SpanBarStub-policy:
-    post:
-      operationId: RULE.SpanBarStub.policy
-      summary: SpanBarStub policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SpannerBreakForbid-policy:
-    post:
-      operationId: RULE.SpannerBreakForbid.policy
-      summary: SpannerBreakForbid policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/StaffCollecting-policy:
-    post:
-      operationId: RULE.StaffCollecting.policy
-      summary: StaffCollecting policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/StaffSymbol-policy:
-    post:
-      operationId: RULE.StaffSymbol.policy
-      summary: StaffSymbol policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/StanzaNumberAlign-policy:
-    post:
-      operationId: RULE.StanzaNumberAlign.policy
-      summary: StanzaNumberAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/StanzaNumber-policy:
-    post:
-      operationId: RULE.StanzaNumber.policy
-      summary: StanzaNumber policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Stem-policy:
-    post:
-      operationId: RULE.Stem.policy
-      summary: Stem policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/SystemStartDelimiter-policy:
-    post:
-      operationId: RULE.SystemStartDelimiter.policy
-      summary: SystemStartDelimiter policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/TabNoteHeads-policy:
-    post:
-      operationId: RULE.TabNoteHeads.policy
-      summary: TabNoteHeads policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/verticalstack/TabStaffSymbol-policy:
-    post:
-      operationId: RULE.TabStaffSymbol.policy
-      summary: TabStaffSymbol policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Text-policy:
-    post:
-      operationId: RULE.Text.policy
-      summary: Text policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/TextSpanner-policy:
-    post:
-      operationId: RULE.TextSpanner.policy
-      summary: TextSpanner policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/tieslur/Tie-policy:
-    post:
-      operationId: RULE.Tie.policy
-      summary: Tie policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/accidental/TimeSignature-policy:
-    post:
-      operationId: RULE.TimeSignature.policy
-      summary: TimeSignature policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/beaming/Tuplet-policy:
-    post:
-      operationId: RULE.Tuplet.policy
-      summary: Tuplet policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/Tweak-policy:
-    post:
-      operationId: RULE.Tweak.policy
-      summary: Tweak policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
-  /apply/collision/VerticalAlign-policy:
-    post:
-      operationId: RULE.VerticalAlign.policy
-      summary: VerticalAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StrictEmpty'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StrictEmpty'
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/duration-lines
+        test_plan:
+          cases:
+          - name: duration_line_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.8
+        smufl_inputs: []
+        status: provisional
   /apply/verticalstack/Barline-style_and_break_policy:
     post:
       operationId: RULE.Barline.style_and_break_policy
@@ -4631,14 +3856,38 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/BarlineStyleBreakInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/BarlineStyleBreakOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 332
+        depends_on:
+        - RULE.Pagination.castoff_fill_vs_overfull_penalties
+        parameters:
+          default_thickness_sp: 0.2
+          break_margin_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/barlines
+        test_plan:
+          cases:
+          - name: thickness_non_negative
+            expectations:
+            - path: /thickness
+              op: '>='
+              value: 0.0
+        smufl_inputs:
+        - barlineSingle.bbox
+        - barlineDouble.bbox
+        - barlineFinal.bbox
+        status: provisional
   /apply/verticalstack/BarNumber-placement_policy:
     post:
       operationId: RULE.BarNumber.placement_policy
@@ -4648,14 +3897,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/BarNumberPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/BarNumberPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 333
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/bar-numbers
+        test_plan:
+          cases:
+          - name: distance_respected
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/Lyrics-extender_spacing_policy:
     post:
       operationId: RULE.Lyrics.extender_spacing_policy
@@ -4665,14 +3932,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/LyricsExtenderInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/LyricsExtenderOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 612
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_line_length_sp: 1.0
+          baseline_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/lyrics/extenders
+        test_plan:
+          cases:
+          - name: line_length_minimum
+            expectations:
+            - path: /minLineLengthSP
+              op: '>='
+              value: 1.0
+        status: provisional
   /apply/verticalstack/MetronomeMark-placement_policy:
     post:
       operationId: RULE.MetronomeMark.placement_policy
@@ -4682,14 +3969,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/MetronomeMarkPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/MetronomeMarkPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 334
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.9
+        exceptions: []
+        trace:
+        - docs/tempo
+        test_plan:
+          cases:
+          - name: metronome_above_system
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/collision/Parenthesis-placement_policy:
     post:
       operationId: RULE.Parenthesis.placement_policy
@@ -4699,14 +4004,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/ParenthesisPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/ParenthesisPlacementOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 420
+        depends_on: []
+        parameters:
+          padding_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/notation/parentheses
+        test_plan:
+          cases:
+          - name: non_negative_padding
+            expectations:
+            - path: /paddingSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/PercentRepeat-layout_policy:
     post:
       operationId: RULE.PercentRepeat.layout_policy
@@ -4716,14 +4039,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/PercentRepeatLayoutInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/PercentRepeatLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 520
+        depends_on: []
+        parameters:
+          min_span_measures: 1
+        exceptions: []
+        trace:
+        - docs/repeats/percent
+        test_plan:
+          cases:
+          - name: span_non_negative
+            expectations:
+            - path: /spanMeasures
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/SlashRepeat-layout_policy:
     post:
       operationId: RULE.SlashRepeat.layout_policy
@@ -4733,14 +4074,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/SlashRepeatLayoutInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/SlashRepeatLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 521
+        depends_on: []
+        parameters:
+          min_slash_gap_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/repeats/slash
+        test_plan:
+          cases:
+          - name: at_least_one_position
+            expectations:
+            - path: /xPositions/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/SystemStartDelimiter-layout_policy:
     post:
       operationId: RULE.SystemStartDelimiter.layout_policy
@@ -4750,14 +4109,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/SystemStartDelimiterLayoutInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/SystemStartDelimiterLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 340
+        depends_on: []
+        parameters:
+          min_brace_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/braces-brackets
+        test_plan:
+          cases:
+          - name: gaps_non_negative
+            expectations:
+            - path: /gapsSP/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/TextSpanner-placement_policy:
     post:
       operationId: RULE.TextSpanner.placement_policy
@@ -4767,14 +4144,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/TextSpannerPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/TextSpannerPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/text-spanner
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/TimeSignature-placement_policy:
     post:
       operationId: RULE.TimeSignature.placement_policy
@@ -4784,14 +4179,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/TimeSignaturePlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/TimeSignaturePlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 332
+        depends_on: []
+        parameters:
+          vertical_center_bias_sp: 0.1
+        exceptions: []
+        trace:
+        - docs/time-signatures
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/InstrumentName-policy:
     post:
       operationId: RULE.InstrumentName.policy
@@ -4801,14 +4214,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/InstrumentNamePolicyInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/InstrumentNamePolicyOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 335
+        depends_on: []
+        parameters:
+          left_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/instrument-names
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/CueClef-placement_policy:
     post:
       operationId: RULE.CueClef.placement_policy
@@ -4818,14 +4249,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/CueClefPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/CueClefPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 331
+        depends_on: []
+        parameters:
+          cue_scale: 0.7
+        exceptions: []
+        trace:
+        - docs/clefs/cue
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/collision/DrumNotes-stem_side_and_notehead_policy:
     post:
       operationId: RULE.DrumNotes.stem_side_and_notehead_policy
@@ -4843,6 +4292,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 361
+        depends_on: []
+        parameters:
+          hi_hat_x: true
+        exceptions: []
+        trace:
+        - docs/percussion/drum-notes
+        test_plan:
+          cases:
+          - name: output_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/FiguredBass-position_stack_policy:
     post:
       operationId: RULE.FiguredBass.position_stack_policy
@@ -4860,6 +4327,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 541
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.7
+        exceptions: []
+        trace:
+        - docs/figured-bass
+        test_plan:
+          cases:
+          - name: distance_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/InstrumentName-alignment_policy:
     post:
       operationId: RULE.InstrumentName.alignment_policy
@@ -4877,6 +4362,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 335
+        depends_on: []
+        parameters:
+          left_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/instrument-names
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/pagination/PageTurn-break_preferences:
     post:
       operationId: RULE.PageTurn.break_preferences
@@ -4894,6 +4397,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 150
+        depends_on:
+        - RULE.Pagination.castoff_fill_vs_overfull_penalties
+        parameters:
+          prefer_rests_weight: 0.6
+        exceptions: []
+        trace:
+        - docs/pagination/page-turns
+        test_plan:
+          cases:
+          - name: break_present
+            expectations:
+            - path: /chosenBreak
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/collision/PartCombine-stem_direction_policy:
     post:
       operationId: RULE.PartCombine.stem_direction_policy
@@ -4911,6 +4433,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 367
+        depends_on: []
+        parameters:
+          unison_split_threshold_sp: 0.0
+        exceptions: []
+        trace:
+        - docs/parts/part-combine
+        test_plan:
+          cases:
+          - name: outputs_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/StanzaNumber-align_with_lyrics_policy:
     post:
       operationId: RULE.StanzaNumber.align_with_lyrics_policy
@@ -4920,14 +4460,33 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/StanzaNumberAlignInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/StanzaNumberAlignOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 613
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_gap_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/lyrics/stanzas
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/StanzaNumber-placement_policy:
     post:
       operationId: RULE.StanzaNumber.placement_policy
@@ -4937,14 +4496,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/StanzaNumberPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/StanzaNumberPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 614
+        depends_on: []
+        parameters:
+          left_margin_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/lyrics/stanzas
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/collision/Tab-notehead_string_fret_policy:
     post:
       operationId: RULE.Tab.notehead_string_fret_policy
@@ -4954,14 +4531,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/TabNoteheadStringFretInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/TabNoteheadStringFretOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 362
+        depends_on: []
+        parameters:
+          prefer_up_stems: true
+        exceptions: []
+        trace:
+        - docs/tab/notation
+        test_plan:
+          cases:
+          - name: outputs_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/TabStaffSymbol-string_tuning_layout:
     post:
       operationId: RULE.TabStaffSymbol.string_tuning_layout
@@ -4971,14 +4566,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/TabStaffStringTuningLayoutInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/TabStaffStringTuningLayoutOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 342
+        depends_on: []
+        parameters:
+          string_gap_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/tab/staff
+        test_plan:
+          cases:
+          - name: positions_present
+            expectations:
+            - path: /stringYPositions/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/Text-placement_policy:
     post:
       operationId: RULE.Text.placement_policy
@@ -4988,14 +4601,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/TextPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/TextPlacementOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 336
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/text
+        test_plan:
+          cases:
+          - name: position_present
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/HorizontalBracket-placement_policy:
     post:
       operationId: RULE.HorizontalBracket.placement_policy
@@ -5005,14 +4636,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/HorizontalBracketInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/HorizontalBracketOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 645
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/brackets/horizontal
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/InstrumentSwitch-placement_policy:
     post:
       operationId: RULE.InstrumentSwitch.placement_policy
@@ -5022,14 +4671,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/InstrumentSwitchInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/InstrumentSwitchOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 336
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/instrument-changes
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/collision/LigatureBracket-placement_policy:
     post:
       operationId: RULE.LigatureBracket.placement_policy
@@ -5039,14 +4706,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/LigatureBracketInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/LigatureBracketOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 361
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/notation/ligature-brackets
+        test_plan:
+          cases:
+          - name: offset_present
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/NonMusicalScriptColumn-layout_policy:
     post:
       operationId: RULE.NonMusicalScriptColumn.layout_policy
@@ -5056,14 +4741,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/NonMusicalScriptColumnInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/NonMusicalScriptColumnOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 337
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/text/columns
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/OutputProperty-override_inheritance_policy:
     post:
       operationId: RULE.OutputProperty.override_inheritance_policy
@@ -5073,14 +4776,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/OutputPropertyOverrideInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/OutputPropertyOverrideOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 130
+        depends_on: []
+        parameters:
+          allow_inherit: true
+        exceptions: []
+        trace:
+        - docs/overrides
+        test_plan:
+          cases:
+          - name: effective_present
+            expectations:
+            - path: /effectiveProperties
+              op: '!='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/PitchedTrill-placement_policy:
     post:
       operationId: RULE.PitchedTrill.placement_policy
@@ -5090,14 +4811,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/PitchedTrillInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/PitchedTrillOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/ornaments/pitched-trill
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/ScriptColumn-layout_policy:
     post:
       operationId: RULE.ScriptColumn.layout_policy
@@ -5107,14 +4846,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/ScriptColumnInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/ScriptColumnOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 338
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.4
+        exceptions: []
+        trace:
+        - docs/ornaments/scripts
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/verticalstack/ScriptRow-layout_policy:
     post:
       operationId: RULE.ScriptRow.layout_policy
@@ -5124,14 +4881,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/ScriptRowInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/ScriptRowOutput'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 339
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.4
+        exceptions: []
+        trace:
+        - docs/ornaments/scripts
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: provisional
   /apply/collision/SpanArpeggio-placement_policy:
     post:
       operationId: RULE.SpanArpeggio.placement_policy
@@ -5141,11 +4916,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/SpanArpeggioInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/SpanArpeggioOutput'
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 365
+        depends_on: []
+        parameters:
+          prefer_centered: true
+        exceptions: []
+        trace:
+        - docs/arpeggios/span
+        test_plan:
+          cases:
+          - name: position_present
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+        status: provisional

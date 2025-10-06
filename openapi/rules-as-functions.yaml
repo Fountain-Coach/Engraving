@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-06T07:55:11.494209
+  description: Generated from rules/REGISTRY.yaml on 2025-10-06T09:21:22.795741
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -57,6 +57,10 @@ paths:
             font: Bravura
             staffSize: 20pt
             paper: A4
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
   /apply/spacing/Spacing-keep_inside_system_constraints:
     post:
       operationId: RULE.Spacing.keep_inside_system_constraints
@@ -95,6 +99,10 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.advance
+        - noteheadWhole.advance
   /apply/beaming/Beaming-auto_knee_threshold:
     post:
       operationId: RULE.Beaming.auto_knee_threshold
@@ -133,6 +141,8 @@ paths:
             - path: /kneed
               op: ==
               value: 1.0
+        smufl_inputs:
+        - beam.thickness
   /apply/beaming/Beaming-compound_meter_grouping:
     post:
       operationId: RULE.Beaming.compound_meter_grouping
@@ -179,6 +189,9 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
   /apply/collision/BeamCollision-resolve_overlaps:
     post:
       operationId: RULE.BeamCollision.resolve_overlaps
@@ -216,6 +229,8 @@ paths:
             - path: /offsets/count
               op: '>='
               value: 0.0
+        smufl_inputs:
+        - beam.thickness
   /apply/collision/RestCollision-resolve_overlaps:
     post:
       operationId: RULE.RestCollision.resolve_overlaps
@@ -253,6 +268,8 @@ paths:
             - path: /restOffsets/count
               op: '>='
               value: 0.0
+        smufl_inputs:
+        - noteheadBlack.bbox
   /apply/dynamicstext/DynamicAlign-kerning_with_hairpins:
     post:
       operationId: RULE.DynamicAlign.kerning_with_hairpins
@@ -292,6 +309,11 @@ paths:
             - path: /dynamicPosition/x
               op: '>='
               value: 0.0
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicForte.baseline
+        - hairpinCrescendo.bbox
+        - hairpinDecrescendo.bbox
   /apply/verticalstack/Lyrics-baseline_adjustment_with_variance:
     post:
       operationId: RULE.Lyrics.baseline_adjustment_with_variance
@@ -330,6 +352,8 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
+        smufl_inputs:
+        - lyricsText.bbox
   /apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance:
     post:
       operationId: RULE.Beaming.cross_voice_mixed_stem_slope_balance
@@ -369,6 +393,9 @@ paths:
             - path: /slopeSPPerSpaceAdjusted
               op: <=
               value: 0.5
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
   /apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks:
     post:
       operationId: RULE.Dynamics.stacked_kerning_with_system_breaks
@@ -407,6 +434,13 @@ paths:
             - path: /dynamicPositions/count
               op: '>='
               value: 1.0
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicMezzoPiano.baseline
+        - dynamicMezzoForte.baseline
+        - dynamicForte.baseline
+        - dynamicFortepiano.baseline
+        - dynamicSforzando.baseline
   /apply/verticalstack/Lyrics-hyphen_melisma_spacing_interaction:
     post:
       operationId: RULE.Lyrics.hyphen_melisma_spacing_interaction
@@ -445,6 +479,8 @@ paths:
             - path: /lyricOffsets/count
               op: '>='
               value: 1.0
+        smufl_inputs:
+        - lyricsText.bbox
   /apply/spacing/NoteSpacing-spacing_policy:
     post:
       operationId: RULE.NoteSpacing.spacing_policy
@@ -482,6 +518,8 @@ paths:
             - path: /columnPositions/0
               op: <=
               value: 0.0
+        smufl_inputs:
+        - noteheadBlack.advance
   /apply/verticalstack/DurationLine-placement_policy:
     post:
       operationId: RULE.DurationLine.placement_policy
@@ -518,6 +556,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        smufl_inputs: []
   /apply/beaming/Beaming-slope_with_clearance:
     post:
       operationId: RULE.Beaming.slope_with_clearance
@@ -559,6 +598,9 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
+        smufl_inputs:
+        - beam.thickness
+        - noteheadBlack.bbox
   /apply/spacing/NoteSpacing-optical_stem_weight_scalars:
     post:
       operationId: RULE.NoteSpacing.optical_stem_weight_scalars
@@ -599,6 +641,8 @@ paths:
             - path: /weights/count
               op: '>='
               value: 1.0
+        smufl_inputs:
+        - noteheadBlack.advance
   /apply/collision/Arpeggio-placement_policy:
     post:
       operationId: RULE.Arpeggio.placement_policy
@@ -635,6 +679,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        smufl_inputs: []
   /apply/collision/Fingering-placement_policy:
     post:
       operationId: RULE.Fingering.placement_policy
@@ -671,6 +716,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        smufl_inputs: []
   /apply/verticalstack/Pedal-line_and_text_policy:
     post:
       operationId: RULE.Pedal.line_and_text_policy
@@ -707,6 +753,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        smufl_inputs: []
   /apply/verticalstack/TrillSpanner-placement_policy:
     post:
       operationId: RULE.TrillSpanner.placement_policy
@@ -743,6 +790,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        smufl_inputs: []
   /apply/beaming/Beaming-geometry_slope_and_segments:
     post:
       operationId: RULE.Beaming.geometry_slope_and_segments
@@ -782,6 +830,9 @@ paths:
             - path: /slopeSPPerSpace
               op: <=
               value: 0.5
+        status: ratified
+        smufl_inputs:
+        - beam.thickness
   /apply/beaming/Beaming-rests_split_groups:
     post:
       operationId: RULE.Beaming.rests_split_groups
@@ -819,6 +870,8 @@ paths:
             - path: /beamBreaks/count
               op: '>='
               value: 1.0
+        smufl_inputs:
+        - beam.thickness
   /apply/beaming/Beaming-subdivision_preference:
     post:
       operationId: RULE.Beaming.subdivision_preference
@@ -856,6 +909,8 @@ paths:
             - path: /beamBreaks/count
               op: ==
               value: 2.0
+        smufl_inputs:
+        - beam.thickness
   /apply/beaming/Beaming-suppress_flags_when_beamed:
     post:
       operationId: RULE.Beaming.suppress_flags_when_beamed
@@ -897,6 +952,8 @@ paths:
             - path: /drawFlags
               op: ==
               value: 1.0
+        smufl_inputs:
+        - beam.thickness
   /apply/tieslur/Slur-curvature_choice_with_collision_penalty:
     post:
       operationId: RULE.Slur.curvature_choice_with_collision_penalty
@@ -938,6 +995,8 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
+        smufl_inputs:
+        - noteheadBlack.bbox
   /apply/collision/Collision-priority_lattice:
     post:
       operationId: RULE.Collision.priority_lattice
@@ -977,6 +1036,11 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - noteheadBlack.bbox
+        - dynamicForte.bbox
+        - lyricsText.bbox
   /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation
@@ -1017,6 +1081,11 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
+        status: ratified
+        smufl_inputs:
+        - accidentalSharp.bbox
+        - accidentalFlat.bbox
+        - accidentalNatural.bbox
   /apply/accidental/Accidental-cautionary_parenthesized_policy:
     post:
       operationId: RULE.Accidental.cautionary_parenthesized_policy
@@ -1055,6 +1124,8 @@ paths:
             - path: /showCautionary
               op: ==
               value: 1.0
+        smufl_inputs:
+        - accidentalSharp.bbox
   /apply/accidental/Accidental-microtonal_glyph_selection_and_spacing:
     post:
       operationId: RULE.Accidental.microtonal_glyph_selection_and_spacing
@@ -1092,6 +1163,8 @@ paths:
             - path: /paddingSP
               op: '>='
               value: 0.25
+        smufl_inputs:
+        - accidentalSharp.bbox
   /apply/tieslur/Tie-curvature_selection_with_clearance:
     post:
       operationId: RULE.Tie.curvature_selection_with_clearance
@@ -1128,6 +1201,8 @@ paths:
             - path: /minClearanceSP
               op: '>='
               value: 0.2
+        smufl_inputs:
+        - noteheadBlack.bbox
   /apply/accidental/Clef-mid_system_placement:
     post:
       operationId: RULE.Clef.mid_system_placement
@@ -1164,6 +1239,9 @@ paths:
             - path: /xOffsetSP
               op: '>='
               value: 0.5
+        smufl_inputs:
+        - gClef.bbox
+        - fClef.bbox
   /apply/accidental/KeySignature-courtesy_at_line_breaks:
     post:
       operationId: RULE.KeySignature.courtesy_at_line_breaks
@@ -1200,6 +1278,8 @@ paths:
             - path: /showCourtesy
               op: ==
               value: 1.0
+        smufl_inputs:
+        - accidentalSharp.bbox
   /apply/accidental/TimeSignature-courtesy_at_line_breaks:
     post:
       operationId: RULE.TimeSignature.courtesy_at_line_breaks
@@ -1236,6 +1316,9 @@ paths:
             - path: /showCourtesy
               op: ==
               value: 1.0
+        smufl_inputs:
+        - timeSig4.bbox
+        - timeSigCommon.bbox
   /apply/verticalstack/Lyrics-vertical_alignment_with_baselines:
     post:
       operationId: RULE.Lyrics.vertical_alignment_with_baselines
@@ -1272,6 +1355,8 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.7
+        smufl_inputs:
+        - lyricsText.bbox
   /apply/collision/Ornaments-placement_above_below_with_collision:
     post:
       operationId: RULE.Ornaments.placement_above_below_with_collision
@@ -1308,6 +1393,7 @@ paths:
             - path: /position/y
               op: '>='
               value: 0.0
+        smufl_inputs: []
   /apply/verticalstack/PartStaff-braces_brackets_layout:
     post:
       operationId: RULE.PartStaff.braces_brackets_layout
@@ -1344,6 +1430,7 @@ paths:
             - path: /braceOffsets/margin
               op: '>='
               value: 0.5
+        smufl_inputs: []
   /apply/spacing/MultiVoice-stem_directions_up_down:
     post:
       operationId: RULE.MultiVoice.stem_directions_up_down
@@ -1380,6 +1467,8 @@ paths:
             - path: /stemDirections/0
               op: ==
               value: 1.0
+        smufl_inputs:
+        - noteheadBlack.bbox
   /apply/pagination/MultiMeasureRests-layout_policy:
     post:
       operationId: RULE.MultiMeasureRests.layout_policy
@@ -1416,6 +1505,8 @@ paths:
             - path: /widthSP
               op: '>='
               value: 2.0
+        smufl_inputs:
+        - staffLine.thickness
   /apply/beaming/Tuplet-beaming_and_bracket_placement:
     post:
       operationId: RULE.Tuplet.beaming_and_bracket_placement
@@ -1453,6 +1544,8 @@ paths:
             - path: /bracketPosition/y
               op: '>='
               value: 0.0
+        smufl_inputs:
+        - beam.thickness
   /apply/spacing/Grace-clusters_width_policy:
     post:
       operationId: RULE.Grace.clusters_width_policy
@@ -1489,6 +1582,8 @@ paths:
             - path: /widthScale
               op: ==
               value: 0.7
+        smufl_inputs:
+        - noteheadBlack.advance
   /apply/beaming/CrossStaff-beaming_policy:
     post:
       operationId: RULE.CrossStaff.beaming_policy
@@ -1525,6 +1620,8 @@ paths:
             - path: /beamStaff
               op: ==
               value: 1.0
+        smufl_inputs:
+        - beam.thickness
   /apply/verticalstack/Ottava-placement_policy:
     post:
       operationId: RULE.Ottava.placement_policy
@@ -1561,6 +1658,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        smufl_inputs: []
   /apply/pagination/RepeatVolta-layout_policy:
     post:
       operationId: RULE.RepeatVolta.layout_policy
@@ -1597,6 +1695,7 @@ paths:
             - path: /heightSP
               op: '>='
               value: 1.0
+        smufl_inputs: []
   /apply/verticalstack/RehearsalMarks-placement_policy:
     post:
       operationId: RULE.RehearsalMarks.placement_policy
@@ -1633,6 +1732,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 1.0
+        smufl_inputs: []
   /apply/verticalstack/TempoMarks-placement_policy:
     post:
       operationId: RULE.TempoMarks.placement_policy
@@ -1669,6 +1769,7 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.8
+        smufl_inputs: []
   /apply/accidental/Accidental-key_signature_positions_by_clef:
     post:
       operationId: RULE.Accidental.key_signature_positions_by_clef
@@ -1742,6 +1843,8 @@ paths:
             - path: /positions/2
               op: ==
               value: 9.0
+        smufl_inputs:
+        - accidentalSharp.bbox
   /apply/ledger/Ledger-shorten_near_accidental:
     post:
       operationId: RULE.Ledger.shorten_near_accidental
@@ -1780,6 +1883,9 @@ paths:
               op: ==
               value: -0.4
               tolerance: 0.0
+        smufl_inputs:
+        - ledgerLine.bbox
+        - accidentalSharp.bbox
   /apply/verticalstack/Vertical-min_dist_padding_and_stretch:
     post:
       operationId: RULE.Vertical.min_dist_padding_and_stretch
@@ -1820,6 +1926,8 @@ paths:
               op: '>='
               value: 1.5
               tolerance: 0.05
+        smufl_inputs:
+        - staffLine.thickness
   /apply/dynamicstext/Dynamics-align_with_noteheads_and_stems:
     post:
       operationId: RULE.Dynamics.align_with_noteheads_and_stems
@@ -1857,6 +1965,9 @@ paths:
             - path: /dynamicPosition/y
               op: <=
               value: 0.0
+        smufl_inputs:
+        - dynamicPiano.baseline
+        - dynamicForte.baseline
   /apply/pagination/Pagination-castoff_fill_vs_overfull_penalties:
     post:
       operationId: RULE.Pagination.castoff_fill_vs_overfull_penalties
@@ -1896,6 +2007,7 @@ paths:
             - path: /overfull
               op: ==
               value: 0.0
+        smufl_inputs: []
   /apply/opticalsizing/OpticalSize-stroke_and_spacing_scalars:
     post:
       operationId: RULE.OpticalSize.stroke_and_spacing_scalars
@@ -1934,186 +2046,9 @@ paths:
               op: approx
               value: 1.0
               tolerance: 0.3
-  /apply/accidental/Accidental-policy:
-    post:
-      operationId: RULE.Accidental.policy
-      summary: Accidental policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: AccidentalAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Ambitus-policy:
-    post:
-      operationId: RULE.Ambitus.policy
-      summary: Ambitus policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Arpeggio-policy:
-    post:
-      operationId: RULE.Arpeggio.policy
-      summary: Arpeggio policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/AxisGroup-policy:
-    post:
-      operationId: RULE.AxisGroup.policy
-      summary: AxisGroup policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Balloon-policy:
-    post:
-      operationId: RULE.Balloon.policy
-      summary: Balloon policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
+        smufl_inputs:
+        - staffLine.thickness
+        - noteheadBlack.stroke
   /apply/verticalstack/Barline-style_and_break_policy:
     post:
       operationId: RULE.Barline.style_and_break_policy
@@ -2152,6 +2087,10 @@ paths:
             - path: /thickness
               op: '>='
               value: 0.0
+        smufl_inputs:
+        - barlineSingle.bbox
+        - barlineDouble.bbox
+        - barlineFinal.bbox
   /apply/verticalstack/BarNumber-placement_policy:
     post:
       operationId: RULE.BarNumber.placement_policy
@@ -2186,690 +2125,6 @@ paths:
           - name: distance_respected
             expectations:
             - path: /yOffsetSP
-              op: '>='
-              value: 0.0
-  /apply/beaming/BeamCollision-policy:
-    post:
-      operationId: RULE.BeamCollision.policy
-      summary: BeamCollision policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: BeamingAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/BreakAlign-policy:
-    post:
-      operationId: RULE.BreakAlign.policy
-      summary: BreakAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Caesura-policy:
-    post:
-      operationId: RULE.Caesura.policy
-      summary: Caesura policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/ChordTremolo-policy:
-    post:
-      operationId: RULE.ChordTremolo.policy
-      summary: ChordTremolo policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/accidental/Clef-policy:
-    post:
-      operationId: RULE.Clef.policy
-      summary: Clef policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: AccidentalAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/ClusterSpanner-policy:
-    post:
-      operationId: RULE.ClusterSpanner.policy
-      summary: ClusterSpanner policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Collision-policy:
-    post:
-      operationId: RULE.Collision.policy
-      summary: Collision policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/CompletionHeads-policy:
-    post:
-      operationId: RULE.CompletionHeads.policy
-      summary: CompletionHeads policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/CompletionRest-policy:
-    post:
-      operationId: RULE.CompletionRest.policy
-      summary: CompletionRest policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/dynamicstext/ConcurrentHairpin-policy:
-    post:
-      operationId: RULE.ConcurrentHairpin.policy
-      summary: ConcurrentHairpin policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: DynamicsTextAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/accidental/CueClef-policy:
-    post:
-      operationId: RULE.CueClef.policy
-      summary: CueClef policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: AccidentalAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Custos-policy:
-    post:
-      operationId: RULE.Custos.policy
-      summary: Custos policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/DotColumn-policy:
-    post:
-      operationId: RULE.DotColumn.policy
-      summary: DotColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Dots-policy:
-    post:
-      operationId: RULE.Dots.policy
-      summary: Dots policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/DoublePercentRepeat-policy:
-    post:
-      operationId: RULE.DoublePercentRepeat.policy
-      summary: DoublePercentRepeat policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/DrumNotes-policy:
-    post:
-      operationId: RULE.DrumNotes.policy
-      summary: DrumNotes policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/dynamicstext/DynamicAlign-policy:
-    post:
-      operationId: RULE.DynamicAlign.policy
-      summary: DynamicAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: DynamicsTextAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/dynamicstext/Dynamic-policy:
-    post:
-      operationId: RULE.Dynamic.policy
-      summary: Dynamic policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: DynamicsTextAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Episema-policy:
-    post:
-      operationId: RULE.Episema.policy
-      summary: Episema policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
               op: '>='
               value: 0.0
   /apply/verticalstack/Lyrics-extender_spacing_policy:
@@ -2910,514 +2165,10 @@ paths:
             - path: /minLineLengthSP
               op: '>='
               value: 1.0
-  /apply/collision/FiguredBassPosition-policy:
+  /apply/verticalstack/HorizontalBracket-placement_policy:
     post:
-      operationId: RULE.FiguredBassPosition.policy
-      summary: FiguredBassPosition policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/FingeringColumn-policy:
-    post:
-      operationId: RULE.FingeringColumn.policy
-      summary: FingeringColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Fingering-policy:
-    post:
-      operationId: RULE.Fingering.policy
-      summary: Fingering policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/FontSize-policy:
-    post:
-      operationId: RULE.FontSize.policy
-      summary: FontSize policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Footnote-policy:
-    post:
-      operationId: RULE.Footnote.policy
-      summary: Footnote policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/ForbidLineBreak-policy:
-    post:
-      operationId: RULE.ForbidLineBreak.policy
-      summary: ForbidLineBreak policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Fretboard-policy:
-    post:
-      operationId: RULE.Fretboard.policy
-      summary: Fretboard policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Glissando-policy:
-    post:
-      operationId: RULE.Glissando.policy
-      summary: Glissando policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/beaming/Grace-policy:
-    post:
-      operationId: RULE.Grace.policy
-      summary: Grace policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: BeamingAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/beaming/GraceSpacing-policy:
-    post:
-      operationId: RULE.GraceSpacing.policy
-      summary: GraceSpacing policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: BeamingAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/GridLineSpan-policy:
-    post:
-      operationId: RULE.GridLineSpan.policy
-      summary: GridLineSpan policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/GridPoint-policy:
-    post:
-      operationId: RULE.GridPoint.policy
-      summary: GridPoint policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/GrobPq-policy:
-    post:
-      operationId: RULE.GrobPq.policy
-      summary: GrobPq policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/HorizontalBracket-policy:
-    post:
-      operationId: RULE.HorizontalBracket.policy
-      summary: HorizontalBracket policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/Hyphen-policy:
-    post:
-      operationId: RULE.Hyphen.policy
-      summary: Hyphen policy (stub)
+      operationId: RULE.HorizontalBracket.placement_policy
+      summary: Horizontal bracket placement policy
       requestBody:
         required: true
         content:
@@ -3436,204 +2187,24 @@ paths:
       x-rule:
         agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 645
         depends_on: []
         parameters:
-          tbd: true
+          min_distance_sp: 0.8
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/brackets/horizontal
         test_plan:
           cases:
-          - name: stub_present
+          - name: non_negative_offset
             expectations:
-            - path: /adjustments/count
+            - path: /yOffsetSP
               op: '>='
               value: 0.0
-  /apply/collision/InstrumentName-policy:
+  /apply/verticalstack/InstrumentName-policy:
     post:
       operationId: RULE.InstrumentName.policy
-      summary: InstrumentName policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/InstrumentSwitch-policy:
-    post:
-      operationId: RULE.InstrumentSwitch.policy
-      summary: InstrumentSwitch policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Jump-policy:
-    post:
-      operationId: RULE.Jump.policy
-      summary: Jump policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/KeepAliveTogether-policy:
-    post:
-      operationId: RULE.KeepAliveTogether.policy
-      summary: KeepAliveTogether policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/accidental/Key-policy:
-    post:
-      operationId: RULE.Key.policy
-      summary: Key policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: AccidentalAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/LedgerLine-policy:
-    post:
-      operationId: RULE.LedgerLine.policy
-      summary: LedgerLine policy (stub)
+      summary: Instrument name alignment policy
       requestBody:
         required: true
         content:
@@ -3652,126 +2223,18 @@ paths:
       x-rule:
         agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 335
         depends_on: []
         parameters:
-          tbd: true
+          left_margin_sp: 1.0
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/instrument-names
         test_plan:
           cases:
-          - name: stub_present
+          - name: non_negative_offset
             expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/LigatureBracket-policy:
-    post:
-      operationId: RULE.LigatureBracket.policy
-      summary: LigatureBracket policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/Lyric-policy:
-    post:
-      operationId: RULE.Lyric.policy
-      summary: Lyric policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Melody-policy:
-    post:
-      operationId: RULE.Melody.policy
-      summary: Melody policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
+            - path: /xOffsetSP
               op: '>='
               value: 0.0
   /apply/verticalstack/MetronomeMark-placement_policy:
@@ -3810,366 +2273,6 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-  /apply/collision/MultiMeasureRest-policy:
-    post:
-      operationId: RULE.MultiMeasureRest.policy
-      summary: MultiMeasureRest policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/NewFingering-policy:
-    post:
-      operationId: RULE.NewFingering.policy
-      summary: NewFingering policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/NonMusicalScriptColumn-policy:
-    post:
-      operationId: RULE.NonMusicalScriptColumn.policy
-      summary: NonMusicalScriptColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/NoteHeadLine-policy:
-    post:
-      operationId: RULE.NoteHeadLine.policy
-      summary: NoteHeadLine policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/NoteHeads-policy:
-    post:
-      operationId: RULE.NoteHeads.policy
-      summary: NoteHeads policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/NoteName-policy:
-    post:
-      operationId: RULE.NoteName.policy
-      summary: NoteName policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/NoteSpacing-policy:
-    post:
-      operationId: RULE.NoteSpacing.policy
-      summary: NoteSpacing policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/OttavaSpanner-policy:
-    post:
-      operationId: RULE.OttavaSpanner.policy
-      summary: OttavaSpanner policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/OutputProperty-policy:
-    post:
-      operationId: RULE.OutputProperty.policy
-      summary: OutputProperty policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/PageTurn-policy:
-    post:
-      operationId: RULE.PageTurn.policy
-      summary: PageTurn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
   /apply/collision/Parenthesis-placement_policy:
     post:
       operationId: RULE.Parenthesis.placement_policy
@@ -4204,42 +2307,6 @@ paths:
           - name: non_negative_padding
             expectations:
             - path: /paddingSP
-              op: '>='
-              value: 0.0
-  /apply/collision/PartCombine-policy:
-    post:
-      operationId: RULE.PartCombine.policy
-      summary: PartCombine policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
               op: '>='
               value: 0.0
   /apply/verticalstack/PercentRepeat-layout_policy:
@@ -4278,474 +2345,6 @@ paths:
             - path: /spanMeasures
               op: '>='
               value: 0.0
-  /apply/verticalstack/PianoPedalAlign-policy:
-    post:
-      operationId: RULE.PianoPedalAlign.policy
-      summary: PianoPedalAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/PianoPedal-policy:
-    post:
-      operationId: RULE.PianoPedal.policy
-      summary: PianoPedal policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/PitchSquash-policy:
-    post:
-      operationId: RULE.PitchSquash.policy
-      summary: PitchSquash policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/PitchedTrill-policy:
-    post:
-      operationId: RULE.PitchedTrill.policy
-      summary: PitchedTrill policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/PureFromNeighbor-policy:
-    post:
-      operationId: RULE.PureFromNeighbor.policy
-      summary: PureFromNeighbor policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/RepeatAcknowledge-policy:
-    post:
-      operationId: RULE.RepeatAcknowledge.policy
-      summary: RepeatAcknowledge policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/RestCollision-policy:
-    post:
-      operationId: RULE.RestCollision.policy
-      summary: RestCollision policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Rest-policy:
-    post:
-      operationId: RULE.Rest.policy
-      summary: Rest policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/RhythmicColumn-policy:
-    post:
-      operationId: RULE.RhythmicColumn.policy
-      summary: RhythmicColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/ScriptColumn-policy:
-    post:
-      operationId: RULE.ScriptColumn.policy
-      summary: ScriptColumn policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Script-policy:
-    post:
-      operationId: RULE.Script.policy
-      summary: Script policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/ScriptRow-policy:
-    post:
-      operationId: RULE.ScriptRow.policy
-      summary: ScriptRow policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/SeparatingLineGroup-policy:
-    post:
-      operationId: RULE.SeparatingLineGroup.policy
-      summary: SeparatingLineGroup policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
   /apply/verticalstack/SlashRepeat-layout_policy:
     post:
       operationId: RULE.SlashRepeat.layout_policy
@@ -4780,366 +2379,6 @@ paths:
           - name: at_least_one_position
             expectations:
             - path: /xPositions/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Spacing-policy:
-    post:
-      operationId: RULE.Spacing.policy
-      summary: Spacing policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/SpanArpeggio-policy:
-    post:
-      operationId: RULE.SpanArpeggio.policy
-      summary: SpanArpeggio policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/SpanBar-policy:
-    post:
-      operationId: RULE.SpanBar.policy
-      summary: SpanBar policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/SpanBarStub-policy:
-    post:
-      operationId: RULE.SpanBarStub.policy
-      summary: SpanBarStub policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/SpannerBreakForbid-policy:
-    post:
-      operationId: RULE.SpannerBreakForbid.policy
-      summary: SpannerBreakForbid policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/StaffCollecting-policy:
-    post:
-      operationId: RULE.StaffCollecting.policy
-      summary: StaffCollecting policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/StaffSymbol-policy:
-    post:
-      operationId: RULE.StaffSymbol.policy
-      summary: StaffSymbol policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/StanzaNumberAlign-policy:
-    post:
-      operationId: RULE.StanzaNumberAlign.policy
-      summary: StanzaNumberAlign policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/StanzaNumber-policy:
-    post:
-      operationId: RULE.StanzaNumber.policy
-      summary: StanzaNumber policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Stem-policy:
-    post:
-      operationId: RULE.Stem.policy
-      summary: Stem policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
               op: '>='
               value: 0.0
   /apply/verticalstack/SystemStartDelimiter-layout_policy:
@@ -5178,114 +2417,6 @@ paths:
             - path: /gapsSP/count
               op: '>='
               value: 0.0
-  /apply/collision/TabNoteHeads-policy:
-    post:
-      operationId: RULE.TabNoteHeads.policy
-      summary: TabNoteHeads policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/verticalstack/TabStaffSymbol-policy:
-    post:
-      operationId: RULE.TabStaffSymbol.policy
-      summary: TabStaffSymbol policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: VerticalStackAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
-  /apply/collision/Text-policy:
-    post:
-      operationId: RULE.Text.policy
-      summary: Text policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: CollisionAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
-              op: '>='
-              value: 0.0
   /apply/verticalstack/TextSpanner-placement_policy:
     post:
       operationId: RULE.TextSpanner.placement_policy
@@ -5320,42 +2451,6 @@ paths:
           - name: non_negative_offset
             expectations:
             - path: /yOffsetSP
-              op: '>='
-              value: 0.0
-  /apply/tieslur/Tie-policy:
-    post:
-      operationId: RULE.Tie.policy
-      summary: Tie policy (stub)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties: true
-      x-rule:
-        agent: TieSlurAgent
-        intent: placement
-        priority: 500
-        depends_on: []
-        parameters:
-          tbd: true
-        exceptions: []
-        trace:
-        - _vendor/lilypond
-        test_plan:
-          cases:
-          - name: stub_present
-            expectations:
-            - path: /adjustments/count
               op: '>='
               value: 0.0
   /apply/verticalstack/TimeSignature-placement_policy:
@@ -5394,10 +2489,10 @@ paths:
             - path: /yOffsetSP
               op: '>='
               value: 0.0
-  /apply/beaming/Tuplet-policy:
+  /apply/verticalstack/CueClef-placement_policy:
     post:
-      operationId: RULE.Tuplet.policy
-      summary: Tuplet policy (stub)
+      operationId: RULE.CueClef.placement_policy
+      summary: Cue clef placement and size policy
       requestBody:
         required: true
         content:
@@ -5414,26 +2509,26 @@ paths:
                 type: object
                 additionalProperties: true
       x-rule:
-        agent: BeamingAgent
+        agent: VerticalStackAgent
         intent: placement
-        priority: 500
+        priority: 331
         depends_on: []
         parameters:
-          tbd: true
+          cue_scale: 0.7
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/clefs/cue
         test_plan:
           cases:
-          - name: stub_present
+          - name: non_negative_offset
             expectations:
-            - path: /adjustments/count
+            - path: /xOffsetSP
               op: '>='
               value: 0.0
-  /apply/collision/Tweak-policy:
+  /apply/collision/DrumNotes-stem_side_and_notehead_policy:
     post:
-      operationId: RULE.Tweak.policy
-      summary: Tweak policy (stub)
+      operationId: RULE.DrumNotes.stem_side_and_notehead_policy
+      summary: Drum notes stem side and notehead policy
       requestBody:
         required: true
         content:
@@ -5452,24 +2547,133 @@ paths:
       x-rule:
         agent: CollisionAgent
         intent: placement
-        priority: 500
+        priority: 361
         depends_on: []
         parameters:
-          tbd: true
+          hi_hat_x: true
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/percussion/drum-notes
         test_plan:
           cases:
-          - name: stub_present
+          - name: output_present
             expectations:
-            - path: /adjustments/count
+            - path: /stemDirections/count
               op: '>='
               value: 0.0
-  /apply/collision/VerticalAlign-policy:
+  /apply/verticalstack/FiguredBass-position_stack_policy:
     post:
-      operationId: RULE.VerticalAlign.policy
-      summary: VerticalAlign policy (stub)
+      operationId: RULE.FiguredBass.position_stack_policy
+      summary: Figured bass position and stack policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 541
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.7
+        exceptions: []
+        trace:
+        - docs/figured-bass
+        test_plan:
+          cases:
+          - name: distance_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/InstrumentName-alignment_policy:
+    post:
+      operationId: RULE.InstrumentName.alignment_policy
+      summary: Instrument name alignment policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 335
+        depends_on: []
+        parameters:
+          left_margin_sp: 1.0
+        exceptions: []
+        trace:
+        - docs/instrument-names
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/pagination/PageTurn-break_preferences:
+    post:
+      operationId: RULE.PageTurn.break_preferences
+      summary: Page turn break preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: PaginationAgent
+        intent: layout
+        priority: 150
+        depends_on:
+        - RULE.Pagination.castoff_fill_vs_overfull_penalties
+        parameters:
+          prefer_rests_weight: 0.6
+        exceptions: []
+        trace:
+        - docs/pagination/page-turns
+        test_plan:
+          cases:
+          - name: break_present
+            expectations:
+            - path: /chosenBreak
+              op: '>='
+              value: 0.0
+  /apply/collision/PartCombine-stem_direction_policy:
+    post:
+      operationId: RULE.PartCombine.stem_direction_policy
+      summary: Part-combine stem direction policy
       requestBody:
         required: true
         content:
@@ -5488,17 +2692,486 @@ paths:
       x-rule:
         agent: CollisionAgent
         intent: placement
-        priority: 500
+        priority: 367
         depends_on: []
         parameters:
-          tbd: true
+          unison_split_threshold_sp: 0.0
         exceptions: []
         trace:
-        - _vendor/lilypond
+        - docs/parts/part-combine
         test_plan:
           cases:
-          - name: stub_present
+          - name: outputs_present
             expectations:
-            - path: /adjustments/count
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/StanzaNumber-align_with_lyrics_policy:
+    post:
+      operationId: RULE.StanzaNumber.align_with_lyrics_policy
+      summary: Stanza number alignment with lyric baselines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 613
+        depends_on:
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_gap_sp: 0.2
+        exceptions: []
+        trace:
+        - docs/lyrics/stanzas
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/StanzaNumber-placement_policy:
+    post:
+      operationId: RULE.StanzaNumber.placement_policy
+      summary: Stanza number placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 614
+        depends_on: []
+        parameters:
+          left_margin_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/lyrics/stanzas
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /xOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/collision/Tab-notehead_string_fret_policy:
+    post:
+      operationId: RULE.Tab.notehead_string_fret_policy
+      summary: Tab noteheads show string/fret policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 362
+        depends_on: []
+        parameters:
+          prefer_up_stems: true
+        exceptions: []
+        trace:
+        - docs/tab/notation
+        test_plan:
+          cases:
+          - name: outputs_present
+            expectations:
+            - path: /stemDirections/count
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/TabStaffSymbol-string_tuning_layout:
+    post:
+      operationId: RULE.TabStaffSymbol.string_tuning_layout
+      summary: Tab staff string tuning and line layout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 342
+        depends_on: []
+        parameters:
+          string_gap_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/tab/staff
+        test_plan:
+          cases:
+          - name: positions_present
+            expectations:
+            - path: /stringYPositions/count
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/Text-placement_policy:
+    post:
+      operationId: RULE.Text.placement_policy
+      summary: General text placement with collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 336
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/text
+        test_plan:
+          cases:
+          - name: position_present
+            expectations:
+            - path: /position/y
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/InstrumentSwitch-placement_policy:
+    post:
+      operationId: RULE.InstrumentSwitch.placement_policy
+      summary: Instrument change text placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 336
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/instrument-changes
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/collision/LigatureBracket-placement_policy:
+    post:
+      operationId: RULE.LigatureBracket.placement_policy
+      summary: Ligature bracket placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 361
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.6
+        exceptions: []
+        trace:
+        - docs/notation/ligature-brackets
+        test_plan:
+          cases:
+          - name: offset_present
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/NonMusicalScriptColumn-layout_policy:
+    post:
+      operationId: RULE.NonMusicalScriptColumn.layout_policy
+      summary: Non-musical script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 337
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.5
+        exceptions: []
+        trace:
+        - docs/text/columns
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/OutputProperty-override_inheritance_policy:
+    post:
+      operationId: RULE.OutputProperty.override_inheritance_policy
+      summary: Output property override and inheritance policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: layout
+        priority: 130
+        depends_on: []
+        parameters:
+          allow_inherit: true
+        exceptions: []
+        trace:
+        - docs/overrides
+        test_plan:
+          cases:
+          - name: effective_present
+            expectations:
+            - path: /effectiveProperties
+              op: '!='
+              value: 0.0
+  /apply/verticalstack/PitchedTrill-placement_policy:
+    post:
+      operationId: RULE.PitchedTrill.placement_policy
+      summary: Pitched trill placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 646
+        depends_on: []
+        parameters:
+          min_distance_sp: 0.8
+        exceptions: []
+        trace:
+        - docs/ornaments/pitched-trill
+        test_plan:
+          cases:
+          - name: non_negative_offset
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/ScriptColumn-layout_policy:
+    post:
+      operationId: RULE.ScriptColumn.layout_policy
+      summary: Script column layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 338
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.4
+        exceptions: []
+        trace:
+        - docs/ornaments/scripts
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+  /apply/verticalstack/ScriptRow-layout_policy:
+    post:
+      operationId: RULE.ScriptRow.layout_policy
+      summary: Script row layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 339
+        depends_on: []
+        parameters:
+          min_gap_sp: 0.4
+        exceptions: []
+        trace:
+        - docs/ornaments/scripts
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetsSP/count
+              op: '>='
+              value: 0.0
+  /apply/collision/SpanArpeggio-placement_policy:
+    post:
+      operationId: RULE.SpanArpeggio.placement_policy
+      summary: Span arpeggio placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: placement
+        priority: 365
+        depends_on: []
+        parameters:
+          prefer_centered: true
+        exceptions: []
+        trace:
+        - docs/arpeggios/span
+        test_plan:
+          cases:
+          - name: position_present
+            expectations:
+            - path: /position/y
               op: '>='
               value: 0.0

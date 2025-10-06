@@ -38,7 +38,18 @@ def main():
                 "requestBody": {"required": True, "content": {"application/json":{"schema": req_schema}}},
                 "responses": {"200":{"description":"OK","content":{"application/json":{"schema": res_schema}}}},
                 "x-rule": {
-                    k: r[k] for k in ["agent","intent","priority","depends_on","parameters","exceptions","trace","test_plan"] if k in r
+                    k: r[k] for k in [
+                        "agent",
+                        "intent",
+                        "priority",
+                        "depends_on",
+                        "parameters",
+                        "exceptions",
+                        "trace",
+                        "test_plan",
+                        "status",
+                        "smufl_inputs",
+                    ] if k in r
                 }
             }
         }

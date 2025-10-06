@@ -4,6 +4,7 @@ rules:
   agent: SpacingAgent
   intent: spacing
   priority: 100
+  status: ratified
   depends_on: []
   inputs:
   - durations
@@ -58,6 +59,7 @@ rules:
   agent: SpacingAgent
   intent: spacing
   priority: 110
+  status: ratified
   depends_on:
   - RULE.Spacing.duration_base_with_optical_corrections
   inputs:
@@ -618,6 +620,7 @@ rules:
   agent: BeamingAgent
   intent: placement
   priority: 220
+  status: ratified
   depends_on:
   - RULE.Beaming.subdivision_preference
   inputs:
@@ -767,12 +770,14 @@ rules:
   trace:
   - docs/slurs
   - internals/slur-grob
-  smufl_inputs: []
+  smufl_inputs:
+  - noteheadBlack.bbox
 - id: RULE.Collision.priority_lattice
   title: Collision resolution priority ordering
   agent: CollisionAgent
   intent: collision
   priority: 350
+  status: ratified
   depends_on: []
   inputs:
   - grobTypes
@@ -806,6 +811,7 @@ rules:
   agent: AccidentalAgent
   intent: spacing
   priority: 400
+  status: ratified
   depends_on:
   - RULE.Spacing.duration_base_with_optical_corrections
   inputs:
@@ -1009,7 +1015,9 @@ rules:
         value: 1.0
   trace:
   - docs/time-signatures/courtesy
-  smufl_inputs: []
+  smufl_inputs:
+  - timeSig4.bbox
+  - timeSigCommon.bbox
 - id: RULE.Lyrics.vertical_alignment_with_baselines
   title: Lyrics vertical alignment relative to staff baselines
   agent: VerticalStackAgent

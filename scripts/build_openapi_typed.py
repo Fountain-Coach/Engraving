@@ -15,6 +15,275 @@ def ensure_components(doc):
     # Provide a generic typed fallback so we never emit RuleInput/RuleOutput.
     comp.setdefault('StrictEmpty', { 'type': 'object', 'additionalProperties': False })
 
+    # Helper to define or keep a schema
+    def put(name, schema):
+        if name not in comp:
+            comp[name] = schema
+
+    # Shared primitives
+    put('StaffSpace', { 'type': 'number', 'description': 'Distance in staff spaces (sp)' })
+    put('BBox', {
+        'type': 'object',
+        'properties': {
+            'x': { 'type': 'number' },
+            'y': { 'type': 'number' },
+            'w': { 'type': 'number' },
+            'h': { 'type': 'number' },
+        },
+        'required': ['x','y','w','h']
+    })
+
+    # New typed components for previously StrictEmpty families (batch 1)
+    put('BarlineStyleBreakInput', {
+        'type': 'object',
+        'properties': {
+            'style': { 'type': 'string', 'enum': ['single','double','final','repeatStart','repeatEnd','repeatBoth'] },
+            'atSystemBreak': { 'type': 'boolean' },
+            'defaultThicknessSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'breakMarginSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['style']
+    })
+    put('BarlineStyleBreakOutput', {
+        'type': 'object',
+        'properties': {
+            'thickness': { 'type': 'number' },
+            'breakMarginSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['thickness']
+    })
+
+    put('BarNumberPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'numberBBox': { '$ref': '#/components/schemas/BBox' },
+            'systemTop': { 'type': 'number' },
+            'minDistanceSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['numberBBox']
+    })
+    put('BarNumberPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['yOffsetSP']
+    })
+
+    put('MetronomeMarkPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'markBBox': { '$ref': '#/components/schemas/BBox' },
+            'systemTop': { 'type': 'number' },
+            'topMarginSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['markBBox']
+    })
+    put('MetronomeMarkPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['yOffsetSP']
+    })
+
+    put('ParenthesisPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'targetBBox': { '$ref': '#/components/schemas/BBox' },
+            'paddingSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['targetBBox']
+    })
+    put('ParenthesisPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'paddingSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['paddingSP']
+    })
+
+    put('PercentRepeatLayoutInput', {
+        'type': 'object',
+        'properties': {
+            'measures': { 'type': 'integer', 'minimum': 0 },
+            'repeatCount': { 'type': 'integer', 'minimum': 0 },
+        },
+        'required': ['measures']
+    })
+    put('PercentRepeatLayoutOutput', {
+        'type': 'object',
+        'properties': {
+            'spanMeasures': { 'type': 'number' },
+        },
+        'required': ['spanMeasures']
+    })
+
+    put('SlashRepeatLayoutInput', {
+        'type': 'object',
+        'properties': {
+            'slashCount': { 'type': 'integer', 'minimum': 1 },
+            'measureWidthSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['slashCount']
+    })
+    put('SlashRepeatLayoutOutput', {
+        'type': 'object',
+        'properties': {
+            'xPositions': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'number' } },
+        },
+        'required': ['xPositions']
+    })
+
+    put('SystemStartDelimiterLayoutInput', {
+        'type': 'object',
+        'properties': {
+            'groupSizes': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'integer', 'minimum': 1 } },
+            'style': { 'type': 'string', 'enum': ['brace','bracket'] },
+            'minBraceGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['groupSizes','style']
+    })
+    put('SystemStartDelimiterLayoutOutput', {
+        'type': 'object',
+        'properties': {
+            'gapsSP': { 'type': 'array', 'minItems': 1, 'items': { '$ref': '#/components/schemas/StaffSpace' } },
+        },
+        'required': ['gapsSP']
+    })
+
+    put('TimeSignaturePlacementInput', {
+        'type': 'object',
+        'properties': {
+            'timeSigBBox': { '$ref': '#/components/schemas/BBox' },
+            'systemTop': { 'type': 'number' },
+            'verticalCenterBiasSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['timeSigBBox']
+    })
+    put('TimeSignaturePlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['yOffsetSP']
+    })
+
+    put('InstrumentNamePolicyInput', {
+        'type': 'object',
+        'properties': {
+            'nameBBox': { '$ref': '#/components/schemas/BBox' },
+            'leftMarginSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['nameBBox']
+    })
+    put('InstrumentNamePolicyOutput', {
+        'type': 'object',
+        'properties': {
+            'xOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['xOffsetSP']
+    })
+
+    put('CueClefPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'clefBBox': { '$ref': '#/components/schemas/BBox' },
+            'cueScale': { 'type': 'number', 'minimum': 0 },
+        },
+        'required': ['clefBBox']
+    })
+    put('CueClefPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'xOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['xOffsetSP']
+    })
+
+    put('TextSpannerPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'spannerBBox': { '$ref': '#/components/schemas/BBox' },
+            'minDistanceSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['spannerBBox']
+    })
+    put('TextSpannerPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['yOffsetSP']
+    })
+
+    put('StanzaNumberAlignInput', {
+        'type': 'object',
+        'properties': {
+            'stanzaBBox': { '$ref': '#/components/schemas/BBox' },
+            'lyricsBaselineSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['stanzaBBox','lyricsBaselineSP']
+    })
+    put('StanzaNumberAlignOutput', {
+        'type': 'object',
+        'properties': {
+            'xOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['xOffsetSP']
+    })
+
+    put('StanzaNumberPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'stanzaBBox': { '$ref': '#/components/schemas/BBox' },
+            'leftMarginSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['stanzaBBox']
+    })
+    put('StanzaNumberPlacementOutput', {
+        'type': 'object',
+        'properties': {
+            'xOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['xOffsetSP']
+    })
+
+    put('TabNoteheadStringFretInput', {
+        'type': 'object',
+        'properties': {
+            'fretNumbers': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'integer', 'minimum': 0 } },
+            'stringNumbers': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'integer', 'minimum': 1 } },
+            'preferUpStems': { 'type': 'boolean' },
+        },
+        'required': ['fretNumbers','stringNumbers']
+    })
+    put('TabNoteheadStringFretOutput', {
+        'type': 'object',
+        'properties': {
+            'stemDirections': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'string', 'enum': ['up','down'] } },
+        },
+        'required': ['stemDirections']
+    })
+
+    put('TabStaffStringTuningLayoutInput', {
+        'type': 'object',
+        'properties': {
+            'tunings': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'integer' } },
+            'stringCount': { 'type': 'integer', 'minimum': 1 },
+            'stringGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['tunings','stringCount']
+    })
+    put('TabStaffStringTuningLayoutOutput', {
+        'type': 'object',
+        'properties': {
+            'linePositionsSP': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'number' } },
+        },
+        'required': ['linePositionsSP']
+    })
+
 def main():
     untyped = yaml.safe_load(UNTYPED.read_text())
     typed = yaml.safe_load(TYPED.read_text())
@@ -74,9 +343,21 @@ def main():
         'RULE.SpanArpeggio.placement_policy': ('SpanArpeggioInput','SpanArpeggioOutput'),
         'RULE.HorizontalBracket.placement_policy': ('HorizontalBracketInput','HorizontalBracketOutput'),
         'RULE.Text.placement_policy': ('TextPlacementInput','TextPlacementOutput'),
-        'RULE.PercentRepeat.layout_policy': ('StrictEmpty','StrictEmpty'),
-        'RULE.SlashRepeat.layout_policy': ('StrictEmpty','StrictEmpty'),
-        'RULE.SystemStartDelimiter.layout_policy': ('StrictEmpty','StrictEmpty'),
+        'RULE.PercentRepeat.layout_policy': ('PercentRepeatLayoutInput','PercentRepeatLayoutOutput'),
+        'RULE.SlashRepeat.layout_policy': ('SlashRepeatLayoutInput','SlashRepeatLayoutOutput'),
+        'RULE.SystemStartDelimiter.layout_policy': ('SystemStartDelimiterLayoutInput','SystemStartDelimiterLayoutOutput'),
+        'RULE.Barline.style_and_break_policy': ('BarlineStyleBreakInput','BarlineStyleBreakOutput'),
+        'RULE.BarNumber.placement_policy': ('BarNumberPlacementInput','BarNumberPlacementOutput'),
+        'RULE.MetronomeMark.placement_policy': ('MetronomeMarkPlacementInput','MetronomeMarkPlacementOutput'),
+        'RULE.Parenthesis.placement_policy': ('ParenthesisPlacementInput','ParenthesisPlacementOutput'),
+        'RULE.TimeSignature.placement_policy': ('TimeSignaturePlacementInput','TimeSignaturePlacementOutput'),
+        'RULE.InstrumentName.policy': ('InstrumentNamePolicyInput','InstrumentNamePolicyOutput'),
+        'RULE.CueClef.placement_policy': ('CueClefPlacementInput','CueClefPlacementOutput'),
+        'RULE.TextSpanner.placement_policy': ('TextSpannerPlacementInput','TextSpannerPlacementOutput'),
+        'RULE.StanzaNumber.align_with_lyrics_policy': ('StanzaNumberAlignInput','StanzaNumberAlignOutput'),
+        'RULE.StanzaNumber.placement_policy': ('StanzaNumberPlacementInput','StanzaNumberPlacementOutput'),
+        'RULE.Tab.notehead_string_fret_policy': ('TabNoteheadStringFretInput','TabNoteheadStringFretOutput'),
+        'RULE.TabStaffSymbol.string_tuning_layout': ('TabStaffStringTuningLayoutInput','TabStaffStringTuningLayoutOutput'),
     }
 
     for path, op in upaths.items():
