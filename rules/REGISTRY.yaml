@@ -2621,30 +2621,30 @@ rules:
   trace:
   - _vendor/lilypond
 - id: RULE.InstrumentName.policy
-  title: InstrumentName policy (stub)
-  agent: CollisionAgent
+  title: Instrument name alignment policy
+  agent: VerticalStackAgent
   intent: placement
-  priority: 500
+  priority: 335
   depends_on: []
   inputs:
-  - context
+  - nameBBox
+  - systemLeft
   parameters:
-    tbd: true
-  procedure: Stub rule auto-generated for full engraver coverage. Replace with specific
-    behavior.
+    left_margin_sp: 1.0
+  procedure: Align instrument name to left margin and vertically center to bracketed staves when present.
   exceptions: []
   outputs:
-  - adjustments
+  - xOffsetSP
   side_effects: []
   test_plan:
     cases:
-    - name: stub_present
+    - name: non_negative_offset
       expectations:
-      - path: /adjustments/count
+      - path: /xOffsetSP
         op: '>='
         value: 0.0
   trace:
-  - _vendor/lilypond
+  - docs/instrument-names
 - id: RULE.InstrumentSwitch.policy
   title: InstrumentSwitch policy (stub)
   agent: CollisionAgent
@@ -4046,3 +4046,294 @@ rules:
         value: 0.0
   trace:
   - _vendor/lilypond
+- id: RULE.CueClef.placement_policy
+  title: Cue clef placement and size policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 331
+  depends_on: []
+  inputs:
+  - clefType
+  - staffSizePT
+  parameters:
+    cue_scale: 0.7
+  procedure: Place cue clef using scaled glyph size; align to staff baseline with minimal offset.
+  exceptions: []
+  outputs:
+  - xOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: non_negative_offset
+      expectations:
+      - path: /xOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/clefs/cue
+
+- id: RULE.DrumNotes.stem_side_and_notehead_policy
+  title: Drum notes stem side and notehead policy
+  agent: CollisionAgent
+  intent: placement
+  priority: 361
+  depends_on: []
+  inputs:
+  - drumPitches
+  - voiceDirections
+  parameters:
+    hi_hat_x: true
+  procedure: Choose stem direction and notehead shape for common drumset mapping; avoid collisions between voices.
+  exceptions: []
+  outputs:
+  - stemDirections
+  - noteheadShapes
+  side_effects: []
+  test_plan:
+    cases:
+    - name: output_present
+      expectations:
+      - path: /stemDirections/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/percussion/drum-notes
+
+- id: RULE.FiguredBass.position_stack_policy
+  title: Figured bass position and stack policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 541
+  depends_on: []
+  inputs:
+  - figures
+  - staffBaseline
+  parameters:
+    min_distance_sp: 0.7
+  procedure: Position figures below staff with minimum distance; stack multiple figures vertically with even gaps.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  - stackOffsetsSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: distance_non_negative
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/figured-bass
+
+- id: RULE.InstrumentName.alignment_policy
+  title: Instrument name alignment policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 335
+  depends_on: []
+  inputs:
+  - nameBBox
+  - systemLeft
+  parameters:
+    left_margin_sp: 1.0
+  procedure: Align instrument name to left margin and vertically center to bracketed staves when present.
+  exceptions: []
+  outputs:
+  - xOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: non_negative_offset
+      expectations:
+      - path: /xOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/instrument-names
+
+- id: RULE.PageTurn.break_preferences
+  title: Page turn break preferences
+  agent: PaginationAgent
+  intent: layout
+  priority: 150
+  depends_on:
+  - RULE.Pagination.castoff_fill_vs_overfull_penalties
+  inputs:
+  - candidateBreaks
+  parameters:
+    prefer_rests_weight: 0.6
+  procedure: Prefer page breaks at rests and measure boundaries; penalize mid-phrase breaks.
+  exceptions: []
+  outputs:
+  - chosenBreak
+  side_effects: []
+  test_plan:
+    cases:
+    - name: break_present
+      expectations:
+      - path: /chosenBreak
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/pagination/page-turns
+
+- id: RULE.PartCombine.stem_direction_policy
+  title: Part-combine stem direction policy
+  agent: CollisionAgent
+  intent: placement
+  priority: 367
+  depends_on: []
+  inputs:
+  - mergedVoices
+  - intervalSP
+  parameters:
+    unison_split_threshold_sp: 0.0
+  procedure: Decide stem directions and unison split based on vertical interval; opposite stems for seconds, merge for unison.
+  exceptions: []
+  outputs:
+  - stemDirections
+  - splitUnison
+  side_effects: []
+  test_plan:
+    cases:
+    - name: outputs_present
+      expectations:
+      - path: /stemDirections/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/parts/part-combine
+
+- id: RULE.StanzaNumber.align_with_lyrics_policy
+  title: Stanza number alignment with lyric baselines
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 613
+  depends_on:
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  inputs:
+  - stanzaBBox
+  - lyricBaseline
+  parameters:
+    min_gap_sp: 0.2
+  procedure: Align stanza numbers to lyric baselines with minimum gap; offset to avoid collisions.
+  exceptions: []
+  outputs:
+  - xOffsetSP
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offsets_present
+      expectations:
+      - path: /xOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/lyrics/stanzas
+
+- id: RULE.StanzaNumber.placement_policy
+  title: Stanza number placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 614
+  depends_on: []
+  inputs:
+  - stanzaBBox
+  - systemLeft
+  parameters:
+    left_margin_sp: 0.8
+  procedure: Place stanza numbers aligned to left margin with consistent spacing.
+  exceptions: []
+  outputs:
+  - xOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: non_negative_offset
+      expectations:
+      - path: /xOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/lyrics/stanzas
+
+- id: RULE.Tab.notehead_string_fret_policy
+  title: Tab noteheads show string/fret policy
+  agent: CollisionAgent
+  intent: placement
+  priority: 362
+  depends_on: []
+  inputs:
+  - stringNumbers
+  - fretNumbers
+  parameters:
+    prefer_up_stems: true
+  procedure: Render tab noteheads with string/fret numbers; choose stem direction for readability.
+  exceptions: []
+  outputs:
+  - stemDirections
+  - text
+  side_effects: []
+  test_plan:
+    cases:
+    - name: outputs_present
+      expectations:
+      - path: /stemDirections/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/tab/notation
+
+- id: RULE.TabStaffSymbol.string_tuning_layout
+  title: Tab staff string tuning and line layout
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 342
+  depends_on: []
+  inputs:
+  - tuningPitches
+  - staffTop
+  parameters:
+    string_gap_sp: 0.5
+  procedure: Compute tab staff string positions from tuning; enforce uniform gaps.
+  exceptions: []
+  outputs:
+  - stringYPositions
+  side_effects: []
+  test_plan:
+    cases:
+    - name: positions_present
+      expectations:
+      - path: /stringYPositions/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/tab/staff
+
+- id: RULE.Text.placement_policy
+  title: General text placement with collision avoidance
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 336
+  depends_on: []
+  inputs:
+  - textBBox
+  - targets
+  parameters:
+    min_distance_sp: 0.6
+  procedure: Place text above/below/side of targets to satisfy minimum distance.
+  exceptions: []
+  outputs:
+  - position
+  side_effects: []
+  test_plan:
+    cases:
+    - name: position_present
+      expectations:
+      - path: /position/y
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/text

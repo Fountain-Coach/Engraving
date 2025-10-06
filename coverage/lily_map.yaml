@@ -170,7 +170,7 @@ map:
   Engraver.Concurrent_hairpin_engraver:
   - RULE.ConcurrentHairpin.policy
   Engraver.Cue_clef_engraver:
-  - RULE.CueClef.policy
+  - RULE.CueClef.placement_policy
   Engraver.Custos_engraver:
   - RULE.Custos.policy
   Engraver.Dot_column_engraver:
@@ -180,7 +180,7 @@ map:
   Engraver.Double_percent_repeat_engraver:
   - RULE.DoublePercentRepeat.policy
   Engraver.Drum_notes_engraver:
-  - RULE.DrumNotes.policy
+  - RULE.DrumNotes.stem_side_and_notehead_policy
   Engraver.Dynamic_align_engraver:
   - RULE.DynamicAlign.policy
   Engraver.Dynamic_engraver:
@@ -190,7 +190,7 @@ map:
   Engraver.Extender_engraver:
   - RULE.Lyrics.extender_spacing_policy
   Engraver.Figured_bass_position_engraver:
-  - RULE.FiguredBassPosition.policy
+  - RULE.FiguredBass.position_stack_policy
   Engraver.Fingering_column_engraver:
   - RULE.FingeringColumn.policy
   Engraver.Fingering_engraver:
@@ -220,7 +220,7 @@ map:
   Engraver.Hyphen_engraver:
   - RULE.Lyrics.hyphen_melisma_spacing_interaction
   Engraver.Instrument_name_engraver:
-  - RULE.InstrumentName.policy
+  - RULE.InstrumentName.alignment_policy
   Engraver.Instrument_switch_engraver:
   - RULE.InstrumentSwitch.policy
   Engraver.Jump_engraver:
@@ -257,11 +257,11 @@ map:
   Engraver.Output_property_engraver:
   - RULE.OutputProperty.policy
   Engraver.Page_turn_engraver:
-  - RULE.PageTurn.policy
+  - RULE.PageTurn.break_preferences
   Engraver.Parenthesis_engraver:
   - RULE.Parenthesis.placement_policy
   Engraver.Part_combine_engraver:
-  - RULE.PartCombine.policy
+  - RULE.PartCombine.stem_direction_policy
   Engraver.Percent_repeat_engraver:
   - RULE.PercentRepeat.layout_policy
   Engraver.Piano_pedal_align_engraver:
@@ -307,19 +307,19 @@ map:
   Engraver.Staff_symbol_engraver:
   - RULE.StaffSymbol.policy
   Engraver.Stanza_number_align_engraver:
-  - RULE.StanzaNumberAlign.policy
+  - RULE.StanzaNumber.align_with_lyrics_policy
   Engraver.Stanza_number_engraver:
-  - RULE.StanzaNumber.policy
+  - RULE.StanzaNumber.placement_policy
   Engraver.Stem_engraver:
   - RULE.Stem.policy
   Engraver.System_start_delimiter_engraver:
   - RULE.SystemStartDelimiter.layout_policy
   Engraver.Tab_note_heads_engraver:
-  - RULE.TabNoteHeads.policy
+  - RULE.Tab.notehead_string_fret_policy
   Engraver.Tab_staff_symbol_engraver:
-  - RULE.TabStaffSymbol.policy
+  - RULE.TabStaffSymbol.string_tuning_layout
   Engraver.Text_engraver:
-  - RULE.Text.policy
+  - RULE.Text.placement_policy
   Engraver.Text_spanner_engraver:
   - RULE.TextSpanner.placement_policy
   Engraver.Tie_engraver:
