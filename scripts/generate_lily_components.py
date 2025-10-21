@@ -7,30 +7,44 @@ OUT = ROOT / 'coverage' / 'lily_components.yaml'
 
 def find_engravers(lily: Path):
     engravers = set()
-    for p in lily.rglob('lily/*.cc'):
+    # 1) Direct class definitions in C++ sources and headers
+    for p in list(lily.rglob('**/*.cc')) + list(lily.rglob('**/*.hh')):
         try:
             txt = p.read_text(errors='ignore')
         except Exception:
             continue
-        # Match: class Name [final]? : public Engraver
-        for m in re.finditer(r'class\s+([A-Za-z0-9_]+)\s+(?:final\s+)?:\s*public\s+Engraver', txt):
+        for m in re.finditer(r'class\s+([A-Za-z0-9_]+)\s*(?:final\s+)?:\s*public\s+Engraver', txt):
             engravers.add(m.group(1))
+    # 2) Mentions of *_engraver tokens in source/SCM
+    for p in list(lily.rglob('**/*.cc')) + list(lily.rglob('**/*.hh')) + list(lily.rglob('**/*.scm')):
+        try:
+            txt = p.read_text(errors='ignore')
+        except Exception:
+            continue
+        for m in re.finditer(r'([A-Za-z0-9_]+)_engraver\b', txt):
+            name = m.group(1)
+            # Convert snake to CamelCase heuristic
+            cam = ''.join(part.capitalize() for part in name.split('_')) + '_engraver'
+            engravers.add(cam)
     return sorted(engravers)
 
 def find_grobs(lily: Path):
     grobs = set()
-    for p in list(lily.rglob('scm/*.scm')) + list(lily.rglob('*.cc')):
+    # Heuristic: scrape common grob names from SCM and C++
+    candidates = set()
+    for p in list(lily.rglob('**/*.scm')) + list(lily.rglob('**/*.cc')):
         try:
             txt = p.read_text(errors='ignore')
         except Exception:
             continue
         for m in re.finditer(r'\b([A-Z][A-Za-z0-9]+)\b', txt):
-            name = m.group(1)
-            if name in {'Grob','Engraver','Translator','Context','Paper','Font','String'}:
-                continue
-            if name.endswith('Grob') or name in {
-                'NoteHead','Rest','Accidental','Beam','Slur','Tie','DynamicText','LyricText','OttavaBracket','VoltaBracket','StaffSymbol','Stem','Flag','TupletBracket','Fingering','RepeatTie','Breath','Clef','TimeSignature','KeySignature','LedgerLine','Hairpin','Script','Arpeggio','TrillSpanner','Crescendo','Decrescendo','Pedal','TextScript'}:
-                grobs.add(name)
+            candidates.add(m.group(1))
+    whitelist = {
+        'NoteHead','Rest','Accidental','Beam','Slur','Tie','DynamicText','LyricText','OttavaBracket','VoltaBracket','StaffSymbol','Stem','Flag','TupletBracket','Fingering','RepeatTie','Breath','Clef','TimeSignature','KeySignature','LedgerLine','Hairpin','Script','Arpeggio','TrillSpanner','Crescendo','Decrescendo','Pedal','TextScript','Parenthesis','BarLine','BarNumber','PercentRepeat','SlashRepeat','FiguredBass','Ottava','StanzaNumber','InstrumentName','GridPoint','GridLineSpan','SystemStartDelimiter','TabNoteHead','TabStaffSymbol'
+    }
+    for name in candidates:
+        if name.endswith('Grob') or name in whitelist:
+            grobs.add(name)
     return sorted(grobs)
 
 def main():
