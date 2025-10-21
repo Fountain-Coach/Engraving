@@ -54,6 +54,10 @@ jobs:
         run: |
           python scripts/audit_rules_coverage.py > audit.json
           echo "Audit summary:" && cat audit.json
+          echo "### Engraving Audit" >> $GITHUB_STEP_SUMMARY
+          echo "\n\n\`\`\`json" >> $GITHUB_STEP_SUMMARY
+          cat audit.json >> $GITHUB_STEP_SUMMARY
+          echo "\n\`\`\`" >> $GITHUB_STEP_SUMMARY
       - name: Upload audit report
         if: always()
         uses: actions/upload-artifact@v4
