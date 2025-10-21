@@ -36,8 +36,8 @@
   },
   "RULE.Beaming.suppress_flags_when_beamed": {
     "path": "/apply/beaming/Beaming-suppress_flags_when_beamed",
-    "request": "6902b9149f14aabd6b016ce20ef34a2101a05d9ba427847b3a59d7288d8c36c9",
-    "response": "b6fc4787f989d43df75ff68840b936c05586a94126830c72e2bfd87a204ed3f5"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Slur.curvature_choice_with_collision_penalty": {
     "path": "/apply/tieslur/Slur-curvature_choice_with_collision_penalty",
@@ -106,23 +106,23 @@
   },
   "RULE.MultiMeasureRests.layout_policy": {
     "path": "/apply/pagination/MultiMeasureRests-layout_policy",
-    "request": "e43defb3503e58f3a513d96ebd9d78d65a67e8dbd73057ec6986af7b24c6d619",
-    "response": "b8fb5c49239eda20f6a200576beb79fadef1a7de51464a08e853a52765329b2e"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Tuplet.beaming_and_bracket_placement": {
     "path": "/apply/beaming/Tuplet-beaming_and_bracket_placement",
-    "request": "d8a93c30be9631566f750a5ef3661a60b110dfff6e566a9e66f85b2e138c8287",
-    "response": "c19a2190391765b85387d887518ca6245064854793a986525f05214c2a375ac0"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Grace.clusters_width_policy": {
     "path": "/apply/spacing/Grace-clusters_width_policy",
-    "request": "3dd1eedde80328474d7049f05f51f9a7bf19a61750c215d6753ce77e5dc34f63",
-    "response": "c089a1c99c3007380e3f3ab084540b900f57f11f46f4f68ab8abfe16073547e7"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.CrossStaff.beaming_policy": {
     "path": "/apply/beaming/CrossStaff-beaming_policy",
-    "request": "8d40ab34cf7cf5dadd7356dda6de7108728f690eff6a3d161f2ebb9a56d29d63",
-    "response": "c9eacfe16ae0e2bef9695fe63bbc3a209c701eec4def8f686310fd63b7bda7df"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Ottava.placement_policy": {
     "path": "/apply/verticalstack/Ottava-placement_policy",
@@ -131,8 +131,8 @@
   },
   "RULE.RepeatVolta.layout_policy": {
     "path": "/apply/pagination/RepeatVolta-layout_policy",
-    "request": "bebc60eea21ee84aec2c637464c15698134c45007e4d9dff4d4017c3b7cf683f",
-    "response": "5c6f54c208c2e0a8c2882a049000c22345412c8e62ac0e06fe2da1d08764814c"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.RehearsalMarks.placement_policy": {
     "path": "/apply/verticalstack/RehearsalMarks-placement_policy",
@@ -146,8 +146,8 @@
   },
   "RULE.Accidental.key_signature_positions_by_clef": {
     "path": "/apply/accidental/Accidental-key_signature_positions_by_clef",
-    "request": "9486e76aacf06e7682357fe24fadff47ab205df55c0c0c56106460fbf596b57f",
-    "response": "94ecfdb39f628628f550594c6e66b0dd385caa836ce2089820c755f5ec78e53f"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Ledger.shorten_near_accidental": {
     "path": "/apply/ledger/Ledger-shorten_near_accidental",
@@ -166,18 +166,18 @@
   },
   "RULE.Beaming.slope_with_clearance": {
     "path": "/apply/beaming/Beaming-slope_with_clearance",
-    "request": "d31268ed3549880f6b26fa8f04f1c7901f2dcc1724adb185986637a473e5ef56",
-    "response": "c338a2748c8a8f64e94f8e8e912e009c8c60af5b57a3cc6b4437d0435ffb733e"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.NoteSpacing.optical_stem_weight_scalars": {
     "path": "/apply/spacing/NoteSpacing-optical_stem_weight_scalars",
-    "request": "2f2f8c851e81504e1e564db726b708ecf07dccdbc217a2f7c4754d47dc4c756f",
-    "response": "1e95884106da34a8eb44c8504608d2b0036aa740168be1359a5d05387928ded8"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Beaming.cross_voice_mixed_stem_slope_balance": {
     "path": "/apply/beaming/Beaming-cross_voice_mixed_stem_slope_balance",
-    "request": "dd2ec1065f68c51211638a2599e0fe74c7771bdd7abd57bc5315933e541a614f",
-    "response": "b754f00646df3ca36d03d7f84053863691a9787902abe49e6f285e11fb2ebeed"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Dynamics.stacked_kerning_with_system_breaks": {
     "path": "/apply/dynamicstext/Dynamics-stacked_kerning_with_system_breaks",
@@ -191,8 +191,8 @@
   },
   "RULE.Lyrics.baseline_adjustment_with_variance": {
     "path": "/apply/verticalstack/Lyrics-baseline_adjustment_with_variance",
-    "request": "4d59aa18041ebae0f99c3de75406fb1283249a2e6250129beb6e355a9fc5daa7",
-    "response": "3b1bc643da5cd171f5e07e19cf40cb281f9e8ceb3654151d46df6ddd86c9c979"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.BeamCollision.resolve_overlaps": {
     "path": "/apply/collision/BeamCollision-resolve_overlaps",
@@ -206,8 +206,8 @@
   },
   "RULE.DynamicAlign.kerning_with_hairpins": {
     "path": "/apply/dynamicstext/DynamicAlign-kerning_with_hairpins",
-    "request": "c5db5a579387c4394ec0cd9a6dd0bc515259c46ca2b0ec78ce827d71c4a57c9f",
-    "response": "f0826b8862b55f000b37c367f3b0218b51ae6f358eedc6bb6a86212d4723b3c3"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Pagination.castoff_fill_vs_overfull_penalties": {
     "path": "/apply/pagination/Pagination-castoff_fill_vs_overfull_penalties",
@@ -241,13 +241,13 @@
   },
   "RULE.NoteSpacing.spacing_policy": {
     "path": "/apply/spacing/NoteSpacing-spacing_policy",
-    "request": "7cdd3a833cc6a0cfea8e09b045626fb6165035583f3832356f0ac214515ffea4",
-    "response": "a5860551c09a73456c3d992813878754bb4bf85a22c488591a699b17844fb913"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.DurationLine.placement_policy": {
     "path": "/apply/verticalstack/DurationLine-placement_policy",
-    "request": "eec29fb86fed175a25f6043a7514162de7a705943a9c99fd526beaa8bb9d23d2",
-    "response": "dbf84e8e725d5d81de454a84cd1930791e2420f7b26a259a093a86a27496194a"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Barline.style_and_break_policy": {
     "path": "/apply/verticalstack/Barline-style_and_break_policy",
@@ -406,8 +406,8 @@
   },
   "RULE.Collision.fingering_vs_ornaments_priority": {
     "path": "/apply/collision/Collision-fingering_vs_ornaments_priority",
-    "request": "cd1a463c46d6264134447db17a8c3c7abe5b9a2488c6d759fea66da1f96b133e",
-    "response": "cd1a463c46d6264134447db17a8c3c7abe5b9a2488c6d759fea66da1f96b133e"
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   },
   "RULE.Collision.lyrics_vs_dynamics_stacking": {
     "path": "/apply/collision/Collision-lyrics_vs_dynamics_stacking",
@@ -448,5 +448,465 @@
     "path": "/apply/collision/Collision-rehearsal_vs_tempo_priority",
     "request": "0d3ff0c333601ece0d98e4d3347b33e89960561b1ea8cb7a2b2fc613070b3730",
     "response": "fb2452768835eca67ffabd7c15d4d340c22aa98c56995fbccca2835ecc34c2ec"
+  },
+  "RULE.Alterationglyph.policy": {
+    "path": "/apply/collision/Alterationglyph-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Axisgroup.policy": {
+    "path": "/apply/verticalstack/Axisgroup-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Balloon.policy": {
+    "path": "/apply/collision/Balloon-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Barnumber.policy": {
+    "path": "/apply/collision/Barnumber-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Beat.policy": {
+    "path": "/apply/collision/Beat-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Bendspanner.policy": {
+    "path": "/apply/collision/Bendspanner-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Bend.policy": {
+    "path": "/apply/collision/Bend-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Breakalign.policy": {
+    "path": "/apply/collision/Breakalign-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Breathingsign.policy": {
+    "path": "/apply/collision/Breathingsign-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Caesura.policy": {
+    "path": "/apply/collision/Caesura-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Centeredbarnumberalign.policy": {
+    "path": "/apply/collision/Centeredbarnumberalign-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Chordname.policy": {
+    "path": "/apply/collision/Chordname-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Chordsquare.policy": {
+    "path": "/apply/collision/Chordsquare-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Chordtremolo.policy": {
+    "path": "/apply/collision/Chordtremolo-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Clusterspanner.policy": {
+    "path": "/apply/collision/Clusterspanner-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Coherentligature.policy": {
+    "path": "/apply/collision/Coherentligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Collision.policy": {
+    "path": "/apply/collision/Collision-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Completionheads.policy": {
+    "path": "/apply/collision/Completionheads-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Currentchordtext.policy": {
+    "path": "/apply/verticalstack/Currentchordtext-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Custos.policy": {
+    "path": "/apply/collision/Custos-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Divisio.policy": {
+    "path": "/apply/collision/Divisio-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Dotcolumn.policy": {
+    "path": "/apply/collision/Dotcolumn-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Doublepercentrepeat.policy": {
+    "path": "/apply/collision/Doublepercentrepeat-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Drumnotes.policy": {
+    "path": "/apply/collision/Drumnotes-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Durationline.policy": {
+    "path": "/apply/collision/Durationline-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Engravergroup.policy": {
+    "path": "/apply/collision/Engravergroup-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Figuredbassposition.policy": {
+    "path": "/apply/collision/Figuredbassposition-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Figuredbass.policy": {
+    "path": "/apply/collision/Figuredbass-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Fingerglide.policy": {
+    "path": "/apply/collision/Fingerglide-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Fontsize.policy": {
+    "path": "/apply/collision/Fontsize-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Footnote.policy": {
+    "path": "/apply/collision/Footnote-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Forbidlinebreak.policy": {
+    "path": "/apply/collision/Forbidlinebreak-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Fretboard.policy": {
+    "path": "/apply/collision/Fretboard-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Gregorianligature.policy": {
+    "path": "/apply/collision/Gregorianligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Gridchordname.policy": {
+    "path": "/apply/collision/Gridchordname-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Gridlinespan.policy": {
+    "path": "/apply/collision/Gridlinespan-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Gridpoint.policy": {
+    "path": "/apply/collision/Gridpoint-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Grobpq.policy": {
+    "path": "/apply/collision/Grobpq-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.GrobPq.policy": {
+    "path": "/apply/collision/GrobPq-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Horizontalbracket.policy": {
+    "path": "/apply/collision/Horizontalbracket-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Hufnagelligature.policy": {
+    "path": "/apply/collision/Hufnagelligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Instrumentname.policy": {
+    "path": "/apply/collision/Instrumentname-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Instrumentswitch.policy": {
+    "path": "/apply/collision/Instrumentswitch-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Jump.policy": {
+    "path": "/apply/collision/Jump-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Keepalivetogether.policy": {
+    "path": "/apply/collision/Keepalivetogether-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Kievanligature.policy": {
+    "path": "/apply/collision/Kievanligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Laissezvibrer.policy": {
+    "path": "/apply/collision/Laissezvibrer-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.LaissezVibrer.policy": {
+    "path": "/apply/collision/LaissezVibrer-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Ligaturebracket.policy": {
+    "path": "/apply/collision/Ligaturebracket-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Ligature.policy": {
+    "path": "/apply/collision/Ligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Measurecounter.policy": {
+    "path": "/apply/collision/Measurecounter-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Measuregrouping.policy": {
+    "path": "/apply/collision/Measuregrouping-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Measurespanner.policy": {
+    "path": "/apply/collision/Measurespanner-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Medicaealigature.policy": {
+    "path": "/apply/collision/Medicaealigature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Mensuralligature.policy": {
+    "path": "/apply/collision/Mensuralligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Notename.policy": {
+    "path": "/apply/collision/Notename-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.NoteName.policy": {
+    "path": "/apply/collision/NoteName-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Optionalmaterialbracket.policy": {
+    "path": "/apply/collision/Optionalmaterialbracket-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Origin.policy": {
+    "path": "/apply/collision/Origin-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Outputproperty.policy": {
+    "path": "/apply/collision/Outputproperty-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Pageturn.policy": {
+    "path": "/apply/collision/Pageturn-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Papercolumn.policy": {
+    "path": "/apply/collision/Papercolumn-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.PaperColumn.policy": {
+    "path": "/apply/collision/PaperColumn-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Partcombine.policy": {
+    "path": "/apply/collision/Partcombine-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Percentrepeat.policy": {
+    "path": "/apply/collision/Percentrepeat-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Pitchsquash.policy": {
+    "path": "/apply/collision/Pitchsquash-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Preinitscheme.policy": {
+    "path": "/apply/collision/Preinitscheme-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Purefromneighbor.policy": {
+    "path": "/apply/collision/Purefromneighbor-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Recordinggroup.policy": {
+    "path": "/apply/collision/Recordinggroup-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Repeatacknowledge.policy": {
+    "path": "/apply/collision/Repeatacknowledge-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Rhythmiccolumn.policy": {
+    "path": "/apply/collision/Rhythmiccolumn-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Scheme.policy": {
+    "path": "/apply/collision/Scheme-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Score.policy": {
+    "path": "/apply/collision/Score-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Separatinglinegroup.policy": {
+    "path": "/apply/collision/Separatinglinegroup-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Showcontrolpoints.policy": {
+    "path": "/apply/collision/Showcontrolpoints-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Signumrepetitionis.policy": {
+    "path": "/apply/collision/Signumrepetitionis-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Skiptypesetting.policy": {
+    "path": "/apply/collision/Skiptypesetting-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Slashrepeat.policy": {
+    "path": "/apply/collision/Slashrepeat-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Source.policy": {
+    "path": "/apply/collision/Source-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Spanbarstub.policy": {
+    "path": "/apply/collision/Spanbarstub-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Spanbar.policy": {
+    "path": "/apply/collision/Spanbar-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Spanstem.policy": {
+    "path": "/apply/collision/Spanstem-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Spannerbreakforbid.policy": {
+    "path": "/apply/collision/Spannerbreakforbid-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Spannertracking.policy": {
+    "path": "/apply/collision/Spannertracking-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Stanzanumberalign.policy": {
+    "path": "/apply/collision/Stanzanumberalign-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Stanzanumber.policy": {
+    "path": "/apply/collision/Stanzanumber-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Systemstartdelimiter.policy": {
+    "path": "/apply/collision/Systemstartdelimiter-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Textspanner.policy": {
+    "path": "/apply/verticalstack/Textspanner-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Text.policy": {
+    "path": "/apply/verticalstack/Text-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Timesignature.policy": {
+    "path": "/apply/collision/Timesignature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Vaticanaligature.policy": {
+    "path": "/apply/collision/Vaticanaligature-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
+  },
+  "RULE.Verticalalign.policy": {
+    "path": "/apply/verticalstack/Verticalalign-policy",
+    "request": "d1f44a033c722739cc59dc21aa411651fb0308f6011db82d0a90e2180de62f37",
+    "response": "0aebafba29e9f5bf774da29c553efa276a2faa1c42a5ce55b3273bc56bbea24e"
   }
 }
