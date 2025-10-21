@@ -2,4 +2,5 @@ rule: RULE.MeasureGrouping.layout_policy
 cases:
   - name: groups_present
     expectations: []
-
+  - name: groups_present_case2
+    expectations: []

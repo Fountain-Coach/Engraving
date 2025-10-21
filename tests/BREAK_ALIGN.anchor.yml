@@ -2,4 +2,5 @@ rule: RULE.BreakAlign.anchor_offsets_policy
 cases:
   - name: offsets_present
     expectations: []
-
+  - name: offsets_present_case2
+    expectations: []
