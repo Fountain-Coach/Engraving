@@ -189,3 +189,5 @@ map:
   dash_fraction: [RULE.TextSpanner.placement_policy]
   dash_period: [RULE.TextSpanner.placement_policy]
   dashed_edge: [RULE.TextSpanner.placement_policy]
+  circled_tip: [RULE.Hairpin.al_niente_tip_policy]
+  glissando_skip: [RULE.Glissando.placement_policy]
