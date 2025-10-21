@@ -56,6 +56,20 @@ map:
   bound_padding: [RULE.Spacing.keep_inside_system_constraints]
   bound_prefatory_paddings: [RULE.Spacing.keep_inside_system_constraints]
   broken_bound_padding: [RULE.Spacing.keep_inside_system_constraints]
+  font_family: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  font_series: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  font_shape: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  font_size: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  font_variant: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  font_stretch: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  fonts: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  hair_thickness: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  glyph: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  glyph_name: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  glyph_left: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  glyph_right: [RULE.OpticalSize.stroke_and_spacing_scalars]
+  arrow_length: [RULE.TextSpanner.placement_policy]
+  arrow_width: [RULE.TextSpanner.placement_policy]
 
   # Regex categories
   "/(^|[_-])x[-_]?offset$/i": [RULE.Collision.priority_lattice]
@@ -65,6 +79,8 @@ map:
   "/tuplet/i": [RULE.Tuplet.beaming_and_bracket_placement]
   "/gliss/i": [RULE.TextSpanner.placement_policy]
   "/^font(_|[A-Z])/": [RULE.OpticalSize.stroke_and_spacing_scalars]
+  "/glyph/i": [RULE.OpticalSize.stroke_and_spacing_scalars]
+  "/hair[_-]?thick/i": [RULE.OpticalSize.stroke_and_spacing_scalars]
   "/beam/i": [RULE.Beaming.geometry_slope_and_segments]
   "/^beam[_-]?(slope|pos|position|positions|gap|spacing|width|direction)$/i": [RULE.Beaming.geometry_slope_and_segments]
   "/^rest([_-]?(pos|position|positions|offset|y|y[_-]?offset))?$/i": [RULE.RestCollision.resolve_overlaps]
@@ -82,3 +98,13 @@ map:
 
   # Catch-all: default to collision lattice mapping
   "/.*/": [RULE.Collision.priority_lattice]
+  
+  # Additional explicit properties (safe mappings)
+  annotation: [RULE.NonMusicalScriptColumn.layout_policy]
+  clef_alignments: [RULE.Clef.mid_system_placement]
+  cross_staff: [RULE.CrossStaff.beaming_policy]
+  dot_count: [RULE.Spacing.duration_base_with_optical_corrections]
+  dot_placement_list: [RULE.Spacing.duration_base_with_optical_corrections]
+  dot_stencil: [RULE.Spacing.duration_base_with_optical_corrections]
+  duration_log: [RULE.Spacing.duration_base_with_optical_corrections]
+  bracket: [RULE.HorizontalBracket.placement_policy]
