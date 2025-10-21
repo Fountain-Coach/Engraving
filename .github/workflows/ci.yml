@@ -50,3 +50,13 @@ jobs:
         run: python scripts/check_core_rule_scenarios.py
       - name: Property parity gate (grob properties)
         run: python scripts/check_property_parity.py
+      - name: Audit coverage report
+        run: |
+          python scripts/audit_rules_coverage.py > audit.json
+          echo "Audit summary:" && cat audit.json
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: engraving-audit
+          path: audit.json
