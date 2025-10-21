@@ -1,0 +1,320 @@
+# Engraver Parity Scoreboard
+
+This scoreboard classifies each Engraver.* family by the status of the rules it maps to:
+- Done: all mapped rules exist and are ratified
+- Partial: mapped rules exist but some are draft/provisional
+- Todo: missing mapping or rules unknown to the registry
+
+## Summary
+- Total Engraver families: 100
+- Done: 100
+- Partial: 0
+- Todo: 0
+
+## Done
+- Engraver.Accidental_engraver:
+  - rules: RULE.Accidental.leading_padding_and_column_inflation, RULE.Accidental.cautionary_parenthesized_policy, RULE.Accidental.microtonal_glyph_selection_and_spacing
+  - statuses: ratified, ratified, ratified
+- Engraver.Ambitus_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Arpeggio_engraver:
+  - rules: RULE.Arpeggio.placement_policy
+  - statuses: ratified
+- Engraver.Axis_group_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Balloon_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Bar_engraver:
+  - rules: RULE.Barline.style_and_break_policy
+  - statuses: ratified
+- Engraver.Bar_number_engraver:
+  - rules: RULE.BarNumber.placement_policy
+  - statuses: ratified
+- Engraver.Beam_collision_engraver:
+  - rules: RULE.BeamCollision.resolve_overlaps
+  - statuses: ratified
+- Engraver.Break_align_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Caesura_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Chord_tremolo_engraver:
+  - rules: RULE.Beaming.geometry_slope_and_segments
+  - statuses: ratified
+- Engraver.Clef_engraver:
+  - rules: RULE.Clef.mid_system_placement
+  - statuses: ratified
+- Engraver.Cluster_spanner_engraver:
+  - rules: RULE.Arpeggio.placement_policy
+  - statuses: ratified
+- Engraver.Collision_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Completion_heads_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.Completion_rest_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.Concurrent_hairpin_engraver:
+  - rules: RULE.DynamicAlign.kerning_with_hairpins
+  - statuses: ratified
+- Engraver.Cue_clef_engraver:
+  - rules: RULE.CueClef.placement_policy
+  - statuses: ratified
+- Engraver.Custos_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Dot_column_engraver:
+  - rules: RULE.NoteSpacing.spacing_policy
+  - statuses: ratified
+- Engraver.Dots_engraver:
+  - rules: RULE.NoteSpacing.spacing_policy
+  - statuses: ratified
+- Engraver.Double_percent_repeat_engraver:
+  - rules: RULE.PercentRepeat.layout_policy
+  - statuses: ratified
+- Engraver.Drum_notes_engraver:
+  - rules: RULE.DrumNotes.stem_side_and_notehead_policy
+  - statuses: ratified
+- Engraver.Duration_line_engraver:
+  - rules: RULE.DurationLine.placement_policy
+  - statuses: ratified
+- Engraver.Dynamic_align_engraver:
+  - rules: RULE.Dynamics.align_with_noteheads_and_stems, RULE.DynamicAlign.kerning_with_hairpins
+  - statuses: ratified, ratified
+- Engraver.Dynamic_engraver:
+  - rules: RULE.Dynamics.align_with_noteheads_and_stems
+  - statuses: ratified
+- Engraver.Episema_engraver:
+  - rules: RULE.Ornaments.placement_above_below_with_collision
+  - statuses: ratified
+- Engraver.Extender_engraver:
+  - rules: RULE.Lyrics.extender_spacing_policy
+  - statuses: ratified
+- Engraver.Figured_bass_position_engraver:
+  - rules: RULE.FiguredBass.position_stack_policy
+  - statuses: ratified
+- Engraver.Fingering_column_engraver:
+  - rules: RULE.Fingering.placement_policy
+  - statuses: ratified
+- Engraver.Fingering_engraver:
+  - rules: RULE.Fingering.placement_policy
+  - statuses: ratified
+- Engraver.Font_size_engraver:
+  - rules: RULE.OpticalSize.stroke_and_spacing_scalars
+  - statuses: ratified
+- Engraver.Footnote_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Forbid_line_break_engraver:
+  - rules: RULE.Pagination.castoff_fill_vs_overfull_penalties
+  - statuses: ratified
+- Engraver.Fretboard_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Glissando_engraver:
+  - rules: RULE.Slur.curvature_choice_with_collision_penalty
+  - statuses: ratified
+- Engraver.Grace_engraver:
+  - rules: RULE.Grace.clusters_width_policy
+  - statuses: ratified
+- Engraver.Grace_spacing_engraver:
+  - rules: RULE.Grace.clusters_width_policy
+  - statuses: ratified
+- Engraver.Grid_line_span_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Grid_point_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Grob_pq_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Horizontal_bracket_engraver:
+  - rules: RULE.HorizontalBracket.placement_policy
+  - statuses: ratified
+- Engraver.Hyphen_engraver:
+  - rules: RULE.Lyrics.hyphen_melisma_spacing_interaction
+  - statuses: ratified
+- Engraver.Instrument_name_engraver:
+  - rules: RULE.InstrumentName.alignment_policy
+  - statuses: ratified
+- Engraver.Instrument_switch_engraver:
+  - rules: RULE.InstrumentSwitch.placement_policy
+  - statuses: ratified
+- Engraver.Jump_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Keep_alive_together_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Key_engraver:
+  - rules: RULE.Accidental.key_signature_positions_by_clef, RULE.KeySignature.courtesy_at_line_breaks
+  - statuses: ratified, ratified
+- Engraver.Ledger_line_engraver:
+  - rules: RULE.Ledger.shorten_near_accidental
+  - statuses: ratified
+- Engraver.Ligature_bracket_engraver:
+  - rules: RULE.LigatureBracket.placement_policy
+  - statuses: ratified
+- Engraver.Lyric_engraver:
+  - rules: RULE.Lyrics.vertical_alignment_with_baselines, RULE.Lyrics.hyphen_melisma_spacing_interaction, RULE.Lyrics.extender_spacing_policy
+  - statuses: ratified, ratified, ratified
+- Engraver.Melody_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Metronome_mark_engraver:
+  - rules: RULE.MetronomeMark.placement_policy
+  - statuses: ratified
+- Engraver.Multi_measure_rest_engraver:
+  - rules: RULE.MultiMeasureRests.layout_policy
+  - statuses: ratified
+- Engraver.New_fingering_engraver:
+  - rules: RULE.Fingering.placement_policy
+  - statuses: ratified
+- Engraver.Non_musical_script_column_engraver:
+  - rules: RULE.NonMusicalScriptColumn.layout_policy
+  - statuses: ratified
+- Engraver.Note_head_line_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.Note_heads_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections, RULE.Collision.priority_lattice
+  - statuses: ratified, ratified
+- Engraver.Note_name_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Note_spacing_engraver:
+  - rules: RULE.NoteSpacing.spacing_policy, RULE.NoteSpacing.optical_stem_weight_scalars
+  - statuses: ratified, ratified
+- Engraver.Ottava_spanner_engraver:
+  - rules: RULE.Ottava.placement_policy
+  - statuses: ratified
+- Engraver.Output_property_engraver:
+  - rules: RULE.OutputProperty.override_inheritance_policy
+  - statuses: ratified
+- Engraver.Page_turn_engraver:
+  - rules: RULE.PageTurn.break_preferences
+  - statuses: ratified
+- Engraver.Parenthesis_engraver:
+  - rules: RULE.Parenthesis.placement_policy
+  - statuses: ratified
+- Engraver.Part_combine_engraver:
+  - rules: RULE.PartCombine.stem_direction_policy
+  - statuses: ratified
+- Engraver.Percent_repeat_engraver:
+  - rules: RULE.PercentRepeat.layout_policy
+  - statuses: ratified
+- Engraver.Piano_pedal_align_engraver:
+  - rules: RULE.Pedal.line_and_text_policy
+  - statuses: ratified
+- Engraver.Piano_pedal_engraver:
+  - rules: RULE.Pedal.line_and_text_policy
+  - statuses: ratified
+- Engraver.Pitch_squash_engraver:
+  - rules: RULE.OutputProperty.override_inheritance_policy
+  - statuses: ratified
+- Engraver.Pitched_trill_engraver:
+  - rules: RULE.PitchedTrill.placement_policy
+  - statuses: ratified
+- Engraver.Pure_from_neighbor_engraver:
+  - rules: RULE.OutputProperty.override_inheritance_policy
+  - statuses: ratified
+- Engraver.Repeat_acknowledge_engraver:
+  - rules: RULE.RepeatVolta.layout_policy
+  - statuses: ratified
+- Engraver.Rest_collision_engraver:
+  - rules: RULE.RestCollision.resolve_overlaps
+  - statuses: ratified
+- Engraver.Rest_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.Rhythmic_column_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections, RULE.NoteSpacing.spacing_policy
+  - statuses: ratified, ratified
+- Engraver.Script_column_engraver:
+  - rules: RULE.ScriptColumn.layout_policy
+  - statuses: ratified
+- Engraver.Script_engraver:
+  - rules: RULE.Ornaments.placement_above_below_with_collision
+  - statuses: ratified
+- Engraver.Script_row_engraver:
+  - rules: RULE.ScriptRow.layout_policy
+  - statuses: ratified
+- Engraver.Separating_line_group_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Slash_repeat_engraver:
+  - rules: RULE.SlashRepeat.layout_policy
+  - statuses: ratified
+- Engraver.Spacing_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections, RULE.Spacing.keep_inside_system_constraints, RULE.NoteSpacing.spacing_policy, RULE.NoteSpacing.optical_stem_weight_scalars
+  - statuses: ratified, ratified, ratified, ratified
+- Engraver.Span_arpeggio_engraver:
+  - rules: RULE.SpanArpeggio.placement_policy
+  - statuses: ratified
+- Engraver.Span_bar_engraver:
+  - rules: RULE.Barline.style_and_break_policy
+  - statuses: ratified
+- Engraver.Span_bar_stub_engraver:
+  - rules: RULE.Barline.style_and_break_policy
+  - statuses: ratified
+- Engraver.Spanner_break_forbid_engraver:
+  - rules: RULE.Pagination.castoff_fill_vs_overfull_penalties
+  - statuses: ratified
+- Engraver.Staff_collecting_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Staff_symbol_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Stanza_number_align_engraver:
+  - rules: RULE.StanzaNumber.align_with_lyrics_policy
+  - statuses: ratified
+- Engraver.Stanza_number_engraver:
+  - rules: RULE.StanzaNumber.placement_policy
+  - statuses: ratified
+- Engraver.Stem_engraver:
+  - rules: RULE.Beaming.geometry_slope_and_segments
+  - statuses: ratified
+- Engraver.System_start_delimiter_engraver:
+  - rules: RULE.SystemStartDelimiter.layout_policy
+  - statuses: ratified
+- Engraver.Tab_note_heads_engraver:
+  - rules: RULE.Tab.notehead_string_fret_policy
+  - statuses: ratified
+- Engraver.Tab_staff_symbol_engraver:
+  - rules: RULE.TabStaffSymbol.string_tuning_layout
+  - statuses: ratified
+- Engraver.Text_engraver:
+  - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Text_spanner_engraver:
+  - rules: RULE.TextSpanner.placement_policy
+  - statuses: ratified
+- Engraver.Tie_engraver:
+  - rules: RULE.Tie.curvature_selection_with_clearance
+  - statuses: ratified
+- Engraver.Time_signature_engraver:
+  - rules: RULE.TimeSignature.courtesy_at_line_breaks, RULE.TimeSignature.placement_policy
+  - statuses: ratified, ratified
+- Engraver.Tuplet_engraver:
+  - rules: RULE.Tuplet.beaming_and_bracket_placement
+  - statuses: ratified
+- Engraver.Tweak_engraver:
+  - rules: RULE.OutputProperty.override_inheritance_policy
+  - statuses: ratified
+- Engraver.Vertical_align_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+
+## Partial
+- (none)
+
+## Todo
+- (none)
