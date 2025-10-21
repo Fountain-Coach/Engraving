@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:43:10.911604
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:45:11.764832
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
