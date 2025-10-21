@@ -2,4 +2,5 @@ rule: RULE.Glissando.placement_policy
 cases:
   - name: placement_policy_present
     expectations: []
-
+  - name: second_scenario
+    expectations: []

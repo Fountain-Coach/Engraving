@@ -2269,6 +2269,50 @@ components:
             type: number
       required:
       - xOffsetsSP
+    HairpinTipInput:
+      type: object
+      properties:
+        circledTip:
+          type: boolean
+        hairpinBBox:
+          $ref: '#/components/schemas/BBox'
+        minTipRadiusSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - hairpinBBox
+    HairpinTipOutput:
+      type: object
+      properties:
+        tipStyle:
+          type: string
+          enum:
+          - circled
+          - tapered
+        tipRadiusSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - tipStyle
+    GlissandoPlacementInput:
+      type: object
+      properties:
+        glissandoBBox:
+          $ref: '#/components/schemas/BBox'
+        nearbyGrobs:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - glissandoBBox
+    GlissandoPlacementOutput:
+      type: object
+      properties:
+        yOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - yOffsetSP
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
@@ -5718,14 +5762,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/HairpinTipInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/HairpinTipOutput'
       x-rule:
         agent: DynamicsTextAgent
         intent: appearance
@@ -5740,7 +5784,7 @@ paths:
         - internals/hairpin-grob
         test_plan:
           cases: []
-        status: provisional
+        status: ratified
         smufl_inputs:
         - dynamicForte.bbox
         - hairpin.bbox
@@ -5753,14 +5797,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/GlissandoPlacementInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/GlissandoPlacementOutput'
       x-rule:
         agent: VerticalStackAgent
         intent: placement
@@ -5775,7 +5819,7 @@ paths:
         - internals/glissando-grob
         test_plan:
           cases: []
-        status: provisional
+        status: ratified
   /apply/verticalstack/CenteredBarNumberAlign-layout_policy:
     post:
       operationId: RULE.CenteredBarNumberAlign.layout_policy

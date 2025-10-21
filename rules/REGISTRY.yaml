@@ -1135,7 +1135,7 @@ rules:
   agent: DynamicsTextAgent
   intent: appearance
   priority: 420
-  status: provisional
+  status: ratified
   depends_on:
   - RULE.Dynamics.align_with_noteheads_and_stems
   inputs:
@@ -1163,7 +1163,7 @@ rules:
   agent: VerticalStackAgent
   intent: placement
   priority: 310
-  status: provisional
+  status: ratified
   depends_on:
   - RULE.Vertical.min_dist_padding_and_stretch
   inputs:
@@ -1182,6 +1182,196 @@ rules:
   trace:
   - docs/glissando
   - internals/glissando-grob
+
+- id: RULE.CenteredBarNumberAlign.layout_policy
+  title: Centered bar number alignment policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 240
+  status: ratified
+  depends_on: []
+  inputs:
+  - numberBBox
+  - systemTop
+  parameters:
+    minDistanceSP: 0.5
+  procedure: Align centered bar numbers above the staff with a minimum distance from
+    the system top.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: yOffset_non_negative
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/bar-numbers
+
+- id: RULE.MeasureGrouping.layout_policy
+  title: Measure grouping layout policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 241
+  status: ratified
+  depends_on: []
+  inputs:
+  - groupMarks
+  parameters:
+    minGapSP: 0.5
+  procedure: Group measures by provided marks and compute minimal gaps between groups.
+  exceptions: []
+  outputs:
+  - groups
+  side_effects: []
+  test_plan:
+    cases:
+    - name: groups_present
+      expectations:
+      - path: /groups/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/measure-grouping
+
+- id: RULE.MeasureCounter.placement_policy
+  title: Measure counter placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 242
+  status: ratified
+  depends_on: []
+  inputs:
+  - numberBBox
+  - systemTop
+  parameters:
+    minDistanceSP: 0.5
+  procedure: Place measure counters with a minimum distance above the staff.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: yOffset_non_negative
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/measure-counters
+
+- id: RULE.VerticalAlign.stack_and_padding_policy
+  title: Vertical align stack and padding policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 243
+  status: ratified
+  depends_on:
+  - RULE.Vertical.min_dist_padding_and_stretch
+  inputs:
+  - bboxes
+  parameters:
+    minGapSP: 0.5
+  procedure: Compute vertical stack y offsets satisfying minimum gap between adjacent
+    items.
+  exceptions: []
+  outputs:
+  - yOffsetsSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offsets_present
+      expectations:
+      - path: /yOffsetsSP/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/vertical-align
+
+- id: RULE.BreakAlign.anchor_offsets_policy
+  title: Break align anchor offsets policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 244
+  status: ratified
+  depends_on: []
+  inputs:
+  - anchors
+  parameters:
+    defaultOffsetSP: 0.0
+  procedure: Compute x offsets for break-aligned anchors for consistent alignment across
+    line breaks.
+  exceptions: []
+  outputs:
+  - xOffsetsSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: offsets_present
+      expectations:
+      - path: /xOffsetsSP/count
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/break-align
+
+- id: RULE.Footnote.placement_policy
+  title: Footnote placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 245
+  status: ratified
+  depends_on: []
+  inputs:
+  - textBBox
+  - systemTop
+  parameters:
+    minDistanceSP: 0.5
+  procedure: Place footnote text above or below staff obeying minimum distance.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: yOffset_non_negative
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/footnotes
+
+- id: RULE.Balloon.placement_policy
+  title: Balloon placement policy
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 246
+  status: ratified
+  depends_on: []
+  inputs:
+  - textBBox
+  - systemTop
+  parameters:
+    minDistanceSP: 0.5
+  procedure: Place balloons with minimum spacing relative to staff and avoid overlaps.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: yOffset_non_negative
+      expectations:
+      - path: /yOffsetSP
+        op: '>='
+        value: 0.0
+  trace:
+  - docs/balloons
 - id: RULE.Accidental.leading_padding_and_column_inflation
   title: Accidental lead-in spacing
   agent: AccidentalAgent

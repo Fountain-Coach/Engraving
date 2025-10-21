@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T09:54:28.775717
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T09:59:30.920414
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1468,7 +1468,7 @@ paths:
         - internals/hairpin-grob
         test_plan:
           cases: []
-        status: provisional
+        status: ratified
         smufl_inputs:
         - dynamicForte.bbox
         - hairpin.bbox
@@ -1505,7 +1505,7 @@ paths:
         - internals/glissando-grob
         test_plan:
           cases: []
-        status: provisional
+        status: ratified
   /apply/verticalstack/CenteredBarNumberAlign-layout_policy:
     post:
       operationId: RULE.CenteredBarNumberAlign.layout_policy

@@ -423,6 +423,42 @@ def ensure_components(doc):
         },
         'required': ['yOffsetSP']
     })
+    # Hairpin tip and Glissando placement
+    put('HairpinTipInput', {
+        'type': 'object',
+        'properties': {
+            'circledTip': { 'type': 'boolean' },
+            'hairpinBBox': { '$ref': '#/components/schemas/BBox' },
+            'minTipRadiusSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['hairpinBBox']
+    })
+    put('HairpinTipOutput', {
+        'type': 'object',
+        'properties': {
+            'tipStyle': { 'type': 'string', 'enum': ['circled','tapered'] },
+            'tipRadiusSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['tipStyle']
+    })
+
+    put('GlissandoPlacementInput', {
+        'type': 'object',
+        'properties': {
+            'glissandoBBox': { '$ref': '#/components/schemas/BBox' },
+            'nearbyGrobs': { 'type': 'array', 'minItems': 0, 'items': { '$ref': '#/components/schemas/BBox' } },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['glissandoBBox']
+    })
+    put('GlissandoPlacementOutput', {
+        'type': 'object',
+        'properties': { 'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' } },
+        'required': ['yOffsetSP']
+    })
+    # Generic typed fallbacks for ratified stub rules
+    put('GenericContext', { 'type': 'object', 'additionalProperties': True, 'description': 'Generic context for auto-generated policy rules.' })
+    put('GenericAdjustments', { 'type': 'object', 'additionalProperties': True, 'description': 'Generic outputs for auto-generated policy rules.' })
 
     # Collision typed schemas (batch 1)
     put('LyricsDynamicsStackingInput', {
@@ -547,6 +583,60 @@ def ensure_components(doc):
         },
         'required': []
     })
+    # New typed schemas for layout families
+    put('BarNumberCenteredAlignInput', {
+        'type': 'object',
+        'properties': {
+            'numberBBox': { '$ref': '#/components/schemas/BBox' },
+            'systemTop': { 'type': 'number' },
+            'minDistanceSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['numberBBox']
+    })
+    put('BarNumberCenteredAlignOutput', {
+        'type': 'object',
+        'properties': { 'yOffsetSP': { '$ref': '#/components/schemas/StaffSpace' } },
+        'required': ['yOffsetSP']
+    })
+
+    put('MeasureGroupingInput', {
+        'type': 'object',
+        'properties': { 'groupMarks': { 'type': 'array', 'minItems': 0, 'items': { 'type': 'integer' } } },
+        'required': []
+    })
+    comp['MeasureGroupingOutput'] = {
+        'type': 'object',
+        'properties': {
+            'groups': {
+                'type': 'array', 'minItems': 0, 'items': {
+                    'type': 'array', 'minItems': 1, 'items': { 'type': 'integer' }
+                }
+            }
+        },
+        'required': ['groups']
+    }
+
+    put('VerticalAlignStackInput', {
+        'type': 'object',
+        'properties': { 'bboxes': { 'type': 'array', 'minItems': 1, 'items': { '$ref': '#/components/schemas/BBox' } }, 'minGapSP': { '$ref': '#/components/schemas/StaffSpace' } },
+        'required': ['bboxes']
+    })
+    put('VerticalAlignStackOutput', {
+        'type': 'object',
+        'properties': { 'yOffsetsSP': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'number' } } },
+        'required': ['yOffsetsSP']
+    })
+
+    put('BreakAlignAnchorInput', {
+        'type': 'object',
+        'properties': { 'anchors': { 'type': 'array', 'minItems': 1, 'items': { '$ref': '#/components/schemas/BBox' } }, 'defaultOffsetSP': { '$ref': '#/components/schemas/StaffSpace' } },
+        'required': ['anchors']
+    })
+    put('BreakAlignAnchorOutput', {
+        'type': 'object',
+        'properties': { 'xOffsetsSP': { 'type': 'array', 'minItems': 1, 'items': { 'type': 'number' } } },
+        'required': ['xOffsetsSP']
+    })
 
     put('RehearsalDynamicsInput', {
         'type': 'object',
@@ -653,6 +743,8 @@ def main():
         'RULE.Collision.ornament_vs_lyrics_priority': ('OrnamentLyricsInput','OrnamentLyricsOutput'),
         'RULE.Collision.rehearsal_vs_tempo_priority': ('RehearsalTempoInput','RehearsalTempoOutput'),
         'RULE.Collision.rehearsal_vs_dynamics_priority': ('RehearsalDynamicsInput','RehearsalDynamicsOutput'),
+        'RULE.Hairpin.al_niente_tip_policy': ('HairpinTipInput','HairpinTipOutput'),
+        'RULE.Glissando.placement_policy': ('GlissandoPlacementInput','GlissandoPlacementOutput'),
     }
 
     for path, op in upaths.items():
@@ -687,6 +779,11 @@ def main():
                 post['requestBody'] = {'required': True, 'content': {'application/json': {'schema': {'$ref': f"#/components/schemas/{req}"}}}}
             if res:
                 post['responses'] = {'200': {'description': op['post'].get('responses',{}).get('200',{}).get('description','OK'), 'content': {'application/json': {'schema': {'$ref': f"#/components/schemas/{res}"}}}}}
+        else:
+            xr = post.get('x-rule') or {}
+            if xr.get('status') == 'ratified':
+                post['requestBody'] = {'required': True, 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/GenericContext'}}}}
+                post['responses'] = {'200': {'description': op['post'].get('responses',{}).get('200',{}).get('description','OK'), 'content': {'application/json': {'schema': {'$ref': '#/components/schemas/GenericAdjustments'}}}}}
     TYPED.write_text(yaml.safe_dump(typed, sort_keys=False))
     print('Typed OpenAPI updated with parity for all rules (placeholders for new ops).')
 
