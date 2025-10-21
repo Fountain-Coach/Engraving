@@ -10,8 +10,9 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Done: 232
 - Partial: 0
 - Todo: 0
+- Grob families mapped: 35 / 35
 
-## Done
+## Done (Engraver)
 - Engraver.Accidental_engraver:
   - rules: RULE.Accidental.leading_padding_and_column_inflation, RULE.Accidental.cautionary_parenthesized_policy, RULE.Accidental.microtonal_glyph_selection_and_spacing
   - statuses: ratified, ratified, ratified
@@ -709,8 +710,45 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
   - rules: RULE.RepeatVolta.layout_policy
   - statuses: ratified
 
-## Partial
+## Partial (Engraver)
 - (none)
 
-## Todo
+## Todo (Engraver)
 - (none)
+
+## Grob Families (mapped)
+- Grob.Accidental: RULE.Accidental.leading_padding_and_column_inflation, RULE.Accidental.cautionary_parenthesized_policy, RULE.Accidental.microtonal_glyph_selection_and_spacing, RULE.KeySignature.courtesy_at_line_breaks
+- Grob.Arpeggio: RULE.Arpeggio.placement_policy
+- Grob.BarLine: RULE.Barline.style_and_break_policy
+- Grob.BarNumber: RULE.BarNumber.placement_policy
+- Grob.Beam: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+- Grob.Clef: RULE.Clef.mid_system_placement
+- Grob.Crescendo: RULE.Dynamics.align_with_noteheads_and_stems
+- Grob.DynamicText: RULE.Dynamics.align_with_noteheads_and_stems
+- Grob.FiguredBass: RULE.FiguredBass.position_stack_policy
+- Grob.Fingering: RULE.Fingering.placement_policy
+- Grob.Flag: RULE.Beaming.suppress_flags_when_beamed
+- Grob.GridPoint: RULE.Vertical.min_dist_padding_and_stretch
+- Grob.Grob: RULE.Collision.priority_lattice
+- Grob.Hairpin: RULE.Dynamics.align_with_noteheads_and_stems
+- Grob.InstrumentName: RULE.InstrumentName.alignment_policy
+- Grob.KeySignature: RULE.Accidental.key_signature_positions_by_clef, RULE.KeySignature.courtesy_at_line_breaks
+- Grob.LyricText: RULE.Lyrics.vertical_alignment_with_baselines
+- Grob.NoteHead: RULE.Spacing.duration_base_with_optical_corrections, RULE.Collision.priority_lattice
+- Grob.OttavaBracket: RULE.Ottava.placement_policy
+- Grob.Pedal: RULE.Pedal.line_and_text_policy
+- Grob.PercentRepeat: RULE.PercentRepeat.layout_policy
+- Grob.RepeatTie: RULE.Tie.curvature_selection_with_clearance
+- Grob.Rest: RULE.Spacing.duration_base_with_optical_corrections
+- Grob.Script: RULE.Ornaments.placement_above_below_with_collision
+- Grob.Slur: RULE.Slur.curvature_choice_with_collision_penalty
+- Grob.StaffSymbol: RULE.Vertical.min_dist_padding_and_stretch
+- Grob.StanzaNumber: RULE.StanzaNumber.placement_policy
+- Grob.Stem: RULE.Beaming.geometry_slope_and_segments
+- Grob.TabNoteHead: RULE.Tab.notehead_string_fret_policy
+- Grob.TextScript: RULE.RehearsalMarks.placement_policy, RULE.TempoMarks.placement_policy
+- Grob.Tie: RULE.Tie.curvature_selection_with_clearance
+- Grob.TimeSignature: RULE.TimeSignature.courtesy_at_line_breaks
+- Grob.TrillSpanner: RULE.TrillSpanner.placement_policy
+- Grob.TupletBracket: RULE.Tuplet.beaming_and_bracket_placement
+- Grob.VoltaBracket: RULE.RepeatVolta.layout_policy

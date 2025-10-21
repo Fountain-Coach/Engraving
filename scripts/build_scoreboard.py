@@ -14,6 +14,7 @@ def main():
 
     eng_map = lmap.get('map', {})
     engs = {k: v for k, v in eng_map.items() if str(k).startswith('Engraver.')}
+    grobs = {k: v for k, v in eng_map.items() if str(k).startswith('Grob.')}
 
     done = []
     partial = []
@@ -46,6 +47,17 @@ def main():
     lines.append(f'- Done: {len(done)}')
     lines.append(f'- Partial: {len(partial)}')
     lines.append(f'- Todo: {len(todo)}')
+    # Grob parity summary
+    grob_unknown = []
+    grob_ok = []
+    for g, rids in grobs.items():
+        if not rids:
+            grob_unknown.append(g)
+        elif all(rid in rules for rid in rids):
+            grob_ok.append(g)
+        else:
+            grob_unknown.append(g)
+    lines.append(f'- Grob families mapped: {len(grob_ok)} / {len(grobs)}')
     lines.append('')
     def section(title, items):
         lines.append(f'## {title}')
@@ -64,13 +76,23 @@ def main():
                 lines.append(f'  - statuses: {statuses_list}')
         lines.append('')
 
-    section('Done', done)
-    section('Partial', partial)
-    section('Todo', todo)
+    section('Done (Engraver)', done)
+    section('Partial (Engraver)', partial)
+    section('Todo (Engraver)', todo)
+    lines.append('## Grob Families (mapped)')
+    for g in sorted(grob_ok):
+        lines.append(f'- {g}: {", ".join(grobs[g])}')
+    if not grob_ok:
+        lines.append('- (none)')
+    lines.append('')
+    if grob_unknown:
+        lines.append('## Grob Families (unknown)')
+        for g in sorted(grob_unknown):
+            lines.append(f'- {g}')
+        lines.append('')
 
     (ROOT / 'SCOREBOARD.md').write_text('\n'.join(lines))
     print('Wrote SCOREBOARD.md')
 
 if __name__ == '__main__':
     main()
-
