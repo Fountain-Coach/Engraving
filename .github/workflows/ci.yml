@@ -50,6 +50,15 @@ jobs:
         run: python scripts/check_core_rule_scenarios.py
       - name: Property parity gate (grob properties)
         run: python scripts/check_property_parity.py
+      - name: Build scoreboard
+        run: |
+          python scripts/build_scoreboard.py
+      - name: Upload scoreboard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: engraving-scoreboard
+          path: SCOREBOARD.md
       - name: Audit coverage report
         run: |
           python scripts/audit_rules_coverage.py > audit.json
