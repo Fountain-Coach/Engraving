@@ -1,0 +1,7 @@
+rule: RULE.Collision.ornament_vs_lyrics_priority
+cases:
+  - name: Ornaments above lyrics with gap
+    expectations:
+      - path: "/lyricYOffsetSP"
+        op: ">="
+        value: 0.0

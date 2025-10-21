@@ -5185,3 +5185,84 @@ paths:
               value: 0.25
               tolerance: 0.05
         status: provisional
+  /apply/collision/Collision-fingering_vs_dynamics_priority:
+    post:
+      operationId: RULE.Collision.fingering_vs_dynamics_priority
+      summary: Collision priority between fingering and dynamics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrictEmpty'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 353
+        depends_on:
+        - RULE.Fingering.placement_policy
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          priority: dynamics > fingering
+          min_clearance_sp: 0.2
+        exceptions:
+        - forced_positions
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Fingering yields to dynamics
+            expectations:
+            - path: /offsets/fingering/y
+              op: '>='
+              value: 0.2
+              tolerance: 0.05
+        status: provisional
+  /apply/collision/Collision-ornament_vs_lyrics_priority:
+    post:
+      operationId: RULE.Collision.ornament_vs_lyrics_priority
+      summary: Collision priority between ornaments and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrictEmpty'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 354
+        depends_on:
+        - RULE.Ornaments.placement_above_below_with_collision
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          priority: ornaments above lyrics
+          min_gap_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Ornaments above lyrics with gap
+            expectations:
+            - path: /lyricYOffsetSP
+              op: '>='
+              value: 0.25
+              tolerance: 0.05
+        status: provisional
