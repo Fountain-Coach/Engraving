@@ -974,7 +974,7 @@ rules:
   agent: CollisionAgent
   intent: collision
   priority: 355
-  status: provisional
+  status: ratified
   depends_on:
   - RULE.Accidental.leading_padding_and_column_inflation
   - RULE.Lyrics.vertical_alignment_with_baselines
@@ -1006,7 +1006,7 @@ rules:
   agent: CollisionAgent
   intent: collision
   priority: 356
-  status: provisional
+  status: ratified
   depends_on:
   - RULE.RehearsalMarks.placement_policy
   - RULE.Dynamics.align_with_noteheads_and_stems

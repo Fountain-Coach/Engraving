@@ -548,6 +548,24 @@ def ensure_components(doc):
         'required': []
     })
 
+    put('RehearsalDynamicsInput', {
+        'type': 'object',
+        'properties': {
+            'rehearsalBBox': { '$ref': '#/components/schemas/BBox' },
+            'dynamicsBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['rehearsalBBox','dynamicsBBox']
+    })
+    put('RehearsalDynamicsOutput', {
+        'type': 'object',
+        'properties': {
+            'rehearsalYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'dynamicsYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': []
+    })
+
 def main():
     untyped = yaml.safe_load(UNTYPED.read_text())
     typed = yaml.safe_load(TYPED.read_text())
@@ -634,6 +652,7 @@ def main():
         'RULE.Collision.fingering_vs_dynamics_priority': ('FingeringDynamicsInput','FingeringDynamicsOutput'),
         'RULE.Collision.ornament_vs_lyrics_priority': ('OrnamentLyricsInput','OrnamentLyricsOutput'),
         'RULE.Collision.rehearsal_vs_tempo_priority': ('RehearsalTempoInput','RehearsalTempoOutput'),
+        'RULE.Collision.rehearsal_vs_dynamics_priority': ('RehearsalDynamicsInput','RehearsalDynamicsOutput'),
     }
 
     for path, op in upaths.items():

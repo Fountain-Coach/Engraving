@@ -424,6 +424,16 @@
     "request": "1b7ac00c0120d760f0e639ba23548158f50625b55641829e1f4586b9de78fe91",
     "response": "3d8255aa93090a774c99ad656df813a10fd8a99dc42ae1aba23c5e7991a72061"
   },
+  "RULE.Collision.accidental_vs_lyrics_priority": {
+    "path": "/apply/collision/Collision-accidental_vs_lyrics_priority",
+    "request": "1be61bae20454a5b65b87c2ba6477a9cb90a017207742096bdc355705f25b494",
+    "response": "257faf3dffa3af187647ceaacba8ae5725086dc012dad39c2951f26467fd8c66"
+  },
+  "RULE.Collision.rehearsal_vs_dynamics_priority": {
+    "path": "/apply/collision/Collision-rehearsal_vs_dynamics_priority",
+    "request": "ffee6e5b26b1f818a286330c9c60c0de6f8bda49cd0afdc43c658a05ead4c95c",
+    "response": "bb99e5ee5dad47e0ecf90c3275acbf3cab57bd4122c12fd41473764380f27cf4"
+  },
   "RULE.Collision.hairpin_vs_lyrics_priority": {
     "path": "/apply/collision/Collision-hairpin_vs_lyrics_priority",
     "request": "b250475b3fb84df8aabb26afe1e71cd4d1fbbfbf4cd64c520aef8245c637ac95",

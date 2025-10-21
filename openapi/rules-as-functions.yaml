@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:35:41.372035
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:38:48.348351
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1271,7 +1271,7 @@ paths:
             - path: /lyricYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-rehearsal_vs_dynamics_priority:
     post:
       operationId: RULE.Collision.rehearsal_vs_dynamics_priority
@@ -1311,7 +1311,7 @@ paths:
             - path: /rehearsalYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-hairpin_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.hairpin_vs_lyrics_priority

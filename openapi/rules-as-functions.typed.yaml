@@ -2157,6 +2157,26 @@ components:
         tempoMarkYOffsetSP:
           $ref: '#/components/schemas/StaffSpace'
       required: []
+    RehearsalDynamicsInput:
+      type: object
+      properties:
+        rehearsalBBox:
+          $ref: '#/components/schemas/BBox'
+        dynamicsBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - rehearsalBBox
+      - dynamicsBBox
+    RehearsalDynamicsOutput:
+      type: object
+      properties:
+        rehearsalYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+        dynamicsYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
@@ -5441,7 +5461,7 @@ paths:
             - path: /lyricYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-rehearsal_vs_dynamics_priority:
     post:
       operationId: RULE.Collision.rehearsal_vs_dynamics_priority
@@ -5451,14 +5471,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/RehearsalDynamicsInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/RehearsalDynamicsOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5479,7 +5499,7 @@ paths:
             - path: /rehearsalYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-hairpin_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.hairpin_vs_lyrics_priority
