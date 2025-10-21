@@ -1,4 +1,22 @@
 map:
+  Grob.BarLine:
+  - RULE.Barline.style_and_break_policy
+  Grob.BarNumber:
+  - RULE.BarNumber.placement_policy
+  Grob.FiguredBass:
+  - RULE.FiguredBass.position_stack_policy
+  Grob.GridPoint:
+  - RULE.Vertical.min_dist_padding_and_stretch
+  Grob.Grob:
+  - RULE.Collision.priority_lattice
+  Grob.InstrumentName:
+  - RULE.InstrumentName.alignment_policy
+  Grob.PercentRepeat:
+  - RULE.PercentRepeat.layout_policy
+  Grob.StanzaNumber:
+  - RULE.StanzaNumber.placement_policy
+  Grob.TabNoteHead:
+  - RULE.Tab.notehead_string_fret_policy
   Spacing.duration_base:
   - RULE.Spacing.duration_base_with_optical_corrections
   Spacing.keep_inside_system:
@@ -343,3 +361,247 @@ map:
   - RULE.OutputProperty.override_inheritance_policy
   Engraver.Vertical_align_engraver:
   - RULE.Vertical.min_dist_padding_and_stretch
+  Engraver.AlterationGlyph_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.AutoBeam_engraver: &id001
+  - RULE.Beaming.subdivision_preference
+  - RULE.Beaming.compound_meter_grouping
+  - RULE.Beaming.auto_knee_threshold
+  - RULE.Beaming.geometry_slope_and_segments
+  - RULE.Beaming.rests_split_groups
+  - RULE.Beaming.suppress_flags_when_beamed
+  Engraver.AxisGroup_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.BarNumber_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.BeamCollision_engraver: *id001
+  Engraver.Beam_engraver: *id001
+  Engraver.Beat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.BendSpanner_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Bend_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.BreakAlign_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.BreathingSign_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.CenteredBarNumberAlign_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ChordName_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ChordSquare_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ChordTremolo_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ClusterSpanner_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.CoherentLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.CompletionHeads_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.CompletionRest_engraver: &id003
+  - RULE.Spacing.duration_base_with_optical_corrections
+  Engraver.ConcurrentHairpin_engraver: &id002
+  - RULE.Dynamics.align_with_noteheads_and_stems
+  Engraver.CueClef_engraver:
+  - RULE.Clef.mid_system_placement
+  Engraver.CurrentChordText_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Divisio_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.DotColumn_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.DoublePercentRepeat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.DrumNotes_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.DurationLine_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.DynamicAlign_engraver: *id002
+  Engraver.EngraverGroup_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.FiguredBassPosition_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.FiguredBass_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.FingerGlide_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.FingeringColumn_engraver: &id004
+  - RULE.Fingering.placement_policy
+  Engraver.FontSize_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ForbidLineBreak_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.GraceAutoBeam_engraver: *id001
+  Engraver.GraceBeam_engraver: *id001
+  Engraver.GraceSpacing_engraver:
+  - RULE.Grace.clusters_width_policy
+  - RULE.Beaming.subdivision_preference
+  Engraver.GregorianLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.GridChordName_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.GridLineSpan_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.GridPoint_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.GrobPq_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.HorizontalBracket_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.HorizontalScript_engraver: &id005
+  - RULE.Ornaments.placement_above_below_with_collision
+  Engraver.HufnagelLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.InstrumentName_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.InstrumentSwitch_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.KeepAliveTogether_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.KievanLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.LaissezVibrer_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Laissez_vibrer_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.LedgerLine_engraver:
+  - RULE.Ledger.shorten_near_accidental
+  Engraver.LigatureBracket_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Ligature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.LocalKey_engraver:
+  - RULE.Accidental.leading_padding_and_column_inflation
+  - RULE.Accidental.key_signature_positions_by_clef
+  - RULE.KeySignature.courtesy_at_line_breaks
+  - RULE.Accidental.cautionary_parenthesized_policy
+  - RULE.Accidental.microtonal_glyph_selection_and_spacing
+  Engraver.LyricRepeatCount_engraver:
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  Engraver.Mark_engraver: &id010
+  - RULE.RehearsalMarks.placement_policy
+  Engraver.MeasureCounter_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.MeasureGrouping_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.MeasureSpanner_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.MedicaeaLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.MensuralLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.MergeMmrestNumbers_engraver: *id003
+  Engraver.MergeRest_engraver: *id003
+  Engraver.MergeRests_engraver: *id003
+  Engraver.MetronomeMark_engraver:
+  - RULE.TempoMarks.placement_policy
+  Engraver.MultiMeasureRest_engraver: *id003
+  Engraver.NewFingering_engraver: *id004
+  Engraver.NonMusicalScriptColumn_engraver: *id005
+  Engraver.NoteHeadLine_engraver: *id003
+  Engraver.NoteHead_engraver: *id003
+  Engraver.NoteHeads_engraver: *id003
+  Engraver.NoteName_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.NoteSpacing_engraver: *id003
+  Engraver.OptionalMaterialBracket_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Origin_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.OttavaSpanner_engraver:
+  - RULE.Ottava.placement_policy
+  Engraver.OutputProperty_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PageTurn_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PaperColumn_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Paper_column_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PartCombine_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PercentRepeat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PhrasingSlur_engraver: &id007
+  - RULE.Slur.curvature_choice_with_collision_penalty
+  Engraver.PianoPedalAlign_engraver: &id006
+  - RULE.Pedal.line_and_text_policy
+  Engraver.PianoPedal_engraver: *id006
+  Engraver.PitchSquash_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PitchedTrill_engraver: &id011
+  - RULE.TrillSpanner.placement_policy
+  Engraver.PreinitScheme_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.PreinitVolta_engraver: &id012
+  - RULE.RepeatVolta.layout_policy
+  Engraver.PureFromNeighbor_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.RecordingGroup_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.RepeatAcknowledge_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.RepeatTie_engraver: &id009
+  - RULE.Tie.curvature_selection_with_clearance
+  Engraver.RestCollision_engraver: *id003
+  Engraver.RhythmicColumn_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Scheme_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Score_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ScriptColumn_engraver: *id005
+  Engraver.ScriptRow_engraver: *id005
+  Engraver.SeparatingLineGroup_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.ShowControlPoints_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SignumRepetitionis_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SkipTypesetting_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SlashRepeat_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Slur_engraver: *id007
+  Engraver.Source_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SpanArpeggio_engraver:
+  - RULE.Arpeggio.placement_policy
+  Engraver.SpanBarStub_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SpanBar_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SpanStem_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SpannerBreakForbid_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SpannerTracking_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.StaffCollecting_engraver: &id008
+  - RULE.Vertical.min_dist_padding_and_stretch
+  Engraver.StaffGrouper_engraver: *id008
+  Engraver.StaffHighlight_engraver: *id008
+  Engraver.StaffSymbol_engraver: *id008
+  Engraver.StanzaNumberAlign_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.StanzaNumber_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.SystemStartDelimiter_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.TabNoteHeads_engraver: *id003
+  Engraver.TabStaffSymbol_engraver: *id008
+  Engraver.TabTieFollow_engraver: *id009
+  Engraver.Template_engraver_for_beams: *id001
+  Engraver.TextMark_engraver: *id010
+  Engraver.TextSpanner_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.TimeSignature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.TrillSpanner_engraver: *id011
+  Engraver.VaticanaLigature_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.VerticalAlign_engraver:
+  - RULE.Collision.priority_lattice
+  Engraver.Volta_engraver: *id012
