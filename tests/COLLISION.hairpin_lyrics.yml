@@ -1,0 +1,7 @@
+rule: RULE.Collision.hairpin_vs_lyrics_priority
+cases:
+  - name: Hairpin above lyrics with gap
+    expectations:
+      - path: "/lyricYOffsetSP"
+        op: ">="
+        value: 0.0

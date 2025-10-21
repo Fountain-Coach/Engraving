@@ -1,0 +1,7 @@
+rule: RULE.Collision.tempo_mark_vs_lyrics_priority
+cases:
+  - name: Tempo mark above lyrics with gap
+    expectations:
+      - path: "/lyricYOffsetSP"
+        op: ">="
+        value: 0.0

@@ -1,0 +1,7 @@
+rule: RULE.Collision.rehearsal_vs_tempo_priority
+cases:
+  - name: Rehearsal above tempo with gap
+    expectations:
+      - path: "/rehearsalYOffsetSP"
+        op: ">="
+        value: 0.0

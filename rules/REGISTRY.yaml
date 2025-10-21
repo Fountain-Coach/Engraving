@@ -838,7 +838,7 @@ rules:
   agent: CollisionAgent
   intent: collision
   priority: 351
-  status: provisional
+  status: ratified
   depends_on:
   - RULE.Fingering.placement_policy
   - RULE.Ornaments.placement_above_below_with_collision
@@ -871,7 +871,7 @@ rules:
   agent: CollisionAgent
   intent: collision
   priority: 352
-  status: provisional
+  status: ratified
   depends_on:
   - RULE.Dynamics.align_with_noteheads_and_stems
   - RULE.Lyrics.vertical_alignment_with_baselines
@@ -900,7 +900,7 @@ rules:
   trace:
   - docs/collisions
   - internals/collision-resolution
- 
+
 - id: RULE.Collision.fingering_vs_dynamics_priority
   title: Collision priority between fingering and dynamics
   agent: CollisionAgent
@@ -1026,6 +1026,108 @@ rules:
   test_plan:
     cases:
     - name: Rehearsal above dynamics
+      expectations:
+      - path: /rehearsalYOffsetSP
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/collisions
+  - internals/collision-resolution
+
+- id: RULE.Collision.hairpin_vs_lyrics_priority
+  title: Collision priority between hairpins and lyrics
+  agent: CollisionAgent
+  intent: collision
+  priority: 357
+  status: provisional
+  depends_on:
+  - RULE.Dynamics.stacked_kerning_with_system_breaks
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  inputs:
+  - lyricsBaselineSP
+  - hairpinBBox
+  - proximities
+  parameters:
+    min_gap_sp: 0.25
+  procedure: Keep hairpins closer to staff with minimum gap to lyrics; if collision
+    exists, move lyrics down to maintain min_gap.
+  exceptions: []
+  outputs:
+  - lyricYOffsetSP
+  - hairpinYOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Hairpin above lyrics with gap
+      expectations:
+      - path: /lyricYOffsetSP
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/collisions
+  - internals/collision-resolution
+
+- id: RULE.Collision.tempo_mark_vs_lyrics_priority
+  title: Collision priority between tempo/metronome marks and lyrics
+  agent: CollisionAgent
+  intent: collision
+  priority: 358
+  status: provisional
+  depends_on:
+  - RULE.TempoMarks.placement_policy
+  - RULE.MetronomeMark.placement_policy
+  - RULE.Lyrics.vertical_alignment_with_baselines
+  inputs:
+  - lyricsBaselineSP
+  - tempoMarkBBox
+  - proximities
+  parameters:
+    min_gap_sp: 0.3
+  procedure: Keep tempo/metronome marks above staff and lyrics; if collision exists,
+    move lyrics down to maintain min_gap.
+  exceptions: []
+  outputs:
+  - lyricYOffsetSP
+  - tempoMarkYOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Tempo mark above lyrics with gap
+      expectations:
+      - path: /lyricYOffsetSP
+        op: ">="
+        value: 0.0
+  trace:
+  - docs/collisions
+  - internals/collision-resolution
+
+- id: RULE.Collision.rehearsal_vs_tempo_priority
+  title: Collision priority between rehearsal marks and tempo/metronome marks
+  agent: CollisionAgent
+  intent: collision
+  priority: 359
+  status: provisional
+  depends_on:
+  - RULE.RehearsalMarks.placement_policy
+  - RULE.TempoMarks.placement_policy
+  - RULE.MetronomeMark.placement_policy
+  inputs:
+  - rehearsalBBox
+  - tempoMarkBBox
+  - systemTop
+  parameters:
+    stacking_order: rehearsal_above_tempo
+    min_gap_sp: 0.3
+  procedure: Place rehearsal marks above tempo/metronome marks; apply minimal offsets
+    to maintain min_gap and preference for staff nearness.
+  exceptions: []
+  outputs:
+  - rehearsalYOffsetSP
+  - tempoMarkYOffsetSP
+  side_effects: []
+  test_plan:
+    cases:
+    - name: Rehearsal above tempo with gap
       expectations:
       - path: /rehearsalYOffsetSP
         op: ">="

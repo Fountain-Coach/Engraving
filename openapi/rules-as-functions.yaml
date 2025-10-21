@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:28:46.352445
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:32:53.633226
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1104,7 +1104,7 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-lyrics_vs_dynamics_stacking:
     post:
       operationId: RULE.Collision.lyrics_vs_dynamics_stacking
@@ -1146,7 +1146,7 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-fingering_vs_dynamics_priority:
     post:
       operationId: RULE.Collision.fingering_vs_dynamics_priority
@@ -1307,6 +1307,129 @@ paths:
         test_plan:
           cases:
           - name: Rehearsal above dynamics
+            expectations:
+            - path: /rehearsalYOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
+  /apply/collision/Collision-hairpin_vs_lyrics_priority:
+    post:
+      operationId: RULE.Collision.hairpin_vs_lyrics_priority
+      summary: Collision priority between hairpins and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 357
+        depends_on:
+        - RULE.Dynamics.stacked_kerning_with_system_breaks
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_gap_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Hairpin above lyrics with gap
+            expectations:
+            - path: /lyricYOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
+  /apply/collision/Collision-tempo_mark_vs_lyrics_priority:
+    post:
+      operationId: RULE.Collision.tempo_mark_vs_lyrics_priority
+      summary: Collision priority between tempo/metronome marks and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 358
+        depends_on:
+        - RULE.TempoMarks.placement_policy
+        - RULE.MetronomeMark.placement_policy
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Tempo mark above lyrics with gap
+            expectations:
+            - path: /lyricYOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
+  /apply/collision/Collision-rehearsal_vs_tempo_priority:
+    post:
+      operationId: RULE.Collision.rehearsal_vs_tempo_priority
+      summary: Collision priority between rehearsal marks and tempo/metronome marks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 359
+        depends_on:
+        - RULE.RehearsalMarks.placement_policy
+        - RULE.TempoMarks.placement_policy
+        - RULE.MetronomeMark.placement_policy
+        parameters:
+          stacking_order: rehearsal_above_tempo
+          min_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Rehearsal above tempo with gap
             expectations:
             - path: /rehearsalYOffsetSP
               op: '>='
