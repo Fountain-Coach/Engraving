@@ -6,8 +6,8 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Todo: missing mapping or rules unknown to the registry
 
 ## Summary
-- Total Engraver families: 100
-- Done: 100
+- Total Engraver families: 232
+- Done: 232
 - Partial: 0
 - Todo: 0
 
@@ -15,11 +15,20 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Accidental_engraver:
   - rules: RULE.Accidental.leading_padding_and_column_inflation, RULE.Accidental.cautionary_parenthesized_policy, RULE.Accidental.microtonal_glyph_selection_and_spacing
   - statuses: ratified, ratified, ratified
+- Engraver.AlterationGlyph_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Ambitus_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
   - statuses: ratified
 - Engraver.Arpeggio_engraver:
   - rules: RULE.Arpeggio.placement_policy
+  - statuses: ratified
+- Engraver.AutoBeam_engraver:
+  - rules: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+  - statuses: ratified, ratified, ratified, ratified, ratified, ratified
+- Engraver.AxisGroup_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Axis_group_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
@@ -27,20 +36,56 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Balloon_engraver:
   - rules: RULE.Text.placement_policy
   - statuses: ratified
+- Engraver.BarNumber_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Bar_engraver:
   - rules: RULE.Barline.style_and_break_policy
   - statuses: ratified
 - Engraver.Bar_number_engraver:
   - rules: RULE.BarNumber.placement_policy
   - statuses: ratified
+- Engraver.BeamCollision_engraver:
+  - rules: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+  - statuses: ratified, ratified, ratified, ratified, ratified, ratified
 - Engraver.Beam_collision_engraver:
   - rules: RULE.BeamCollision.resolve_overlaps
+  - statuses: ratified
+- Engraver.Beam_engraver:
+  - rules: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+  - statuses: ratified, ratified, ratified, ratified, ratified, ratified
+- Engraver.Beat_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.BendSpanner_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Bend_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.BreakAlign_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Break_align_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
   - statuses: ratified
+- Engraver.BreathingSign_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Caesura_engraver:
   - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.CenteredBarNumberAlign_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.ChordName_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.ChordSquare_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.ChordTremolo_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Chord_tremolo_engraver:
   - rules: RULE.Beaming.geometry_slope_and_segments
@@ -48,11 +93,23 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Clef_engraver:
   - rules: RULE.Clef.mid_system_placement
   - statuses: ratified
+- Engraver.ClusterSpanner_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Cluster_spanner_engraver:
   - rules: RULE.Arpeggio.placement_policy
   - statuses: ratified
+- Engraver.CoherentLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Collision_engraver:
   - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.CompletionHeads_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.CompletionRest_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
   - statuses: ratified
 - Engraver.Completion_heads_engraver:
   - rules: RULE.Spacing.duration_base_with_optical_corrections
@@ -60,14 +117,29 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Completion_rest_engraver:
   - rules: RULE.Spacing.duration_base_with_optical_corrections
   - statuses: ratified
+- Engraver.ConcurrentHairpin_engraver:
+  - rules: RULE.Dynamics.align_with_noteheads_and_stems
+  - statuses: ratified
 - Engraver.Concurrent_hairpin_engraver:
   - rules: RULE.DynamicAlign.kerning_with_hairpins
+  - statuses: ratified
+- Engraver.CueClef_engraver:
+  - rules: RULE.Clef.mid_system_placement
   - statuses: ratified
 - Engraver.Cue_clef_engraver:
   - rules: RULE.CueClef.placement_policy
   - statuses: ratified
+- Engraver.CurrentChordText_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Custos_engraver:
   - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.Divisio_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.DotColumn_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Dot_column_engraver:
   - rules: RULE.NoteSpacing.spacing_policy
@@ -75,14 +147,26 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Dots_engraver:
   - rules: RULE.NoteSpacing.spacing_policy
   - statuses: ratified
+- Engraver.DoublePercentRepeat_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Double_percent_repeat_engraver:
   - rules: RULE.PercentRepeat.layout_policy
+  - statuses: ratified
+- Engraver.DrumNotes_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Drum_notes_engraver:
   - rules: RULE.DrumNotes.stem_side_and_notehead_policy
   - statuses: ratified
+- Engraver.DurationLine_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Duration_line_engraver:
   - rules: RULE.DurationLine.placement_policy
+  - statuses: ratified
+- Engraver.DynamicAlign_engraver:
+  - rules: RULE.Dynamics.align_with_noteheads_and_stems
   - statuses: ratified
 - Engraver.Dynamic_align_engraver:
   - rules: RULE.Dynamics.align_with_noteheads_and_stems, RULE.DynamicAlign.kerning_with_hairpins
@@ -90,14 +174,29 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Dynamic_engraver:
   - rules: RULE.Dynamics.align_with_noteheads_and_stems
   - statuses: ratified
+- Engraver.EngraverGroup_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Episema_engraver:
   - rules: RULE.Ornaments.placement_above_below_with_collision
   - statuses: ratified
 - Engraver.Extender_engraver:
   - rules: RULE.Lyrics.extender_spacing_policy
   - statuses: ratified
+- Engraver.FiguredBassPosition_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.FiguredBass_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Figured_bass_position_engraver:
   - rules: RULE.FiguredBass.position_stack_policy
+  - statuses: ratified
+- Engraver.FingerGlide_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.FingeringColumn_engraver:
+  - rules: RULE.Fingering.placement_policy
   - statuses: ratified
 - Engraver.Fingering_column_engraver:
   - rules: RULE.Fingering.placement_policy
@@ -105,11 +204,17 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Fingering_engraver:
   - rules: RULE.Fingering.placement_policy
   - statuses: ratified
+- Engraver.FontSize_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Font_size_engraver:
   - rules: RULE.OpticalSize.stroke_and_spacing_scalars
   - statuses: ratified
 - Engraver.Footnote_engraver:
   - rules: RULE.Text.placement_policy
+  - statuses: ratified
+- Engraver.ForbidLineBreak_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Forbid_line_break_engraver:
   - rules: RULE.Pagination.castoff_fill_vs_overfull_penalties
@@ -120,11 +225,32 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Glissando_engraver:
   - rules: RULE.Slur.curvature_choice_with_collision_penalty
   - statuses: ratified
+- Engraver.GraceAutoBeam_engraver:
+  - rules: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+  - statuses: ratified, ratified, ratified, ratified, ratified, ratified
+- Engraver.GraceBeam_engraver:
+  - rules: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+  - statuses: ratified, ratified, ratified, ratified, ratified, ratified
+- Engraver.GraceSpacing_engraver:
+  - rules: RULE.Grace.clusters_width_policy, RULE.Beaming.subdivision_preference
+  - statuses: ratified, ratified
 - Engraver.Grace_engraver:
   - rules: RULE.Grace.clusters_width_policy
   - statuses: ratified
 - Engraver.Grace_spacing_engraver:
   - rules: RULE.Grace.clusters_width_policy
+  - statuses: ratified
+- Engraver.GregorianLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.GridChordName_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.GridLineSpan_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.GridPoint_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Grid_line_span_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
@@ -132,14 +258,32 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Grid_point_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
   - statuses: ratified
+- Engraver.GrobPq_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Grob_pq_engraver:
   - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.HorizontalBracket_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.HorizontalScript_engraver:
+  - rules: RULE.Ornaments.placement_above_below_with_collision
   - statuses: ratified
 - Engraver.Horizontal_bracket_engraver:
   - rules: RULE.HorizontalBracket.placement_policy
   - statuses: ratified
+- Engraver.HufnagelLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Hyphen_engraver:
   - rules: RULE.Lyrics.hyphen_melisma_spacing_interaction
+  - statuses: ratified
+- Engraver.InstrumentName_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.InstrumentSwitch_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Instrument_name_engraver:
   - rules: RULE.InstrumentName.alignment_policy
@@ -150,35 +294,116 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Jump_engraver:
   - rules: RULE.Text.placement_policy
   - statuses: ratified
+- Engraver.KeepAliveTogether_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Keep_alive_together_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
   - statuses: ratified
 - Engraver.Key_engraver:
   - rules: RULE.Accidental.key_signature_positions_by_clef, RULE.KeySignature.courtesy_at_line_breaks
   - statuses: ratified, ratified
+- Engraver.KievanLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.LaissezVibrer_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Laissez_vibrer_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.LedgerLine_engraver:
+  - rules: RULE.Ledger.shorten_near_accidental
+  - statuses: ratified
 - Engraver.Ledger_line_engraver:
   - rules: RULE.Ledger.shorten_near_accidental
+  - statuses: ratified
+- Engraver.LigatureBracket_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Ligature_bracket_engraver:
   - rules: RULE.LigatureBracket.placement_policy
   - statuses: ratified
+- Engraver.Ligature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.LocalKey_engraver:
+  - rules: RULE.Accidental.leading_padding_and_column_inflation, RULE.Accidental.key_signature_positions_by_clef, RULE.KeySignature.courtesy_at_line_breaks, RULE.Accidental.cautionary_parenthesized_policy, RULE.Accidental.microtonal_glyph_selection_and_spacing
+  - statuses: ratified, ratified, ratified, ratified, ratified
+- Engraver.LyricRepeatCount_engraver:
+  - rules: RULE.Lyrics.vertical_alignment_with_baselines
+  - statuses: ratified
 - Engraver.Lyric_engraver:
   - rules: RULE.Lyrics.vertical_alignment_with_baselines, RULE.Lyrics.hyphen_melisma_spacing_interaction, RULE.Lyrics.extender_spacing_policy
   - statuses: ratified, ratified, ratified
+- Engraver.Mark_engraver:
+  - rules: RULE.RehearsalMarks.placement_policy
+  - statuses: ratified
+- Engraver.MeasureCounter_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.MeasureGrouping_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.MeasureSpanner_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.MedicaeaLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Melody_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.MensuralLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.MergeMmrestNumbers_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.MergeRest_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.MergeRests_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.MetronomeMark_engraver:
+  - rules: RULE.TempoMarks.placement_policy
   - statuses: ratified
 - Engraver.Metronome_mark_engraver:
   - rules: RULE.MetronomeMark.placement_policy
   - statuses: ratified
+- Engraver.MultiMeasureRest_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
 - Engraver.Multi_measure_rest_engraver:
   - rules: RULE.MultiMeasureRests.layout_policy
+  - statuses: ratified
+- Engraver.NewFingering_engraver:
+  - rules: RULE.Fingering.placement_policy
   - statuses: ratified
 - Engraver.New_fingering_engraver:
   - rules: RULE.Fingering.placement_policy
   - statuses: ratified
+- Engraver.NonMusicalScriptColumn_engraver:
+  - rules: RULE.Ornaments.placement_above_below_with_collision
+  - statuses: ratified
 - Engraver.Non_musical_script_column_engraver:
   - rules: RULE.NonMusicalScriptColumn.layout_policy
+  - statuses: ratified
+- Engraver.NoteHeadLine_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.NoteHead_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.NoteHeads_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.NoteName_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.NoteSpacing_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
   - statuses: ratified
 - Engraver.Note_head_line_engraver:
   - rules: RULE.Spacing.duration_base_with_optical_corrections
@@ -192,23 +417,59 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Note_spacing_engraver:
   - rules: RULE.NoteSpacing.spacing_policy, RULE.NoteSpacing.optical_stem_weight_scalars
   - statuses: ratified, ratified
+- Engraver.OptionalMaterialBracket_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Origin_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.OttavaSpanner_engraver:
+  - rules: RULE.Ottava.placement_policy
+  - statuses: ratified
 - Engraver.Ottava_spanner_engraver:
   - rules: RULE.Ottava.placement_policy
+  - statuses: ratified
+- Engraver.OutputProperty_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Output_property_engraver:
   - rules: RULE.OutputProperty.override_inheritance_policy
   - statuses: ratified
+- Engraver.PageTurn_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Page_turn_engraver:
   - rules: RULE.PageTurn.break_preferences
+  - statuses: ratified
+- Engraver.PaperColumn_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Paper_column_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Parenthesis_engraver:
   - rules: RULE.Parenthesis.placement_policy
   - statuses: ratified
+- Engraver.PartCombine_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Part_combine_engraver:
   - rules: RULE.PartCombine.stem_direction_policy
   - statuses: ratified
+- Engraver.PercentRepeat_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Percent_repeat_engraver:
   - rules: RULE.PercentRepeat.layout_policy
+  - statuses: ratified
+- Engraver.PhrasingSlur_engraver:
+  - rules: RULE.Slur.curvature_choice_with_collision_penalty
+  - statuses: ratified
+- Engraver.PianoPedalAlign_engraver:
+  - rules: RULE.Pedal.line_and_text_policy
+  - statuses: ratified
+- Engraver.PianoPedal_engraver:
+  - rules: RULE.Pedal.line_and_text_policy
   - statuses: ratified
 - Engraver.Piano_pedal_align_engraver:
   - rules: RULE.Pedal.line_and_text_policy
@@ -216,17 +477,44 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Piano_pedal_engraver:
   - rules: RULE.Pedal.line_and_text_policy
   - statuses: ratified
+- Engraver.PitchSquash_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Pitch_squash_engraver:
   - rules: RULE.OutputProperty.override_inheritance_policy
+  - statuses: ratified
+- Engraver.PitchedTrill_engraver:
+  - rules: RULE.TrillSpanner.placement_policy
   - statuses: ratified
 - Engraver.Pitched_trill_engraver:
   - rules: RULE.PitchedTrill.placement_policy
   - statuses: ratified
+- Engraver.PreinitScheme_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.PreinitVolta_engraver:
+  - rules: RULE.RepeatVolta.layout_policy
+  - statuses: ratified
+- Engraver.PureFromNeighbor_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Pure_from_neighbor_engraver:
   - rules: RULE.OutputProperty.override_inheritance_policy
   - statuses: ratified
+- Engraver.RecordingGroup_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.RepeatAcknowledge_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.RepeatTie_engraver:
+  - rules: RULE.Tie.curvature_selection_with_clearance
+  - statuses: ratified
 - Engraver.Repeat_acknowledge_engraver:
   - rules: RULE.RepeatVolta.layout_policy
+  - statuses: ratified
+- Engraver.RestCollision_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
   - statuses: ratified
 - Engraver.Rest_collision_engraver:
   - rules: RULE.RestCollision.resolve_overlaps
@@ -234,9 +522,24 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Rest_engraver:
   - rules: RULE.Spacing.duration_base_with_optical_corrections
   - statuses: ratified
+- Engraver.RhythmicColumn_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Rhythmic_column_engraver:
   - rules: RULE.Spacing.duration_base_with_optical_corrections, RULE.NoteSpacing.spacing_policy
   - statuses: ratified, ratified
+- Engraver.Scheme_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.Score_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.ScriptColumn_engraver:
+  - rules: RULE.Ornaments.placement_above_below_with_collision
+  - statuses: ratified
+- Engraver.ScriptRow_engraver:
+  - rules: RULE.Ornaments.placement_above_below_with_collision
+  - statuses: ratified
 - Engraver.Script_column_engraver:
   - rules: RULE.ScriptColumn.layout_policy
   - statuses: ratified
@@ -246,15 +549,48 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Script_row_engraver:
   - rules: RULE.ScriptRow.layout_policy
   - statuses: ratified
+- Engraver.SeparatingLineGroup_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Separating_line_group_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.ShowControlPoints_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.SignumRepetitionis_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.SkipTypesetting_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.SlashRepeat_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Slash_repeat_engraver:
   - rules: RULE.SlashRepeat.layout_policy
   - statuses: ratified
+- Engraver.Slur_engraver:
+  - rules: RULE.Slur.curvature_choice_with_collision_penalty
+  - statuses: ratified
+- Engraver.Source_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Spacing_engraver:
   - rules: RULE.Spacing.duration_base_with_optical_corrections, RULE.Spacing.keep_inside_system_constraints, RULE.NoteSpacing.spacing_policy, RULE.NoteSpacing.optical_stem_weight_scalars
   - statuses: ratified, ratified, ratified, ratified
+- Engraver.SpanArpeggio_engraver:
+  - rules: RULE.Arpeggio.placement_policy
+  - statuses: ratified
+- Engraver.SpanBarStub_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.SpanBar_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.SpanStem_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Span_arpeggio_engraver:
   - rules: RULE.SpanArpeggio.placement_policy
   - statuses: ratified
@@ -264,14 +600,38 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Span_bar_stub_engraver:
   - rules: RULE.Barline.style_and_break_policy
   - statuses: ratified
+- Engraver.SpannerBreakForbid_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.SpannerTracking_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Spanner_break_forbid_engraver:
   - rules: RULE.Pagination.castoff_fill_vs_overfull_penalties
+  - statuses: ratified
+- Engraver.StaffCollecting_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.StaffGrouper_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.StaffHighlight_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.StaffSymbol_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
   - statuses: ratified
 - Engraver.Staff_collecting_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
   - statuses: ratified
 - Engraver.Staff_symbol_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.StanzaNumberAlign_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.StanzaNumber_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Stanza_number_align_engraver:
   - rules: RULE.StanzaNumber.align_with_lyrics_policy
@@ -282,14 +642,35 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Stem_engraver:
   - rules: RULE.Beaming.geometry_slope_and_segments
   - statuses: ratified
+- Engraver.SystemStartDelimiter_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.System_start_delimiter_engraver:
   - rules: RULE.SystemStartDelimiter.layout_policy
+  - statuses: ratified
+- Engraver.TabNoteHeads_engraver:
+  - rules: RULE.Spacing.duration_base_with_optical_corrections
+  - statuses: ratified
+- Engraver.TabStaffSymbol_engraver:
+  - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.TabTieFollow_engraver:
+  - rules: RULE.Tie.curvature_selection_with_clearance
   - statuses: ratified
 - Engraver.Tab_note_heads_engraver:
   - rules: RULE.Tab.notehead_string_fret_policy
   - statuses: ratified
 - Engraver.Tab_staff_symbol_engraver:
   - rules: RULE.TabStaffSymbol.string_tuning_layout
+  - statuses: ratified
+- Engraver.Template_engraver_for_beams:
+  - rules: RULE.Beaming.subdivision_preference, RULE.Beaming.compound_meter_grouping, RULE.Beaming.auto_knee_threshold, RULE.Beaming.geometry_slope_and_segments, RULE.Beaming.rests_split_groups, RULE.Beaming.suppress_flags_when_beamed
+  - statuses: ratified, ratified, ratified, ratified, ratified, ratified
+- Engraver.TextMark_engraver:
+  - rules: RULE.RehearsalMarks.placement_policy
+  - statuses: ratified
+- Engraver.TextSpanner_engraver:
+  - rules: RULE.Collision.priority_lattice
   - statuses: ratified
 - Engraver.Text_engraver:
   - rules: RULE.Text.placement_policy
@@ -300,17 +681,32 @@ This scoreboard classifies each Engraver.* family by the status of the rules it 
 - Engraver.Tie_engraver:
   - rules: RULE.Tie.curvature_selection_with_clearance
   - statuses: ratified
+- Engraver.TimeSignature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Time_signature_engraver:
   - rules: RULE.TimeSignature.courtesy_at_line_breaks, RULE.TimeSignature.placement_policy
   - statuses: ratified, ratified
+- Engraver.TrillSpanner_engraver:
+  - rules: RULE.TrillSpanner.placement_policy
+  - statuses: ratified
 - Engraver.Tuplet_engraver:
   - rules: RULE.Tuplet.beaming_and_bracket_placement
   - statuses: ratified
 - Engraver.Tweak_engraver:
   - rules: RULE.OutputProperty.override_inheritance_policy
   - statuses: ratified
+- Engraver.VaticanaLigature_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
+- Engraver.VerticalAlign_engraver:
+  - rules: RULE.Collision.priority_lattice
+  - statuses: ratified
 - Engraver.Vertical_align_engraver:
   - rules: RULE.Vertical.min_dist_padding_and_stretch
+  - statuses: ratified
+- Engraver.Volta_engraver:
+  - rules: RULE.RepeatVolta.layout_policy
   - statuses: ratified
 
 ## Partial
