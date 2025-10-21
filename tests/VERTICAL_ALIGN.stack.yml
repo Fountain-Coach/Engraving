@@ -1,0 +1,5 @@
+rule: RULE.VerticalAlign.stack_and_padding_policy
+cases:
+  - name: offsets_present
+    expectations: []
+

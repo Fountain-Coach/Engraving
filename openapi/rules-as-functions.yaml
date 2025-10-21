@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T09:48:47.724672
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T09:54:28.775717
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1506,6 +1506,266 @@ paths:
         test_plan:
           cases: []
         status: provisional
+  /apply/verticalstack/CenteredBarNumberAlign-layout_policy:
+    post:
+      operationId: RULE.CenteredBarNumberAlign.layout_policy
+      summary: Centered bar number alignment policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 240
+        depends_on: []
+        parameters:
+          minDistanceSP: 0.5
+        exceptions: []
+        trace:
+        - docs/bar-numbers
+        test_plan:
+          cases:
+          - name: yOffset_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/MeasureGrouping-layout_policy:
+    post:
+      operationId: RULE.MeasureGrouping.layout_policy
+      summary: Measure grouping layout policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 241
+        depends_on: []
+        parameters:
+          minGapSP: 0.5
+        exceptions: []
+        trace:
+        - docs/measure-grouping
+        test_plan:
+          cases:
+          - name: groups_present
+            expectations:
+            - path: /groups/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/MeasureCounter-placement_policy:
+    post:
+      operationId: RULE.MeasureCounter.placement_policy
+      summary: Measure counter placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 242
+        depends_on: []
+        parameters:
+          minDistanceSP: 0.5
+        exceptions: []
+        trace:
+        - docs/measure-counters
+        test_plan:
+          cases:
+          - name: yOffset_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/VerticalAlign-stack_and_padding_policy:
+    post:
+      operationId: RULE.VerticalAlign.stack_and_padding_policy
+      summary: Vertical align stack and padding policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 243
+        depends_on:
+        - RULE.Vertical.min_dist_padding_and_stretch
+        parameters:
+          minGapSP: 0.5
+        exceptions: []
+        trace:
+        - docs/vertical-align
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /yOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/BreakAlign-anchor_offsets_policy:
+    post:
+      operationId: RULE.BreakAlign.anchor_offsets_policy
+      summary: Break align anchor offsets policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 244
+        depends_on: []
+        parameters:
+          defaultOffsetSP: 0.0
+        exceptions: []
+        trace:
+        - docs/break-align
+        test_plan:
+          cases:
+          - name: offsets_present
+            expectations:
+            - path: /xOffsetsSP/count
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/Footnote-placement_policy:
+    post:
+      operationId: RULE.Footnote.placement_policy
+      summary: Footnote placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 245
+        depends_on: []
+        parameters:
+          minDistanceSP: 0.5
+        exceptions: []
+        trace:
+        - docs/footnotes
+        test_plan:
+          cases:
+          - name: yOffset_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
+  /apply/verticalstack/Balloon-placement_policy:
+    post:
+      operationId: RULE.Balloon.placement_policy
+      summary: Balloon placement policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 246
+        depends_on: []
+        parameters:
+          minDistanceSP: 0.5
+        exceptions: []
+        trace:
+        - docs/balloons
+        test_plan:
+          cases:
+          - name: yOffset_non_negative
+            expectations:
+            - path: /yOffsetSP
+              op: '>='
+              value: 0.0
+        status: ratified
   /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation

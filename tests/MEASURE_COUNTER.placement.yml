@@ -1,0 +1,5 @@
+rule: RULE.MeasureCounter.placement_policy
+cases:
+  - name: yOffset_non_negative
+    expectations: []
+
