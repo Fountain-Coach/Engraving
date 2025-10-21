@@ -1,6 +1,12 @@
 rule: RULE.BreakAlign.anchor_offsets_policy
 cases:
   - name: offsets_present
-    expectations: []
-  - name: offsets_present_case2
-    expectations: []
+    expectations:
+      - path: /xOffsetsSP/count
+        op: ">="
+        value: 1.0
+  - name: multiple_anchors_offsets_present
+    expectations:
+      - path: /xOffsetsSP/count
+        op: ">="
+        value: 2.0

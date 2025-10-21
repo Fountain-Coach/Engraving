@@ -1,6 +1,14 @@
 rule: RULE.CenteredBarNumberAlign.layout_policy
 cases:
   - name: yOffset_non_negative
-    expectations: []
+    expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.0
+  - name: min_distance_respected
+    expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.5
   - name: yOffset_non_negative_case2
     expectations: []

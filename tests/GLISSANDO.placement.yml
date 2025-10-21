@@ -1,6 +1,12 @@
 rule: RULE.Glissando.placement_policy
 cases:
   - name: placement_policy_present
-    expectations: []
+    expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.0
   - name: second_scenario
-    expectations: []
+    expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.25

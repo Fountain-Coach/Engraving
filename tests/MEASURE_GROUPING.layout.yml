@@ -1,6 +1,12 @@
 rule: RULE.MeasureGrouping.layout_policy
 cases:
   - name: groups_present
-    expectations: []
-  - name: groups_present_case2
-    expectations: []
+    expectations:
+      - path: /groups/count
+        op: ">="
+        value: 1.0
+  - name: multiple_groups_present
+    expectations:
+      - path: /groups/count
+        op: ">="
+        value: 2.0

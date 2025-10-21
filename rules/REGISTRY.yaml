@@ -1151,7 +1151,12 @@ rules:
   - tipRadiusSP
   side_effects: []
   test_plan:
-    cases: []
+    cases:
+    - name: circled_tip_min_radius
+      expectations:
+      - path: /tipRadiusSP
+        op: ">="
+        value: 0.15
   trace:
   - docs/hairpins/al-niente
   - internals/hairpin-grob
@@ -1178,7 +1183,12 @@ rules:
   - yOffsetSP
   side_effects: []
   test_plan:
-    cases: []
+    cases:
+    - name: yOffset_non_negative
+      expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.0
   trace:
   - docs/glissando
   - internals/glissando-grob

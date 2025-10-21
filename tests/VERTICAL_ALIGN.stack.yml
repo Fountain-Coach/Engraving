@@ -1,6 +1,12 @@
 rule: RULE.VerticalAlign.stack_and_padding_policy
 cases:
   - name: offsets_present
-    expectations: []
-  - name: offsets_present_case2
-    expectations: []
+    expectations:
+      - path: /yOffsetsSP/count
+        op: ">="
+        value: 1.0
+  - name: multi_item_gap_present
+    expectations:
+      - path: /yOffsetsSP/count
+        op: ">="
+        value: 2.0

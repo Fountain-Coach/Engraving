@@ -1,6 +1,12 @@
 rule: RULE.Hairpin.al_niente_tip_policy
 cases:
   - name: circled_tip_policy_present
-    expectations: []
+    expectations:
+      - path: /tipRadiusSP
+        op: ">="
+        value: 0.15
   - name: tapered_tip_allowed
-    expectations: []
+    expectations:
+      - path: /tipRadiusSP
+        op: ">="
+        value: 0.0
