@@ -159,3 +159,5 @@ map:
   protrusion: [RULE.HorizontalBracket.placement_policy]
   prefer_dotted_right: [RULE.Collision.priority_lattice]
   rank_on_page: [RULE.Pagination.castoff_fill_vs_overfull_penalties]
+  remove_short_autoextender: [RULE.Lyrics.extender_spacing_policy]
+  space_alist: [RULE.Spacing.keep_inside_system_constraints]
