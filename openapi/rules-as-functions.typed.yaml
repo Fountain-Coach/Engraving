@@ -2059,6 +2059,104 @@ components:
           $ref: '#/components/schemas/StaffSpace'
       required:
       - lyricYOffsetSP
+    HairpinLyricsInput:
+      type: object
+      properties:
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        hairpinBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricsBaselineSP
+      - hairpinBBox
+    HairpinLyricsOutput:
+      type: object
+      properties:
+        lyricYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+        hairpinYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricYOffsetSP
+    TempoLyricsInput:
+      type: object
+      properties:
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        tempoMarkBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricsBaselineSP
+      - tempoMarkBBox
+    TempoLyricsOutput:
+      type: object
+      properties:
+        lyricYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+        tempoMarkYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricYOffsetSP
+    FingeringDynamicsInput:
+      type: object
+      properties:
+        dynamicsBBox:
+          $ref: '#/components/schemas/BBox'
+        minClearanceSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - dynamicsBBox
+    FingeringDynamicsOutput:
+      type: object
+      properties:
+        fingeringYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required: []
+    OrnamentLyricsInput:
+      type: object
+      properties:
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        ornamentBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricsBaselineSP
+      - ornamentBBox
+    OrnamentLyricsOutput:
+      type: object
+      properties:
+        lyricYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+        ornamentYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricYOffsetSP
+    RehearsalTempoInput:
+      type: object
+      properties:
+        rehearsalBBox:
+          $ref: '#/components/schemas/BBox'
+        tempoMarkBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - rehearsalBBox
+      - tempoMarkBBox
+    RehearsalTempoOutput:
+      type: object
+      properties:
+        rehearsalYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+        tempoMarkYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
@@ -5234,14 +5332,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/FingeringDynamicsInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/FingeringDynamicsOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5265,7 +5363,7 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-ornament_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.ornament_vs_lyrics_priority
@@ -5275,14 +5373,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/OrnamentLyricsInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/OrnamentLyricsOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5305,7 +5403,7 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-accidental_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.accidental_vs_lyrics_priority
@@ -5391,14 +5489,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/HairpinLyricsInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/HairpinLyricsOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5419,7 +5517,7 @@ paths:
             - path: /lyricYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-tempo_mark_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.tempo_mark_vs_lyrics_priority
@@ -5429,14 +5527,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/TempoLyricsInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/TempoLyricsOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5458,7 +5556,7 @@ paths:
             - path: /lyricYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-rehearsal_vs_tempo_priority:
     post:
       operationId: RULE.Collision.rehearsal_vs_tempo_priority
@@ -5468,14 +5566,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/RehearsalTempoInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/RehearsalTempoOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5498,4 +5596,4 @@ paths:
             - path: /rehearsalYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified

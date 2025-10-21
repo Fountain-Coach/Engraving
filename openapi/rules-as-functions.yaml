@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:32:53.633226
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:35:41.372035
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1189,7 +1189,7 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-ornament_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.ornament_vs_lyrics_priority
@@ -1231,7 +1231,7 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-accidental_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.accidental_vs_lyrics_priority
@@ -1351,7 +1351,7 @@ paths:
             - path: /lyricYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-tempo_mark_vs_lyrics_priority:
     post:
       operationId: RULE.Collision.tempo_mark_vs_lyrics_priority
@@ -1392,7 +1392,7 @@ paths:
             - path: /lyricYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/collision/Collision-rehearsal_vs_tempo_priority:
     post:
       operationId: RULE.Collision.rehearsal_vs_tempo_priority
@@ -1434,7 +1434,7 @@ paths:
             - path: /rehearsalYOffsetSP
               op: '>='
               value: 0.0
-        status: provisional
+        status: ratified
   /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:
       operationId: RULE.Accidental.leading_padding_and_column_inflation

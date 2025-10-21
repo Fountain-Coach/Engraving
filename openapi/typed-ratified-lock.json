@@ -414,6 +414,16 @@
     "request": "4d248cab124c24c769afc189c55a1cde61adcc52b6c5c23dc2e4c4f0ad5841ba",
     "response": "4cf420e8cd9e273541dd9a8d56497ee8d518caa7973316b53c1cc05cd770ee3c"
   },
+  "RULE.Collision.fingering_vs_dynamics_priority": {
+    "path": "/apply/collision/Collision-fingering_vs_dynamics_priority",
+    "request": "2b49553483c8a147048b13a5964b90a1380b5c53bdca8f53320e2f4db9afdac2",
+    "response": "cf45daaa7c33ec1316c9511d69c606e2dec1aced766875e032830a5e3a724af5"
+  },
+  "RULE.Collision.ornament_vs_lyrics_priority": {
+    "path": "/apply/collision/Collision-ornament_vs_lyrics_priority",
+    "request": "1b7ac00c0120d760f0e639ba23548158f50625b55641829e1f4586b9de78fe91",
+    "response": "3d8255aa93090a774c99ad656df813a10fd8a99dc42ae1aba23c5e7991a72061"
+  },
   "RULE.Collision.hairpin_vs_lyrics_priority": {
     "path": "/apply/collision/Collision-hairpin_vs_lyrics_priority",
     "request": "b250475b3fb84df8aabb26afe1e71cd4d1fbbfbf4cd64c520aef8245c637ac95",
@@ -423,5 +433,10 @@
     "path": "/apply/collision/Collision-tempo_mark_vs_lyrics_priority",
     "request": "efdb03df34d109aeb01157942a601fb20bb51d0bfa8f4bd7be745421168ead7e",
     "response": "57fba9ac0756a4e610f3cd9cb810fa7acee8bd8322886deb2aef42e061cbbf71"
+  },
+  "RULE.Collision.rehearsal_vs_tempo_priority": {
+    "path": "/apply/collision/Collision-rehearsal_vs_tempo_priority",
+    "request": "0d3ff0c333601ece0d98e4d3347b33e89960561b1ea8cb7a2b2fc613070b3730",
+    "response": "fb2452768835eca67ffabd7c15d4d340c22aa98c56995fbccca2835ecc34c2ec"
   }
 }

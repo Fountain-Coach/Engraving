@@ -424,6 +424,130 @@ def ensure_components(doc):
         'required': ['yOffsetSP']
     })
 
+    # Collision typed schemas (batch 1)
+    put('LyricsDynamicsStackingInput', {
+        'type': 'object',
+        'properties': {
+            'lyricsBaselineSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'dynamicsBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricsBaselineSP','dynamicsBBox']
+    })
+    put('LyricsDynamicsStackingOutput', {
+        'type': 'object',
+        'properties': {
+            'lyricYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'dynamicsYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['dynamicsYOffsetSP']
+    })
+
+    put('AccidentalLyricsInput', {
+        'type': 'object',
+        'properties': {
+            'lyricsBaselineSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'accidentalBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricsBaselineSP','accidentalBBox']
+    })
+    put('AccidentalLyricsOutput', {
+        'type': 'object',
+        'properties': {
+            'lyricYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricYOffsetSP']
+    })
+
+    put('HairpinLyricsInput', {
+        'type': 'object',
+        'properties': {
+            'lyricsBaselineSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'hairpinBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricsBaselineSP','hairpinBBox']
+    })
+    put('HairpinLyricsOutput', {
+        'type': 'object',
+        'properties': {
+            'lyricYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'hairpinYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricYOffsetSP']
+    })
+
+    put('TempoLyricsInput', {
+        'type': 'object',
+        'properties': {
+            'lyricsBaselineSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'tempoMarkBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricsBaselineSP','tempoMarkBBox']
+    })
+    put('TempoLyricsOutput', {
+        'type': 'object',
+        'properties': {
+            'lyricYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'tempoMarkYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricYOffsetSP']
+    })
+
+    put('FingeringDynamicsInput', {
+        'type': 'object',
+        'properties': {
+            'dynamicsBBox': { '$ref': '#/components/schemas/BBox' },
+            'minClearanceSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['dynamicsBBox']
+    })
+    put('FingeringDynamicsOutput', {
+        'type': 'object',
+        'properties': {
+            'fingeringYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': []
+    })
+
+    put('OrnamentLyricsInput', {
+        'type': 'object',
+        'properties': {
+            'lyricsBaselineSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'ornamentBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricsBaselineSP','ornamentBBox']
+    })
+    put('OrnamentLyricsOutput', {
+        'type': 'object',
+        'properties': {
+            'lyricYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'ornamentYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['lyricYOffsetSP']
+    })
+
+    put('RehearsalTempoInput', {
+        'type': 'object',
+        'properties': {
+            'rehearsalBBox': { '$ref': '#/components/schemas/BBox' },
+            'tempoMarkBBox': { '$ref': '#/components/schemas/BBox' },
+            'minGapSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': ['rehearsalBBox','tempoMarkBBox']
+    })
+    put('RehearsalTempoOutput', {
+        'type': 'object',
+        'properties': {
+            'rehearsalYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+            'tempoMarkYOffsetSP': { '$ref': '#/components/schemas/StaffSpace' },
+        },
+        'required': []
+    })
+
 def main():
     untyped = yaml.safe_load(UNTYPED.read_text())
     typed = yaml.safe_load(TYPED.read_text())
@@ -503,6 +627,13 @@ def main():
         'RULE.InstrumentName.alignment_policy': ('InstrumentNameAlignmentInput','InstrumentNameAlignmentOutput'),
         'RULE.PageTurn.break_preferences': ('PageTurnBreakInput','PageTurnBreakOutput'),
         'RULE.PartCombine.stem_direction_policy': ('PartCombineStemInput','PartCombineStemOutput'),
+        'RULE.Collision.lyrics_vs_dynamics_stacking': ('LyricsDynamicsStackingInput','LyricsDynamicsStackingOutput'),
+        'RULE.Collision.accidental_vs_lyrics_priority': ('AccidentalLyricsInput','AccidentalLyricsOutput'),
+        'RULE.Collision.hairpin_vs_lyrics_priority': ('HairpinLyricsInput','HairpinLyricsOutput'),
+        'RULE.Collision.tempo_mark_vs_lyrics_priority': ('TempoLyricsInput','TempoLyricsOutput'),
+        'RULE.Collision.fingering_vs_dynamics_priority': ('FingeringDynamicsInput','FingeringDynamicsOutput'),
+        'RULE.Collision.ornament_vs_lyrics_priority': ('OrnamentLyricsInput','OrnamentLyricsOutput'),
+        'RULE.Collision.rehearsal_vs_tempo_priority': ('RehearsalTempoInput','RehearsalTempoOutput'),
     }
 
     for path, op in upaths.items():
