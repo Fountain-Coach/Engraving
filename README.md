@@ -33,6 +33,10 @@ Highlights
 - `tests/` — language‑agnostic YAML tests per rule
 - `codegen/swift/RulesKit-SPM/` — Swift 6 package that builds against the typed spec
 
+## Audit
+- See `AUDIT.md` for a human‑readable snapshot.
+- CI publishes an `engraving-audit` JSON artifact and includes a summary in the job output.
+
 ## Quick Start
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
