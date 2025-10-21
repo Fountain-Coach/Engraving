@@ -1,0 +1,7 @@
+rule: RULE.Collision.lyrics_vs_dynamics_stacking
+cases:
+  - name: Dynamics above lyrics with gap
+    expectations:
+      - path: "/dynamicsYOffsetSP"
+        op: ">="
+        value: 0.0

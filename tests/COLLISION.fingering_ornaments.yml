@@ -1,0 +1,7 @@
+rule: RULE.Collision.fingering_vs_ornaments_priority
+cases:
+  - name: Fingering yields to ornament
+    expectations:
+      - path: "/offsets/fingering/y"
+        op: ">="
+        value: 0.0
