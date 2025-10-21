@@ -1,0 +1,7 @@
+rule: RULE.Collision.accidental_vs_lyrics_priority
+cases:
+  - name: Accidentals above lyrics with gap
+    expectations:
+      - path: "/lyricYOffsetSP"
+        op: ">="
+        value: 0.0

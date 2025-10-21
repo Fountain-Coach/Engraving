@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Engraving Rules (Functions)
   version: 0.1.0
-  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:22:53.388299
+  description: Generated from rules/REGISTRY.yaml on 2025-10-21T08:25:19.289078
 servers: []
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
@@ -1231,6 +1231,86 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
+        status: provisional
+  /apply/collision/Collision-accidental_vs_lyrics_priority:
+    post:
+      operationId: RULE.Collision.accidental_vs_lyrics_priority
+      summary: Collision priority between accidentals and lyrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 355
+        depends_on:
+        - RULE.Accidental.leading_padding_and_column_inflation
+        - RULE.Lyrics.vertical_alignment_with_baselines
+        parameters:
+          min_gap_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Accidentals above lyrics with gap
+            expectations:
+            - path: /lyricYOffsetSP
+              op: '>='
+              value: 0.0
+        status: provisional
+  /apply/collision/Collision-rehearsal_vs_dynamics_priority:
+    post:
+      operationId: RULE.Collision.rehearsal_vs_dynamics_priority
+      summary: Collision priority between rehearsal marks and dynamics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+      x-rule:
+        agent: CollisionAgent
+        intent: collision
+        priority: 356
+        depends_on:
+        - RULE.RehearsalMarks.placement_policy
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          min_gap_sp: 0.3
+        exceptions: []
+        trace:
+        - docs/collisions
+        - internals/collision-resolution
+        test_plan:
+          cases:
+          - name: Rehearsal above dynamics
+            expectations:
+            - path: /rehearsalYOffsetSP
+              op: '>='
+              value: 0.0
         status: provisional
   /apply/accidental/Accidental-leading_padding_and_column_inflation:
     post:

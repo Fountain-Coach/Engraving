@@ -1,0 +1,7 @@
+rule: RULE.Collision.rehearsal_vs_dynamics_priority
+cases:
+  - name: Rehearsal above dynamics
+    expectations:
+      - path: "/rehearsalYOffsetSP"
+        op: ">="
+        value: 0.0
