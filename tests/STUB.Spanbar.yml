@@ -1,0 +1,4 @@
+rule: RULE.Spanbar.policy
+cases:
+  - name: stub_present
+    expectations: []

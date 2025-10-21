@@ -1,0 +1,4 @@
+rule: RULE.Alterationglyph.policy
+cases:
+  - name: stub_present
+    expectations: []

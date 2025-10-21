@@ -1,0 +1,4 @@
+rule: RULE.Papercolumn.policy
+cases:
+  - name: stub_present
+    expectations: []

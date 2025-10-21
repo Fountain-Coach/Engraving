@@ -1,0 +1,4 @@
+rule: RULE.Purefromneighbor.policy
+cases:
+  - name: stub_present
+    expectations: []

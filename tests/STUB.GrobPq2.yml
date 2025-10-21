@@ -1,0 +1,5 @@
+rule: RULE.GrobPq.policy
+cases:
+  - name: stub_present
+    expectations: []
+

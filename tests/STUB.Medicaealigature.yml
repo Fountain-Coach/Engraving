@@ -1,0 +1,4 @@
+rule: RULE.Medicaealigature.policy
+cases:
+  - name: stub_present
+    expectations: []

@@ -1,0 +1,4 @@
+rule: RULE.Completionheads.policy
+cases:
+  - name: stub_present
+    expectations: []

@@ -1,0 +1,4 @@
+rule: RULE.Chordsquare.policy
+cases:
+  - name: stub_present
+    expectations: []

@@ -1,0 +1,4 @@
+rule: RULE.Partcombine.policy
+cases:
+  - name: stub_present
+    expectations: []

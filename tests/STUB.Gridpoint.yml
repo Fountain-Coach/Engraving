@@ -1,0 +1,4 @@
+rule: RULE.Gridpoint.policy
+cases:
+  - name: stub_present
+    expectations: []

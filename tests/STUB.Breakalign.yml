@@ -1,0 +1,4 @@
+rule: RULE.Breakalign.policy
+cases:
+  - name: stub_present
+    expectations: []

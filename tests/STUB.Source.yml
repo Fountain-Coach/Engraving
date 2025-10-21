@@ -1,0 +1,4 @@
+rule: RULE.Source.policy
+cases:
+  - name: stub_present
+    expectations: []

@@ -1,0 +1,4 @@
+rule: RULE.Fingerglide.policy
+cases:
+  - name: stub_present
+    expectations: []

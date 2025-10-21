@@ -1,0 +1,4 @@
+rule: RULE.Separatinglinegroup.policy
+cases:
+  - name: stub_present
+    expectations: []

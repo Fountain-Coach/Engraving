@@ -1,0 +1,4 @@
+rule: RULE.Chordname.policy
+cases:
+  - name: stub_present
+    expectations: []

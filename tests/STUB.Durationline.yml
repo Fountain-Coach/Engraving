@@ -1,0 +1,4 @@
+rule: RULE.Durationline.policy
+cases:
+  - name: stub_present
+    expectations: []

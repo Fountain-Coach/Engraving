@@ -1,0 +1,4 @@
+rule: RULE.Hufnagelligature.policy
+cases:
+  - name: stub_present
+    expectations: []

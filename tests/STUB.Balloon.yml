@@ -1,0 +1,4 @@
+rule: RULE.Balloon.policy
+cases:
+  - name: stub_present
+    expectations: []

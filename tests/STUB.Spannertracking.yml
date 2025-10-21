@@ -1,0 +1,4 @@
+rule: RULE.Spannertracking.policy
+cases:
+  - name: stub_present
+    expectations: []

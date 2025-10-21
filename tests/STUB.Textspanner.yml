@@ -1,0 +1,4 @@
+rule: RULE.Textspanner.policy
+cases:
+  - name: stub_present
+    expectations: []

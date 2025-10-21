@@ -1,0 +1,4 @@
+rule: RULE.Optionalmaterialbracket.policy
+cases:
+  - name: stub_present
+    expectations: []

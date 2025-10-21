@@ -1,0 +1,4 @@
+rule: RULE.Clusterspanner.policy
+cases:
+  - name: stub_present
+    expectations: []
