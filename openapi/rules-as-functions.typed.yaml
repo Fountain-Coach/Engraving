@@ -5617,3 +5617,67 @@ paths:
               op: '>='
               value: 0.0
         status: ratified
+  /apply/dynamicstext/Hairpin-al_niente_tip_policy:
+    post:
+      operationId: RULE.Hairpin.al_niente_tip_policy
+      summary: Hairpin al niente tip style (circled vs tapered)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrictEmpty'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: DynamicsTextAgent
+        intent: appearance
+        priority: 420
+        depends_on:
+        - RULE.Dynamics.align_with_noteheads_and_stems
+        parameters:
+          min_tip_radius_sp: 0.15
+        exceptions: []
+        trace:
+        - docs/hairpins/al-niente
+        - internals/hairpin-grob
+        test_plan:
+          cases: []
+        status: provisional
+  /apply/verticalstack/Glissando-placement_policy:
+    post:
+      operationId: RULE.Glissando.placement_policy
+      summary: Glissando placement and collision avoidance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrictEmpty'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrictEmpty'
+      x-rule:
+        agent: VerticalStackAgent
+        intent: placement
+        priority: 310
+        depends_on:
+        - RULE.Vertical.min_dist_padding_and_stretch
+        parameters:
+          min_gap_sp: 0.25
+        exceptions: []
+        trace:
+        - docs/glissando
+        - internals/glissando-grob
+        test_plan:
+          cases: []
+        status: provisional

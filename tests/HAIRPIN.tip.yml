@@ -1,0 +1,5 @@
+rule: RULE.Hairpin.al_niente_tip_policy
+cases:
+  - name: circled_tip_policy_present
+    expectations: []
+
