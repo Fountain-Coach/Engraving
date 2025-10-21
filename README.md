@@ -5,6 +5,9 @@
 
 Spec‑first definition of LilyPond‑grade engraving as OpenAPI 3.1 “rules as functions”, with a typed spec for high‑quality codegen and CI gates for determinism.
 
+Project context and historical narrative have moved to Legacy Docs:
+- https://github.com/Fountain-Coach/AudioTalk-LegacyDocs
+
 Highlights
 - Single source of truth: `rules/REGISTRY.yaml` (81 rules, all ratified)
 - Deterministic OpenAPI: untyped + typed in lockstep, zero placeholders
