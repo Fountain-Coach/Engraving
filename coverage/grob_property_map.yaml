@@ -191,3 +191,12 @@ map:
   dashed_edge: [RULE.TextSpanner.placement_policy]
   circled_tip: [RULE.Hairpin.al_niente_tip_policy]
   glissando_skip: [RULE.Glissando.placement_policy]
+  # Additional explicit keys (promoted from generic families)
+  horizontal_skylines: [RULE.Vertical.min_dist_padding_and_stretch]
+  vertical_skylines: [RULE.Vertical.min_dist_padding_and_stretch]
+  staff_staff_spacing: [RULE.Vertical.min_dist_padding_and_stretch]
+  staffgroup_staff_spacing: [RULE.Vertical.min_dist_padding_and_stretch]
+  staff_space: [RULE.Vertical.min_dist_padding_and_stretch]
+  right_padding: [RULE.Spacing.keep_inside_system_constraints]
+  right_justified: [RULE.Text.placement_policy]
+  self_alignment_X: [RULE.Text.placement_policy]

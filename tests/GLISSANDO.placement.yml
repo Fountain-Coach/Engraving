@@ -10,3 +10,8 @@ cases:
       - path: /yOffsetSP
         op: ">="
         value: 0.25
+  - name: with_multiple_nearby_grobs
+    expectations:
+      - path: /yOffsetSP
+        op: ">="
+        value: 0.25
