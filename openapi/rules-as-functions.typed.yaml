@@ -2177,6 +2177,14 @@ components:
         dynamicsYOffsetSP:
           $ref: '#/components/schemas/StaffSpace'
       required: []
+    GenericContext:
+      type: object
+      additionalProperties: true
+      description: Generic context for auto-generated policy rules.
+    GenericAdjustments:
+      type: object
+      additionalProperties: true
+      description: Generic outputs for auto-generated policy rules.
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
@@ -2484,14 +2492,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlagSuppressionInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Flag suppression
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FlagSuppressionOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: BeamingAgent
         intent: rendering
@@ -3026,14 +3034,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MMRestLayoutInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: MM rest layout
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MMRestLayoutOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: PaginationAgent
         intent: layout
@@ -3063,14 +3071,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TupletBeamingInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Tuplet beaming/bracket
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TupletBeamingOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: BeamingAgent
         intent: notation
@@ -3101,14 +3109,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GraceWidthInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Grace width policy
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GraceWidthOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: SpacingAgent
         intent: spacing
@@ -3138,14 +3146,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CrossStaffBeamingInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Cross-staff beaming
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CrossStaffBeamingOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: BeamingAgent
         intent: placement
@@ -3211,14 +3219,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VoltaLayoutInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Volta layout
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VoltaLayoutOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: PaginationAgent
         intent: layout
@@ -3319,14 +3327,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/KeySigPositionsInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Key signature positions
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KeySigPositionsOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: AccidentalAgent
         intent: placement
@@ -3513,14 +3521,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BeamingSlopeClearanceInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Adjusted beam slope with clearance info
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BeamingSlopeClearanceOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: BeamingAgent
         intent: placement
@@ -3556,14 +3564,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NoteSpacingOpticalWeightsInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Optical stem weight scalars
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NoteSpacingOpticalWeightsOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: SpacingAgent
         intent: spacing
@@ -3597,14 +3605,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BeamingCrossVoiceSlopeInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Balanced beam slope and score
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BeamingCrossVoiceSlopeOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: BeamingAgent
         intent: placement
@@ -3721,14 +3729,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LyricsBaselineVarianceInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Adjusted lyrics baseline offset
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LyricsBaselineVarianceOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: VerticalStackAgent
         intent: placement
@@ -3836,14 +3844,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DynamicKerningInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Kerning offsets for dynamics
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DynamicKerningOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: DynamicsTextAgent
         intent: placement
@@ -4102,14 +4110,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/KeepInsideInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Note spacing columns
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KeepInsideOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: SpacingAgent
         intent: spacing
@@ -4140,14 +4148,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OttavaPlacementInput'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
-          description: Duration line y-offset
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OttavaPlacementOutput'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: VerticalStackAgent
         intent: placement
@@ -5271,14 +5279,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/GenericContext'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/GenericAdjustments'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5649,6 +5657,9 @@ paths:
         test_plan:
           cases: []
         status: provisional
+        smufl_inputs:
+        - dynamicForte.bbox
+        - hairpin.bbox
   /apply/verticalstack/Glissando-placement_policy:
     post:
       operationId: RULE.Glissando.placement_policy

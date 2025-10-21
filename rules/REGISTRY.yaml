@@ -531,7 +531,8 @@ rules:
   priority: 365
   migration:
     id: R-arp-001
-    note: "Introduce typed ArpeggioPlacementInput/Output schemas to replace StrictEmpty; no semantic change, typed API only."
+    note: Introduce typed ArpeggioPlacementInput/Output schemas to replace StrictEmpty;
+      no semantic change, typed API only.
   depends_on: []
   inputs:
   - chordBBox
@@ -615,7 +616,8 @@ rules:
   priority: 646
   migration:
     id: R-trill-001
-    note: "Introduce typed TrillPlacementInput/Output schemas; no semantic change, typed API only."
+    note: Introduce typed TrillPlacementInput/Output schemas; no semantic change,
+      typed API only.
   depends_on: []
   inputs:
   - trillBBox
@@ -882,8 +884,8 @@ rules:
   parameters:
     stacking_order: lyrics_below_dynamics
     min_gap_sp: 0.25
-  procedure: Place dynamics above lyric baselines; enforce minimum gap between
-    dynamics and lyrics using minimal offsets.
+  procedure: Place dynamics above lyric baselines; enforce minimum gap between dynamics
+    and lyrics using minimal offsets.
   exceptions: []
   outputs:
   - lyricYOffsetSP
@@ -900,7 +902,6 @@ rules:
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.fingering_vs_dynamics_priority
   title: Collision priority between fingering and dynamics
   agent: CollisionAgent
@@ -928,13 +929,12 @@ rules:
     - name: Fingering yields to dynamics
       expectations:
       - path: /offsets/fingering/y
-        op: ">="
+        op: '>='
         value: 0.2
         tolerance: 0.05
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.ornament_vs_lyrics_priority
   title: Collision priority between ornaments and lyrics
   agent: CollisionAgent
@@ -962,13 +962,12 @@ rules:
     - name: Ornaments above lyrics with gap
       expectations:
       - path: /lyricYOffsetSP
-        op: ">="
+        op: '>='
         value: 0.25
         tolerance: 0.05
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.accidental_vs_lyrics_priority
   title: Collision priority between accidentals and lyrics
   agent: CollisionAgent
@@ -995,12 +994,11 @@ rules:
     - name: Accidentals above lyrics with gap
       expectations:
       - path: /lyricYOffsetSP
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.rehearsal_vs_dynamics_priority
   title: Collision priority between rehearsal marks and dynamics
   agent: CollisionAgent
@@ -1028,12 +1026,11 @@ rules:
     - name: Rehearsal above dynamics
       expectations:
       - path: /rehearsalYOffsetSP
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.hairpin_vs_lyrics_priority
   title: Collision priority between hairpins and lyrics
   agent: CollisionAgent
@@ -1061,12 +1058,11 @@ rules:
     - name: Hairpin above lyrics with gap
       expectations:
       - path: /lyricYOffsetSP
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.tempo_mark_vs_lyrics_priority
   title: Collision priority between tempo/metronome marks and lyrics
   agent: CollisionAgent
@@ -1095,12 +1091,11 @@ rules:
     - name: Tempo mark above lyrics with gap
       expectations:
       - path: /lyricYOffsetSP
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/collisions
   - internals/collision-resolution
-
 - id: RULE.Collision.rehearsal_vs_tempo_priority
   title: Collision priority between rehearsal marks and tempo/metronome marks
   agent: CollisionAgent
@@ -1130,11 +1125,63 @@ rules:
     - name: Rehearsal above tempo with gap
       expectations:
       - path: /rehearsalYOffsetSP
-        op: ">="
+        op: '>='
         value: 0.0
   trace:
   - docs/collisions
   - internals/collision-resolution
+- id: RULE.Hairpin.al_niente_tip_policy
+  title: Hairpin al niente tip style (circled vs tapered)
+  agent: DynamicsTextAgent
+  intent: appearance
+  priority: 420
+  status: provisional
+  depends_on:
+  - RULE.Dynamics.align_with_noteheads_and_stems
+  inputs:
+  - circledTip
+  - hairpinBBox
+  parameters:
+    min_tip_radius_sp: 0.15
+  procedure: If circledTip is true (al niente), render a circled tip with at least
+    the minimum radius; otherwise render a tapered tip.
+  exceptions: []
+  outputs:
+  - tipStyle
+  - tipRadiusSP
+  side_effects: []
+  test_plan:
+    cases: []
+  trace:
+  - docs/hairpins/al-niente
+  - internals/hairpin-grob
+  smufl_inputs:
+  - dynamicForte.bbox
+  - hairpin.bbox
+- id: RULE.Glissando.placement_policy
+  title: Glissando placement and collision avoidance
+  agent: VerticalStackAgent
+  intent: placement
+  priority: 310
+  status: provisional
+  depends_on:
+  - RULE.Vertical.min_dist_padding_and_stretch
+  inputs:
+  - glissandoBBox
+  - nearbyGrobs
+  parameters:
+    min_gap_sp: 0.25
+  procedure: Place glissando line between end notes; offset minimally to avoid collisions
+    while respecting min_gap.
+  exceptions: []
+  outputs:
+  - yOffsetSP
+  side_effects: []
+  test_plan:
+    cases: []
+  trace:
+  - docs/glissando
+  - internals/glissando-grob
 - id: RULE.Accidental.leading_padding_and_column_inflation
   title: Accidental lead-in spacing
   agent: AccidentalAgent
