@@ -2019,6 +2019,46 @@ components:
           $ref: '#/components/schemas/StaffSpace'
       required:
       - yOffsetSP
+    LyricsDynamicsStackingInput:
+      type: object
+      properties:
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        dynamicsBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricsBaselineSP
+      - dynamicsBBox
+    LyricsDynamicsStackingOutput:
+      type: object
+      properties:
+        lyricYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+        dynamicsYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - dynamicsYOffsetSP
+    AccidentalLyricsInput:
+      type: object
+      properties:
+        lyricsBaselineSP:
+          $ref: '#/components/schemas/StaffSpace'
+        accidentalBBox:
+          $ref: '#/components/schemas/BBox'
+        minGapSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricsBaselineSP
+      - accidentalBBox
+    AccidentalLyricsOutput:
+      type: object
+      properties:
+        lyricYOffsetSP:
+          $ref: '#/components/schemas/StaffSpace'
+      required:
+      - lyricYOffsetSP
 paths:
   /apply/spacing/Spacing-duration_base_with_optical_corrections:
     post:
@@ -5144,7 +5184,7 @@ paths:
               op: '>='
               value: 0.2
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-lyrics_vs_dynamics_stacking:
     post:
       operationId: RULE.Collision.lyrics_vs_dynamics_stacking
@@ -5154,14 +5194,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/LyricsDynamicsStackingInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/LyricsDynamicsStackingOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision
@@ -5184,7 +5224,7 @@ paths:
               op: '>='
               value: 0.25
               tolerance: 0.05
-        status: provisional
+        status: ratified
   /apply/collision/Collision-fingering_vs_dynamics_priority:
     post:
       operationId: RULE.Collision.fingering_vs_dynamics_priority
@@ -5275,14 +5315,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StrictEmpty'
+              $ref: '#/components/schemas/AccidentalLyricsInput'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StrictEmpty'
+                $ref: '#/components/schemas/AccidentalLyricsOutput'
       x-rule:
         agent: CollisionAgent
         intent: collision

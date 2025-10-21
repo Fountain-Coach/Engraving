@@ -403,5 +403,15 @@
     "path": "/apply/collision/SpanArpeggio-placement_policy",
     "request": "afc66d0b8476a5f30e65ae34adb44a25276b1ee530bfc9ebf67c772315b2ff10",
     "response": "4120f5e1d36b3afd5ef4dd1dbd18990505dd84f8140fa71404180d77bd80615b"
+  },
+  "RULE.Collision.fingering_vs_ornaments_priority": {
+    "path": "/apply/collision/Collision-fingering_vs_ornaments_priority",
+    "request": "cd1a463c46d6264134447db17a8c3c7abe5b9a2488c6d759fea66da1f96b133e",
+    "response": "cd1a463c46d6264134447db17a8c3c7abe5b9a2488c6d759fea66da1f96b133e"
+  },
+  "RULE.Collision.lyrics_vs_dynamics_stacking": {
+    "path": "/apply/collision/Collision-lyrics_vs_dynamics_stacking",
+    "request": "4d248cab124c24c769afc189c55a1cde61adcc52b6c5c23dc2e4c4f0ad5841ba",
+    "response": "4cf420e8cd9e273541dd9a8d56497ee8d518caa7973316b53c1cc05cd770ee3c"
   }
 }
