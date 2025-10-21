@@ -98,3 +98,13 @@ map:
 
   # Catch-all: default to collision lattice mapping
   "/.*/": [RULE.Collision.priority_lattice]
+  
+  # Additional explicit properties (safe mappings)
+  annotation: [RULE.NonMusicalScriptColumn.layout_policy]
+  clef_alignments: [RULE.Clef.mid_system_placement]
+  cross_staff: [RULE.CrossStaff.beaming_policy]
+  dot_count: [RULE.Spacing.duration_base_with_optical_corrections]
+  dot_placement_list: [RULE.Spacing.duration_base_with_optical_corrections]
+  dot_stencil: [RULE.Spacing.duration_base_with_optical_corrections]
+  duration_log: [RULE.Spacing.duration_base_with_optical_corrections]
+  bracket: [RULE.HorizontalBracket.placement_policy]
