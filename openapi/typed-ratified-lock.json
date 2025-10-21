@@ -413,5 +413,15 @@
     "path": "/apply/collision/Collision-lyrics_vs_dynamics_stacking",
     "request": "4d248cab124c24c769afc189c55a1cde61adcc52b6c5c23dc2e4c4f0ad5841ba",
     "response": "4cf420e8cd9e273541dd9a8d56497ee8d518caa7973316b53c1cc05cd770ee3c"
+  },
+  "RULE.Collision.hairpin_vs_lyrics_priority": {
+    "path": "/apply/collision/Collision-hairpin_vs_lyrics_priority",
+    "request": "b250475b3fb84df8aabb26afe1e71cd4d1fbbfbf4cd64c520aef8245c637ac95",
+    "response": "74fc3bbed92d1798e9f68aa64bdf4e1eff30f31a8c424ff3f0b86a2973c391a9"
+  },
+  "RULE.Collision.tempo_mark_vs_lyrics_priority": {
+    "path": "/apply/collision/Collision-tempo_mark_vs_lyrics_priority",
+    "request": "efdb03df34d109aeb01157942a601fb20bb51d0bfa8f4bd7be745421168ead7e",
+    "response": "57fba9ac0756a4e610f3cd9cb810fa7acee8bd8322886deb2aef42e061cbbf71"
   }
 }
