@@ -5,3 +5,8 @@ cases:
       - path: "/offsets/fingering/y"
         op: ">="
         value: 0.0
+  - name: Clearance non-negative
+    expectations:
+      - path: "/offsets/fingering/y"
+        op: ">="
+        value: 0.0

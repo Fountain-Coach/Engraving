@@ -5,3 +5,8 @@ cases:
       - path: "/lyricYOffsetSP"
         op: ">="
         value: 0.0
+  - name: Min gap respected (non-negative lyric offset)
+    expectations:
+      - path: "/lyricYOffsetSP"
+        op: ">="
+        value: 0.0

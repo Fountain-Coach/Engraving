@@ -5,3 +5,8 @@ cases:
       - path: "/rehearsalYOffsetSP"
         op: ">="
         value: 0.0
+  - name: Min gap respected (rehearsal/dynamics)
+    expectations:
+      - path: "/rehearsalYOffsetSP"
+        op: ">="
+        value: 0.0

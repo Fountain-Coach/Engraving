@@ -2,3 +2,5 @@ rule: RULE.Collision.priority_lattice
 cases:
   - name: dynamic_vs_lyric
     expectations: [ { path: "/offsets/dynamic/y", op: ">=", value: 0.2, tolerance: 0.05 } ]
+  - name: dynamic_vs_lyric_again
+    expectations: [ { path: "/offsets/dynamic/y", op: ">=", value: 0.2, tolerance: 0.05 } ]

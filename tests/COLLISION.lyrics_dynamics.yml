@@ -5,3 +5,8 @@ cases:
       - path: "/dynamicsYOffsetSP"
         op: ">="
         value: 0.0
+  - name: Stacking respected (lyrics below dynamics)
+    expectations:
+      - path: "/dynamicsYOffsetSP"
+        op: ">="
+        value: 0.0
